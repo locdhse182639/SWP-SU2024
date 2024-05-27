@@ -6,7 +6,7 @@ export default class Nav extends Component {
     return (
       <header id="header" className="header fixed-top">
         <div className="header-top">
-          <div className="container-fluid d-flex justify-content-between align-items-center">
+          <div className="container-fluid container-sm container-lg d-flex justify-content-between align-items-center">
             <div className="contact-info d-flex align-items-center">
               <a href="tel:1-800-123-4567" className="phone"><i className="bi bi-telephone"></i> 1-800-123-4567</a>
               <a href="stores.html" className="stores"><i className="bi bi-geo-alt"></i> Stores</a>
