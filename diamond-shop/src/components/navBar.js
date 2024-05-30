@@ -11,6 +11,7 @@ import logo from '../constant/logo.png';
 import { routes } from '../routes';
 import DropContentDiamond from './dropDownContent/dropContentDiamond';
 import DropContentJewelry from './dropDownContent/dropContentJewelry';
+import DropContentER from './dropDownContent/dropContentER';
 
 
 export default function NavBar() {
@@ -55,8 +56,7 @@ export default function NavBar() {
                         <DropContentJewelry></DropContentJewelry>
                     </div>
                     <div className='nav-bar-item'>
-                        <p>Engagement Rings</p>
-                        <KeyboardArrowDownIcon></KeyboardArrowDownIcon>
+                        <DropContentER></DropContentER>
                     </div>
                     <div className='nav-bar-item'>
                         <p>Wedding Rings</p>

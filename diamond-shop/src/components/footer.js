@@ -3,13 +3,14 @@ import '../css/footer.css'
 import FacebookIcon from '@mui/icons-material/Facebook';
 import YouTubeIcon from '@mui/icons-material/YouTube';
 import InstagramIcon from '@mui/icons-material/Instagram';
+import logo from '../constant/logo.png';
 
 const Footer = () => {
-    return (
+    return ( 
         <footer className="footer">
             <div className="footer-container">
                 <div className="footer-left">
-                    <img src="./assets/logo/logo.png" alt="Luxe Jewel House" className="footer-logo" />
+                    <img src={logo} alt="Luxe Jewel House" className="footer-logo" />
                     <ul className="footer-links">
                         <li><a href="#">About Us</a></li>
                         <li><a href="#">Purchase, Exchange and Warranty Policy</a></li>

@@ -1,4 +1,3 @@
-import * as React from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -12,51 +11,61 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import NavBar from '../components/navBar';
-import logo from '../constant/logo.png';
-import '../css/loginPage.css';
+import logo from '../constant/logo.png'; // Import logo
+import '../css/loginPage.css'
 import { routes } from '../routes';
-import { useAuth } from '../components/authcontext';
+import React, { useState } from "react";
+import { authenticateUser } from '../components/services/auth/login';
+import { Form, useNavigate } from 'react-router-dom';
+
+function Copyright(props) {
+  return (
+    <Typography variant="body2" color="text.secondary" align="center" {...props}>
+      {'Copyright © '}
+      <Link color="inherit" href="https://mui.com/">
+        Luxe Jewel House
+      </Link>{' '}
+      {new Date().getFullYear()}
+      {'.'}
+    </Typography>
+  );
+}
+
 
 const defaultTheme = createTheme();
 
 export default function SignIn() {
-  const { login } = useAuth();
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("")
+  const navigate = useNavigate();
 
-  const handleSubmit = async (event) => {
+  console.log(username)
+  console.log(password)
+
+
+  const handleSubmit = (event) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    const username = data.get('username');
-    const password = data.get('password');
-
-    try {
-      const response = await fetch('https://localhost:7236/api/Users/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ username, password }),
-      });
-
-      if (!response.ok) {
-        throw new Error('Network response was not ok');
-      }
-
-      const result = await response.json();
-      const token = result.token;
-      const roleId = result.roleId;
-
-      login(token);
-
-      if (roleId === 5) {
-        window.location.href = '/';
-      } else {
-        window.location.href = '/dashboard';
-      }
-
-    } catch (error) {
-      alert('Login failed. Please check your username and password.');
+    // const data = new FormData(event.currentTarget);
+    // console.log({
+    //   username: data.get('username'),
+    //   password: data.get('password'),
+    // });
+    const user = authenticateUser(username, password);
+    console.log("handleSubmit cliked")
+    console.log(user)
+    if (user) {
+      navigate(routes.homePage)
+    }
+    else {
+      setError("Invalid username or password");
+      navigate(routes.login)
     }
   };
+
+  const loginSubmit = async (e) => {
+    e.preventDefault(); //chan hanh dong cua nguoi dung
+  }
 
   return (
     <div>
@@ -73,45 +82,53 @@ export default function SignIn() {
             }}
           >
             <Avatar
-              sx={{ m: 1, bgcolor: 'transparent' }}
-              src={logo}
+              sx={{ m: 1, bgcolor: 'transparent' }} // Make background transparent
+              src={logo} // Use logo
+            //   src='../assets/logo/logo.png'
             />
             <Typography component="h1" variant="h5">
               Sign in
             </Typography>
-            <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+            <form onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
               <TextField
                 margin="normal"
                 required
                 fullWidth
+                // id="email"
                 id="username"
-                label="Username"
+                value={username}
+                label="User Name"
+                type='text'
                 name="username"
                 autoComplete="username"
                 autoFocus
-                sx={{ '& .MuiInputBase-root': { color: 'black' } }}
+                onChange={(e) => setUsername(e.target.value)}
+                sx={{ '& .MuiInputBase-root': { color: 'black' } }} // Change text color
               />
               <TextField
                 margin="normal"
                 required
                 fullWidth
                 name="password"
+                value={password}
                 label="Password"
                 type="password"
                 id="password"
                 autoComplete="current-password"
-                sx={{ '& .MuiInputBase-root': { color: 'black' } }}
+                onChange={(e) => setPassword(e.target.value)}
+                sx={{ '& .MuiInputBase-root': { color: 'black' } }} // Change text color
               />
               <FormControlLabel
                 control={<Checkbox value="remember" color="primary" />}
                 label="Remember me"
-                sx={{ color: 'black' }}
+                sx={{ color: 'black' }} // Change text color
               />
+              {error && <div style={{ color: 'red' }} className='error-msg'>{error}</div>}
               <Button
                 type="submit"
                 fullWidth
                 variant="contained"
-                sx={{ mt: 3, mb: 2, bgcolor: 'black' }}
+                sx={{ mt: 3, mb: 2, bgcolor: 'black' }} // Change button color
               >
                 Sign In
               </Button>
@@ -122,14 +139,15 @@ export default function SignIn() {
                   </Link>
                 </Grid>
                 <Grid item>
-                  {"Don't have an account? "}
+                  "Don't have an account?&thinsp;
                   <Link href={routes.register} variant="body2" sx={{ color: 'black', fontSize: '16px' }}>
                     {"Sign Up"}
                   </Link>
                 </Grid>
               </Grid>
-            </Box>
+            </form>
           </Box>
+          <Copyright sx={{ mt: 8, mb: 4 }} />
         </Container>
       </ThemeProvider>
     </div>

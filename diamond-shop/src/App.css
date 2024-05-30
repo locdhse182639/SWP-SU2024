@@ -41,7 +41,7 @@
   display: flex;
   justify-content: left;
   align-items: center;
-  background-color: rgb(241, 241, 241);
+  background-color: #f5f5f5;
 }
 
 .nav-bar-body img{
