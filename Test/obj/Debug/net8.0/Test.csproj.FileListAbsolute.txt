@@ -131,3 +131,4 @@ C:\Users\DMIN\OneDrive\Desktop\A\Test\obj\Debug\net8.0\Test.pdb
 C:\Users\DMIN\OneDrive\Desktop\A\Test\obj\Debug\net8.0\Test.genruntimeconfig.cache
 C:\Users\DMIN\OneDrive\Desktop\A\Test\obj\Debug\net8.0\ref\Test.dll
 C:\Users\DMIN\OneDrive\Desktop\A\Test\bin\Debug\net8.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+C:\Users\DMIN\OneDrive\Desktop\A\Test\bin\Debug\net8.0\Newtonsoft.Json.dll

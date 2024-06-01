@@ -49,11 +49,26 @@ namespace Test.Controllers
         }
 
         // POST: api/Users
+        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
         public async Task<ActionResult<User>> PostUser(User user)
         {
             _context.Users.Add(user);
-            await _context.SaveChangesAsync();
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateException)
+            {
+                if (UserExists(user.UserId))
+                {
+                    return Conflict();
+                }
+                else
+                {
+                    throw;
+                }
+            }
 
             return CreatedAtAction("GetUser", new { id = user.UserId }, user);
         }
@@ -143,6 +158,13 @@ namespace Test.Controllers
                 _logger.LogError(ex, "An error occurred while generating the JWT token for user: {Username}", loginModel.Username);
                 return StatusCode(500, "Internal server error");
             }
+        }
+
+        // GET: api/Roles
+        [HttpGet("roles")]
+        public async Task<ActionResult<IEnumerable<Role>>> GetRoles()
+        {
+            return await _context.Roles.ToListAsync();
         }
 
         private bool UserExists(int id)

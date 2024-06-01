@@ -50,7 +50,7 @@ export default function SignIn() {
       if (roleId === 5) {
         window.location.href = '/';
       } else {
-        window.location.href = '/dashboard';
+        window.location.href = '/dashboardPage';
       }
 
     } catch (error) {
