@@ -11,6 +11,7 @@ import FbPage from '../components/dashboard/dashboardContent/FeedbackPage'
 import AccountPage from '../components/dashboard/dashboardContent/AccountManage'
 import ProductPage from '../components/dashboard/dashboardContent/ProductManage'
 import RevenuePage from '../components/dashboard/dashboardContent/RevenuePage'
+import EngagementRings from '../pages/engagementRings'
 
 export default function AppRoute() {
   return (
@@ -25,6 +26,7 @@ export default function AppRoute() {
       <Route path={routes.login} element={<LoginPage/>}/>
       <Route path={routes.register} element={<SignUp/>}/>
       <Route path={routes.diamondList} element={<Diamonds/>}/>
+      <Route path={routes.engagementRings} element={<EngagementRings/>}/>
     </Routes>
   );
 }

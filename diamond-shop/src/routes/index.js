@@ -7,5 +7,6 @@ export const routes = {
     feedbackPage: '/fbPage',
     accountPage: '/accountPage',
     productPage: '/productPage',
-    revenuePage: '/revenuePage'
+    revenuePage: '/revenuePage',
+    engagementRings: '/engagement-rings',
 }

@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "g3EYXL3ox5SLsMAcqx5srcWEfkxZ3ueXS3OIchN2HEw=",
+  "Hash": "ZJijRwTkazdFj2Ub/5AT6hopgMhgWqdkRe56O5i2d/c=",
   "Source": "Test",
   "BasePath": "_content/Test",
   "Mode": "Default",
@@ -10,7 +10,7 @@
     {
       "Name": "Test\\wwwroot",
       "Source": "Test",
-      "ContentRoot": "C:\\Users\\DMIN\\OneDrive\\Desktop\\A\\Test\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\84528\\Documents\\FPT_Education\\Sem5\\SWP391\\SWP-SU2024\\Test\\wwwroot\\",
       "BasePath": "_content/Test",
       "Pattern": "**"
     }

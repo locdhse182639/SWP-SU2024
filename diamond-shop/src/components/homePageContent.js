@@ -11,6 +11,7 @@ import { Container, TextField } from '@mui/material';
 import BasicTextFields from './textField';
 import SelectTextFields from './selectField';
 import Footer from './footer';
+import { routes } from '../routes';
 
 const HomePageContent = () => {
     const backgroundBannerStyle = {
@@ -42,14 +43,16 @@ const HomePageContent = () => {
 
     return (
         <div>
-            <Container style={{maxWidth:'1800px'}} className="custom-container">
+            <Container style={{ maxWidth: '1800px' }} className="custom-container">
                 <div style={backgroundBannerStyle} className='banner-content'>
                     <p style={{ color: 'black' }}>
                         "Our Craftsmanship SHINES<br />
                         &thinsp;And So Will You"
                     </p>
                     <div style={{ paddingLeft: '100px' }}>
-                        <BasicButtons width='220px' height='60px' text='Shop Engagement'></BasicButtons><br />
+                        <a href='' style={{ textDecoration: 'none' }}>
+                            <BasicButtons width='220px' height='60px' text='Shop Engagement'></BasicButtons>
+                        </a><br />
                         <BasicButtons width='220px' height='60px' text='Shop Jewelry'></BasicButtons>
                     </div>
                 </div>
@@ -111,7 +114,9 @@ const HomePageContent = () => {
                     <p>"A sparkling ring on your finger opens<br />
                         &thinsp;our love story now until forever"</p>
                     <div style={{ paddingLeft: '100px' }}>
-                        <BasicButtons width='220px' height='60px' text='See More'></BasicButtons>
+                        <a href={routes.engagementRings} style={{ textDecoration: 'none' }}>
+                            <BasicButtons width='220px' height='60px' text='See More'></BasicButtons>
+                        </a>
                     </div>
                 </div>
 

@@ -1,30 +1,14 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\DMIN\\OneDrive\\Desktop\\A\\Test\\",
+  "WorkspaceRootPath": "C:\\Users\\84528\\Documents\\FPT_Education\\Sem5\\SWP391\\SWP-SU2024\\Test\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{33C8A423-944E-456E-A9D7-D2F21E16096D}|Test.csproj|c:\\users\\dmin\\onedrive\\desktop\\a\\test\\controllers\\necklacescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{33C8A423-944E-456E-A9D7-D2F21E16096D}|Test.csproj|solutionrelative:controllers\\necklacescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{33C8A423-944E-456E-A9D7-D2F21E16096D}|Test.csproj|c:\\users\\84528\\documents\\fpt_education\\sem5\\swp391\\swp-su2024\\test\\datadb\\diamondshopv1context.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{33C8A423-944E-456E-A9D7-D2F21E16096D}|Test.csproj|solutionrelative:datadb\\diamondshopv1context.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{33C8A423-944E-456E-A9D7-D2F21E16096D}|Test.csproj|c:\\users\\dmin\\onedrive\\desktop\\a\\test\\controllers\\diamondcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{33C8A423-944E-456E-A9D7-D2F21E16096D}|Test.csproj|solutionrelative:controllers\\diamondcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{33C8A423-944E-456E-A9D7-D2F21E16096D}|Test.csproj|c:\\users\\dmin\\onedrive\\desktop\\a\\test\\controllers\\customerscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{33C8A423-944E-456E-A9D7-D2F21E16096D}|Test.csproj|solutionrelative:controllers\\customerscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{33C8A423-944E-456E-A9D7-D2F21E16096D}|Test.csproj|c:\\users\\dmin\\onedrive\\desktop\\a\\test\\controllers\\ringcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{33C8A423-944E-456E-A9D7-D2F21E16096D}|Test.csproj|solutionrelative:controllers\\ringcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{33C8A423-944E-456E-A9D7-D2F21E16096D}|Test.csproj|c:\\users\\dmin\\onedrive\\desktop\\a\\test\\datadb\\diamond.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{33C8A423-944E-456E-A9D7-D2F21E16096D}|Test.csproj|solutionrelative:datadb\\diamond.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{33C8A423-944E-456E-A9D7-D2F21E16096D}|Test.csproj|c:\\users\\dmin\\onedrive\\desktop\\a\\test\\controllers\\userscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{33C8A423-944E-456E-A9D7-D2F21E16096D}|Test.csproj|solutionrelative:controllers\\userscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{33C8A423-944E-456E-A9D7-D2F21E16096D}|Test.csproj|c:\\users\\84528\\documents\\fpt_education\\sem5\\swp391\\swp-su2024\\test\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{33C8A423-944E-456E-A9D7-D2F21E16096D}|Test.csproj|solutionrelative:appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
     }
   ],
   "DocumentGroupContainers": [
@@ -34,83 +18,32 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 4,
+          "SelectedChildIndex": 0,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "UsersController.cs",
-              "DocumentMoniker": "C:\\Users\\DMIN\\OneDrive\\Desktop\\A\\Test\\Controllers\\UsersController.cs",
-              "RelativeDocumentMoniker": "Controllers\\UsersController.cs",
-              "ToolTip": "C:\\Users\\DMIN\\OneDrive\\Desktop\\A\\Test\\Controllers\\UsersController.cs",
-              "RelativeToolTip": "Controllers\\UsersController.cs",
-              "ViewState": "AQIAAC8AAAAAAAAAAAAwwAAAAAAAAAAA",
+              "DocumentIndex": 0,
+              "Title": "DiamondShopV1Context.cs",
+              "DocumentMoniker": "C:\\Users\\84528\\Documents\\FPT_Education\\Sem5\\SWP391\\SWP-SU2024\\Test\\DataDB\\DiamondShopV1Context.cs",
+              "RelativeDocumentMoniker": "DataDB\\DiamondShopV1Context.cs",
+              "ToolTip": "C:\\Users\\84528\\Documents\\FPT_Education\\Sem5\\SWP391\\SWP-SU2024\\Test\\DataDB\\DiamondShopV1Context.cs",
+              "RelativeToolTip": "DataDB\\DiamondShopV1Context.cs",
+              "ViewState": "AQIAABUAAAAAAAAAAAA7wCEAAAA5AAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-31T13:41:00.99Z",
-              "IsPinned": true
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "CustomersController.cs",
-              "DocumentMoniker": "C:\\Users\\DMIN\\OneDrive\\Desktop\\A\\Test\\Controllers\\CustomersController.cs",
-              "RelativeDocumentMoniker": "Controllers\\CustomersController.cs",
-              "ToolTip": "C:\\Users\\DMIN\\OneDrive\\Desktop\\A\\Test\\Controllers\\CustomersController.cs",
-              "RelativeToolTip": "Controllers\\CustomersController.cs",
-              "ViewState": "AQIAAEkAAAAAAAAAAAAcwCcAAAAJAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-01T02:20:55.907Z",
+              "WhenOpened": "2024-06-01T03:39:45.932Z",
               "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "Diamond.cs",
-              "DocumentMoniker": "C:\\Users\\DMIN\\OneDrive\\Desktop\\A\\Test\\DataDB\\Diamond.cs",
-              "RelativeDocumentMoniker": "DataDB\\Diamond.cs",
-              "ToolTip": "C:\\Users\\DMIN\\OneDrive\\Desktop\\A\\Test\\DataDB\\Diamond.cs",
-              "RelativeToolTip": "DataDB\\Diamond.cs",
-              "ViewState": "AQIAABMAAAAAAAAAAAAzwB8AAAAnAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-31T15:12:22.817Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "DiamondController.cs",
-              "DocumentMoniker": "C:\\Users\\DMIN\\OneDrive\\Desktop\\A\\Test\\Controllers\\DiamondController.cs",
-              "RelativeDocumentMoniker": "Controllers\\DiamondController.cs",
-              "ToolTip": "C:\\Users\\DMIN\\OneDrive\\Desktop\\A\\Test\\Controllers\\DiamondController.cs",
-              "RelativeToolTip": "Controllers\\DiamondController.cs",
-              "ViewState": "AQIAACwAAAAAAAAAAAAQwGAAAAAqAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-31T13:41:00.121Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "NecklacesController.cs",
-              "DocumentMoniker": "C:\\Users\\DMIN\\OneDrive\\Desktop\\A\\Test\\Controllers\\NecklacesController.cs",
-              "RelativeDocumentMoniker": "Controllers\\NecklacesController.cs",
-              "ToolTip": "C:\\Users\\DMIN\\OneDrive\\Desktop\\A\\Test\\Controllers\\NecklacesController.cs",
-              "RelativeToolTip": "Controllers\\NecklacesController.cs",
-              "ViewState": "AQIAABUAAAAAAAAAAAAYwFkAAAAdAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-31T13:45:42.586Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "RingController.cs",
-              "DocumentMoniker": "C:\\Users\\DMIN\\OneDrive\\Desktop\\A\\Test\\Controllers\\RingController.cs",
-              "RelativeDocumentMoniker": "Controllers\\RingController.cs",
-              "ToolTip": "C:\\Users\\DMIN\\OneDrive\\Desktop\\A\\Test\\Controllers\\RingController.cs",
-              "RelativeToolTip": "Controllers\\RingController.cs",
-              "ViewState": "AQIAAB0AAAAAAAAAAAAwwDAAAAAQAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-31T13:45:00.022Z",
+              "Title": "appsettings.json",
+              "DocumentMoniker": "C:\\Users\\84528\\Documents\\FPT_Education\\Sem5\\SWP391\\SWP-SU2024\\Test\\appsettings.json",
+              "RelativeDocumentMoniker": "appsettings.json",
+              "ToolTip": "C:\\Users\\84528\\Documents\\FPT_Education\\Sem5\\SWP391\\SWP-SU2024\\Test\\appsettings.json",
+              "RelativeToolTip": "appsettings.json",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAwAAAAuAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2024-06-01T03:39:30.16Z",
               "EditorCaption": ""
             }
           ]
