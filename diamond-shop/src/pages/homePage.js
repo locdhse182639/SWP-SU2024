@@ -1,12 +1,12 @@
 import React from 'react'
 import NavBar from '../components/navBar'
-import HomePageContent from '../components/homePageContent'
+import HomePageContent from '../components/pageContent/homePageContent'
 
 export default function HomePage() {
     return (
         <div>
             <NavBar></NavBar>
-            <HomePageContent></HomePageContent>
+            <HomePageContent/>
         </div>
     )
 }

@@ -1,17 +1,17 @@
 import React from 'react';
-import '../css/homePageContent.css';
-import BasicButtons from './button';
-import UnderlineLink from './link';
+import '../../css/homePageContent.css';
+import BasicButtons from '../button';
+import UnderlineLink from '../link';
 import { DiamondOutlined } from '@mui/icons-material';
 import DiamondIcon from '@mui/icons-material/Diamond';
 import HandshakeIcon from '@mui/icons-material/Handshake';
 import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
 import CardGiftcardIcon from '@mui/icons-material/CardGiftcard';
 import { Container, TextField } from '@mui/material';
-import BasicTextFields from './textField';
-import SelectTextFields from './selectField';
-import Footer from './footer';
-import { routes } from '../routes';
+import BasicTextFields from '../textField';
+import SelectTextFields from '../selectField';
+import Footer from '../footer';
+import { routes } from '../../routes';
 
 const HomePageContent = () => {
     const backgroundBannerStyle = {
