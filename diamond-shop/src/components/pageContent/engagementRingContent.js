@@ -41,7 +41,7 @@ const EngagementRingsContent = () => {
     };
 
     return (
-        <div>
+        <div className='container'>
             <Container style={{ maxWidth: '1800px' }} className="custom-container">
                 <div style={backgroundBanner} className='banner-content'>
                     <p style={{ color: 'black', paddingLeft: '1200px' }}>

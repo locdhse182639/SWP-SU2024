@@ -7,7 +7,7 @@ import giaImg from '../../constant/diamond-gia.png'
 const DropContentDiamond = () => {
   return (
     <div className='container'>
-      <div className="dropdown" style={{ width: '100%' }}>
+      <div className="dropdown" style={{ width: '50%' }}>
         <div className="dropdown-menu">
           <div className='dropdown-menu-1'>
             <div style={{ margin: '0' }} className='first-row'>
