@@ -52,7 +52,7 @@ const OrderPage = () => {
   return (
     <div>
       <DashboardNav />
-    <Container className='container'>
+    <Container className='container-2'>
       <TableContainer component={Paper}>
         <Table>
           <TableHead>

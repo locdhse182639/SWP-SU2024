@@ -3,6 +3,10 @@
   box-sizing: border-box;
 }
 
+.container{
+  width: 100%;
+}
+
 .container-nav-bar {
   width: 100%;
 }

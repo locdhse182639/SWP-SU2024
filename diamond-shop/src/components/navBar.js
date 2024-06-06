@@ -37,7 +37,7 @@ export default function NavBar() {
     };
   
   return (
-    <div>
+    <div className='container'>
       <div className="container-nav-bar">
         <div className="nav-bar-header">
           <div className="nav-bar-header-left">
