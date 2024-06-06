@@ -44,8 +44,22 @@
 .list-img {
     padding: 40px;
     display: flex;
-    justify-content: space-between;
-    gap: 30px;
+    justify-content: center;
+    gap: 10px;
+}
+
+.list-jewelry-img-child {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.3s ease, z-index 0.3s ease;
+    position: relative;
+}
+
+.list-jewelry-img-child:hover {
+    z-index: 10;
+    transform: scale(1);
 }
 
 .diamond-item>img {
