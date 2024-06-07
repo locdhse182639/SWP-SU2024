@@ -1,16 +1,12 @@
 import React from 'react';
-import BasicButtons from '../button';
-import DiamondIcon from '@mui/icons-material/Diamond';
-import HandshakeIcon from '@mui/icons-material/Handshake';
-import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
-import CardGiftcardIcon from '@mui/icons-material/CardGiftcard';
-import { Container, Grid, TextField } from '@mui/material';
-import BasicTextFields from '../textField';
-import SelectTextFields from '../selectField';
+import { Container } from '@mui/material';
 import Footer from '../footer';
-import { routes } from '../../routes';
-import '../../css/engagementRings.css'
 import ProductCard from '../productCard';
+import '../../css/engagementRings.css';
+import Carousel from 'react-multi-carousel';
+import 'react-multi-carousel/lib/styles.css';
+import { CustomLeftArrow, CustomRightArrow } from '../customeArrow'; // Import custom arrow components
+import CustomToolbar from '../customToolBar';
 
 const EngagementRingsContent = () => {
     const backgroundBanner = {
@@ -19,97 +15,101 @@ const EngagementRingsContent = () => {
         backgroundRepeat: 'no-repeat',
         backgroundPosition: 'center',
         width: '100%',
-        height: '70vh'
+        height: '70vh',
+        position: 'relative',
     };
 
-    const backgroundBannerStyle2 = {
-        backgroundImage: `url(../assets/images/engagement-ring.png)`,
-        backgroundSize: 'cover',
-        backgroundRepeat: 'no-repeat',
-        backgroundPosition: 'center',
-        width: '100%',
-        height: '850px'
-    };
-
-    const backgroundBannerStyle3 = {
-        backgroundImage: `url(../assets/images/wedding-ring.png)`,
-        backgroundSize: 'cover',
-        backgroundRepeat: 'no-repeat',
-        backgroundPosition: 'center',
-        width: '100%',
-        height: '650px'
+    const responsive = {
+        superLargeDesktop: {
+            breakpoint: { max: 4000, min: 3000 },
+            items: 5
+        },
+        desktop: {
+            breakpoint: { max: 3000, min: 1024 },
+            items: 4
+        },
+        tablet: {
+            breakpoint: { max: 1024, min: 464 },
+            items: 2
+        },
+        mobile: {
+            breakpoint: { max: 464, min: 0 },
+            items: 1
+        }
     };
 
     return (
         <div className='container'>
             <Container style={{ maxWidth: '1800px' }} className="custom-container">
                 <div style={backgroundBanner} className='banner-content'>
-                    <p style={{ color: 'black', paddingLeft: '1200px' }}>
+                    <p style={{ color: 'black', position: 'absolute', bottom: '60%', right: '10%' }}>
                         "ENGAGEMENT RINGS"
                     </p>
-                    {/* <div style={{ paddingLeft: '100px' }}>
-                        <a href='' style={{ textDecoration: 'none' }}>
-                            <BasicButtons width='220px' height='60px' text='Shop Engagement'></BasicButtons>
-                        </a><br />
-                        <BasicButtons width='220px' height='60px' text='Shop Jewelry'></BasicButtons>
-                    </div> */}
                 </div>
-                <div className='explore-diamond-banner'>
-                    <h3>Explore Engagement Rings</h3>
-                    <p style={{ display: 'flex', justifyContent: 'center', fontFamily: 'initial', fontSize: '110%' }}>
-                        From completed designs to custom engagement rings,
-                        we have the perfect ring to help you pop the question.
-                        Explore some of our most popular styles below.
-                    </p>
+                <div style={{ backgroundColor: 'white' }} className='explore-diamond-banner'>
+                    <div style={{backgroundColor:'#fafafa'}}>
+                        <h3>Explore Engagement Rings</h3>
+                        <p style={{ display: 'flex', justifyContent: 'center', fontFamily: 'initial', fontSize: '110%' }}>
+                            From completed designs to custom engagement rings,
+                            we have the perfect ring to help you pop the question.
+                            Explore some of our most popular styles below.
+                        </p>
 
-                    <div className='scroll-bar'>
-                        <div className='list-ER'>
-                            <div className='ER-items'>
-                                <img src='../assets/images/Solitaire_ER.png' />
-                                <p>Solitaire</p>
-                            </div>
-                            <div className='ER-items'>
-                                <img src='../assets/images/halo_ER.png' />
-                                <p>Halo</p>
-                            </div>
-                            <div className='ER-items'>
-                                <img src='../assets/images/cathedral_ER.png' />
-                                <p>Cathedral</p>
-                            </div>
-                            <div className='ER-items'>
-                                <img src='../assets/images/trellis_ER.png' />
-                                <p>Trellis</p>
-                            </div>
-                            <div className='ER-items'>
-                                <img src='../assets/images/bridgeAccent_ER.png' />
-                                <p>Bridge Accent</p>
-                            </div>
-                            <div className='ER-items'>
-                                <img src='../assets/images/twist_ER.png' />
-                                <p>Twist</p>
-                            </div>
-                            <div className='ER-items'>
-                                <img src='../assets/images/royal_ER.png' />
-                                <p>Royal</p>
-                            </div>
-                            <div className='ER-items'>
-                                <img src='../assets/images/ThreeStone_ER.png' />
-                                <p>Three Stone</p>
-                            </div>
-                            <div className='ER-items'>
-                                <img src='../assets/images/FiveStone_ER.png' />
-                                <p>Five Stone</p>
-                            </div>
+                        <div className='scroll-bar'>
+                            <Carousel
+                                responsive={responsive}
+                                customLeftArrow={<CustomLeftArrow />}
+                                customRightArrow={<CustomRightArrow />}
+                                itemClass="carousel-item-padding-40-px"
+                            >
+                                <div className='ER-items'>
+                                    <img src='../assets/images/Solitaire_ER.png' alt="Solitaire" />
+                                    <p>Solitaire</p>
+                                </div>
+                                <div className='ER-items'>
+                                    <img src='../assets/images/halo_ER.png' alt="Halo" />
+                                    <p>Halo</p>
+                                </div>
+                                <div className='ER-items'>
+                                    <img src='../assets/images/cathedral_ER.png' alt="Cathedral" />
+                                    <p>Cathedral</p>
+                                </div>
+                                <div className='ER-items'>
+                                    <img src='../assets/images/trellis_ER.png' alt="Trellis" />
+                                    <p>Trellis</p>
+                                </div>
+                                <div className='ER-items'>
+                                    <img src='../assets/images/bridgeAccent_ER.png' alt="Bridge Accent" />
+                                    <p>Bridge Accent</p>
+                                </div>
+                                <div className='ER-items'>
+                                    <img src='../assets/images/twist_ER.png' alt="Twist" />
+                                    <p>Twist</p>
+                                </div>
+                                <div className='ER-items'>
+                                    <img src='../assets/images/royal_ER.png' alt="Royal" />
+                                    <p>Royal</p>
+                                </div>
+                                <div className='ER-items'>
+                                    <img src='../assets/images/ThreeStone_ER.png' alt="Three Stone" />
+                                    <p>Three Stone</p>
+                                </div>
+                                <div className='ER-items'>
+                                    <img src='../assets/images/FiveStone_ER.png' alt="Five Stone" />
+                                    <p>Five Stone</p>
+                                </div>
+                            </Carousel>
                         </div>
                     </div>
-                    <hr style={{ width: '100%' }}></hr>
-                    <div className=''>
-                        <ProductCard/>
+                    {/* <hr style={{ width: '100%' }}></hr> */}
+                    <CustomToolbar />
+                    <div style={{ padding: '40px' }} className='product-card'>
+                        <ProductCard />
                     </div>
                 </div>
                 <hr style={{ width: '100%' }}></hr>
             </Container>
-            <Footer></Footer>
+            <Footer />
         </div>
     );
 }

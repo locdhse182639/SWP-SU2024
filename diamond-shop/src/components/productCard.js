@@ -1,66 +1,85 @@
 import React, { useState } from 'react';
-import { Card, CardContent, CardMedia, Typography, IconButton, CardActions } from '@mui/material';
-import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
-import { makeStyles } from '@mui/styles';
+import { Card, CardContent, CardMedia, Typography, Grid, Pagination } from '@mui/material';
+import { styled } from '@mui/system';
 import { Products } from './services/data/productList';
+import PaginationControlled from './pagination';
 
-const useStyles = makeStyles({
-    root: {
-        maxWidth: 345,
-        border: '1px solid #ddd',
-        boxShadow: 'none',
-        borderRadius: '5px',
-    },
-    media: {
-        height: 200,
-    },
-    favorite: {
-        position: 'absolute',
-        top: 8,
-        right: 8,
-    },
-    content: {
-        paddingBottom: '0 !important',
-    },
-    price: {
-        fontWeight: 'bold',
-        marginTop: '8px',
-    },
-    settingPrice: {
-        fontSize: '12px',
-        color: '#999',
-    },
+const StyledCard = styled(Card)({
+    border: '1px solid #ddd',
+    boxShadow: 'none',
+    borderRadius: '5px',
+    position: 'relative',
+    maxWidth: '100%',
 });
 
-const ProductCard = ({ image, title, price, settingPrice }) => {
-    const classes = useStyles();
-    const product = useState([]);
+const StyledCardMedia = styled(CardMedia)({
+    height: 200,
+    backgroundColor: '#001',
+});
+
+const StyledCardContent = styled(CardContent)({
+    textAlign: 'center',
+    paddingBottom: '16px !important',
+});
+
+const PriceTypography = styled(Typography)({
+    fontWeight: 'bold',
+    marginTop: '8px',
+    color: '#ffa500',
+});
+
+const ProductName = styled(Typography)({
+    marginTop: '8px',
+    fontWeight: 'bold',
+});
+
+const ProductCard = () => {
+    const [page, setPage] = useState(1);
+    const itemsPerPage = 12;
+    const totalPage = Math.ceil(Products.length / itemsPerPage);
+
+    const handleChangePage = (event, value) => {
+        setPage(value);
+        console.log(value);
+    };
+
+    const paginatedData = Products.slice(
+        (page - 1) * itemsPerPage,
+        page * itemsPerPage
+    );
+    console.log(paginatedData);
 
     return (
         <div>
-            {Products.map((product) => (
-                <Card className={classes.root}>
-                    <CardMedia
-                        className={classes.media}
-                        image={product.image}
-                        title={title}
-                    />
-                    <IconButton aria-label="add to favorites" className={classes.favorite}>
-                        <FavoriteBorderIcon />
-                    </IconButton>
-                    <CardContent className={classes.content}>
-                        <Typography variant="body2" color="textSecondary" component="p">
-                            {product.name}
-                        </Typography>
-                        <Typography variant="h6" component="p" className={classes.price}>
-                            {product.price}
-                        </Typography>
-                        {/* <Typography component="p" className={classes.settingPrice}>
-                            ({settingPrice})
-                        </Typography> */}
-                    </CardContent>
-                </Card>
-            ))}
+            <Grid container spacing={3}>
+                {paginatedData.map((product) => (
+                    <Grid item xs={12} sm={6} md={4} lg={3} key={product.id}>
+                        <StyledCard>
+                            <StyledCardMedia
+                                image={product.image}
+                                title={product.name}
+                            />
+                            <StyledCardContent>
+                                <ProductName variant="body2" color="textSecondary" component="p">
+                                    {product.name}
+                                </ProductName>
+                                <Typography variant="body2" color="textSecondary" component="p">
+                                    N/a
+                                </Typography>
+                                <PriceTypography variant="h6" component="p">
+                                    Price: {product.price} ₫
+                                </PriceTypography>
+                            </StyledCardContent>
+                        </StyledCard>
+                    </Grid>
+                ))}
+            </Grid>
+            <div style={{ paddingTop: '30px', display: 'flex', justifyContent: 'center' }}>
+                <PaginationControlled
+                    count={totalPage}
+                    page={page}
+                    onChange={handleChangePage} />
+            </div>
         </div>
     );
 };
