@@ -97,12 +97,21 @@ export default function NavBar() {
             </button>
             {isJewelryDropdownOpen && (
               <div className="dropdownWrapper">
-                <DropContentJewelry />
+                <DropContentDiamond />
               </div>
-            )}
+            )}  
           </div>
-          <div className="nav-bar-item">
-            <DropContentER></DropContentER>
+          <div className="nav-bar-item" onMouseEnter={handleMouseOverJewelry}
+           onMouseLeave={handleMouseLeaveJewelry}>
+            <button className="dropdown-toggle">
+              <p>Jewelry</p>
+              <KeyboardArrowDownIcon style={{ color: "black" }} />
+            </button>
+            {isJewelryDropdownOpen && (
+              <div className="dropdownWrapper">
+                <DropContentDiamond />
+              </div>
+            )}  
           </div>
           <div className="nav-bar-item">
             <p>Wedding Rings</p>

@@ -1,4 +1,3 @@
-
 import React from 'react';
 import '../../css/Testhome.css';
 import BasicButtons from '../button';
@@ -46,15 +45,17 @@ const HomePageContent = () => {
         <div className='container'>
             <Container style={{ maxWidth: '1800px' }} className="custom-container">
                 <div style={backgroundBannerStyle} className='banner-content'>
-                    <p style={{ color: 'black' }}>
-                        "Our Craftsmanship SHINES<br />
-                        &thinsp;And So Will You"
-                    </p>
-                    <div style={{ paddingLeft: '100px' }}>
-                        <a href='' style={{ textDecoration: 'none' }}>
-                            <BasicButtons width='220px' height='60px' text='Shop Engagement'></BasicButtons>
-                        </a><br />
-                        <BasicButtons width='220px' height='60px' text='Shop Jewelry'></BasicButtons>
+                    <div>
+                        <p style={{ color: 'black' }}>
+                            "Our Craftsmanship SHINES<br />
+                            &thinsp;And So Will You"
+                        </p>
+                        <div style={{ paddingLeft: '100px' }}>
+                            <a href='' style={{ textDecoration: 'none' }}>
+                                <BasicButtons width='220px' height='60px' text='Shop Engagement'></BasicButtons>
+                            </a><br />
+                            <BasicButtons width='220px' height='60px' text='Shop Jewelry'></BasicButtons>
+                        </div>
                     </div>
                 </div>
                 <div className='explore-diamond-banner'>
@@ -88,7 +89,7 @@ const HomePageContent = () => {
 
                         <div className='btn-banner'>
                             <a href={routes.engagementRings} style={{ textDecoration: 'none' }}>
-                                <BasicButtons  width='220px' height='60px' text='See More'></BasicButtons>
+                                <BasicButtons width='220px' height='60px' text='See More'></BasicButtons>
                             </a>
                         </div>
                     </div>
@@ -103,7 +104,7 @@ const HomePageContent = () => {
                             &thinsp;our hearts open up and let each other in."</p>
                         <div className='btn-banner'>
                             <a href={routes.weddingRings} style={{ textDecoration: 'none' }}>
-                                <BasicButtons  width='220px' height='60px' text='See More'></BasicButtons>
+                                <BasicButtons width='220px' height='60px' text='See More'></BasicButtons>
                             </a>
                         </div>
                     </div>
@@ -156,20 +157,22 @@ const HomePageContent = () => {
                         </Grid>
                     ))}
                 </Grid>
-                <hr style={{ width: '1230px' }} />
+                <hr className='rhr' />
 
                 <div className='advise-form'>
                     <h4>Get advice from us</h4>
                     <p className='advise-form-text'>Register now below to receive support from us.</p>
-                    <div className='advise-form-row1'>
-                        <BasicTextFields width='450px' height='50px' label='Full Name'></BasicTextFields>
-                    </div>
-                    <div className='advise-form-row2'>
-                        <BasicTextFields width='209px' height='50px' label='Phone Number'></BasicTextFields>
-                        <SelectTextFields width='210px' height='50px' label='Country' defaultValue='Country' helperText='Please select your country.'></SelectTextFields>
-                    </div>
-                    <div className='advise-form-btn'>
-                        <BasicButtons width='180px' height='50px' text='Advise now'></BasicButtons>
+                    <div>
+                        <div className='advise-form-row1'>
+                            <BasicTextFields width='100%' height='50px' label='Full Name'></BasicTextFields>
+                        </div>
+                        <div className='advise-form-row2'>
+                            <BasicTextFields width='100%' height='50px' label='Phone Number'></BasicTextFields>
+                            <SelectTextFields width='100%' height='50px' label='Country' defaultValue='Country' helperText='Please select your country.'></SelectTextFields>
+                        </div>
+                        <div className='advise-form-btn'>
+                            <BasicButtons width='180px' height='50px' text='Advise now'></BasicButtons>
+                        </div>
                     </div>
                 </div>
             </Container>

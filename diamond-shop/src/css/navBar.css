@@ -48,12 +48,14 @@
     /* Ensure alignment starts from the top */
     padding: 20px;
     box-sizing: border-box;
+    flex-wrap: wrap;
 }
 
 .diamond-shape {
     width: 50%;
     display: flex;
     padding-left: 20px;
+    flex-wrap: nowrap;
 }
 
 .diamond-shape-left {
@@ -64,6 +66,7 @@
     display: flex;
     align-items: center;
     padding: 10px 0;
+    flex: 1 1 50%;
 }
 
 .diamond-item1 p {
@@ -77,13 +80,13 @@
 }
 
 .second-row {
-    width: 30%;
+    width: 100%;
     padding: 20px;
     box-sizing: border-box;
 }
 
 .third-row {
-    width: 20%;
+    width: 100%;
     text-align: center;
     padding: 20px;
     box-sizing: border-box;
@@ -146,5 +149,18 @@
 
     .nav-bar-item {
         margin-left: 10px;
+    }
+
+    .dropdown-menu-1 {
+        flex-direction: column; /* Stack items vertically on small screens */
+    }
+
+    .diamond-shape {
+        width: 100%; /* Full width for smaller screens */
+        flex-direction: column; /* Stack items vertically */
+    }
+
+    .diamond-item1 {
+        flex: 1 1 100%; /* Full width for smaller screens */
     }
 }

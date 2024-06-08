@@ -5,9 +5,8 @@
     padding: 0 15px;
 }
 
-.banner-content, .banner-content2 {
+.banner-content, .banner-content2, .banner-content3 {
     display: flex;
-    flex-direction: row;
     align-items: center;
     text-align: center;
     padding: 20px;
@@ -15,12 +14,7 @@
 }
 
 .banner-content3 {
-    display: flex;
-    flex-direction: row-reverse;
-    align-items: center;
-    text-align: center;
-    padding: 20px;
-    position: relative;
+    flex-direction: row-reverse; /* Reverse row for banner-content3 */
 }
 
 .banner-content1 {
@@ -115,6 +109,15 @@
 }
 
 @media (max-width: 768px) {
+    .banner-content {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .banner-content2, .banner-content3 {
+        flex-direction: column;
+    }
+
     .banner-content2 h4, .banner-content3 h4 {
         font-size: 160%;
     }
@@ -154,13 +157,9 @@
 }
 
 /* Specific Styles */
-.banner-content {
-    padding-top: 0%;
-}
-
 .banner-content p {
     padding-top: 200px;
-    font-size: 250%;
+    font-size: 2.5em;
     font-family: 'Times New Roman', Times, serif;
     margin: 0;
     margin-bottom: 20px;
@@ -178,13 +177,6 @@
     font-family: 'Times New Roman', Times, serif;
 }
 
-.list-img {
-    padding: 40px;
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-}
-
 .diamond-item > img {
     height: 90px;
     width: 90px;
@@ -196,7 +188,7 @@
 }
 
 .banner-content2 h4, .banner-content3 h4 {
-    font-size: 250%;
+    font-size: 2.5em;
     font-family: 'Times New Roman', Times, serif;
     margin: 0;
     margin-bottom: 20px;
@@ -204,7 +196,7 @@
 }
 
 .banner-content2 p, .banner-content3 p {
-    font-size: 160%;
+    font-size: 1.6em;
     font-family: 'Times New Roman', Times, serif;
     margin: 0;
     margin-bottom: 20px;
@@ -341,56 +333,87 @@
     background-color: white;
     text-align: center;
     margin: 10px auto;
-    width: 400px;
+    width: 90%; /* Use relative width */
+    max-width: 500px; /* Limit the maximum width */
     border-radius: 10px;
+    padding: 20px;
+    box-sizing: border-box;
+    overflow: hidden; /* Prevent overflow */
 }
 
 .advise-form h4 {
     font-family: unset;
     font-weight: 630;
-    font-size: 40px;
+    font-size: 2em; /* Relative font size */
     color: black;
     margin-bottom: 0;
 }
 
 .advise-form-text {
     font-family: 'Times New Roman', Times, serif;
-    font-size: 20px;
+    font-size: 1.25em; /* Relative font size */
     color: black;
     margin-bottom: 30px;
 }
 
-.advise-form-row1 {
-    display: flex;
-    justify-content: center;
-}
-
-.advise-form-row1 .MuiTextField-root {
-    display: flex;
-    justify-content: center;
-}
-
+.advise-form-row1,
 .advise-form-row2 {
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     gap: 20px;
-    margin-bottom: 30px;
+    margin-bottom: 20px;
+    flex-wrap: nowrap; /* Ensure no wrapping on this row */
 }
 
-.advise-form .advise-form-row2 .MuiTextField-root {
-    width: 100%;
+.advise-form .MuiTextField-root {
+    width: 100%; /* Full width for the first row */
+    box-sizing: border-box;
+}
+
+.advise-form-row2 .MuiTextField-root {
+    width: calc(50% - 10px); /* Half width with gap adjustment */
+    min-width: 0; /* Ensure it doesn't overflow */
+}
+
+.advise-form-btn {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
 }
 
 .advise-form-btn .MuiButton-root {
+    width: 180px; /* Fixed width for the button */
+    height: 50px;
     align-items: center;
-    margin-top: 20px;
 }
 
 .advise-form-btn .MuiButton-root:hover {
     background-color: #dfdfdf;
 }
 
-.advise-form-btn {
-    display: flex;
-    justify-content: center;
+.rhr {
+    width: 80%; /* Default width */
+    margin: auto;
+    border: 1px solid #ccc; /* Adjust as needed */
+}
+
+@media (max-width: 1200px) {
+    .responsive-hr {
+        width: 90%; /* Width for medium screens */
+    }
+}
+
+@media (max-width: 768px) {
+    .advise-form-row2 {
+        flex-direction: column; /* Stack fields vertically on smaller screens */
+        gap: 10px;
+    }
+
+    .advise-form-row2 .MuiTextField-root {
+        width: 100%; /* Full width for smaller screens */
+    }
+
+    .responsive-hr {
+        width: 95%; /* Width for small screens */
+    }
 }

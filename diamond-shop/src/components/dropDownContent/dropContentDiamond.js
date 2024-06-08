@@ -4,9 +4,9 @@ import { routes } from '../../routes';
 import { Link } from 'react-router-dom';
 import giaImg from '../../constant/diamond-gia.png'
 
-const DropContentDiamond = () => {
+const DropContentDiamond = () => {  
   return (
-    <div className='container'>
+    <div className='container-diamond'>
       <div className="dropdown" style={{ width: '100%' }}>
         <div className="dropdown-menu">
           <div className='dropdown-menu-1'>
