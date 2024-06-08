@@ -101,6 +101,7 @@ export default function SignIn() {
                 id="password"
                 autoComplete="current-password"
                 sx={{ '& .MuiInputBase-root': { color: 'black' } }}
+                toggleMask
               />
               <FormControlLabel
                 control={<Checkbox value="remember" color="primary" />}

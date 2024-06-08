@@ -85,7 +85,7 @@ const DropContentDiamond = () => {
                 </div>
               </div>
             </div>
-            <div style={{ width: '30%' }} className='second-row'>
+            <div style={{ width: '20%' }} className='second-row'>
               <div className='second-row-content'>
                 <a>
                   <h4
@@ -116,8 +116,8 @@ const DropContentDiamond = () => {
                 </a>
               </div>
             </div>
-            <div className='third-row' style={{ width: '30%' }}>
-              <img style={{ width: '100%', height: '400px', paddingTop: '30px' }} src={giaImg} />
+            <div className='third-row' style={{ width: '50%' }}>
+              <img style={{ width: '90%', height: '300px', paddingTop: '30px' }} src={giaImg} />
               <a style={{ marginBottom: '0', fontSize: '20px' }}>
                 View All Diamonds
               </a>
