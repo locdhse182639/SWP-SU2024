@@ -12,6 +12,7 @@ import AccountPage from '../components/dashboard/dashboardContent/AccountManage'
 import ProductPage from '../components/dashboard/dashboardContent/ProductManage'
 import RevenuePage from '../components/dashboard/dashboardContent/RevenuePage'
 import EngagementRingsPage from '../pages/engagementRingsPage'
+import ShoppingCartPage from '../pages/shoppingCartPage'
 
 export default function AppRoute() {
   return (
@@ -27,6 +28,7 @@ export default function AppRoute() {
       <Route path={routes.register} element={<SignUp/>}/>
       <Route path={routes.diamondList} element={<Diamonds/>}/>
       <Route path={routes.engagementRings} element={<EngagementRingsPage/>}/>
+      <Route path={routes.shoppingCart} element={<ShoppingCartPage/>}/>
     </Routes>
   );
 }

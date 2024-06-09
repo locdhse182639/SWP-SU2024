@@ -14,6 +14,7 @@ import DropContentJewelry from "./dropDownContent/dropContentJewelry";
 import DropContentER from "./dropDownContent/dropContentER";
 import '../css/navBar.css';
 import { TextField } from "@mui/material";
+import { Link } from "react-router-dom";
 
 export default function NavBar() {
 
@@ -70,7 +71,9 @@ export default function NavBar() {
               <AccountCircleIcon></AccountCircleIcon>
             </a>
             <FavoriteBorderIcon></FavoriteBorderIcon>
-            <ShoppingCartIcon></ShoppingCartIcon>
+            <Link to={routes.shoppingCart}>
+              <ShoppingCartIcon></ShoppingCartIcon>
+            </Link>
           </div>
         </div>
 
@@ -80,7 +83,7 @@ export default function NavBar() {
             <img src={logo} />
           </a>
           <a href={routes.homePage} style={{ textDecoration: "none" }}>
-            <h3 style={{color:'black'}}>Luxe Jewel House</h3>
+            <h3 style={{ color: 'black' }}>Luxe Jewel House</h3>
           </a>
           <div
             className="nav-bar-item"
