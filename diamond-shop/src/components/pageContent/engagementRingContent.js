@@ -1,12 +1,13 @@
 import React from 'react';
-import { Container } from '@mui/material';
+import { Box, Button, Container, Typography } from '@mui/material';
 import Footer from '../footer';
 import ProductCard from '../productCard';
 import '../../css/engagementRings.css';
 import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
-import { CustomLeftArrow, CustomRightArrow } from '../customeArrow'; // Import custom arrow components
+import { CustomLeftArrow, CustomRightArrow } from '../customeArrow';
 import CustomToolbar from '../customToolBar';
+import CarouselComponent from '../carouselComponent ';
 
 const EngagementRingsContent = () => {
     const backgroundBanner = {
@@ -47,7 +48,7 @@ const EngagementRingsContent = () => {
                     </p>
                 </div>
                 <div style={{ backgroundColor: 'white' }} className='explore-diamond-banner'>
-                    <div style={{backgroundColor:'#fafafa'}}>
+                    <div style={{ backgroundColor: '#fafafa' }}>
                         <h3>Explore Engagement Rings</h3>
                         <p style={{ display: 'flex', justifyContent: 'center', fontFamily: 'initial', fontSize: '110%' }}>
                             From completed designs to custom engagement rings,
@@ -106,6 +107,26 @@ const EngagementRingsContent = () => {
                     <div style={{ padding: '40px' }} className='product-card'>
                         <ProductCard />
                     </div>
+
+                    {/* <Box className="custom-design-section">
+                        <Box className="text-container">
+                            <Typography variant="h5" className="title">
+                                Custom design
+                            </Typography>
+                            <Typography variant="body1" className="subtitle">
+                                Actualize the ring with your own ideas and stories.
+                            </Typography>
+                            <a variant="outlined" color="black">
+                                Discover now &gt;
+                            </a>
+                        </Box>
+                        <img
+                            src={thietketheoyeucau}
+                            alt="Custom Design"
+                            className="image"
+                        />
+                    </Box> */}
+                    <CarouselComponent/>
                 </div>
                 <hr style={{ width: '100%' }}></hr>
             </Container>

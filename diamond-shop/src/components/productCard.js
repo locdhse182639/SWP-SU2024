@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Card, CardContent, CardMedia, Typography, Grid, Pagination } from '@mui/material';
+import { Card, CardContent, CardMedia, Typography, Grid, Pagination, TextField } from '@mui/material';
 import { styled } from '@mui/system';
 import { Products } from './services/data/productList';
 import PaginationControlled from './pagination';
@@ -35,22 +35,41 @@ const ProductName = styled(Typography)({
 
 const ProductCard = () => {
     const [page, setPage] = useState(1);
-    const itemsPerPage = 12;
-    const totalPage = Math.ceil(Products.length / itemsPerPage);
+    const itemsPerPage = 8;
 
     const handleChangePage = (event, value) => {
         setPage(value);
         console.log(value);
     };
 
-    const paginatedData = Products.slice(
+    const [searchQuery, setSearchQuery] = useState("");
+    const [products, setProducts] = useState(Products);
+
+    const handleSearch = (event) => {
+        setSearchQuery(event.target.value);
+        // SetPage(1);
+    };
+
+    const filteredProducts = products.filter((product) =>
+        product.name.includes(searchQuery)
+    );
+
+    const paginatedData = filteredProducts.slice(
         (page - 1) * itemsPerPage,
         page * itemsPerPage
     );
     console.log(paginatedData);
+    const totalPage = Math.ceil(filteredProducts.length / itemsPerPage);
 
     return (
         <div>
+            <TextField
+                label="Search by name"
+                variant="outlined"
+                value={searchQuery}
+                onChange={handleSearch}
+                style={{ marginBottom: "20px", display:'flex', justifyContent:'left', width:'15%' }}
+            />
             <Grid container spacing={3}>
                 {paginatedData.map((product) => (
                     <Grid item xs={12} sm={6} md={4} lg={3} key={product.id}>
@@ -58,6 +77,9 @@ const ProductCard = () => {
                             <StyledCardMedia
                                 image={product.image}
                                 title={product.name}
+                                style={{
+                                    height: '300px',
+                                }}
                             />
                             <StyledCardContent>
                                 <ProductName variant="body2" color="textSecondary" component="p">
@@ -66,7 +88,7 @@ const ProductCard = () => {
                                 <Typography variant="body2" color="textSecondary" component="p">
                                     N/a
                                 </Typography>
-                                <PriceTypography variant="h6" component="p">
+                                <PriceTypography variant="h6" component="p" style={{ color: 'black' }}>
                                     Price: {product.price} ₫
                                 </PriceTypography>
                             </StyledCardContent>

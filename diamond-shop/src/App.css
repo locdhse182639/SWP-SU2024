@@ -72,7 +72,7 @@
 }
 
 /* Responsive adjustments */
-@media (max-width: 1200px) {
+@media (max-width: 1920px) {
   .icon-nav-bar p,
   .nav-bar-body h3,
   .nav-bar-item p {

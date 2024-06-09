@@ -3,11 +3,11 @@ import Typography from '@mui/material/Typography';
 import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
 
-export default function PaginationControlled({ count, page, handleChange }) {
+export default function PaginationControlled({ count, page, onChange }) {
     return (
         <Stack spacing={2}>
             <Typography>Page: {page}</Typography>
-            <Pagination count={count} page={page} onChange={handleChange} />
+            <Pagination count={count} page={page} onChange={onChange} />
         </Stack>
     );
 }

@@ -42,7 +42,7 @@ const HomePageContent = () => {
     };
 
     return (
-        <div className='container'>
+        <div className='container-fluid'>
             <Container style={{ maxWidth: '1800px' }} className="custom-container">
                 <div style={backgroundBannerStyle} className='banner-content'>
                     <div>

@@ -1,4 +1,3 @@
-
 .dropdown {
   position: relative;
   display: inline-block;
@@ -92,15 +91,15 @@
 /* Responsive adjustments */
 @media (max-width: 768px) {
   .dropdown-menu-1 {
-      flex-direction: column; /* Stack items vertically on small screens */
+    flex-direction: column; /* Stack items vertically on small screens */
   }
 
   .diamond-shape {
-      width: 100%;
-      flex-direction: column; /* Stack items vertically */
+    width: 100%;
+    flex-direction: column; /* Stack items vertically */
   }
 
   .diamond-item1 {
-      flex: 1 1 100%; /* Full width for smaller screens */
+    flex: 1 1 100%; /* Full width for smaller screens */
   }
 }

@@ -12,30 +12,31 @@ import { routes } from "../routes";
 import DropContentDiamond from "./dropDownContent/dropContentDiamond";
 import DropContentJewelry from "./dropDownContent/dropContentJewelry";
 import DropContentER from "./dropDownContent/dropContentER";
-import '../css/navBar.css'; 
+import '../css/navBar.css';
+import { TextField } from "@mui/material";
 
 export default function NavBar() {
 
-    const [isDiamondDropdownOpen, setIsDiamondDropdownOpen] = useState(false);
-    const [isJewelryDropdownOpen, setIsJewelryDropdownOpen] = useState(false);
+  const [isDiamondDropdownOpen, setIsDiamondDropdownOpen] = useState(false);
+  const [isJewelryDropdownOpen, setIsJewelryDropdownOpen] = useState(false);
 
-    const handleMouseOverDiamond = () => {
-      setIsDiamondDropdownOpen(true);
-      setIsJewelryDropdownOpen(false);
-    };
-    const handleMouseOverJewelry = () => {
-        setIsDiamondDropdownOpen(false);
-        setIsJewelryDropdownOpen(true);
-      };
-  
-    const handleMouseLeaveDiamond = () => {
-      setIsDiamondDropdownOpen(false);
-    };
-   
-     const handleMouseLeaveJewelry = () => {
-      setIsJewelryDropdownOpen(false);
-    };
-  
+  const handleMouseOverDiamond = () => {
+    setIsDiamondDropdownOpen(true);
+    setIsJewelryDropdownOpen(false);
+  };
+  const handleMouseOverJewelry = () => {
+    setIsDiamondDropdownOpen(false);
+    setIsJewelryDropdownOpen(true);
+  };
+
+  const handleMouseLeaveDiamond = () => {
+    setIsDiamondDropdownOpen(false);
+  };
+
+  const handleMouseLeaveJewelry = () => {
+    setIsJewelryDropdownOpen(false);
+  };
+
   return (
     <div className='container'>
       <div className="container-nav-bar">
@@ -55,7 +56,16 @@ export default function NavBar() {
             </div>
           </div>
           <div className="nav-bar-header-right">
-            <SearchIcon></SearchIcon>
+            <div>
+              <SearchIcon></SearchIcon>
+              {/* <TextField
+                label="Search by name"
+                variant="outlined"
+                value={searchQuery}
+                onChange={handleSearch}
+                style={{ marginBottom: "20px" }}
+              /> */}
+            </div>
             <a href={routes.login}>
               <AccountCircleIcon></AccountCircleIcon>
             </a>
@@ -70,7 +80,7 @@ export default function NavBar() {
             <img src={logo} />
           </a>
           <a href={routes.homePage} style={{ textDecoration: "none" }}>
-            <h3>Luxe Jewel House</h3>
+            <h3 style={{color:'black'}}>Luxe Jewel House</h3>
           </a>
           <div
             className="nav-bar-item"
@@ -88,21 +98,9 @@ export default function NavBar() {
             )}
           </div>
           <div className="nav-bar-item"
-           onMouseEnter={handleMouseOverJewelry}
-           onMouseLeave={handleMouseLeaveJewelry}
-           >
-             <button className="dropdown-toggle">
-              <p>Jewelry</p>
-              <KeyboardArrowDownIcon style={{ color: "black" }} />
-            </button>
-            {isJewelryDropdownOpen && (
-              <div className="dropdownWrapper">
-                <DropContentDiamond />
-              </div>
-            )}  
-          </div>
-          <div className="nav-bar-item" onMouseEnter={handleMouseOverJewelry}
-           onMouseLeave={handleMouseLeaveJewelry}>
+            onMouseEnter={handleMouseOverJewelry}
+            onMouseLeave={handleMouseLeaveJewelry}
+          >
             <button className="dropdown-toggle">
               <p>Jewelry</p>
               <KeyboardArrowDownIcon style={{ color: "black" }} />
@@ -111,7 +109,19 @@ export default function NavBar() {
               <div className="dropdownWrapper">
                 <DropContentDiamond />
               </div>
-            )}  
+            )}
+          </div>
+          <div className="nav-bar-item" onMouseEnter={handleMouseOverJewelry}
+            onMouseLeave={handleMouseLeaveJewelry}>
+            <button className="dropdown-toggle">
+              <p>Jewelry</p>
+              <KeyboardArrowDownIcon style={{ color: "black" }} />
+            </button>
+            {isJewelryDropdownOpen && (
+              <div className="dropdownWrapper">
+                <DropContentDiamond />
+              </div>
+            )}
           </div>
           <div className="nav-bar-item">
             <p>Wedding Rings</p>

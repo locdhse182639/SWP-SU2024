@@ -1,44 +1,8 @@
-/* .scroll-bar {
-    border: 3px solid #00ff00;
-    width: 100%;
-    height: 280px;
-    padding: 20px;
-    overflow: visible;
-}
-
-.list-ER{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.ER-items img{
-    width: 180px;
-    height: 180px;
-}
-
-.ER-items p{
-    text-align: center;
-    font-family: 'Times New Roman', Times, serif;
-    font-size: 110%;
-} */
-
-
 /* engagementRings.css */
-
 .custom-container {
     max-width: 1800px;
     margin: 0 auto;
 }
-
-/* .banner-content {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: black;
-    height: 70vh;
-    background: url('../assets/images/engagement-ring-banner.png') center/cover no-repeat;
-} */
 
 .explore-diamond-banner {
     text-align: center;
@@ -59,15 +23,12 @@
     max-width: 180px;
     height: auto;
     margin-bottom: 10px;
-    /* gap: 5rem; */
 }
 
 .carousel-item-padding-40-px {
     padding: 0 10px;
 }
 
-
-/* Responsive adjustments */
 @media (max-width: 768px) {
     .ER-items img {
         width: 80px;

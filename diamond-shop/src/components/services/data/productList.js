@@ -1,4 +1,4 @@
-const pic1 = 'assets/images/Cushion_Cut_Diamonds.png'
+const pic1 = 'assets/images/cathedral_ER.png'
 export const Products = [
     {
         image: pic1,

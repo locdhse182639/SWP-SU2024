@@ -88,6 +88,9 @@
     .list-img {
         padding: 20px 0;
     }
+    .policy--dec .item p {
+        font-size: medium;
+    }
 }
 
 @media (max-width: 992px) {
@@ -105,6 +108,9 @@
 
     .policy--dec .heading-title-line {
         margin-bottom: 10px;
+    }
+    .policy--dec .item p {
+        font-size: medium;
     }
 }
 
@@ -139,6 +145,9 @@
     .policy--dec .item {
         max-width: 100%;
     }
+    .policy--dec .item p {
+        font-size: small;
+    }
 }
 
 @media (max-width: 576px) {
@@ -153,6 +162,9 @@
 
     .list-jewelry-img-child:hover {
         transform: scale(1.02);
+    }
+    .policy--dec .item p {
+        font-size: x-small;
     }
 }
 
@@ -268,10 +280,7 @@
     margin-bottom: 10px;
 }
 
-.policy--dec .item p {
-    font-size: 20px;
-    line-height: 1.6;
-}
+
 
 .policy--dec .item svg {
     font-size: 40px;
@@ -417,3 +426,4 @@
         width: 95%; /* Width for small screens */
     }
 }
+

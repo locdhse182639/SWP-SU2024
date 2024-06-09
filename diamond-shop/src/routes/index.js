@@ -9,4 +9,5 @@ export const routes = {
     productPage: '/productPage',
     revenuePage: '/revenuePage',
     engagementRings: '/engagement-rings',
+    
 }

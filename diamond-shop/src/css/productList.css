@@ -12,14 +12,14 @@
     background-color: white;
     border: 1px solid #ddd;
     border-radius: 8px;
-    width: 300px;
+    width: 0;
     padding: 20px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     text-align: center;
 }
 
 .product-item img {
-    width: 100%;
+    width: 100px;
     height: auto;
     margin-bottom: 10px;
 }
