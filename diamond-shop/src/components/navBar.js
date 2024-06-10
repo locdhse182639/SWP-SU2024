@@ -49,7 +49,7 @@ export default function NavBar() {
             </div>
             <div className="icon-nav-bar">
               <LocationOnIcon className="icon-nav-bar"></LocationOnIcon>
-              <p>Stores</p>
+              <p style={{paddingBottom: 0}}>Stores</p>
             </div>
             <div className="icon-nav-bar">
               <SupportAgentIcon className="icon-nav-bar"></SupportAgentIcon>
