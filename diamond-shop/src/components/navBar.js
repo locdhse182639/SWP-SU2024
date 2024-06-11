@@ -1,4 +1,4 @@
-import React, { Component, useState } from "react";
+import React, { useState } from "react";
 import CallIcon from "@mui/icons-material/Call";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import SupportAgentIcon from "@mui/icons-material/SupportAgent";
@@ -11,12 +11,14 @@ import logo from "../constant/logo.png";
 import { routes } from "../routes";
 import DropContentDiamond from "./dropDownContent/dropContentDiamond";
 import DropContentJewelry from "./dropDownContent/dropContentJewelry";
-import DropContentER from "./dropDownContent/dropContentER";
 import '../css/navBar.css';
-import { TextField } from "@mui/material";
 import { Link } from "react-router-dom";
+import { useAuth } from '../components/authcontext';
+import { Button } from "@mui/material";
 
 export default function NavBar() {
+  const { user, logout } = useAuth();
+  console.log(user)
 
   const [isDiamondDropdownOpen, setIsDiamondDropdownOpen] = useState(false);
   const [isJewelryDropdownOpen, setIsJewelryDropdownOpen] = useState(false);
@@ -59,26 +61,23 @@ export default function NavBar() {
           <div className="nav-bar-header-right">
             <div>
               <SearchIcon></SearchIcon>
-              {/* <TextField
-                label="Search by name"
-                variant="outlined"
-                value={searchQuery}
-                onChange={handleSearch}
-                style={{ marginBottom: "20px" }}
-              /> */}
             </div>
-            <a href={routes.login}>
+            <Link to={user ? routes.userInfo : routes.login}>
               <AccountCircleIcon></AccountCircleIcon>
-            </a>
+            </Link>
             <FavoriteBorderIcon></FavoriteBorderIcon>
             <Link to={routes.shoppingCart}>
               <ShoppingCartIcon></ShoppingCartIcon>
             </Link>
+            {user && (
+              <Button variant="contained" color="secondary" onClick={logout} style={{ marginLeft: '10px' }}>
+                Logout
+              </Button>
+            )}
           </div>
         </div>
 
         <div className="nav-bar-body">
-          {/* <img src='./assets/logo/logo.png' /> */}
           <a href={routes.homePage}>
             <img src={logo} />
           </a>
@@ -110,19 +109,7 @@ export default function NavBar() {
             </button>
             {isJewelryDropdownOpen && (
               <div className="dropdownWrapper">
-                <DropContentDiamond />
-              </div>
-            )}
-          </div>
-          <div className="nav-bar-item" onMouseEnter={handleMouseOverJewelry}
-            onMouseLeave={handleMouseLeaveJewelry}>
-            <button className="dropdown-toggle">
-              <p>Jewelry</p>
-              <KeyboardArrowDownIcon style={{ color: "black" }} />
-            </button>
-            {isJewelryDropdownOpen && (
-              <div className="dropdownWrapper">
-                <DropContentDiamond />
+                <DropContentJewelry />
               </div>
             )}
           </div>

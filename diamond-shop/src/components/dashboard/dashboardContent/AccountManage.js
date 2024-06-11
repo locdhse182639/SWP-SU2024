@@ -39,12 +39,11 @@ const AccountManage = () => {
 
   const fetchAccounts = async () => {
     try {
-      const response = await fetch('https://localhost:7236/api/Users');
+      const response = await fetch('https://localhost:7251/api/Users');
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
       const data = await response.json();
-      console.log('Fetched data:', data);
       setAccounts(data);
     } catch (error) {
       console.log('Error fetching accounts', error);
@@ -53,7 +52,7 @@ const AccountManage = () => {
 
   const fetchRoles = async () => {
     try {
-      const response = await fetch('https://localhost:7236/api/Users/roles');
+      const response = await fetch('https://localhost:7251/api/Users/roles');
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
@@ -77,7 +76,7 @@ const AccountManage = () => {
   const handleSave = async () => {
     try {
       if (editingAccount.userId) {
-        await fetch(`https://localhost:7236/api/Users/${editingAccount.userId}`, {
+        await fetch(`https://localhost:7251/api/Users/${editingAccount.userId}`, {
           method: 'PUT',
           headers: {
             'Content-Type': 'application/json'
@@ -85,13 +84,12 @@ const AccountManage = () => {
           body: JSON.stringify(editingAccount)
         });
       } else {
-        const newUser = { ...editingAccount, userId: accounts.length ? Math.max(...accounts.map(a => a.userId)) + 1 : 1 };
-        await fetch('https://localhost:7236/api/Users', {
+        await fetch('https://localhost:7251/api/Users', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
           },
-          body: JSON.stringify(newUser)
+          body: JSON.stringify(editingAccount)
         });
       }
       fetchAccounts();
@@ -103,7 +101,7 @@ const AccountManage = () => {
 
   const handleDelete = async (userId) => {
     try {
-      await fetch(`https://localhost:7236/api/Users/${userId}`, {
+      await fetch(`https://localhost:7251/api/Users/${userId}`, {
         method: 'DELETE'
       });
       fetchAccounts();

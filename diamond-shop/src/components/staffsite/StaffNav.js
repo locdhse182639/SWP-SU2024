@@ -3,16 +3,13 @@ import SearchIcon from '@mui/icons-material/Search';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-import { routes } from './../../../routes';
-import logo from './../../../constant/logo.png';
-import './DashboardNav.css';
-import { useAuth } from '../../../components/authcontext';
+import { routes } from './../../routes';
+import logo from './../../constant/logo.png';
+import './StaffNav.css';
+import { Link } from 'react-router-dom';
 
 export default function NavBar() {
     const [isProductDropdownOpen, setIsProductDropdownOpen] = useState(false);
-    const { user } = useAuth();
-
-
     return (
         <div>
             <div className='navbar-container'>
@@ -23,7 +20,7 @@ export default function NavBar() {
                         </div>
                     </div>
                     <div className='navbar-header-right'>
-                        <a href={routes.login} style={{ paddingBottom: '7px' }}>
+                        <a href={routes.login} style={{ paddingBottom: '7px'}}>
                             <AccountCircleIcon />
                         </a>
                     </div>
@@ -31,27 +28,13 @@ export default function NavBar() {
 
                 <div className='navbar-body'>
                     <div className='navbar-item'>
-                        <a href={routes.dashboard}>Dashboard</a>
+                        <Link to={routes.orderPage}><a>Order</a></Link>
                     </div>
                     <div className='navbar-item'>
-                        <a href={routes.orderPage}>Order</a>
+                        <Link to={routes.productPage}><a>Product</a></Link>
                     </div>
                     <div className='navbar-item'>
-                        <a href="#">Event</a>
-                    </div>
-                    <div className='navbar-item'>
-                        <a href={routes.productPage}>Product</a>
-                    </div>
-                    {user && user.roleId !== 2 && ( // Conditional rendering based on user roleId
-                        <div className='navbar-item'>
-                            <a href={routes.accountPage}>Account</a>
-                        </div>
-                    )}
-                    <div className='navbar-item'>
-                        <a href={routes.feedbackPage}>Feedback</a>
-                    </div>
-                    <div className='navbar-item'>
-                        <a href={routes.revenuePage}>Revenue</a>
+                        <Link to={routes.history}><a>History</a></Link>
                     </div>
                 </div>
             </div>
