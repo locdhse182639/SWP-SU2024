@@ -20,7 +20,7 @@ const HomePageContent = () => {
         backgroundRepeat: 'no-repeat',
         backgroundPosition: 'center',
         width: '100%',
-        height: '80vh'
+        height: '80%'
     };
 
     const backgroundBannerStyle2 = {
@@ -46,11 +46,11 @@ const HomePageContent = () => {
             <Container style={{ maxWidth: '1800px' }} className="custom-container">
                 <div style={backgroundBannerStyle} className='banner-content'>
                     <div>
-                        <p style={{ color: 'black' }}>
+                        <p style={{ color: 'black', textAlign:'left', paddingLeft:'10%', width:'150%' }}>
                             "Our Craftsmanship SHINES<br />
                             &thinsp;And So Will You"
                         </p>
-                        <div style={{ paddingLeft: '100px' }}>
+                        <div style={{ paddingLeft: '10%' }}>
                             <a href='' style={{ textDecoration: 'none' }}>
                                 <BasicButtons width='220px' height='60px' text='Shop Engagement'></BasicButtons>
                             </a><br />
@@ -60,7 +60,7 @@ const HomePageContent = () => {
                 </div>
                 <div className='explore-diamond-banner'>
                     <h3>Explore Diamonds</h3>
-                    <Grid container spacing={2} className='list-img'>
+                    <Grid container spacing={5} className='list-img' style={{gap:'5%', paddingTop:'4%'}}>
                         {['Round', 'Princess', 'Emerald', 'Cushion', 'Marquise', 'Radiant', 'Oval', 'Pear', 'Heart'].map((shape, index) => (
                             <Grid key={index} className='diamond-item'>
                                 <img src={`../assets/images/${shape.replace(' ', '_')}_Cut_Diamonds.png`} alt={`${shape} cut diamond`} />
@@ -71,21 +71,21 @@ const HomePageContent = () => {
                 </div>
 
                 <div className='banner-content1'>
-                    <img src='../assets/images/banner1.png' alt='Banner 1' />
-                    <div className='banner-content1-txt'>
+                    <img style={{width: '60%'}} src='../assets/images/banner1.png' alt='Banner 1' />
+                    <div className='banner-content1-txt' style={{left:'35%', textAlign:'left'}}>
                         <p style={{ fontSize: '35px' }}>Do you want your own ring?</p>
                         <p style={{ fontSize: '25px' }}>Explore our free personal design service</p>
-                        <a style={{ color: 'black', fontSize: '20px' }} href='#info-page'> Discover now</a>
+                        <a style={{ color: 'black', fontSize: '20px' }} href='#info-page'> Discover now ›</a>
                     </div>
                 </div>
 
                 <div style={backgroundBannerStyle2} className='banner-content2'>
-                    <div>
+                    <div style={{paddingLeft:'3%'}}>
                         <h4 style={{ color: 'black' }}>
                             ENGAGEMENT RINGS
                         </h4><br />
-                        <p>"A sparkling ring on your finger opens<br />
-                            &thinsp;our love story now until forever"</p>
+                        <p style={{textAlign:'left'}}>"A sparkling ring on your finger opens<br />
+                            our love story now until forever"</p>
 
                         <div className='btn-banner'>
                             <a href={routes.engagementRings} style={{ textDecoration: 'none' }}>
@@ -96,12 +96,12 @@ const HomePageContent = () => {
                 </div>
 
                 <div style={backgroundBannerStyle3} className='banner-content3'>
-                    <div>
-                        <h4 style={{ color: 'black' }}>
+                    <div style={{paddingRight:'5%'}}>
+                        <h4 style={{ color: 'black', textAlign:'left' }}>
                             WEDDING RINGS
                         </h4>
-                        <p>"The symbol of love and promise when<br />
-                            &thinsp;our hearts open up and let each other in."</p>
+                        <p style={{textAlign:'left'}}>"The symbol of love and promise when<br />
+                            our hearts open up and let each other in."</p>
                         <div className='btn-banner'>
                             <a href={routes.weddingRings} style={{ textDecoration: 'none' }}>
                                 <BasicButtons width='220px' height='60px' text='See More'></BasicButtons>
@@ -170,7 +170,7 @@ const HomePageContent = () => {
                             <BasicTextFields width='100%' height='50px' label='Phone Number'></BasicTextFields>
                             <SelectTextFields width='100%' height='50px' label='Country' defaultValue='Country' helperText='Please select your country.'></SelectTextFields>
                         </div>
-                        <div className='advise-form-btn'>
+                        <div style={{paddingTop:'5%'}} className='advise-form-btn'>
                             <BasicButtons width='180px' height='50px' text='Advise now'></BasicButtons>
                         </div>
                     </div>

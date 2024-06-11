@@ -7,8 +7,8 @@
 }
 
 .banner-content p {
-    padding-left: 100px;
-    padding-top: 200px;
+    /* padding-left: 100px; */
+    padding-top: 40%;
     font-size: 250%;
     font-family: 'Times New Roman', Times, serif;
     margin: 0;
@@ -45,7 +45,7 @@
     padding: 40px;
     display: flex;
     justify-content: center;
-    gap: 10px;
+    /* gap: 5%; */
 }
 
 .list-jewelry-img-child {
@@ -73,22 +73,24 @@
     font-size: 18px;
 }
 
+
 .banner-content2 h4 {
-    padding-left: 100px;
-    padding-top: 200px;
+    padding-left: 30%;
+    /* padding-top: 200px; */
     font-size: 250%;
     font-family: 'Times New Roman', Times, serif;
     margin: 0;
-    margin-bottom: 20px;
+    /* margin-bottom: 20px; */
     font-weight: 200;
 }
 
 .banner-content2 p {
-    padding-left: 100px;
+    /* padding-left: 100px; */
     font-size: 160%;
     font-family: 'Times New Roman', Times, serif;
     margin: 0;
     margin-bottom: 20px;
+    text-align: left;
 }
 
 .banner-content3 h4 {
@@ -115,7 +117,8 @@
 
 .banner-content1-txt {
     position: absolute;
-    left: 27%;
+    left: 35%;
+    text-align: left;
 }
 
 
@@ -124,37 +127,6 @@ a {
     margin: 10px;
     font-family: 'Times New Roman', Times, serif;
 }
-
-/* .heading-title-line {
-    width: 100%;
-    height: fit-content;
-}
-
-.heading-title-line p {
-    /* content: '';
-    background: rgb(123, 123, 123);
-    height: 1px;
-    position: absolute;
-    top: 50%;
-    left: 0;
-    right: 0;
-    transform: translateY(-50%);
-    z-index: -1; 
-    font-family: 'Times New Roman', Times, serif;
-    text-align: center;
-}
-
-.heading-title-line::before {
-    content: '';
-    background: rgb(123, 123, 123);
-    height: 1px;
-    position: absolute;
-    top: 50%;
-    left: 0;
-    right: 0;
-    transform: translateY(-50%);
-    z-index: -1;
-} */
 
 .heading-title-line {
     display: flex;
@@ -238,14 +210,11 @@ a {
     align-items: center;
     width: 100%;
     gap: 10px;
-    /* Adjust the gap as needed */
-    /* padding: 20px 20px; */
 }
 
 .list-jewelry-img>img {
     width: 100%;
     max-width: 300px;
-    /* Adjust the width as needed */
     height: auto;
     object-fit: cover;
     transition: transform 0.3s ease;
@@ -260,7 +229,6 @@ a {
 }
 
 .btn{
-    /* background-color: red !important; */
     position: absolute;
     top: 92%;
     left: 50%;
@@ -268,14 +236,9 @@ a {
     opacity: 0;
 }
 
-/* .btn:hover{
-    opacity: 1;
-} */
-
 .list-jewelry-img-child>img {
     width: 100%;
     max-width: 300px;
-    /* Adjust the width as needed */
     height: auto;
     object-fit: cover;
     transition: transform 0.3s ease;
@@ -292,13 +255,8 @@ a {
     margin: 20px auto;
 }
 
-/*Test*/
-
-/* homePageContent.css */
-
 .advise-form {
     background-color: white;
-    /* padding: 10px 20px; */
     text-align: center;
     margin: 10px auto;
     width: 400px;
@@ -360,7 +318,7 @@ a {
 
 .custom-container {
     max-width: 1800px;
-    margin: 0 auto; /* Center the container */
+    margin: 0 auto; 
 }
 
 
