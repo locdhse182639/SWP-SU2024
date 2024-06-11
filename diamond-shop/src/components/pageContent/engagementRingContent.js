@@ -62,7 +62,7 @@ const EngagementRingsContent = () => {
         }
     };
 
-    const ringType = productData.filter(product => product.productType === '2');
+    const ringType = productData.filter(product => product.productType === 2);
 
     return (
         <div className='container'>
@@ -136,7 +136,7 @@ const EngagementRingsContent = () => {
                     {/* <hr style={{ width: '100%' }}></hr> */}
                     <CustomToolbar />
                     <div style={{ padding: '40px' }} className='product-card'>
-                        <ProductCard />
+                        <ProductCard products={ringType} />
                     </div>
 
                     {/* <Box className="custom-design-section">

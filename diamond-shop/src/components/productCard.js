@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { Card, CardContent, CardMedia, Typography, Grid, Pagination, TextField } from '@mui/material';
+import { Card, CardContent, CardMedia, Typography, Grid, TextField } from '@mui/material';
 import { styled } from '@mui/system';
-import { Products } from './services/data/productList';
 import PaginationControlled from './pagination';
 
 const StyledCard = styled(Card)({
@@ -33,7 +32,7 @@ const ProductName = styled(Typography)({
     fontWeight: 'bold',
 });
 
-const ProductCard = () => {
+const ProductCard = ({ products }) => {
     const [page, setPage] = useState(1);
     const itemsPerPage = 8;
 
@@ -43,24 +42,6 @@ const ProductCard = () => {
     };
 
     const [searchQuery, setSearchQuery] = useState("");
-    const [products, setProducts] = useState([]);
-
-    const fetchProducts = async () => {
-        try {
-            const response = await fetch('https://localhost:7251/api/Products');
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
-            }
-            const data = await response.json();
-            setProducts(data);
-        } catch (error) {
-            console.log('Error fetching products', error);
-        }
-    };
-
-    useEffect(() => {
-        fetchProducts();
-    }, []);
 
     const handleSearch = (event) => {
         setSearchQuery(event.target.value);
@@ -89,11 +70,11 @@ const ProductCard = () => {
             />
             <Grid container spacing={3}>
                 {paginatedData.map((product) => (
-                    <Grid item xs={12} sm={6} md={4} lg={3} key={product.id}>
+                    <Grid item xs={12} sm={6} md={4} lg={3} key={product.productId}>
                         <StyledCard>
                             <StyledCardMedia
                                 image={product.image1}
-                                title={product.name}
+                                title={product.productName}
                                 style={{
                                     height: '300px',
                                 }}
