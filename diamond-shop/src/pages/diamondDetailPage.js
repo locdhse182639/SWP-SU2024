@@ -9,11 +9,15 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 import Footer from '../components/footer';
 import '../css/diamondDetailPage.css';
-import NavBar from '../components/navBar';
+import NavBar from '../components/navBar';  
 import { routes } from '../routes';
+import { Products } from '../components/services/data/productList';
+import { useParams } from 'react-router-dom';
 
 const DiamondDetailPage = () => {
+  const { id } = useParams();
   const [expandedSection, setExpandedSection] = useState(null);
+  const product = Products.find((p) => p.id === parseInt(id));
 
   const handleToggleSection = (section) => {
     setExpandedSection(expandedSection === section ? null : section);

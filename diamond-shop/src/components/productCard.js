@@ -3,6 +3,8 @@ import { Card, CardContent, CardMedia, Typography, Grid, Pagination, TextField }
 import { styled } from '@mui/system';
 import { Products } from './services/data/productList';
 import PaginationControlled from './pagination';
+import { Link } from 'react-router-dom';
+import { routes } from '../routes';
 
 const StyledCard = styled(Card)({
     border: '1px solid #ddd',
@@ -68,31 +70,33 @@ const ProductCard = () => {
                 variant="outlined"
                 value={searchQuery}
                 onChange={handleSearch}
-                style={{ marginBottom: "20px", display:'flex', justifyContent:'left', width:'15%' }}
+                style={{ marginBottom: "20px", display: 'flex', justifyContent: 'left', width: '15%' }}
             />
             <Grid container spacing={3}>
                 {paginatedData.map((product) => (
                     <Grid item xs={12} sm={6} md={4} lg={3} key={product.id}>
-                        <StyledCard>
-                            <StyledCardMedia
-                                image={product.image}
-                                title={product.name}
-                                style={{
-                                    height: '300px',
-                                }}
-                            />
-                            <StyledCardContent>
-                                <ProductName variant="body2" color="textSecondary" component="p">
-                                    {product.name}
-                                </ProductName>
-                                <Typography variant="body2" color="textSecondary" component="p">
-                                    N/a
-                                </Typography>
-                                <PriceTypography variant="h6" component="p" style={{ color: 'black' }}>
-                                    Price: {product.price} ₫
-                                </PriceTypography>
-                            </StyledCardContent>
-                        </StyledCard>
+                        <Link key={product.name} to={`${routes.detail}/${product.id}`}>
+                            <StyledCard>
+                                <StyledCardMedia
+                                    image={product.image}
+                                    title={product.name}
+                                    style={{
+                                        height: '300px',
+                                    }}
+                                />
+                                <StyledCardContent>
+                                    <ProductName variant="body2" color="textSecondary" component="p">
+                                        {product.name}
+                                    </ProductName>
+                                    <Typography variant="body2" color="textSecondary" component="p">
+                                        N/a
+                                    </Typography>
+                                    <PriceTypography variant="h6" component="p" style={{ color: 'black' }}>
+                                        Price: {product.price} ₫
+                                    </PriceTypography>
+                                </StyledCardContent>
+                            </StyledCard>
+                        </Link>
                     </Grid>
                 ))}
             </Grid>

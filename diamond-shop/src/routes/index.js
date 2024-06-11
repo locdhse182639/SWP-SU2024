@@ -10,5 +10,8 @@ export const routes = {
     revenuePage: '/revenuePage',
     engagementRings: '/engagement-rings',
     shoppingCart: '/shopping-cart',
-    userInfo: '/userinfo/*'
+    userInfo: '/userinfo/*',
+    detail: '/productdetail',
+    checkout: '/checkout',
+    checkoutcomplete: '/checkoutcomplete',
 }

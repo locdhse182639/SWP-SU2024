@@ -13,17 +13,16 @@ import ProductPage from '../components/dashboard/dashboardContent/ProductManage'
 import RevenuePage from '../components/dashboard/dashboardContent/RevenuePage'
 import EngagementRingsPage from '../pages/engagementRingsPage'
 import ShoppingCartPage from '../pages/shoppingCartPage'
-<<<<<<< HEAD
 import DiamondDetailPage from '../pages/diamondDetailPage'
-=======
-import UserInfoPage from '../components/userInfoContent/Pages/userInfoPage'
->>>>>>> 7cd2e27913a01666b1593f4cc99a8ce3da95ed45
-
+import History from '../components/staffsite/History';
+import CheckOutPage from '../pages/checkoutPage'
+import CheckoutCompletePage from '../pages/checkoutCompletePage'
 export default function AppRoute() {
   return (
     <Routes>
+      <Route path={`${routes.detail}/:price`} element={<DiamondDetailPage/>}/>
       <Route path={routes.dashboard} element={<DashboardPage/>}></Route>
-      <Route path={routes.orderPage} element={<OrderPage/>}></Route>
+      <Route path='/OrderPage' element={<OrderPage/>}></Route>
       <Route path={routes.feedbackPage} element={<FbPage/>}></Route>
       <Route path={routes.accountPage} element={<AccountPage/>}></Route>
       <Route path={routes.productPage} element={<ProductPage/>}></Route>
@@ -34,11 +33,11 @@ export default function AppRoute() {
       <Route path={routes.diamondList} element={<Diamonds/>}/>
       <Route path={routes.engagementRings} element={<EngagementRingsPage/>}/>
       <Route path={routes.shoppingCart} element={<ShoppingCartPage/>}/>
-<<<<<<< HEAD
-      <Route path='/diamondDetail' element={<DiamondDetailPage/>}/>
-=======
-      <Route path={routes.userInfo} element={<UserInfoPage />} />
->>>>>>> 7cd2e27913a01666b1593f4cc99a8ce3da95ed45
+      <Route path={routes.detail} element={<DiamondDetailPage/>}/>
+      <Route path='/history' element={<History/>}/>
+      <Route path={routes.checkout} element={<CheckOutPage/>}/>
+      <Route path={routes.checkoutcomplete} element={<CheckoutCompletePage/>}/>
+
     </Routes>
   );
 }

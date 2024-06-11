@@ -8,6 +8,9 @@ import 'react-multi-carousel/lib/styles.css';
 import { CustomLeftArrow, CustomRightArrow } from '../customeArrow';
 import CustomToolbar from '../customToolBar';
 import CarouselComponent from '../carouselComponent ';
+import { routes } from '../../routes';
+import { Link } from 'react-router-dom';
+import { Products } from '../services/data/productList';
 
 const EngagementRingsContent = () => {
     const backgroundBanner = {
@@ -107,26 +110,7 @@ const EngagementRingsContent = () => {
                     <div style={{ padding: '40px' }} className='product-card'>
                         <ProductCard />
                     </div>
-
-                    {/* <Box className="custom-design-section">
-                        <Box className="text-container">
-                            <Typography variant="h5" className="title">
-                                Custom design
-                            </Typography>
-                            <Typography variant="body1" className="subtitle">
-                                Actualize the ring with your own ideas and stories.
-                            </Typography>
-                            <a variant="outlined" color="black">
-                                Discover now &gt;
-                            </a>
-                        </Box>
-                        <img
-                            src={thietketheoyeucau}
-                            alt="Custom Design"
-                            className="image"
-                        />
-                    </Box> */}
-                    <CarouselComponent/>
+                    <CarouselComponent />
                 </div>
                 <hr style={{ width: '100%' }}></hr>
             </Container>

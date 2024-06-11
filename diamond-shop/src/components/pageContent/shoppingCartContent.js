@@ -1,10 +1,8 @@
 import React from 'react';
-import { Box, Typography, Paper, Button, Divider, Grid, Link, TextField } from '@mui/material';
+import { Box, Typography, Paper, Button, Divider, Grid, TextField } from '@mui/material';
 import { routes } from '../../routes';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
-import LocalShippingIcon from '@mui/icons-material/LocalShipping';
-import SupportAgentIcon from '@mui/icons-material/SupportAgent';
-
+import { Link } from 'react-router-dom';
 const ShoppingCartContent = () => {
     return (
         <Box sx={{ padding: 4, maxWidth: '1200px', margin: 'auto' }}>
@@ -110,21 +108,16 @@ const ShoppingCartContent = () => {
                         <Typography variant="body2" color="textSecondary" sx={{ marginBottom: 2 }}>
                             or interest-free installments from $1,360 / mo.
                         </Typography>
-                        <Button
-                            variant="contained"
-                            fullWidth
-                            sx={{ marginBottom: 1, backgroundColor: 'black', color: 'white', '&:hover': { backgroundColor: 'darkgray' } }}
-                        >
-                            CHECKOUT
-                        </Button>
-                        <Button
-                            variant="contained"
-                            fullWidth
-                            sx={{ backgroundColor: 'black', color: 'white', '&:hover': { backgroundColor: 'darkgray' } }}
-                        >
-                            PayPal
-                        </Button>
+                        <Link to={routes.checkout}>
+                            <Button
 
+                                variant="contained"
+                                fullWidth
+                                sx={{ marginBottom: 1, backgroundColor: 'black', color: 'white', '&:hover': { backgroundColor: 'darkgray' } }}
+                            >
+                                CHECKOUT
+                            </Button>
+                        </Link>
                     </Paper>
                     <Box sx={{ textAlign: 'left', marginTop: 3 }}>
                         <Typography variant="body2">24/7 Customer Service</Typography>
