@@ -13,21 +13,27 @@ export function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
 
   useEffect(() => {
-    // Check if token is available in local storage
+    // Check if token and roleId are available in local storage
     const token = localStorage.getItem('token');
-    if (token) {
-      // Decode the token and set the user state
-      setUser({ token });
+    const roleId = localStorage.getItem('roleId');
+    if (token && roleId) {
+      // Set the user state with token and roleId
+      setUser({ token, roleId: Number(roleId) });
     }
   }, []);
 
-  const login = (token) => {
+  const login = (token, roleId) => {
+    console.log('Logging in with token:', token); // Debugging log
+    console.log('Logging in with roleId:', roleId); // Debugging log
     localStorage.setItem('token', token);
-    setUser({ token });
+    localStorage.setItem('roleId', roleId);
+    setUser({ token, roleId: Number(roleId) });
   };
+  
 
   const logout = () => {
     localStorage.removeItem('token');
+    localStorage.removeItem('roleId');
     setUser(null);
   };
 

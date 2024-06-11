@@ -10,5 +10,5 @@ export const routes = {
     revenuePage: '/revenuePage',
     engagementRings: '/engagement-rings',
     shoppingCart: '/shopping-cart',
-    
+    userInfo: '/userinfo/*'
 }
