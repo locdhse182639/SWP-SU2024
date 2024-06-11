@@ -13,6 +13,7 @@ import ProductPage from '../components/dashboard/dashboardContent/ProductManage'
 import RevenuePage from '../components/dashboard/dashboardContent/RevenuePage'
 import EngagementRingsPage from '../pages/engagementRingsPage'
 import ShoppingCartPage from '../pages/shoppingCartPage'
+import DiamondDetailPage from '../pages/diamondDetailPage'
 
 export default function AppRoute() {
   return (
@@ -29,6 +30,7 @@ export default function AppRoute() {
       <Route path={routes.diamondList} element={<Diamonds/>}/>
       <Route path={routes.engagementRings} element={<EngagementRingsPage/>}/>
       <Route path={routes.shoppingCart} element={<ShoppingCartPage/>}/>
+      <Route path='/diamondDetail' element={<DiamondDetailPage/>}/>
     </Routes>
   );
 }
