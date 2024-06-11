@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Card, CardContent, CardMedia, Typography, Grid, Pagination, TextField } from '@mui/material';
 import { styled } from '@mui/system';
 import { Products } from './services/data/productList';
@@ -43,7 +43,24 @@ const ProductCard = () => {
     };
 
     const [searchQuery, setSearchQuery] = useState("");
-    const [products, setProducts] = useState(Products);
+    const [products, setProducts] = useState([]);
+
+    const fetchProducts = async () => {
+        try {
+            const response = await fetch('https://localhost:7251/api/Products');
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            const data = await response.json();
+            setProducts(data);
+        } catch (error) {
+            console.log('Error fetching products', error);
+        }
+    };
+
+    useEffect(() => {
+        fetchProducts();
+    }, []);
 
     const handleSearch = (event) => {
         setSearchQuery(event.target.value);
@@ -51,14 +68,14 @@ const ProductCard = () => {
     };
 
     const filteredProducts = products.filter((product) =>
-        product.name.includes(searchQuery)
+        product.productName.toLowerCase().includes(searchQuery.toLowerCase())
     );
 
     const paginatedData = filteredProducts.slice(
         (page - 1) * itemsPerPage,
         page * itemsPerPage
     );
-    console.log(paginatedData);
+
     const totalPage = Math.ceil(filteredProducts.length / itemsPerPage);
 
     return (
@@ -75,7 +92,7 @@ const ProductCard = () => {
                     <Grid item xs={12} sm={6} md={4} lg={3} key={product.id}>
                         <StyledCard>
                             <StyledCardMedia
-                                image={product.image}
+                                image={product.image1}
                                 title={product.name}
                                 style={{
                                     height: '300px',
@@ -83,7 +100,7 @@ const ProductCard = () => {
                             />
                             <StyledCardContent>
                                 <ProductName variant="body2" color="textSecondary" component="p">
-                                    {product.name}
+                                    {product.productName}
                                 </ProductName>
                                 <Typography variant="body2" color="textSecondary" component="p">
                                     N/a

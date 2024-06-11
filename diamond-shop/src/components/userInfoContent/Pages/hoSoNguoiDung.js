@@ -1,26 +1,72 @@
 // src/pages/hoSo.js
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import '../css/hoso.css'
+import { useAuth } from '../../authcontext';
 
 export default function HoSo() {
+  const { user } = useAuth();
   const [userInfo, setUserInfo] = useState({
-    username: "vnkhoanguyn167",
+    username: "",
     name: "",
     email: "",
     phoneNumber: "",
     gender: "Nam",
-    dob: "1990-01-01"
+    dob: ""
   });
+
+  useEffect(() => {
+    const fetchUserInfo = async () => {
+      try {
+        const response = await fetch('https://localhost:7251/api/Users/me', {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${user.token}`
+          }
+        });
+
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const data = await response.json();
+        setUserInfo(data);
+      } catch (error) {
+        console.error('Error fetching user information:', error);
+      }
+    };
+
+    fetchUserInfo();
+  }, [user.token]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setUserInfo({ ...userInfo, [name]: value });
   };
 
-  const handleSave = () => {
-    // Handle save logic here
-    console.log('User information saved:', userInfo);
+  const handleSave = async () => {
+    try {
+      const response = await fetch('https://localhost:7251/api/Users/me', {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${user.token}`
+        },
+        body: JSON.stringify(userInfo)
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const result = await response.json();
+      console.log('User information saved:', result);
+    } catch (error) {
+      console.error('Error saving user information:', error);
+    }
   };
+
+  console.log(userInfo)
 
   return (
     <div>

@@ -14,6 +14,8 @@ import RevenuePage from '../components/dashboard/dashboardContent/RevenuePage'
 import EngagementRingsPage from '../pages/engagementRingsPage'
 import ShoppingCartPage from '../pages/shoppingCartPage'
 import UserInfoPage from '../components/userInfoContent/Pages/userInfoPage'
+import StaffSite from '../components/staffsite/StaffSite'
+import History from '../components/staffsite/History'
 
 export default function AppRoute() {
   return (
@@ -31,6 +33,8 @@ export default function AppRoute() {
       <Route path={routes.engagementRings} element={<EngagementRingsPage/>}/>
       <Route path={routes.shoppingCart} element={<ShoppingCartPage/>}/>
       <Route path={routes.userInfo} element={<UserInfoPage />} />
+      <Route path={routes.staffsite} element={<StaffSite/>} />
+      <Route path={routes.history} element={<History/>} />
     </Routes>
   );
 }
