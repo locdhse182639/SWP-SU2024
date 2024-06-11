@@ -14,4 +14,6 @@ export const routes = {
     detail: '/productdetail',
     checkout: '/checkout',
     checkoutcomplete: '/checkoutcomplete',
+    staffsite : '/staffSite',
+    history : '/history'
 }

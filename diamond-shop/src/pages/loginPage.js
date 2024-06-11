@@ -45,10 +45,12 @@ export default function SignIn() {
       const token = result.token;
       const roleId = result.roleId;
 
-      login(token);
+      login(token, roleId);
 
-      if (roleId === 5) {
-        window.location.href = '/';
+      if (roleId === 1 || roleId === 2) {
+        window.location.href = '/dashboardPage';
+      } else if (roleId === 3) {
+        window.location.href = '/staffSite'
       } else {
         window.location.href = '/dashboardPage';
       }

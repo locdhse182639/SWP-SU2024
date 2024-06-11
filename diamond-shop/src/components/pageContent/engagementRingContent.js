@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Box, Button, Container, Typography } from '@mui/material';
 import Footer from '../footer';
 import ProductCard from '../productCard';
@@ -8,11 +8,31 @@ import 'react-multi-carousel/lib/styles.css';
 import { CustomLeftArrow, CustomRightArrow } from '../customeArrow';
 import CustomToolbar from '../customToolBar';
 import CarouselComponent from '../carouselComponent ';
-import { routes } from '../../routes';
-import { Link } from 'react-router-dom';
-import { Products } from '../services/data/productList';
+
+
 
 const EngagementRingsContent = () => {
+    const [productData, setProductData] = useState([]);
+
+    const fetchProducts = async () => {
+        try {
+            const response = await fetch('https://localhost:7251/api/Products');
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            const data = await response.json();
+            setProductData(data);
+        } catch (error) {
+            console.log('Error fetching products', error);
+        }
+    };
+
+    useEffect(() => {
+        fetchProducts();
+    }, []);
+
+
+
     const backgroundBanner = {
         backgroundImage: `url(../assets/images/engagement-ring-banner.png)`,
         backgroundSize: 'cover',
@@ -42,6 +62,8 @@ const EngagementRingsContent = () => {
         }
     };
 
+    const ringType = productData.filter(product => product.productType === 2);
+
     return (
         <div className='container'>
             <Container style={{ maxWidth: '1800px' }} className="custom-container">
@@ -66,7 +88,13 @@ const EngagementRingsContent = () => {
                                 customRightArrow={<CustomRightArrow />}
                                 itemClass="carousel-item-padding-40-px"
                             >
-                                <div className='ER-items'>
+                                {ringType.map(ring => (
+                                    <div key={ring.productId} className='ER-items'>
+                                        <img src={ring.image1} alt={ring.productName} />
+                                        <p>{ring.productName}</p>
+                                    </div>
+                                ))}
+                                {/* <div className='ER-items'>
                                     <img src='../assets/images/Solitaire_ER.png' alt="Solitaire" />
                                     <p>Solitaire</p>
                                 </div>
@@ -101,16 +129,35 @@ const EngagementRingsContent = () => {
                                 <div className='ER-items'>
                                     <img src='../assets/images/FiveStone_ER.png' alt="Five Stone" />
                                     <p>Five Stone</p>
-                                </div>
+                                </div> */}
                             </Carousel>
                         </div>
                     </div>
                     {/* <hr style={{ width: '100%' }}></hr> */}
                     <CustomToolbar />
                     <div style={{ padding: '40px' }} className='product-card'>
-                        <ProductCard />
+                        <ProductCard products={ringType} />
                     </div>
-                    <CarouselComponent />
+
+                    {/* <Box className="custom-design-section">
+                        <Box className="text-container">
+                            <Typography variant="h5" className="title">
+                                Custom design
+                            </Typography>
+                            <Typography variant="body1" className="subtitle">
+                                Actualize the ring with your own ideas and stories.
+                            </Typography>
+                            <a variant="outlined" color="black">
+                                Discover now &gt;
+                            </a>
+                        </Box>
+                        <img
+                            src={thietketheoyeucau}
+                            alt="Custom Design"
+                            className="image"
+                        />
+                    </Box> */}
+                    <CarouselComponent/>
                 </div>
                 <hr style={{ width: '100%' }}></hr>
             </Container>
