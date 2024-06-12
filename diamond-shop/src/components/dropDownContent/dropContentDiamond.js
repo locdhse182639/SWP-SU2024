@@ -117,7 +117,7 @@ const DropContentDiamond = () => {
               </div>
             </div>
             <div className='third-row' style={{ width: '50%' }}>
-              <img style={{ width: '90%', height: '300px', paddingTop: '30px' }} src={giaImg} />
+              <img style={{ width: '50%', height: '300px', paddingTop: '30px' }} src={giaImg} />
               <a style={{ marginBottom: '0', fontSize: '20px' }}>
                 View All Diamonds
               </a>

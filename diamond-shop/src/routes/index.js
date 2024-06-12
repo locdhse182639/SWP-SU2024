@@ -15,5 +15,5 @@ export const routes = {
     checkout: '/checkout',
     checkoutcomplete: '/checkoutcomplete',
     staffsite : '/staffSite',
-    history : '/history'
+    history : '/history',
 }

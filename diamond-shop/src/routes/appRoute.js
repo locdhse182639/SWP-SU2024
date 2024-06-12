@@ -14,9 +14,12 @@ import RevenuePage from '../components/dashboard/dashboardContent/RevenuePage'
 import EngagementRingsPage from '../pages/engagementRingsPage'
 import ShoppingCartPage from '../pages/shoppingCartPage'
 import DiamondDetailPage from '../pages/diamondDetailPage'
-=======
 import UserInfoPage from '../components/userInfoContent/Pages/userInfoPage'
->>>>>>> 7cd2e27913a01666b1593f4cc99a8ce3da95ed45
+import StaffSite from '../components/staffsite/StaffSite'
+import History from '../components/staffsite/History'
+import CheckOutPage from '../components/pageContent/checkoutContent'
+import CheckoutCompletePage from '../components/pageContent/checkoutComplete'
+// >>>>>>> 7cd2e27913a01666b1593f4cc99a8ce3da95ed45
 
 export default function AppRoute() {
   return (
@@ -36,7 +39,7 @@ export default function AppRoute() {
       <Route path={routes.shoppingCart} element={<ShoppingCartPage/>}/>
       <Route path='/diamondDetail' element={<DiamondDetailPage/>}/>
       <Route path={routes.userInfo} element={<UserInfoPage />} />
-      <Route path={routes.history} element={<History />} />
+      {/* <Route path={routes.history} element={<History />} /> */}
       <Route path={routes.staffsite} element={<StaffSite />} />
       <Route path={routes.detail} element={<DiamondDetailPage/>}/>
       <Route path='/history' element={<History/>}/>
