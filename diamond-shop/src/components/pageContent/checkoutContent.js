@@ -89,7 +89,7 @@ const OrderComponent = () => {
                         ))}
                     </Paper>
                     <Button
-                        href={routes.checkoutComplete}
+                        href={routes.checkoutcomplete}
                         variant="contained"
                         fullWidth
                         sx={{ backgroundColor: 'black', color: 'white', '&:hover': { backgroundColor: 'black' } }}

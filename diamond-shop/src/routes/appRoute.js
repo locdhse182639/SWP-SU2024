@@ -14,9 +14,11 @@ import RevenuePage from '../components/dashboard/dashboardContent/RevenuePage'
 import EngagementRingsPage from '../pages/engagementRingsPage'
 import ShoppingCartPage from '../pages/shoppingCartPage'
 import DiamondDetailPage from '../pages/diamondDetailPage'
-=======
 import UserInfoPage from '../components/userInfoContent/Pages/userInfoPage'
->>>>>>> 7cd2e27913a01666b1593f4cc99a8ce3da95ed45
+import History from '../components/staffsite/History'
+import StaffSite from '../components/staffsite/StaffSite'
+import CheckOutPage from '../pages/checkoutPage'
+import CheckoutCompletePage from '../pages/checkoutCompletePage'
 
 export default function AppRoute() {
   return (
