@@ -1,7 +1,7 @@
 import React from 'react'
-import NavBar from '../components/navBar'
 import OrderConfirmation from '../components/pageContent/checkoutComplete'
 import Footer from '../components/footer'
+import NavBar from '../components/navBar'
 
 export default function CheckoutCompletePage() {
   return (
