@@ -12,7 +12,7 @@ export const routes = {
     shoppingCart: '/shopping-cart',
     userInfo: '/userinfo/*',
     detail: '/productdetail',
-    checkout: '/checkout',
+    checkout: '/checkout',  
     checkoutcomplete: '/checkoutcomplete',
     staffsite : '/staffSite',
     history : '/history',
