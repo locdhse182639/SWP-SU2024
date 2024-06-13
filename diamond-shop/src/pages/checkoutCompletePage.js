@@ -6,7 +6,7 @@ import NavBar from '../components/navBar'
 export default function CheckoutCompletePage() {
   return (
     <div>
-        <NavBar/>
+        {/* <NavBar/> */}
         <OrderConfirmation/>
         <Footer/>
     </div>

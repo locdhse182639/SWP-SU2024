@@ -12,6 +12,7 @@ import BasicTextFields from '../textField';
 import SelectTextFields from '../selectField';
 import Footer from '../footer';
 import { routes } from '../../routes';
+import { Link } from 'react-router-dom';
 
 const HomePageContent = () => {
     const backgroundBannerStyle = {
@@ -51,9 +52,9 @@ const HomePageContent = () => {
                             &thinsp;And So Will You"
                         </p>
                         <div style={{ paddingLeft: '10%' }}>
-                            <a href='' style={{ textDecoration: 'none' }}>
+                            <Link to={routes.engagementRings} style={{ textDecoration: 'none' }}>
                                 <BasicButtons width='220px' height='60px' text='Shop Engagement'></BasicButtons>
-                            </a><br />
+                            </Link><br />
                             <BasicButtons width='220px' height='60px' text='Shop Jewelry'></BasicButtons>
                         </div>
                     </div>
