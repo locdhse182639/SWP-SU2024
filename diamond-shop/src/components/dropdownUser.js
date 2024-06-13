@@ -2,18 +2,12 @@ import React, { useState } from 'react';
 import { Menu, MenuItem, IconButton, Typography, ListItemIcon } from '@mui/material';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import PersonIcon from '@mui/icons-material/Person';
-import PaymentIcon from '@mui/icons-material/Payment';
-import SettingsIcon from '@mui/icons-material/Settings';
-import KeyboardIcon from '@mui/icons-material/Keyboard';
-import GroupIcon from '@mui/icons-material/Group';
-import AddIcon from '@mui/icons-material/Add';
-import GitHubIcon from '@mui/icons-material/GitHub';
-import SupportIcon from '@mui/icons-material/Support';
-import ApiIcon from '@mui/icons-material/Api';
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
+import { useAuth } from './authcontext';
 
 const DropdownMenuUser = () => {
     const [anchorEl, setAnchorEl] = useState(null);
+    const { logout } = useAuth();
 
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
@@ -21,6 +15,11 @@ const DropdownMenuUser = () => {
 
     const handleClose = () => {
         setAnchorEl(null);
+    };
+
+    const handleLogout = () => {
+        logout();
+        handleClose();
     };
 
     return (
@@ -44,7 +43,7 @@ const DropdownMenuUser = () => {
                     </ListItemIcon>
                     Profile
                 </MenuItem>
-                <MenuItem onClick={handleClose}>
+                <MenuItem onClick={handleLogout}>
                     <ListItemIcon>
                         <ExitToAppIcon fontSize="small" />
                     </ListItemIcon>

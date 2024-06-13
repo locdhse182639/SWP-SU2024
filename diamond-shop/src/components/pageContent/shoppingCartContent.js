@@ -2,13 +2,14 @@ import React, { useEffect, useState } from 'react';
 import { Box, Typography, Paper, Button, Divider, Grid } from '@mui/material';
 import { routes } from '../../routes';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../authcontext';
 
 const ShoppingCartContent = () => {
   const [cartItems, setCartItems] = useState([]);
   const depositPercentage = 20; // 20% deposit
   const { user } = useAuth();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchCartItems = async () => {
@@ -61,6 +62,48 @@ const ShoppingCartContent = () => {
 
   const calculateTotalDeposit = () => {
     return cartItems.reduce((total, item) => total + (item.price * depositPercentage / 100), 0).toFixed(2);
+  };
+
+  const handleCheckout = async () => {
+    if (!user) {
+      navigate(routes.login);
+      return;
+    }
+
+    const order = {
+      customerId: user.id,
+      totalPrice: parseFloat(calculateTotal()),
+      orderDate: new Date().toISOString().split('T')[0],
+      orderDetails: cartItems.map(item => ({
+        productId: item.productId,
+        productName: item.productName,
+        productPrice: item.price,
+        quantity: 1 // Assuming quantity is 1 for simplicity
+      }))
+    };
+
+    try {
+      const response = await fetch('https://localhost:7251/api/Orders', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(order),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to create order');
+      }
+
+      // Clear the cart after successful order creation
+      setCartItems([]);
+      sessionStorage.removeItem('cart');
+      alert('Order created successfully!');
+      navigate(routes.checkout, { state: { orderDetails: order.orderDetails, payments: [{ PaymentID: 1, OrderID: 1, Deposit: calculateTotalDeposit(), Total: calculateTotal() }] } });
+    } catch (error) {
+      console.error(error);
+      alert('Failed to create order');
+    }
   };
 
   return (
@@ -151,15 +194,14 @@ const ShoppingCartContent = () => {
             <Typography variant="body2" color="textSecondary" sx={{ marginBottom: 2 }}>
               or interest-free installments from ${(calculateTotal() / 3).toFixed(2)} / mo.
             </Typography>
-            <Link to={routes.checkout}>
-              <Button
-                variant="contained"
-                fullWidth
-                sx={{ marginBottom: 1, backgroundColor: 'black', color: 'white', '&:hover': { backgroundColor: 'darkgray' } }}
-              >
-                CHECKOUT
-              </Button>
-            </Link>
+            <Button
+              variant="contained"
+              fullWidth
+              sx={{ marginBottom: 1, backgroundColor: 'black', color: 'white', '&:hover': { backgroundColor: 'darkgray' } }}
+              onClick={handleCheckout}
+            >
+              CHECKOUT
+            </Button>
           </Paper>
           <Box sx={{ textAlign: 'left', marginTop: 3 }}>
             <Typography variant="body2">24/7 Customer Service</Typography>

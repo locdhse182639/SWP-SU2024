@@ -173,7 +173,7 @@ const Navbar = () => {
         </Box>
         <Box display="flex" alignItems="center">
           <IconButton color="inherit">
-            {user ? <DropdownMenuUser /> : <Link to={routes.login}/>}
+          {user ? <DropdownMenuUser /> : <Link to={routes.login}><DropdownMenuUser /></Link>}
           </IconButton>
           <IconButton color="inherit">
             <FavoriteBorderIcon />
