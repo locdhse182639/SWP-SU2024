@@ -140,9 +140,11 @@ import logotext from '../constant/logo_text.png'
 import DropdownMenuUser from './dropdownUser';
 import { Link } from 'react-router-dom';
 import { routes } from '../routes';
+import { useAuth } from './authcontext';
 
 const Navbar = () => {
   const [anchorEl, setAnchorEl] = React.useState(null);
+  const { user } = useAuth();
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -171,7 +173,7 @@ const Navbar = () => {
         </Box>
         <Box display="flex" alignItems="center">
           <IconButton color="inherit">
-            <DropdownMenuUser />
+            {user ? <DropdownMenuUser /> : <Link to={routes.login}/>}
           </IconButton>
           <IconButton color="inherit">
             <FavoriteBorderIcon />
