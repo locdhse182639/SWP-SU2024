@@ -18,7 +18,8 @@ import UserInfoPage from '../components/userInfoContent/Pages/userInfoPage'
 import StaffSite from '../components/staffsite/StaffSite'
 import History from '../components/staffsite/History'
 import CheckOutPage from '../components/pageContent/checkoutContent'
-import CheckoutCompletePage from '../components/pageContent/checkoutComplete'
+import CheckoutCompletePage from '../pages/checkoutCompletePage'
+
 
 export default function AppRoute() {
   return (
