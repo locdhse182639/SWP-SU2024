@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Container, Grid, Typography, Table, TableBody, TableRow, TableCell, Box } from '@mui/material';
 import Button from '@mui/material/Button';
 import ReportIcon from '@mui/icons-material/Report';
@@ -9,59 +9,112 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 import Footer from '../components/footer';
 import '../css/diamondDetailPage.css';
-import NavBar from '../components/navBar';  
-import { routes } from '../routes';
-import { Products } from '../components/services/data/productList';
-import { useParams } from 'react-router-dom';
+import NavBar from '../components/navBar';
+import { useParams, useNavigate } from 'react-router-dom';
+import { useAuth } from '../components/authcontext';
 
 const DiamondDetailPage = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
+  const { user } = useAuth();
   const [expandedSection, setExpandedSection] = useState(null);
-  const product = Products.find((p) => p.id === parseInt(id));
+  const [product, setProduct] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchProduct = async () => {
+      try {
+        const response = await fetch(`https://localhost:7251/api/Products/${id}`);
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const data = await response.json();
+        setProduct(data);
+      } catch (error) {
+        setError(error.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchProduct();
+  }, [id]);
 
   const handleToggleSection = (section) => {
     setExpandedSection(expandedSection === section ? null : section);
   };
+
+  const handleSelectProduct = () => {
+    if (!user) {
+      navigate('/login');
+    } else {
+      const cart = JSON.parse(sessionStorage.getItem('cart')) || [];
+      cart.push(product);
+      sessionStorage.setItem('cart', JSON.stringify(cart));
+      alert('Product added to cart');
+    }
+  };
+
+  if (loading) return <div>Loading...</div>;
+  if (error) return <div>Error: {error}</div>;
+  if (!product) return <div>No product found</div>;
+
+  const isDiamond = product.productType === 1;
+  const depositPercentage = 20; // 20% deposit
+  const depositAmount = product ? (product.price * depositPercentage) / 100 : 0;
 
   return (
     <div>
       <NavBar />
       <Container className="custom-container">
         <div className="back-to-gallery">
-          <a href={routes.engagementRings}>&lt; Back To Gallery</a>
+          <a href="/engagementRings">&lt; Back To Gallery</a>
         </div>
         <Grid container spacing={4} className="diamond-detail-section">
           <Grid item xs={12} md={6}>
             <div className="image-wrapper">
-              <img src="../assets/images/Pear_Cut_Diamonds.png" alt="Diamond" className="diamond-image" />
+              <img src={product.image1} alt="Product" className="diamond-image" />
               <div className="rotate-instructions">CLICK & DRAG TO ROTATE</div>
             </div>
             <div className="image-gallery">
-              <img src="../assets/images/Pear_Cut_Diamonds.png" alt="Diamond Thumbnail" />
-              <img src="../assets/images/Pear_Cut_Diamonds.png" alt="Diamond Thumbnail" />
-              <img src="../assets/images/Pear_Cut_Diamonds.png" alt="Diamond Thumbnail" />
+              <img src={product.image1} alt="Product Thumbnail" />
+              <img src={product.image2} alt="Product Thumbnail" />
+              <img src={product.image3} alt="Product Thumbnail" />
             </div>
           </Grid>
           <Grid item xs={12} md={6}>
-            <Typography style={{ color: 'black' }} variant="h4" className="diamond-title">1.02 Carat Pear Diamond</Typography>
+            <Typography style={{ color: 'black' }} variant="h4" className="product-title">{product.productName}</Typography>
             <Typography variant="body1" className="shipping-info">
-              Ships as a loose diamond by: <strong>Thursday, June 13</strong>
+              Ships as a loose {isDiamond ? 'diamond' : 'product'} by: <strong>Thursday, June 13</strong>
             </Typography>
             <a href="#" className="shipping-link">Free Overnight Shipping, Hassle-Free Returns</a>
-            <div className="diamond-specs">
-              <span className="spec-tag">1.02ct</span>
-              <span className="spec-tag">H Color</span>
-              <span className="spec-tag">VS1 Clarity</span>
-            </div>
-            <Typography style={{ color: 'black' }} variant="h5" className="price">$3,560 <span className="diamond-price">Diamond Price</span></Typography>
+            {isDiamond ? (
+              <div className="diamond-specs">
+                <span className="spec-tag">{product.caratWeight}ct</span>
+                <span className="spec-tag">{product.color}</span>
+                <span className="spec-tag">{product.clarity}</span>
+              </div>
+            ) : (
+              <div className="product-specs">
+                <span className="spec-tag">{product.type}</span>
+                <span className="spec-tag">{product.size}</span>
+              </div>
+            )}
+            <Typography style={{ color: 'black' }} variant="h5" className="price">${product.price} <span className="product-price">Price</span></Typography>
             <Box className="payment-container">
               <Typography variant="body2" className="payment-options">
                 Flexible Payment Options:<br />
-                <span className="payment-detail">3 Interest-Free Payments of $1,186.67</span>
+                <span className="payment-detail">3 Interest-Free Payments of ${(product.price / 3).toFixed(2)}</span>
               </Typography>
             </Box>
+            <Typography variant="h6" className="deposit">
+              Deposit: ${depositAmount.toFixed(2)} (20%)
+            </Typography>
             <div className="button-group">
-              <Button style={{ backgroundColor: 'black' }} variant="contained" className="select-button">SELECT THIS DIAMOND</Button>
+              <Button style={{ backgroundColor: 'black' }} variant="contained" className="select-button" onClick={handleSelectProduct}>
+                SELECT THIS {isDiamond ? 'DIAMOND' : 'PRODUCT'}
+              </Button>
               <Button style={{ color: 'black' }} variant="outlined" className="consult-button">CONSULT AN EXPERT</Button>
             </div>
           </Grid>
@@ -71,7 +124,7 @@ const DiamondDetailPage = () => {
             <div className="report-links">
               <a style={{ color: 'black' }} href="#">
                 <ReportIcon /><br />
-                GIA Report
+                {isDiamond ? 'GIA Report' : 'Product Report'}
               </a>
               <a style={{ color: 'black' }} href="#">
                 <ViewInArIcon /><br />
@@ -82,61 +135,80 @@ const DiamondDetailPage = () => {
                 Super Zoom
               </a>
             </div>
-            <Table className="diamond-specs-table">
+            <Table className="product-specs-table">
               <TableBody>
-                <TableRow>
-                  <TableCell>Shape</TableCell>
-                  <TableCell className="spec-value">Pear <InfoOutlinedIcon className="info-icon" /></TableCell>
-                </TableRow>
-                <TableRow>
-                  <TableCell>Color</TableCell>
-                  <TableCell className="spec-value">H <InfoOutlinedIcon className="info-icon" /></TableCell>
-                </TableRow>
-                <TableRow>
-                  <TableCell>Clarity</TableCell>
-                  <TableCell className="spec-value">VS1 <InfoOutlinedIcon className="info-icon" /></TableCell>
-                </TableRow>
-                <TableRow>
-                  <TableCell>Carat Weight</TableCell>
-                  <TableCell className="spec-value">1.02 <InfoOutlinedIcon className="info-icon" /></TableCell>
-                </TableRow>
-                <TableRow>
-                  <TableCell>Fluorescence</TableCell>
-                  <TableCell className="spec-value">Faint <InfoOutlinedIcon className="info-icon" /></TableCell>
-                </TableRow>
-                <TableRow>
-                  <TableCell>Length/Width Ratio</TableCell>
-                  <TableCell className="spec-value">1.57 <InfoOutlinedIcon className="info-icon" /></TableCell>
-                </TableRow>
-                <TableRow>
-                  <TableCell>Depth %</TableCell>
-                  <TableCell className="spec-value">62.1 <InfoOutlinedIcon className="info-icon" /></TableCell>
-                </TableRow>
-                <TableRow>
-                  <TableCell>Table %</TableCell>
-                  <TableCell className="spec-value">60.0 <InfoOutlinedIcon className="info-icon" /></TableCell>
-                </TableRow>
-                {expandedSection === 'additional' && (
+                {isDiamond ? (
                   <>
                     <TableRow>
-                      <TableCell>Symmetry</TableCell>
-                      <TableCell className="spec-value">Very Good <InfoOutlinedIcon className="info-icon" /></TableCell>
+                      <TableCell>Shape</TableCell>
+                      <TableCell className="spec-value">{product.shape} <InfoOutlinedIcon className="info-icon" /></TableCell>
                     </TableRow>
                     <TableRow>
-                      <TableCell>Girdle</TableCell>
-                      <TableCell className="spec-value">Medium to Thick <InfoOutlinedIcon className="info-icon" /></TableCell>
+                      <TableCell>Color</TableCell>
+                      <TableCell className="spec-value">{product.color} <InfoOutlinedIcon className="info-icon" /></TableCell>
                     </TableRow>
                     <TableRow>
-                      <TableCell>Culet</TableCell>
-                      <TableCell className="spec-value">None <InfoOutlinedIcon className="info-icon" /></TableCell>
+                      <TableCell>Clarity</TableCell>
+                      <TableCell className="spec-value">{product.clarity} <InfoOutlinedIcon className="info-icon" /></TableCell>
                     </TableRow>
                     <TableRow>
-                      <TableCell>Measurements</TableCell>
-                      <TableCell className="spec-value">8.87x5.66x3.51 mm</TableCell>
+                      <TableCell>Carat Weight</TableCell>
+                      <TableCell className="spec-value">{product.caratWeight} <InfoOutlinedIcon className="info-icon" /></TableCell>
                     </TableRow>
                     <TableRow>
-                      <TableCell>Certificate</TableCell>
-                      <TableCell className="spec-value">GIA</TableCell>
+                      <TableCell>Fluorescence</TableCell>
+                      <TableCell className="spec-value">{product.fluorescence} <InfoOutlinedIcon className="info-icon" /></TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell>Length/Width Ratio</TableCell>
+                      <TableCell className="spec-value">{product.lengthWidthRatio} <InfoOutlinedIcon className="info-icon" /></TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell>Depth %</TableCell>
+                      <TableCell className="spec-value">{product.depth} <InfoOutlinedIcon className="info-icon" /></TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell>Table %</TableCell>
+                      <TableCell className="spec-value">{product.tables} <InfoOutlinedIcon className="info-icon" /></TableCell>
+                    </TableRow>
+                    {expandedSection === 'additional' && (
+                      <>
+                        <TableRow>
+                          <TableCell>Symmetry</TableCell>
+                          <TableCell className="spec-value">{product.symmetry} <InfoOutlinedIcon className="info-icon" /></TableCell>
+                        </TableRow>
+                        <TableRow>
+                          <TableCell>Girdle</TableCell>
+                          <TableCell className="spec-value">{product.girdle} <InfoOutlinedIcon className="info-icon" /></TableCell>
+                        </TableRow>
+                        <TableRow>
+                          <TableCell>Culet</TableCell>
+                          <TableCell className="spec-value">{product.culet} <InfoOutlinedIcon className="info-icon" /></TableCell>
+                        </TableRow>
+                        <TableRow>
+                          <TableCell>Measurements</TableCell>
+                          <TableCell className="spec-value">{product.measurements}</TableCell>
+                        </TableRow>
+                        <TableRow>
+                          <TableCell>Certificate</TableCell>
+                          <TableCell className="spec-value">{product.certificate}</TableCell>
+                        </TableRow>
+                      </>
+                    )}
+                  </>
+                ) : (
+                  <>
+                    <TableRow>
+                      <TableCell>Type</TableCell>
+                      <TableCell className="spec-value">{product.type} <InfoOutlinedIcon className="info-icon" /></TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell>Size</TableCell>
+                      <TableCell className="spec-value">{product.size} <InfoOutlinedIcon className="info-icon" /></TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell>Description</TableCell>
+                      <TableCell className="spec-value">{product.description} <InfoOutlinedIcon className="info-icon" /></TableCell>
                     </TableRow>
                   </>
                 )}
@@ -189,7 +261,7 @@ const DiamondDetailPage = () => {
               </div>
               {expandedSection === 'productDetails' && (
                 <div className="additional-content">
-                  <Typography>This 1.02 pear H diamond is sold exclusively on Luxe Jewel House.</Typography>
+                  <Typography>This {product.caratWeight}ct {product.shape} {product.color} diamond is sold exclusively on Luxe Jewel House.</Typography>
                 </div>
               )}
               <div className="additional-link" onClick={() => handleToggleSection('gradingReport')}>
@@ -209,7 +281,6 @@ const DiamondDetailPage = () => {
                 <div className="additional-content">
                   <Typography>Upgrade your diamond at any time for a diamond of greater value. The full value of your original diamond will be applied to your new purchase.</Typography>
                 </div>
-
               )}
             </div>
           </Grid>

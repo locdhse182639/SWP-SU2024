@@ -19,16 +19,11 @@ import StaffSite from '../components/staffsite/StaffSite'
 import History from '../components/staffsite/History'
 import CheckOutPage from '../components/pageContent/checkoutContent'
 import CheckoutCompletePage from '../components/pageContent/checkoutComplete'
-// >>>>>>> 7cd2e27913a01666b1593f4cc99a8ce3da95ed45
-import History from '../components/staffsite/History'
-import StaffSite from '../components/staffsite/StaffSite'
-import CheckOutPage from '../pages/checkoutPage'
-import CheckoutCompletePage from '../pages/checkoutCompletePage'
 
 export default function AppRoute() {
   return (
     <Routes>
-      <Route path={`${routes.detail}/:price`} element={<DiamondDetailPage/>}/>
+      <Route path={`${routes.detail}/:id`} element={<DiamondDetailPage/>}/>
       <Route path={routes.dashboard} element={<DashboardPage/>}></Route>
       <Route path='/OrderPage' element={<OrderPage/>}></Route>
       <Route path={routes.feedbackPage} element={<FbPage/>}></Route>

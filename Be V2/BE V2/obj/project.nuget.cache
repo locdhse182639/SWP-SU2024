@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "fUeJM+mQi44=",
+  "dgSpecHash": "7XrT41z42fY=",
   "success": true,
-  "projectFilePath": "C:\\Users\\DMIN\\OneDrive\\Desktop\\Be V2\\BE V2\\BE V2.csproj",
+  "projectFilePath": "C:\\Users\\DMIN\\OneDrive\\Desktop\\SWP project\\SWP-SU2024\\Be V2\\BE V2\\BE V2.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\DMIN\\.nuget\\packages\\azure.core\\1.35.0\\azure.core.1.35.0.nupkg.sha512",
     "C:\\Users\\DMIN\\.nuget\\packages\\azure.identity\\1.10.3\\azure.identity.1.10.3.nupkg.sha512",

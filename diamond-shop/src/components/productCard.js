@@ -73,7 +73,7 @@ const ProductCard = ({ products }) => {
             <Grid container spacing={3}>
                 {paginatedData.map((product) => (
                     <Grid item xs={12} sm={6} md={4} lg={3} key={product.productId}>
-                        <Link key={product.name} to={`${routes.detail}/${product.id}`}>
+                        <Link key={product.name} to={`${routes.detail}/${product.productId}`}>
                             <StyledCard>
                                 <StyledCardMedia
                                     image={product.image1}

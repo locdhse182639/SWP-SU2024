@@ -7,6 +7,11 @@ namespace BE_V2.DataDB
 {
     public partial class User
     {
+        public User()
+        {
+            Carts = new HashSet<Cart>();
+        }
+
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int UserId { get; set; }
@@ -35,5 +40,7 @@ namespace BE_V2.DataDB
         public virtual Customer? Customer { get; set; }
 
         public virtual Role? Role { get; set; }
+
+        public virtual ICollection<Cart> Carts { get; set; }
     }
 }

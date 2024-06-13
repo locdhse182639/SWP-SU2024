@@ -33,6 +33,10 @@ namespace BE_V2.DataDB
 
         public virtual DbSet<User> Users { get; set; }
 
+        public virtual DbSet<Cart> Carts { get; set; }
+
+        public virtual DbSet<CartItem> CartItems { get; set; }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
             => optionsBuilder.UseSqlServer("Server=DESKTOP-R3JQU5R\\SQLEXPRESS;Database=Diamond_Shop_V4;Trusted_Connection=True;TrustServerCertificate=True;");
@@ -143,13 +147,13 @@ namespace BE_V2.DataDB
 
             modelBuilder.Entity<Product>(entity =>
             {
-            entity.HasKey(e => e.ProductId).HasName("PK__Product__B40CC6ED5D24FBE4");
+                entity.HasKey(e => e.ProductId).HasName("PK__Product__B40CC6ED5D24FBE4");
 
-            entity.ToTable("Product");
+                entity.ToTable("Product");
 
-            entity.Property(e => e.ProductId).HasColumnName("ProductID");
-            entity.Property(e => e.DiamondId).HasColumnName("DiamondID");
-            entity.Property(e => e.Price).HasColumnType("decimal(10, 2)");
+                entity.Property(e => e.ProductId).HasColumnName("ProductID");
+                entity.Property(e => e.DiamondId).HasColumnName("DiamondID");
+                entity.Property(e => e.Price).HasColumnType("decimal(10, 2)");
                 entity.Property(e => e.ProductName).HasMaxLength(255);
                 entity.Property(e => e.Size).HasMaxLength(50);
                 entity.Property(e => e.Type).HasMaxLength(50);
@@ -196,6 +200,45 @@ namespace BE_V2.DataDB
                 entity.HasOne(d => d.Role).WithMany(p => p.Users)
                     .HasForeignKey(d => d.RoleId)
                     .HasConstraintName("FK__Users__RoleID__4BAC3F29");
+            });
+
+            modelBuilder.Entity<Cart>(entity =>
+            {
+                entity.HasKey(e => e.CartID).HasName("PK__Cart__2F36C7C22AAEDC89");
+
+                entity.ToTable("Cart");
+
+                entity.Property(e => e.CartID).HasColumnName("CartID");
+                entity.Property(e => e.UserID).HasColumnName("UserID");
+                entity.Property(e => e.CreatedAt).HasDefaultValueSql("GETDATE()");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.Carts)
+                    .HasForeignKey(d => d.UserID)
+                    .HasConstraintName("FK__Cart__UserID__2A4B4B5E");
+            });
+
+            modelBuilder.Entity<CartItem>(entity =>
+            {
+                entity.HasKey(e => e.CartItemID).HasName("PK__CartItem__3A4CA8E7AAB53760");
+
+                entity.ToTable("CartItem");
+
+                entity.Property(e => e.CartItemID).HasColumnName("CartItemID");
+                entity.Property(e => e.CartID).HasColumnName("CartID");
+                entity.Property(e => e.ProductID).HasColumnName("ProductID");
+                entity.Property(e => e.Quantity).IsRequired();
+                entity.Property(e => e.Price).HasColumnType("decimal(10, 2)").IsRequired();
+
+                entity.HasOne(d => d.Cart)
+                    .WithMany(p => p.CartItems)
+                    .HasForeignKey(d => d.CartID)
+                    .HasConstraintName("FK__CartItem__CartID__2B3F6F97");
+
+                entity.HasOne(d => d.Product)
+                    .WithMany(p => p.CartItems)
+                    .HasForeignKey(d => d.ProductID)
+                    .HasConstraintName("FK__CartItem__Product__2C3393D0");
             });
 
             OnModelCreatingPartial(modelBuilder);

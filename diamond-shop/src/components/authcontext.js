@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 // Create a context
 const AuthContext = createContext();
@@ -11,6 +12,7 @@ export function useAuth() {
 // Create a provider component
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     // Check if token and roleId are available in local storage
@@ -29,12 +31,13 @@ export function AuthProvider({ children }) {
     localStorage.setItem('roleId', roleId);
     setUser({ token, roleId: Number(roleId) });
   };
-  
 
   const logout = () => {
     localStorage.removeItem('token');
     localStorage.removeItem('roleId');
+    sessionStorage.removeItem('cart'); // Clear the cart
     setUser(null);
+    navigate('/login'); // Optionally navigate to the login page
   };
 
   const value = {
