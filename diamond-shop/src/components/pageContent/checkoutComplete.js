@@ -1,22 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import { Container, Paper, Typography, Grid, Divider, Box } from '@mui/material';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { routes } from '../../routes';
-import test from '../../constant/ThreeStone_ER.png'
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import { useAuth } from '../authcontext';
 import { jwtDecode } from 'jwt-decode';
 
-
 const MyComponent = () => {
-    return (
-        <CheckCircleIcon style={{ color: 'green' }} />
-    );
+    return <CheckCircleIcon style={{ color: 'green' }} />;
 };
 
-
 const OrderConfirmation = () => {
-    const [orderDetailData, setOrderDetailData] = useState([]);
+    const [orderDetails, setOrderDetails] = useState([]);
     const [productData, setProductData] = useState([]);
     const [customerInfo, setCustomerInfo] = useState({
         name: '',
@@ -26,16 +21,17 @@ const OrderConfirmation = () => {
     });
 
     const { user } = useAuth();
+    const location = useLocation();
 
-    const fetchOrderDetails = async () => {
+    const fetchOrderDetails = async (orderId) => {
         try {
-            const response = await fetch('https://localhost:7251/api/OrderDetails');
+            const response = await fetch(`https://localhost:7251/api/Orders/${orderId}`);
             if (!response.ok) {
                 throw new Error('Failed to fetch order details');
             }
             const data = await response.json();
-            setOrderDetailData(data);
-            console.log(data);
+            setOrderDetails(data.orderDetails || []);
+            console.log('Fetched order details:', data.orderDetails);
         } catch (error) {
             console.error('Error fetching order details:', error);
         }
@@ -48,7 +44,8 @@ const OrderConfirmation = () => {
                 throw new Error('Failed to fetch product data');
             }
             const data = await response.json();
-            setProductData(data);
+            setProductData(data || []);
+            console.log('Fetched product data:', data);
         } catch (error) {
             console.error('Error fetching product data:', error);
         }
@@ -56,73 +53,50 @@ const OrderConfirmation = () => {
 
     const fetchCustomerInfo = async (userId) => {
         try {
-            // Fetch data from both endpoints concurrently
-            const [userResponse, customerResponse] = await Promise.all([
-                fetch(`https://localhost:7251/api/Users/${userId}`),
-                fetch(`https://localhost:7251/api/Customers/User/${userId}`)
-            ]);
-
-            if (!userResponse.ok) {
-                throw new Error('Failed to fetch user info');
-            }
-
-            if (!customerResponse.ok) {
+            const response = await fetch(`https://localhost:7251/api/Customers/User/${userId}`);
+            if (!response.ok) {
                 throw new Error('Failed to fetch customer info');
             }
-
-            const userData = await userResponse.json();
-            const customerData = await customerResponse.json();
-
-            // Merge user and customer data
+            const data = await response.json();
             setCustomerInfo({
-                name: customerData.name,
-                phone: customerData.phoneNumber,
-                email: userData.email, // Assuming email is in userData
-                address: customerData.address
+                name: data.name,
+                phone: data.phoneNumber,
+                email: data.email,
+                address: data.address
             });
         } catch (error) {
-            console.error('Error fetching user or customer info:', error);
+            console.error('Error fetching customer info:', error);
         }
     };
-
-
-
-    const calculateTotal = () => {
-        return orderDetailData.reduce((total, item) => total + item.productPrice, 0).toFixed(2);
-    };
-
-    const order = orderDetailData.map(orderDetail => {
-        const product = productData.find(product => product.productId === orderDetail.productId);
-        return {
-            ...orderDetail,
-            size: product ? product.size : null // Add size from productData
-        };
-    });
 
     useEffect(() => {
         console.log('Current user:', user);
 
         if (user && user.token) {
+            const params = new URLSearchParams(location.search);
+            const orderId = params.get('orderId');
+            console.log('Order ID from URL:', orderId);
+
+            fetchOrderDetails(orderId);
+            fetchProductData();
+
             const decodedToken = jwtDecode(user.token);
             console.log('Decoded token:', decodedToken);
             const userId = decodedToken.unique_name; // Adjusted to use unique_name
-            fetchOrderDetails();
-            fetchProductData();
             fetchCustomerInfo(userId);
         } else {
             console.error('User or token is missing', user);
         }
     }, [user]);
 
-
     const findProductImage = (productId) => {
         const product = productData.find((p) => p.productId === productId);
         return product ? product.image1 : '/path/to/default.jpg';
     };
 
-
-
-
+    const calculateTotal = () => {
+        return orderDetails.reduce((total, item) => total + item.productPrice * item.quantity, 0).toFixed(2);
+    };
 
     return (
         <Container maxWidth="1440px" style={{ marginTop: '20px' }}>
@@ -156,12 +130,13 @@ const OrderConfirmation = () => {
                     <div style={{ display: 'flex', width: '100%', justifyContent: 'center', alignItems: 'flex-start' }}>
                         <div style={{ paddingRight: '5%' }}>
                             <Paper elevation={4} style={{ padding: '20px' }}>
-                                <Grid md={6} container spacing={3}>
-                                        {order && order.map((detail) => (
-                                            <Grid item xs={12} md={12}>
+                                <Grid container spacing={3}>
+                                    {orderDetails && orderDetails.length > 0 ? (
+                                        orderDetails.map((detail) => (
+                                            <Grid item xs={12} key={detail.orderDetailId}>
                                                 <Typography variant="h6">INFORMATION LINE #{detail.orderId}</Typography>
                                                 <Box style={{ display: 'flex', marginBottom: '2%', marginTop: '2%' }}>
-                                                    <img src={test} alt="Product" style={{ width: '100px', height: 'fit-content', marginRight: '10px' }} />
+                                                    <img src={findProductImage(detail.productId)} alt={detail.productName} style={{ width: '100px', height: 'fit-content', marginRight: '10px' }} />
                                                     <Box>
                                                         <Typography variant="subtitle1" style={{ fontSize: '1.5rem' }}>Product: {detail.productName}</Typography>
                                                         <Typography variant="body2" style={{ fontSize: '1.2rem' }}>Code: {detail.productId}</Typography>
@@ -172,23 +147,26 @@ const OrderConfirmation = () => {
                                                 </Box>
                                                 <Divider />
                                             </Grid>
-                                        ))}
-                                        <Grid  item xs={12} md={12}>
+                                        ))
+                                    ) : (
+                                        <Typography variant="subtitle2">No order details found.</Typography>
+                                    )}
+                                    <Grid item xs={12}>
                                         <Box style={{ marginTop: '10px', textAlign: 'left' }}>
-                                            <Typography variant="h6" color="error" style={{ fontSize: '1.5rem' }}>Total payment: {calculateTotal()}</Typography>
+                                            <Typography variant="h6" color="error" style={{ fontSize: '1.5rem' }}>Total payment: ${calculateTotal()}</Typography>
                                         </Box>
-                                        </Grid>
-                                        </Grid>
+                                    </Grid>
+                                </Grid>
                             </Paper>
                         </div>
 
                         <Paper elevation={3} style={{ padding: '20px' }}>
                             <Grid container spacing={3}>
-                                <Grid item xs={12} md={12}>
+                                <Grid item xs={12}>
                                     <Typography variant="h6" style={{ fontSize: '1.5rem' }}>RECEIVER'S INFORMATION</Typography>
                                     <Box style={{ marginBottom: '10px' }}>
-                                        <Typography variant="body2" style={{ fontSize: '1.2rem' }}><strong>Receiver:</strong>{customerInfo.name}</Typography>
-                                        <Typography variant="body2" style={{ fontSize: '1.2rem' }}><strong>Phone number:</strong>{customerInfo.phone}</Typography>
+                                        <Typography variant="body2" style={{ fontSize: '1.2rem' }}><strong>Receiver:</strong> {customerInfo.name}</Typography>
+                                        <Typography variant="body2" style={{ fontSize: '1.2rem' }}><strong>Phone number:</strong> {customerInfo.phone}</Typography>
                                     </Box>
                                     <Divider />
                                     <Box style={{ marginTop: '10px' }}>
@@ -200,9 +178,7 @@ const OrderConfirmation = () => {
                         </Paper>
                     </div>
                 </Box>
-
             </div>
-
         </Container>
     );
 };

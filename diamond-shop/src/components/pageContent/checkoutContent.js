@@ -14,6 +14,7 @@ const OrderComponent = () => {
         email: '',
         address: ''
     });
+    const [orderId, setOrderId] = useState(null);
     const { user } = useAuth();
     const location = useLocation();
     const navigate = useNavigate();
@@ -70,10 +71,11 @@ const OrderComponent = () => {
 
         if (user && user.token) {
             const params = new URLSearchParams(location.search);
-            const orderId = params.get('orderId');
-            console.log('Order ID from URL:', orderId);
+            const fetchedOrderId = params.get('orderId');
+            setOrderId(fetchedOrderId);
+            console.log('Order ID from URL:', fetchedOrderId);
 
-            fetchOrderDetails(orderId);
+            fetchOrderDetails(fetchedOrderId);
             fetchProductData();
 
             const decodedToken = jwtDecode(user.token);
@@ -92,7 +94,7 @@ const OrderComponent = () => {
 
     const handlePlaceOrder = () => {
         alert('Order placed successfully!');
-        navigate(routes.checkoutcomplete); // Update with your actual confirmation route
+        navigate(`${routes.checkoutcomplete}?orderId=${orderId}`); // Update with your actual confirmation route
     };
 
     return (
