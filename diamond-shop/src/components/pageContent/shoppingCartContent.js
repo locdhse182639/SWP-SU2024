@@ -4,6 +4,7 @@ import { routes } from '../../routes';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../authcontext';
+import { jwtDecode } from 'jwt-decode';
 
 const ShoppingCartContent = () => {
   const [cartItems, setCartItems] = useState([]);
@@ -11,16 +12,28 @@ const ShoppingCartContent = () => {
   const { user } = useAuth();
   const navigate = useNavigate();
 
+  const decodedToken = (token) => {
+    try {
+      const decoded = jwtDecode(token);
+      return decoded.unique_name;  // Adjust this to match your token's structure
+    } catch (error) {
+      console.error('Failed to decode token:', error);
+      return null;
+    }
+  };
+
   useEffect(() => {
     const fetchCartItems = async () => {
-      if (user && user.id) {
+      if (user && user.token) {
         try {
-          const response = await fetch(`https://localhost:7251/api/Cart/${user.id}`);
+          const userId = decodedToken(user.token);
+          const response = await fetch(`https://localhost:7251/api/Cart/User/${userId}`);
           if (!response.ok) {
             throw new Error('Failed to fetch cart items');
           }
           const data = await response.json();
-          setCartItems(data);
+          console.log('Cart Data:', data); // Log the response data
+          setCartItems(data.cartItems); // Ensure the correct path to cartItems in the response
         } catch (error) {
           console.error(error);
         }
@@ -124,15 +137,15 @@ const ShoppingCartContent = () => {
               <Grid container spacing={2}>
                 <Grid item xs={2}>
                   <img
-                    src={item.image1}
-                    alt={item.productName}
+                    src={item.product.image1}
+                    alt={item.product.productName}
                     style={{ maxWidth: '100%' }}
                   />
                 </Grid>
                 <Grid item xs={10} sx={{ display: 'flex', flexDirection: 'column' }}>
                   <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
                     <Typography variant="subtitle1">
-                      {item.productName}
+                      {item.product.productName}
                     </Typography>
                     <Link onClick={() => handleRemoveItem(index, item.cartItemId)} style={{ fontSize: '80%', color: 'black' }} underline="hover">
                       REMOVE
@@ -143,7 +156,7 @@ const ShoppingCartContent = () => {
                     <br />
                     Deposit: ${(item.price * depositPercentage / 100).toFixed(2)} (20%)
                     <br />
-                    Ring Size: {item.size}
+                    Ring Size: {item.product.size}
                   </Typography>
                 </Grid>
               </Grid>

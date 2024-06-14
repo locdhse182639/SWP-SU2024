@@ -126,7 +126,7 @@
 // }
 
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { AppBar, Toolbar, IconButton, Typography, Menu, MenuItem, Box } from '@mui/material';
 import PhoneIcon from '@mui/icons-material/Phone';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
@@ -141,10 +141,50 @@ import DropdownMenuUser from './dropdownUser';
 import { Link } from 'react-router-dom';
 import { routes } from '../routes';
 import { useAuth } from './authcontext';
+import { jwtDecode } from 'jwt-decode';
+import { Badge } from 'react-bootstrap';
+
+
 
 const Navbar = () => {
-  const [anchorEl, setAnchorEl] = React.useState(null);
+  const [anchorEl, setAnchorEl] = useState(null);
+  const [cartItemCount, setCartItemCount] = useState(0);
   const { user } = useAuth();
+
+  const decodedToken = (token) => {
+    try {
+      const decoded = jwtDecode(token);
+      return decoded.unique_name;  // Adjust this to match your token's structure
+    } catch (error) {
+      console.error('Failed to decode token:', error);
+      return null;
+    }
+  };
+
+  useEffect(() => {
+    const fetchCartItemCount = async () => {
+      try {
+        if (user && user.token) {
+          const userId = decodedToken(user.token);
+          if (!userId) throw new Error('Failed to decode user ID from token');
+          
+          console.log(`Fetching cart item count for user ID: ${userId}`);
+          
+          const response = await fetch(`https://localhost:7251/api/Cart/User/${userId}/Count`);
+          if (!response.ok) {
+            throw new Error('Failed to fetch cart item count');
+          }
+          const data = await response.json();
+          console.log(`Cart item count fetched: ${data}`);
+          setCartItemCount(data);
+        }
+      } catch (error) {
+        console.error('Error fetching cart item count:', error);
+      }
+    };
+
+    fetchCartItemCount();
+  }, [user]);
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -173,20 +213,28 @@ const Navbar = () => {
         </Box>
         <Box display="flex" alignItems="center">
           <IconButton color="inherit">
-          {user ? <DropdownMenuUser /> : <Link to={routes.login}><DropdownMenuUser /></Link>}
+            {user ? <DropdownMenuUser /> : <Link to={routes.login}><AccountCircleIcon /></Link>}
           </IconButton>
           <IconButton color="inherit">
             <FavoriteBorderIcon />
           </IconButton>
           <IconButton color="inherit">
-            <Link to={routes.shoppingCart}>
-              <ShoppingCartIcon />
-            </Link>
+            {user ? (
+              <Link to={routes.shoppingCart}>
+                <Badge badgeContent={cartItemCount} color="secondary">
+                  <ShoppingCartIcon />
+                </Badge>
+              </Link>
+            ) : (
+              <Link to={routes.login}>
+                <ShoppingCartIcon />
+              </Link>
+            )}
           </IconButton>
         </Box>
       </Toolbar>
       <Toolbar style={{ justifyContent: 'left' }}>
-        <Box display="flex" alignItems="center" >
+        <Box display="flex" alignItems="center">
           <Link to={routes.homePage}>
             <img src={logo} alt="Logo" style={{ height: '40px', marginRight: '10px' }} />
             <img src={logotext} alt="Luxe Jewel House" style={{ height: '20px', marginRight: '10px' }} />
@@ -198,28 +246,24 @@ const Navbar = () => {
             <ExpandMoreIcon />
           </IconButton>
         </Box>
-
         <Box key='Jewelry' display="flex" alignItems="center" mx={2}>
           <Typography variant="body1">Jewelry</Typography>
           <IconButton color="inherit" size="small" onClick={handleClick}>
             <ExpandMoreIcon />
           </IconButton>
         </Box>
-
         <Box key='Engagement Rings' display="flex" alignItems="center" mx={2}>
           <Typography variant="body1">Engagement Rings</Typography>
           <IconButton color="inherit" size="small" onClick={handleClick}>
             <ExpandMoreIcon />
           </IconButton>
         </Box>
-
         <Box key='Wedding Rings' display="flex" alignItems="center" mx={2}>
           <Typography variant="body1">Wedding Rings</Typography>
           <IconButton color="inherit" size="small" onClick={handleClick}>
             <ExpandMoreIcon />
           </IconButton>
         </Box>
-
         <Box key='Education' display="flex" alignItems="center" mx={2}>
           <Typography variant="body1">Education</Typography>
           <IconButton color="inherit" size="small" onClick={handleClick}>

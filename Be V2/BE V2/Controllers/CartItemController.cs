@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using BE_V2.DataDB;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -20,22 +19,38 @@ namespace BE_V2.Controllers
 
         // POST: api/CartItem
         [HttpPost]
-        public async Task<ActionResult<CartItem>> AddCartItem([FromBody] CartItem cartItem)
+        public async Task<ActionResult<CartItem>> AddCartItem([FromBody] CartItemDTO cartItemDTO)
         {
             var cart = await _context.Carts
                 .Include(c => c.CartItems)
-                .FirstOrDefaultAsync(c => c.UserID == cartItem.CartID);
+                .FirstOrDefaultAsync(c => c.CartID == cartItemDTO.CartID);
 
             if (cart == null)
             {
                 return NotFound("Cart not found.");
             }
 
-            cartItem.CartID = cart.CartID;
-            cart.CartItems.Add(cartItem);
+            var existingCartItem = cart.CartItems.FirstOrDefault(ci => ci.ProductID == cartItemDTO.ProductID);
+            if (existingCartItem != null)
+            {
+                existingCartItem.Quantity += cartItemDTO.Quantity;
+                _context.Entry(existingCartItem).State = EntityState.Modified;
+            }
+            else
+            {
+                var cartItem = new CartItem
+                {
+                    CartID = cartItemDTO.CartID,
+                    ProductID = cartItemDTO.ProductID,
+                    Quantity = cartItemDTO.Quantity,
+                    Price = cartItemDTO.Price
+                };
+                cart.CartItems.Add(cartItem);
+            }
+
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction(nameof(GetCartItem), new { id = cartItem.CartItemID }, cartItem);
+            return CreatedAtAction(nameof(GetCartItem), new { id = cartItemDTO.CartID }, cartItemDTO);
         }
 
         // GET: api/CartItem/{id}

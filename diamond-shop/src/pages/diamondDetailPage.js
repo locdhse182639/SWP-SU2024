@@ -12,6 +12,7 @@ import '../css/diamondDetailPage.css';
 import NavBar from '../components/navBar';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useAuth } from '../components/authcontext';
+import { jwtDecode } from 'jwt-decode';
 
 const DiamondDetailPage = () => {
   const { id } = useParams();
@@ -45,16 +46,34 @@ const DiamondDetailPage = () => {
     setExpandedSection(expandedSection === section ? null : section);
   };
 
-  const handleSelectProduct = () => {
+  const handleSelectProduct = async () => {
     if (!user) {
-      navigate('/login');
+        navigate('/login');
     } else {
-      const cart = JSON.parse(sessionStorage.getItem('cart')) || [];
-      cart.push(product);
-      sessionStorage.setItem('cart', JSON.stringify(cart));
-      alert('Product added to cart');
+        try {
+            const response = await fetch('https://localhost:7251/api/CartItem', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    cartID: 1, // Replace with actual cart ID
+                    productID: product.productId,
+                    quantity: 1,
+                    price: product.price,
+                }),
+            });
+
+            if (!response.ok) {
+                throw new Error('Failed to add item to cart');
+            }
+
+            alert('Product added to cart');
+        } catch (error) {
+            console.error('Error selecting product:', error);
+        }
     }
-  };
+};
 
   if (loading) return <div>Loading...</div>;
   if (error) return <div>Error: {error}</div>;
@@ -63,6 +82,7 @@ const DiamondDetailPage = () => {
   const isDiamond = product.productType === 1;
   const depositPercentage = 20; // 20% deposit
   const depositAmount = product ? (product.price * depositPercentage) / 100 : 0;
+
 
   return (
     <div>

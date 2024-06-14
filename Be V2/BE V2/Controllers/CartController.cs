@@ -40,7 +40,7 @@ namespace BE_V2.Controllers
             _context.Carts.Add(cart);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction(nameof(GetCart), new { userId = cart.UserID }, cart);
+            return CreatedAtAction(nameof(GetCartByUserId), new { userId = cart.UserID }, cart);
         }
 
         // GET: api/Cart/{userId}
@@ -59,6 +59,38 @@ namespace BE_V2.Controllers
 
             return cart.CartItems.ToList();
         }
+
+        [HttpGet("User/{userId}/Count")]
+        public async Task<ActionResult<int>> GetCartItemCount(int userId)
+        {
+            var cart = await _context.Carts.Include(c => c.CartItems)
+                                           .FirstOrDefaultAsync(c => c.UserID == userId);
+
+            if (cart == null)
+            {
+                return NotFound(new { Message = "Cart not found for userId: " + userId });
+            }
+
+            return Ok(cart.CartItems.Count);
+        }
+
+        [HttpGet("User/{userId}")]
+        public async Task<ActionResult<Cart>> GetCartByUserId(int userId)
+        {
+            var cart = await _context.Carts
+                .Include(c => c.CartItems)
+                .ThenInclude(ci => ci.Product)
+                .FirstOrDefaultAsync(c => c.UserID == userId);
+
+            if (cart == null)
+            {
+                return NotFound();
+            }
+
+            return cart;
+        }
+
+
 
         private bool CartExists(int userId)
         {
