@@ -156,7 +156,7 @@ const Navbar = () => {
       const decoded = jwtDecode(token);
       return decoded.unique_name;  // Adjust this to match your token's structure
     } catch (error) {
-      console.error('Failed to decode token:', error);
+      // console.error('Failed to decode token:', error);
       return null;
     }
   };
@@ -168,18 +168,18 @@ const Navbar = () => {
           const userId = decodedToken(user.token);
           if (!userId) throw new Error('Failed to decode user ID from token');
           
-          console.log(`Fetching cart item count for user ID: ${userId}`);
+          // console.log(`Fetching cart item count for user ID: ${userId}`);
           
           const response = await fetch(`https://localhost:7251/api/Cart/User/${userId}/Count`);
           if (!response.ok) {
-            throw new Error('Failed to fetch cart item count');
+            // throw new Error('Failed to fetch cart item count');
           }
           const data = await response.json();
-          console.log(`Cart item count fetched: ${data}`);
+          // console.log(`Cart item count fetched: ${data}`);
           setCartItemCount(data);
         }
       } catch (error) {
-        console.error('Error fetching cart item count:', error);
+        // console.error('Error fetching cart item count:', error);
       }
     };
 

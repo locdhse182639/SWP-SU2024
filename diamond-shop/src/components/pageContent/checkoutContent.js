@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { Container, TextField, Button, Grid, Typography, Paper } from '@mui/material';
-import { routes } from '../../routes';
 import { useAuth } from '../authcontext';
-import { jwtDecode } from 'jwt-decode';
+import { useLocation, useNavigate } from 'react-router-dom';
+import {jwtDecode} from 'jwt-decode';
+import { routes } from '../../routes';
 
 const OrderComponent = () => {
     const [orderDetails, setOrderDetails] = useState([]);
@@ -14,15 +15,19 @@ const OrderComponent = () => {
         address: ''
     });
     const { user } = useAuth();
+    const location = useLocation();
+    const navigate = useNavigate();
 
-    const fetchOrderDetails = async () => {
+    const fetchOrderDetails = async (orderId) => {
         try {
-            const response = await fetch('https://localhost:7251/api/OrderDetails');
+            console.log(`Fetching order details for orderId: ${orderId}`);
+            const response = await fetch(`https://localhost:7251/api/Orders/${orderId}`);
             if (!response.ok) {
                 throw new Error('Failed to fetch order details');
             }
             const data = await response.json();
-            setOrderDetails(data);
+            console.log('Fetched order data:', data);
+            setOrderDetails(data.orderDetails || []);
         } catch (error) {
             console.error('Error fetching order details:', error);
         }
@@ -35,7 +40,8 @@ const OrderComponent = () => {
                 throw new Error('Failed to fetch product data');
             }
             const data = await response.json();
-            setProductData(data);
+            console.log('Fetched product data:', data);
+            setProductData(data || []);
         } catch (error) {
             console.error('Error fetching product data:', error);
         }
@@ -63,11 +69,16 @@ const OrderComponent = () => {
         console.log('Current user:', user);
 
         if (user && user.token) {
+            const params = new URLSearchParams(location.search);
+            const orderId = params.get('orderId');
+            console.log('Order ID from URL:', orderId);
+
+            fetchOrderDetails(orderId);
+            fetchProductData();
+
             const decodedToken = jwtDecode(user.token);
             console.log('Decoded token:', decodedToken);
             const userId = decodedToken.unique_name; // Adjusted to use unique_name
-            fetchOrderDetails();
-            fetchProductData();
             fetchCustomerInfo(userId);
         } else {
             console.error('User or token is missing', user);
@@ -79,6 +90,11 @@ const OrderComponent = () => {
         return product ? product.image1 : '/path/to/default.jpg';
     };
 
+    const handlePlaceOrder = () => {
+        alert('Order placed successfully!');
+        navigate(routes.checkoutcomplete); // Update with your actual confirmation route
+    };
+
     return (
         <Container maxWidth="lg" style={{ marginTop: '20px' }}>
             <Typography variant="h4" style={{ marginBottom: '20px', textAlign: 'center' }}>Secure Checkout</Typography>
@@ -86,23 +102,27 @@ const OrderComponent = () => {
                 <Grid item xs={12} md={7}>
                     <Paper elevation={3} style={{ padding: '20px', marginBottom: '20px' }}>
                         <Typography variant="h6">Order Details</Typography>
-                        {orderDetails && orderDetails.map((detail) => (
-                            <Grid container spacing={2} key={detail.orderDetailId} style={{ marginBottom: '10px' }}>
-                                <Grid item xs={3}>
-                                    <img src={findProductImage(detail.productId)} alt={detail.productName} style={{ width: '100%' }} />
+                        {orderDetails && orderDetails.length > 0 ? (
+                            orderDetails.map((detail) => (
+                                <Grid container spacing={2} key={detail.orderDetailId} style={{ marginBottom: '10px' }}>
+                                    <Grid item xs={3}>
+                                        <img src={findProductImage(detail.productId)} alt={detail.productName} style={{ width: '100%' }} />
+                                    </Grid>
+                                    <Grid item xs={9}>
+                                        <Typography variant="subtitle1">{detail.productName}</Typography>
+                                        <Typography variant="subtitle2">Price: ${detail.productPrice}</Typography>
+                                        <Typography variant="subtitle2">Quantity: {detail.quantity}</Typography>
+                                    </Grid>
                                 </Grid>
-                                <Grid item xs={9}>
-                                    <Typography variant="subtitle1">{detail.productName}</Typography>
-                                    <Typography variant="subtitle2">Price: ${detail.productPrice}</Typography>
-                                    <Typography variant="subtitle2">Quantity: {detail.quantity}</Typography>
-                                </Grid>
-                            </Grid>
-                        ))}
+                            ))
+                        ) : (
+                            <Typography variant="subtitle2">No order details found.</Typography>
+                        )}
                         <Typography variant="subtitle2" style={{ marginTop: '10px' }}>
-                            Subtotal: ${orderDetails ? orderDetails.reduce((acc, detail) => acc + detail.productPrice * detail.quantity, 0) : 0}
+                            Subtotal: ${orderDetails.reduce((acc, detail) => acc + detail.productPrice * detail.quantity, 0)}
                         </Typography>
                         <Typography variant="subtitle2">Shipping: Free</Typography>
-                        <Typography variant="subtitle1">Total: ${orderDetails ? orderDetails.reduce((acc, detail) => acc + detail.productPrice * detail.quantity, 0) : 0}</Typography>
+                        <Typography variant="subtitle1">Total: ${orderDetails.reduce((acc, detail) => acc + detail.productPrice * detail.quantity, 0)}</Typography>
                     </Paper>
                 </Grid>
                 <Grid item xs={12} md={5}>
@@ -160,10 +180,10 @@ const OrderComponent = () => {
                         </Grid>
                     </Paper>
                     <Button
-                        href={routes.checkoutcomplete}
                         variant="contained"
                         fullWidth
                         sx={{ backgroundColor: 'black', color: 'white', '&:hover': { backgroundColor: 'black' } }}
+                        onClick={handlePlaceOrder}
                     >
                         Place Order
                     </Button>

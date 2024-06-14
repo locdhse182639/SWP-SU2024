@@ -21,9 +21,7 @@ namespace BE_V2.Controllers
         [HttpPost]
         public async Task<ActionResult<CartItem>> AddCartItem([FromBody] CartItemDTO cartItemDTO)
         {
-            var cart = await _context.Carts
-                .Include(c => c.CartItems)
-                .FirstOrDefaultAsync(c => c.CartID == cartItemDTO.CartID);
+            var cart = await _context.Carts.Include(c => c.CartItems).FirstOrDefaultAsync(c => c.CartID == cartItemDTO.CartID);
 
             if (cart == null)
             {
@@ -57,9 +55,7 @@ namespace BE_V2.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<CartItem>> GetCartItem(int id)
         {
-            var cartItem = await _context.CartItems
-                .Include(ci => ci.Product)
-                .FirstOrDefaultAsync(ci => ci.CartItemID == id);
+            var cartItem = await _context.CartItems.Include(ci => ci.Product).FirstOrDefaultAsync(ci => ci.CartItemID == id);
 
             if (cartItem == null)
             {
@@ -101,10 +97,9 @@ namespace BE_V2.Controllers
 
         // DELETE: api/CartItem/{id}
         [HttpDelete("{id}")]
-        public async Task<IActionResult> RemoveCartItem(int id)
+        public async Task<IActionResult> DeleteCartItem(int id)
         {
             var cartItem = await _context.CartItems.FindAsync(id);
-
             if (cartItem == null)
             {
                 return NotFound();

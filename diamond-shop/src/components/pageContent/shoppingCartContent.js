@@ -47,7 +47,9 @@ const ShoppingCartContent = () => {
   }, [user]);
 
   const handleRemoveItem = async (index, cartItemId) => {
-    if (user && cartItemId) {
+    console.log('Removing item:', index, cartItemId); // Add logging to debug
+
+    if (user && cartItemId) {  // Ensure the user is authenticated and the cart item has an ID
       try {
         const response = await fetch(`https://localhost:7251/api/CartItem/${cartItemId}`, {
           method: 'DELETE',
@@ -57,15 +59,29 @@ const ShoppingCartContent = () => {
           throw new Error('Failed to remove item from cart');
         }
 
+        // Remove item from local state
         const updatedCart = cartItems.filter((item, i) => i !== index);
         setCartItems(updatedCart);
+
+        // Check if the cart is empty and delete the cart if it is
+        if (updatedCart.length === 0) {
+          const userId = decodedToken(user.token);
+          const cartResponse = await fetch(`https://localhost:7251/api/Cart/User/${userId}/Count`);
+          if (cartResponse.ok) {
+            const itemCount = await cartResponse.json();
+            if (itemCount === 0) {
+              const cart = await fetch(`https://localhost:7251/api/Cart/User/${userId}`).then(res => res.json());
+              await fetch(`https://localhost:7251/api/Cart/${cart.cartID}`, {
+                method: 'DELETE',
+              });
+            }
+          }
+        }
       } catch (error) {
-        console.error(error);
+        console.error('Error removing item from cart:', error);
       }
     } else {
-      const updatedCart = cartItems.filter((item, i) => i !== index);
-      setCartItems(updatedCart);
-      sessionStorage.setItem('cart', JSON.stringify(updatedCart));
+      console.error('User or cartItemId does not exist', user, cartItemId); // Add logging to debug
     }
   };
 
@@ -82,20 +98,28 @@ const ShoppingCartContent = () => {
       navigate(routes.login);
       return;
     }
-
-    const order = {
-      customerId: user.id,
-      totalPrice: parseFloat(calculateTotal()),
-      orderDate: new Date().toISOString().split('T')[0],
-      orderDetails: cartItems.map(item => ({
-        productId: item.productId,
-        productName: item.productName,
-        productPrice: item.price,
-        quantity: 1 // Assuming quantity is 1 for simplicity
-      }))
-    };
-
+  
     try {
+      // Fetch customer ID based on the user ID
+      const userId = decodedToken(user.token);
+      const customerResponse = await fetch(`https://localhost:7251/api/Customers/User/${userId}`);
+      if (!customerResponse.ok) {
+        throw new Error('Failed to fetch customer data');
+      }
+      const customerData = await customerResponse.json();
+  
+      const order = {
+        userId: userId,
+        totalPrice: parseFloat(calculateTotal()),
+        orderDate: new Date().toISOString(),
+        orderDetails: cartItems.map(item => ({
+          productId: item.product.productId,
+          productName: item.product.productName,
+          productPrice: item.price,
+          quantity: item.quantity
+        }))
+      };
+  
       const response = await fetch('https://localhost:7251/api/Orders', {
         method: 'POST',
         headers: {
@@ -103,21 +127,23 @@ const ShoppingCartContent = () => {
         },
         body: JSON.stringify(order),
       });
-
+  
       if (!response.ok) {
         throw new Error('Failed to create order');
       }
-
+  
+      const createdOrder = await response.json(); // Assuming the response contains the created order with orderId
+  
       // Clear the cart after successful order creation
       setCartItems([]);
-      sessionStorage.removeItem('cart');
       alert('Order created successfully!');
-      navigate(routes.checkout, { state: { orderDetails: order.orderDetails, payments: [{ PaymentID: 1, OrderID: 1, Deposit: calculateTotalDeposit(), Total: calculateTotal() }] } });
+      navigate(`${routes.checkout}?orderId=${createdOrder.orderId}`); // Pass the orderId to the OrderComponent
     } catch (error) {
       console.error(error);
       alert('Failed to create order');
     }
   };
+
 
   return (
     <Box sx={{ padding: 4, maxWidth: '1200px', margin: 'auto' }}>
@@ -147,7 +173,7 @@ const ShoppingCartContent = () => {
                     <Typography variant="subtitle1">
                       {item.product.productName}
                     </Typography>
-                    <Link onClick={() => handleRemoveItem(index, item.cartItemId)} style={{ fontSize: '80%', color: 'black' }} underline="hover">
+                    <Link onClick={() => handleRemoveItem(index, item.cartItemID)} style={{ fontSize: '80%', color: 'black' }} underline="hover">
                       REMOVE
                     </Link>
                   </Box>
