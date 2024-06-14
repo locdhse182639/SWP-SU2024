@@ -15,6 +15,7 @@ const ShoppingCartContent = () => {
   const decodedToken = (token) => {
     try {
       const decoded = jwtDecode(token);
+      console.log(decoded)
       return decoded.unique_name;  // Adjust this to match your token's structure
     } catch (error) {
       console.error('Failed to decode token:', error);
