@@ -4,6 +4,7 @@ import { styled } from '@mui/system';
 import PaginationControlled from './pagination';
 import { Link } from 'react-router-dom';
 import { routes } from '../routes';
+import IconCheckboxes from './checkBox';
 
 const StyledCard = styled(Card)({
     border: '1px solid #ddd',
@@ -92,6 +93,9 @@ const ProductCard = ({ products }) => {
                                     <PriceTypography variant="h6" component="p" style={{ color: 'black' }}>
                                         Price: {product.price} ₫
                                     </PriceTypography>
+                                    <div style={{ display: 'flex', alignItems: 'left' }}>
+                                        <IconCheckboxes />
+                                    </div>
                                 </StyledCardContent>
                             </StyledCard>
                         </Link>
@@ -104,7 +108,7 @@ const ProductCard = ({ products }) => {
                     page={page}
                     onChange={handleChangePage} />
             </div>
-        </div>
+        </div >
     );
 };
 
