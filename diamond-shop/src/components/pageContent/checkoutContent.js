@@ -1,9 +1,48 @@
 import React, { useState, useEffect } from 'react';
-import { Container, TextField, Button, Grid, Typography, Paper } from '@mui/material';
+import { Container, TextField, Button, Grid, Typography, Paper, Dialog, DialogContent, DialogActions } from '@mui/material';
 import { useAuth } from '../authcontext';
 import { useLocation, useNavigate } from 'react-router-dom';
 import {jwtDecode} from 'jwt-decode';
 import { routes } from '../../routes';
+import { loadStripe } from '@stripe/stripe-js';
+import { Elements, CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
+
+const stripePromise = loadStripe('pk_test_51PSbFdKR5DFR0i2ROV0LuBgiZKkYE5emvJqy7LfRqjaLC4XyWTXw7KR4LRMxgpKFZhd6SwH5d8FAPJSvWHJHSqZn009MaycEOo'); // Replace with your actual publishable key
+
+const CheckoutForm = ({ handleClose, handlePaymentSuccess, deposit }) => {
+    const stripe = useStripe();
+    const elements = useElements();
+
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+
+        if (!stripe || !elements) {
+            return;
+        }
+
+        const cardElement = elements.getElement(CardElement);
+
+        const { error, paymentMethod } = await stripe.createPaymentMethod({
+            type: 'card',
+            card: cardElement,
+        });
+
+        if (error) {
+            console.error(error);
+        } else {
+            handlePaymentSuccess(paymentMethod.id, deposit);
+        }
+    };
+
+    return (
+        <form onSubmit={handleSubmit}>
+            <CardElement options={{ style: { base: { fontSize: '18px' } } }} />
+            <Button type="submit" disabled={!stripe} variant="contained" fullWidth style={{ marginTop: '20px' }}>
+                Pay ${deposit}
+            </Button>
+        </form>
+    );
+};
 
 const OrderComponent = () => {
     const [orderDetails, setOrderDetails] = useState([]);
@@ -15,19 +54,18 @@ const OrderComponent = () => {
         address: ''
     });
     const [orderId, setOrderId] = useState(null);
+    const [open, setOpen] = useState(false);
     const { user } = useAuth();
     const location = useLocation();
     const navigate = useNavigate();
 
     const fetchOrderDetails = async (orderId) => {
         try {
-            console.log(`Fetching order details for orderId: ${orderId}`);
             const response = await fetch(`https://localhost:7251/api/Orders/${orderId}`);
             if (!response.ok) {
                 throw new Error('Failed to fetch order details');
             }
             const data = await response.json();
-            console.log('Fetched order data:', data);
             setOrderDetails(data.orderDetails || []);
         } catch (error) {
             console.error('Error fetching order details:', error);
@@ -41,7 +79,6 @@ const OrderComponent = () => {
                 throw new Error('Failed to fetch product data');
             }
             const data = await response.json();
-            console.log('Fetched product data:', data);
             setProductData(data || []);
         } catch (error) {
             console.error('Error fetching product data:', error);
@@ -67,20 +104,16 @@ const OrderComponent = () => {
     };
 
     useEffect(() => {
-        console.log('Current user:', user);
-
         if (user && user.token) {
             const params = new URLSearchParams(location.search);
             const fetchedOrderId = params.get('orderId');
             setOrderId(fetchedOrderId);
-            console.log('Order ID from URL:', fetchedOrderId);
 
             fetchOrderDetails(fetchedOrderId);
             fetchProductData();
 
             const decodedToken = jwtDecode(user.token);
-            console.log('Decoded token:', decodedToken);
-            const userId = decodedToken.unique_name; // Adjusted to use unique_name
+            const userId = decodedToken.unique_name;
             fetchCustomerInfo(userId);
         } else {
             console.error('User or token is missing', user);
@@ -93,9 +126,53 @@ const OrderComponent = () => {
     };
 
     const handlePlaceOrder = () => {
-        alert('Order placed successfully!');
-        navigate(`${routes.checkoutcomplete}?orderId=${orderId}`); // Update with your actual confirmation route
+        setOpen(true);
     };
+
+    const handleClose = () => {
+        setOpen(false);
+    };
+
+    const handlePaymentSuccess = async (paymentMethodId, deposit) => {
+        const total = calculateTotalAmount();
+        const amountPaid = total - deposit;
+
+        try {
+            const response = await fetch('https://localhost:7251/api/Payment/complete-payment', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    orderId,
+                    deposit,
+                    amountPaid,
+                    total
+                })
+            });
+
+            if (response.ok) {
+                setOpen(false);
+                navigate(`${routes.checkoutcomplete}?orderId=${orderId}`);
+            } else {
+                console.error('Failed to complete payment');
+            }
+        } catch (error) {
+            console.error('Error completing payment:', error);
+        }
+    };
+
+    const calculateTotalAmount = () => {
+        return orderDetails.reduce((acc, detail) => acc + detail.productPrice * detail.quantity, 0);
+    };
+
+    const calculateTotalDeposit = () => {
+        const total = calculateTotalAmount();
+        return (total * 0.20).toFixed(2);
+    };
+
+    const totalAmount = calculateTotalAmount();
+    const totalDeposit = calculateTotalDeposit();
 
     return (
         <Container maxWidth="lg" style={{ marginTop: '20px' }}>
@@ -104,7 +181,7 @@ const OrderComponent = () => {
                 <Grid item xs={12} md={7}>
                     <Paper elevation={3} style={{ padding: '20px', marginBottom: '20px' }}>
                         <Typography variant="h6">Order Details</Typography>
-                        {orderDetails && orderDetails.length > 0 ? (
+                        {orderDetails.length > 0 ? (
                             orderDetails.map((detail) => (
                                 <Grid container spacing={2} key={detail.orderDetailId} style={{ marginBottom: '10px' }}>
                                     <Grid item xs={3}>
@@ -121,10 +198,10 @@ const OrderComponent = () => {
                             <Typography variant="subtitle2">No order details found.</Typography>
                         )}
                         <Typography variant="subtitle2" style={{ marginTop: '10px' }}>
-                            Subtotal: ${orderDetails.reduce((acc, detail) => acc + detail.productPrice * detail.quantity, 0)}
+                            Subtotal: ${totalAmount}
                         </Typography>
                         <Typography variant="subtitle2">Shipping: Free</Typography>
-                        <Typography variant="subtitle1">Total: ${orderDetails.reduce((acc, detail) => acc + detail.productPrice * detail.quantity, 0)}</Typography>
+                        <Typography variant="subtitle1">Total: ${totalAmount}</Typography>
                     </Paper>
                 </Grid>
                 <Grid item xs={12} md={5}>
@@ -180,6 +257,9 @@ const OrderComponent = () => {
                                 />
                             </Grid>
                         </Grid>
+                        <Typography variant="h6" style={{ marginTop: '20px' }}>Payment Information</Typography>
+                        <Typography variant="subtitle2">Deposit (20%): ${totalDeposit}</Typography>
+                        {/* <Typography variant="subtitle2">Amount to be Paid: ${totalAmount - totalDeposit}</Typography> */}
                     </Paper>
                     <Button
                         variant="contained"
@@ -191,6 +271,18 @@ const OrderComponent = () => {
                     </Button>
                 </Grid>
             </Grid>
+            <Dialog open={open} onClose={handleClose}>
+                <DialogContent>
+                    <Elements stripe={stripePromise}>
+                        <CheckoutForm handleClose={handleClose} handlePaymentSuccess={handlePaymentSuccess} deposit={totalDeposit} />
+                    </Elements>
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={handleClose} color="secondary">
+                        Cancel
+                    </Button>
+                </DialogActions>
+            </Dialog>
         </Container>
     );
 };
