@@ -1,126 +1,118 @@
 import React from 'react';
-import '../../css/dropContentDiamond.css'
+import '../../css/dropContentDiamond.css';
 import { routes } from '../../routes';
 import { Link } from 'react-router-dom';
-import giaImg from '../../constant/diamond-gia.png'
+import giaImg from '../../constant/diamond-gia.png';
 
-const DropContentDiamond = () => {  
+const DropContentDiamond = () => {
   return (
-    <div className='container-diamond'>
-      <div className="dropdown" style={{ width: '100%' }}>
-        <div className="dropdown-menu">
-          <div className='dropdown-menu-1'>
-            <div style={{ margin: '0' }} className='first-row'>
-              <a>
-                <h4
-                  style={{ fontSize: '25px', paddingTop: '5px', marginTop: '0', paddingLeft: '40px', marginBottom: '0' }}
-                >
-                  Shop Diamonds By Shape</h4>
-              </a>
-              <div className='diamond-shape' style={{ width: '40%' }}>
-                <div className='diamond-shape-left'>
+    <div className='navbarDropdown-container-diamond'>
+      <div className="navbarDropdown">
+        <div className="navbarDropdown-menu">
+          <div className='navbarDropdown-menu-1'>
+            <div className='navbarDropdown-first-row'>
+              <h4 style={{ fontSize: '150%', paddingTop: '5px', marginTop: '0', marginBottom: '0', fontWeight:'600' }}>
+                Shop Diamonds By Shape
+              </h4>
+              <div className='navbarDropdown-diamond-shape'>
+                <div className='navbarDropdown-diamond-shape-left'>
                   <Link to={routes.diamondList}>
-                    <div className='diamond-item1'>
-                      <img src='../assets/images/Round_Cut_Diamonds.png' />
+                    <div className='navbarDropdown-diamond-item1'>
+                      <img src='../assets/images/Round_Cut_Diamonds.png' alt="Round" />
                       <p>Round</p>
                     </div>
                   </Link>
                   <Link to={routes.diamondList}>
-                    <div className='diamond-item1'>
-                      <img src='../assets/images/Princess_Cut_Diamonds.png' />
+                    <div className='navbarDropdown-diamond-item1'>
+                      <img src='../assets/images/Princess_Cut_Diamonds.png' alt="Princess" />
                       <p>Princess</p>
                     </div>
                   </Link>
                   <Link to={routes.diamondList}>
-                    <div className='diamond-item1'>
-                      <img src='../assets/images/Emerald_Cut_Diamonds.png' />
+                    <div className='navbarDropdown-diamond-item1'>
+                      <img src='../assets/images/Emerald_Cut_Diamonds.png' alt="Emerald" />
                       <p>Emerald</p>
                     </div>
                   </Link>
                   <Link to={routes.diamondList}>
-                    <div className='diamond-item1'>
-                      <img src='../assets/images/Cushion_Shaped_Diamonds.png' />
+                    <div className='navbarDropdown-diamond-item1'>
+                      <img src='../assets/images/Cushion_Cut_Diamonds.png' alt="Cushion" />
                       <p>Cushion</p>
                     </div>
                   </Link>
                   <Link to={routes.diamondList}>
-                    <div className='diamond-item1'>
-                      <img src='../assets/images/Marquise_Cut_Diamonds.png' />
+                    <div className='navbarDropdown-diamond-item1'>
+                      <img src='../assets/images/Marquise_Cut_Diamonds.png' alt="Marquise" />
                       <p>Marquise</p>
                     </div>
                   </Link>
                 </div>
-
-                <div className='diamond-shape-right'>
+                <div className='navbarDropdown-diamond-shape-right'>
                   <Link to={routes.diamondList}>
-                    <div className='diamond-item1'>
-                      <img src='../assets/images/Radiant_Cut_Diamonds.png' />
+                    <div className='navbarDropdown-diamond-item1'>
+                      <img src='../assets/images/Radiant_Cut_Diamonds.png' alt="Radiant" />
                       <p>Radiant</p>
                     </div>
                   </Link>
                   <Link to={routes.diamondList}>
-                    <div className='diamond-item1'>
-                      <img src='../assets/images/Emerald_Cut_Diamonds.png' />
+                    <div className='navbarDropdown-diamond-item1'>
+                      <img src='../assets/images/Emerald_Cut_Diamonds.png' alt="Emerald" />
                       <p>Emerald</p>
                     </div>
                   </Link>
                   <Link to={routes.diamondList}>
-                    <div className='diamond-item1'>
-                      <img src='../assets/images/Oval_Cut_Diamonds.png' />
+                    <div className='navbarDropdown-diamond-item1'>
+                      <img src='../assets/images/Oval_Cut_Diamonds.png' alt="Oval" />
                       <p>Oval</p>
                     </div>
                   </Link>
                   <Link to={routes.diamondList}>
-                    <div className='diamond-item1'>
-                      <img src='../assets/images/Pear_Shaped_Diamonds.png' />
+                    <div className='navbarDropdown-diamond-item1'>
+                      <img src='../assets/images/Pear_Cut_Diamonds.png' alt="Pear" />
                       <p>Pear</p>
                     </div>
                   </Link>
                   <Link to={routes.diamondList}>
-                    <div className='diamond-item1'>
-                      <img src='../assets/images/Heart_Shaped_Diamonds.png' />
+                    <div className='navbarDropdown-diamond-item1'>
+                      <img src='../assets/images/Heart_Cut_Diamonds.png' alt="Heart" />
                       <p>Heart</p>
                     </div>
                   </Link>
                 </div>
               </div>
             </div>
-            <div style={{ width: '20%' }} className='second-row'>
-              <div className='second-row-content'>
-                <a>
-                  <h4
-                    style={{ fontSize: '25px', paddingTop: '5px', marginTop: '0', paddingLeft: '0px', marginBottom: '0' }}
-                  >
-                    Build Your Own Jewelry</h4>
-                </a>
-                <a style={{ paddingTop: '5px', marginTop: '0', paddingLeft: '20px', marginBottom: '0', fontSize: '20px' }}>
+            <div className='navbarDropdown-second-row'>
+              <div className='navbarDropdown-second-row-content'>
+                <div style={{marginBottom:'6%'}}>
+                <h4 style={{ fontSize: '150%', paddingTop: '5%', marginTop: '0', paddingLeft: '0px', marginBottom: '0' }}>
+                  Build Your Own Jewelry
+                </h4>
+                <Link to={routes.diamondList} style={{ paddingTop: '5px', marginTop: '0', paddingLeft: '0', marginBottom: '0', fontSize: '20px' }}>
                   Rings
-                </a>
-                <a>
-                  <h4
-                    style={{ fontSize: '25px', paddingTop: '5px', marginTop: '0', paddingLeft: '0px', marginBottom: '0' }}
-                  >
-                    Learn About</h4>
-                </a>
-                <a style={{ paddingTop: '5px', marginTop: '0', paddingLeft: '20px', marginBottom: '0', fontSize: '20px' }}>
+                </Link>
+                </div>
+                <h4 style={{ fontSize: '25px', paddingTop: '5px', marginTop: '0', paddingLeft: '0px', marginBottom: '0' }}>
+                  Learn About
+                </h4>
+                <Link to={routes.diamondList} style={{ paddingTop: '5px', marginTop: '0', paddingLeft: '0', marginBottom: '0', fontSize: '20px' }}>
                   How Shape Affects Price
-                </a>
-                <a style={{ paddingTop: '5px', marginTop: '0', paddingLeft: '20px', marginBottom: '0', fontSize: '20px' }}>
+                </Link>
+                <Link to={routes.diamondList} style={{ paddingTop: '5px', marginTop: '0', paddingLeft: '0', marginBottom: '0', fontSize: '20px' }}>
                   Learn About the 4Cs
-                </a>
-                <a style={{ paddingTop: '5px', marginTop: '0', paddingLeft: '20px', marginBottom: '0', fontSize: '20px' }}>
+                </Link>
+                <Link to={routes.diamondList} style={{ paddingTop: '5px', marginTop: '0', paddingLeft: '0', marginBottom: '0', fontSize: '20px' }}>
                   Ethically Sourced
-                </a>
-                <a style={{ paddingTop: '5px', marginTop: '0', paddingLeft: '20px', marginBottom: '0', fontSize: '20px' }}>
+                </Link>
+                <Link to={routes.diamondList} style={{ paddingTop: '5px', marginTop: '0', paddingLeft: '0', marginBottom: '0', fontSize: '20px' }}>
                   Diamond Sustainability
-                </a>
+                </Link>
               </div>
             </div>
-            <div className='third-row' style={{ width: '50%' }}>
-              <img style={{ width: '50%', height: '300px', paddingTop: '30px' }} src={giaImg} />
-              <a style={{ marginBottom: '0', fontSize: '20px' }}>
+            <div className='navbarDropdown-third-row'>
+              <img style={{ width: '50%', height: '300px', paddingTop: '30px' }} src={giaImg} alt="GIA" />
+              <Link to={routes.diamondList} style={{ marginBottom: '0', fontSize: '20px' }}>
                 View All Diamonds
-              </a>
+              </Link>
             </div>
           </div>
         </div>

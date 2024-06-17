@@ -1,6 +1,5 @@
-/* navbar.css */
+/* navbar.css
 
-/* Global styles */
 * {
     box-sizing: border-box;
   }
@@ -58,7 +57,7 @@
   
   .nav-bar-body h3 {
     padding-left: 2px;
-    font-size: 1.5rem; /* Default font size */
+    font-size: 1.5rem; 
     text-decoration: none;
     margin-right: 20px;
   }
@@ -71,15 +70,13 @@
   
   .nav-bar-item p {
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-    font-size: 1.3rem; /* Default font size */
-  }
+    font-size: 1.3rem; 
   
-  /* Responsive adjustments */
   @media (max-width: 1920px) {
     .icon-nav-bar p,
     .nav-bar-body h3,
     .nav-bar-item p {
-      font-size: 1rem; /* Adjust font size for smaller screens */
+      font-size: 1rem; 
     }
   
     .nav-bar-header,
@@ -93,7 +90,7 @@
     .icon-nav-bar p,
     .nav-bar-body h3,
     .nav-bar-item p {
-      font-size: 0.8rem; /* Adjust font size for smaller screens */
+      font-size: 0.8rem; 
     }
   
     .nav-bar-header,
@@ -143,7 +140,6 @@
 .dropdownWrapper {
     position: absolute;
     top: 160px;
-    /* Adjust based on your header height */
     left: 0;
     width: 100vw;
     z-index: 1000;
@@ -164,7 +160,6 @@
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
-    /* Ensure alignment starts from the top */
     padding: 20px;
     box-sizing: border-box;
     flex-wrap: wrap;
@@ -226,14 +221,12 @@
     display: block;
 }
 
-/* Responsive adjustments */
 @media only screen and (max-width: 1902px) and (min-width: 320px) {
 
     .icon-nav-bar p,
     .nav-bar-body h3,
     .nav-bar-item p {
         font-size: 1rem;
-        /* Adjust font size for smaller screens */
     }
 
     .nav-bar-header,
@@ -249,7 +242,6 @@
     .nav-bar-body h3,
     .nav-bar-item p {
         font-size: 0.8rem;
-        /* Adjust font size for smaller screens */
     }
 
     .nav-bar-header,
@@ -271,15 +263,33 @@
     }
 
     .dropdown-menu-1 {
-        flex-direction: column; /* Stack items vertically on small screens */
+        flex-direction: column;
     }
 
     .diamond-shape {
-        width: 100%; /* Full width for smaller screens */
-        flex-direction: column; /* Stack items vertically */
+        width: 100%; 
+        flex-direction: column; 
     }
 
     .diamond-item1 {
-        flex: 1 1 100%; /* Full width for smaller screens */
+        flex: 1 1 100%; 
     }
+} */
+
+/* Navbar CSS */
+.navbarDropdownWrapper {
+  position: absolute;
+  background-color: white;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  /* padding: 20px; */
+  z-index: 1000;
+  display: none; /* Initially hidden */
+  width: 100%;
+  left: 0; /* Align to the left of the parent */
+  top: 100%; /* Position below the navbar item */
+}
+
+/* Show the dropdown when the parent navbar-item is hovered */
+.navbar-item:hover .navbarDropdownWrapper {
+  display: block; /* Show dropdown on hover */
 }
