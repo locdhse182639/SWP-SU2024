@@ -406,3 +406,7 @@ C:\Users\DMIN\OneDrive\Desktop\SWP project\SWP-SU2024\Be V2\BE V2\bin\Debug\net8
 C:\Users\DMIN\OneDrive\Desktop\SWP project\SWP-SU2024\Be V2\BE V2\bin\Debug\net8.0\FluentValidation.AspNetCore.dll
 C:\Users\DMIN\OneDrive\Desktop\SWP project\SWP-SU2024\Be V2\BE V2\bin\Debug\net8.0\FluentValidation.DependencyInjectionExtensions.dll
 C:\Users\DMIN\OneDrive\Desktop\SWP project\SWP-SU2024\Be V2\BE V2\obj\Debug\net8.0\BE V2.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\84528\Documents\FPT_Education\Sem5\SWP391\SWP-SU2024\Be V2\BE V2\bin\Debug\net8.0\FluentValidation.dll
+C:\Users\84528\Documents\FPT_Education\Sem5\SWP391\SWP-SU2024\Be V2\BE V2\bin\Debug\net8.0\FluentValidation.AspNetCore.dll
+C:\Users\84528\Documents\FPT_Education\Sem5\SWP391\SWP-SU2024\Be V2\BE V2\bin\Debug\net8.0\FluentValidation.DependencyInjectionExtensions.dll
+C:\Users\84528\Documents\FPT_Education\Sem5\SWP391\SWP-SU2024\Be V2\BE V2\obj\Debug\net8.0\BE V2.MvcApplicationPartsAssemblyInfo.cs

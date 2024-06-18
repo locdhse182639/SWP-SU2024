@@ -36,7 +36,7 @@ const Wishlist = () => {
             <Box p={3}>
                 <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                     <Typography variant="h6">WISHLIST ({wishlistItems.length} ITEMS)</Typography>
-                    <Button onClick={handleClearWishlist}>Clear Wishlist</Button>
+                    <Button size="small" variant="text" sx={{ color: 'black' }} onClick={handleClearWishlist}>Clear Wishlist</Button>
                 </div>
                 <Grid style={{ marginTop: '1%' }} container spacing={2}>
                     {wishlistItems.map((item) => (

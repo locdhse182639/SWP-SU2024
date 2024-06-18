@@ -84,9 +84,11 @@ const Navbar = () => {
           <IconButton color="inherit">
             {user ? <DropdownMenuUser /> : <Link to={routes.login}><AccountCircleIcon /></Link>}
           </IconButton>
-          <IconButton color="inherit">
-            <FavoriteBorderIcon />
-          </IconButton>
+          <Link to={routes.wishList}>
+            <IconButton color="inherit">
+              <FavoriteBorderIcon />
+            </IconButton>
+          </Link>
           <IconButton color="inherit">
             {user ? (
               <Link to={routes.shoppingCart}>
@@ -139,7 +141,7 @@ const Navbar = () => {
             <button className="navbarDropdown-toggle">
               <Typography variant="body1">Engagement Rings</Typography>
               <IconButton color="inherit" size="small">
-                <ExpandMoreIcon />  
+                <ExpandMoreIcon />
               </IconButton>
             </button>
             <div

@@ -5,6 +5,7 @@ import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../authcontext';
 import { jwtDecode } from 'jwt-decode';
+import ProductQuantity from '../productQuantity';
 
 const ShoppingCartContent = () => {
   const [cartItems, setCartItems] = useState([]);
@@ -158,7 +159,7 @@ const ShoppingCartContent = () => {
         <Typography variant="h6">MY CART ({cartItems.length} ITEM{cartItems.length !== 1 ? 'S' : ''})</Typography>
       </Box>
       <Box sx={{ display: 'flex', alignItems: 'start' }}>
-        <Box sx={{ flex: 1 }}>
+        <Box sx={{ flex: 1, paddingRight:'2%' }}>
           {cartItems.map((item, index) => (
             <Paper key={index} sx={{ padding: 2, marginBottom: 4 }}>
               <Grid container spacing={2}>
@@ -185,6 +186,7 @@ const ShoppingCartContent = () => {
                     <br />
                     Ring Size: {item.product.size}
                   </Typography>
+                  <ProductQuantity/>
                 </Grid>
               </Grid>
             </Paper>
