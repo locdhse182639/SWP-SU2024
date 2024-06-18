@@ -13,6 +13,7 @@ import NavBar from '../components/navBar';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useAuth } from '../components/authcontext';
 import { jwtDecode } from 'jwt-decode';
+import CustomizedSnackbars from '../components/snackBar';
 
 const DiamondDetailPage = () => {
   const { id } = useParams();
@@ -365,7 +366,7 @@ const DiamondDetailPage = () => {
         </Grid>
       </Container>
       <Footer />
-    </div>
+    </div >
   );
 };
 

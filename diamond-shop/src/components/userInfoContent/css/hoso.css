@@ -49,21 +49,57 @@
     width: 100%;
     padding: 8px;
     box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
 }
 
 .user-info .radio-group {
     display: flex;
-    justify-content: space-around;
+    /* justify-content: space-around; */
 }
 
-.user-info button {
+.user-info Button {
     padding: 10px 20px;
-    background-color: #ff6600;
+    background-color: black;
     color: white;
     border: none;
     cursor: pointer;
 }
 
-.user-info button:hover {
-    background-color: #e65c00;
+.user-info Button:hover {
+    background-color: gray;
+}
+
+.custom-text-field .MuiInput-underline:before {
+    border-bottom: 1px solid black;
+    /* màu gạch chân trước khi được chọn */
+}
+
+.custom-text-field .MuiInput-underline:after {
+    border-bottom: 1px solid black;
+    /* màu gạch chân sau khi được chọn */
+}
+
+.custom-text-field .MuiInputLabel-root {
+    color: black;
+    /* Màu nhãn trước khi được chọn */
+}
+
+.custom-text-field .Mui-focused .MuiInputLabel-root {
+    color: black !important;
+    /* Màu nhãn khi được chọn */
+}
+
+.custom-text-field .MuiInputBase-input {
+    color: black;
+    /* Màu chữ trong input */
+}
+
+#standard-read-only-input-label {
+    color: black;
+}
+
+#standard-required-label {
+    color: black;
 }

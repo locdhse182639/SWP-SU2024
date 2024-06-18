@@ -81,12 +81,12 @@ body {
 
 .change-password-form button {
     padding: 10px 20px;
-    background-color: #ff6600;
+    background-color: black;
     color: white;
     border: none;
     cursor: pointer;
 }
 
 .change-password-form button:hover {
-    background-color: #e65c00;
+    background-color: gray;
 }

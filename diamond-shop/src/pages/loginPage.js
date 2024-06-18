@@ -16,6 +16,7 @@ import logo from '../constant/logo.png';
 import '../css/loginPage.css';
 import { routes } from '../routes';
 import { useAuth } from '../components/authcontext';
+import CustomizedSnackbars from '../components/snackBar';
 
 const defaultTheme = createTheme();
 
