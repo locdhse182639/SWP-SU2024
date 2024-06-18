@@ -5,11 +5,11 @@ import { routes } from '../../routes';
 const NavUserInfo = () => {
     return (
         <div className="sidebar">
-            <NavLink style={{color:'black'}} to="/userinfo/hoso">Hồ Sơ</NavLink>
-            <NavLink style={{color:'black'}} to="/userinfo/nganhang">Ngân Hàng</NavLink>
-            <NavLink style={{color:'black'}} to="/userinfo/doimatkhau">Đổi Mật Khẩu</NavLink>
-            <NavLink style={{color:'black'}}  to="/userinfo/thongbao">Thông Báo</NavLink>
-            <NavLink style={{color:'black'}} to="/userinfo/lichsumuahang">Lịch Sử Mua Hàng</NavLink>
+            <NavLink style={{ color: 'black', textAlign:'left' }} to="/userinfo/hoso">Profile</NavLink>
+            <NavLink style={{ color: 'black', textAlign:'left' }} to="/userinfo/nganhang">Bank</NavLink>
+            <NavLink style={{ color: 'black', textAlign:'left' }} to="/userinfo/doimatkhau">Change Password</NavLink>
+            <NavLink style={{ color: 'black', textAlign:'left' }} to="/userinfo/thongbao">Notification</NavLink>
+            <NavLink style={{ color: 'black', textAlign:'left' }} to="/userinfo/lichsumuahang">Purchase History</NavLink>
         </div>
     );
 };

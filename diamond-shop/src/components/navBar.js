@@ -5,7 +5,6 @@ import LocationOnIcon from '@mui/icons-material/LocationOn';
 import HeadsetMicIcon from '@mui/icons-material/HeadsetMic';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
-import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import logo from '../constant/logo.png';
 import logotext from '../constant/logo_text.png';
@@ -18,6 +17,8 @@ import { Badge } from 'react-bootstrap';
 import '../css/navBar.css';
 import DropContentDiamond from './dropDownContent/dropContentDiamond';
 import DropContentJewelry from './dropDownContent/dropContentJewelry';
+import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
+
 
 const Navbar = () => {
   const [cartItemCount, setCartItemCount] = useState(0);
@@ -89,16 +90,16 @@ const Navbar = () => {
               <FavoriteBorderIcon />
             </IconButton>
           </Link>
-          <IconButton color="inherit">
+          <IconButton>
             {user ? (
               <Link to={routes.shoppingCart}>
-                <Badge badgeContent={cartItemCount} color="secondary">
-                  <ShoppingCartIcon />
+                <Badge badgeContent={cartItemCount} variant=''>
+                  <ShoppingCartOutlinedIcon />
                 </Badge>
               </Link>
             ) : (
               <Link to={routes.login}>
-                <ShoppingCartIcon />
+                <ShoppingCartOutlinedIcon />
               </Link>
             )}
           </IconButton>

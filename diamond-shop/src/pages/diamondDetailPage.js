@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Container, Grid, Typography, Table, TableBody, TableRow, TableCell, Box } from '@mui/material';
+import { Container, Grid, Typography, Table, TableBody, TableRow, TableCell, Box, SnackbarContent } from '@mui/material';
 import Button from '@mui/material/Button';
 import ReportIcon from '@mui/icons-material/Report';
 import ViewInArIcon from '@mui/icons-material/ViewInAr';
@@ -12,7 +12,8 @@ import '../css/diamondDetailPage.css';
 import NavBar from '../components/navBar';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useAuth } from '../components/authcontext';
-import {jwtDecode} from 'jwt-decode';
+import { jwtDecode } from 'jwt-decode';
+import CustomizedSnackbars from '../components/snackBar';
 
 const DiamondDetailPage = () => {
   const { id } = useParams();
@@ -109,7 +110,7 @@ const DiamondDetailPage = () => {
   const isDiamond = product.productType === 1;
   const depositPercentage = 20; // 20% deposit
   const depositAmount = product ? (product.price * depositPercentage) / 100 : 0;
-  
+
   return (
     <div>
       <NavBar />
@@ -333,7 +334,7 @@ const DiamondDetailPage = () => {
         </Grid>
       </Container>
       <Footer />
-    </div>
+    </div >
   );
 };
 

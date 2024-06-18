@@ -10,7 +10,7 @@ export const routes = {
     revenuePage: '/revenue-Page',
     engagementRings: '/engagement-rings',
     shoppingCart: '/shopping-cart',
-    userInfo: '/user-info/*',
+    userInfo: '/userinfo/*',
     detail: '/product-detail',
     checkout: '/checkout',  
     checkoutcomplete: '/checkout-complete',

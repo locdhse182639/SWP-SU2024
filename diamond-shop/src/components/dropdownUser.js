@@ -4,6 +4,8 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import PersonIcon from '@mui/icons-material/Person';
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 import { useAuth } from './authcontext';
+import { Link } from 'react-router-dom';
+import { routes } from '../routes';
 
 const DropdownMenuUser = () => {
     const [anchorEl, setAnchorEl] = useState(null);
@@ -37,12 +39,14 @@ const DropdownMenuUser = () => {
                         My Account
                     </Typography>
                 </MenuItem>
-                <MenuItem onClick={handleClose}>
-                    <ListItemIcon>
-                        <PersonIcon fontSize="small" />
-                    </ListItemIcon>
-                    Profile
-                </MenuItem>
+                <Link to='/userinfo/hoso' style={{textDecoration:'none'}}>
+                    <MenuItem onClick={handleClose}>
+                        <ListItemIcon>
+                            <PersonIcon fontSize="small" />
+                        </ListItemIcon>
+                        Profile
+                    </MenuItem>
+                </Link>
                 <MenuItem onClick={handleLogout}>
                     <ListItemIcon>
                         <ExitToAppIcon fontSize="small" />
