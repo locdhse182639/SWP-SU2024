@@ -210,7 +210,6 @@ namespace BE_V2.Controllers
             return NoContent();
         }
 
-        // DELETE: api/Users/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteUser(int id)
         {
@@ -220,6 +219,32 @@ namespace BE_V2.Controllers
                 return NotFound();
             }
 
+            // Find associated customers
+            var customers = await _context.Customers.Where(c => c.UserId == id).ToListAsync();
+            if (customers.Any())
+            {
+                foreach (var customer in customers)
+                {
+                    // Find associated orders
+                    var orders = await _context.Orders.Where(o => o.CustomerId == customer.CustomerId).ToListAsync();
+                    if (orders.Any())
+                    {
+                        foreach (var order in orders)
+                        {
+                            // Find and delete associated order details
+                            var orderDetails = await _context.OrderDetails.Where(od => od.OrderId == order.OrderId).ToListAsync();
+                            if (orderDetails.Any())
+                            {
+                                _context.OrderDetails.RemoveRange(orderDetails);
+                            }
+                        }
+                        _context.Orders.RemoveRange(orders);
+                    }
+                }
+                _context.Customers.RemoveRange(customers);
+            }
+
+            // Delete the user
             _context.Users.Remove(user);
             await _context.SaveChangesAsync();
 
@@ -398,10 +423,24 @@ namespace BE_V2.Controllers
             }
         }
 
+        [HttpGet("roles")]
+        public async Task<ActionResult<IEnumerable<Role>>> GetRoles()
+        {
+            var roles = await _context.Roles.ToListAsync();
+            return Ok(roles);
+        }
+
         private bool UserExists(int id)
         {
             return _context.Users.Any(e => e.UserId == id);
         }
+
+        public class Role
+        {
+            public int RoleId { get; set; }
+            public string RoleName { get; set; }
+        }
+
 
         public class ErrorResponse
         {

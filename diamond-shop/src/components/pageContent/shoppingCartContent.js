@@ -184,7 +184,7 @@ const ShoppingCartContent = () => {
                     <br />
                     Deposit: ${(item.price * depositPercentage / 100).toFixed(2)} (20%)
                     <br />
-                    Ring Size: {item.product.size}
+                    Ring Size: {item.size}
                   </Typography>
                   <ProductQuantity/>
                 </Grid>

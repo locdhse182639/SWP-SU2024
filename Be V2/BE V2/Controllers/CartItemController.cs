@@ -28,7 +28,7 @@ namespace BE_V2.Controllers
                 return NotFound("Cart not found.");
             }
 
-            var existingCartItem = cart.CartItems.FirstOrDefault(ci => ci.ProductID == cartItemDTO.ProductID);
+            var existingCartItem = cart.CartItems.FirstOrDefault(ci => ci.ProductID == cartItemDTO.ProductID && ci.Size == cartItemDTO.Size);
             if (existingCartItem != null)
             {
                 existingCartItem.Quantity += cartItemDTO.Quantity;
@@ -41,7 +41,8 @@ namespace BE_V2.Controllers
                     CartID = cartItemDTO.CartID,
                     ProductID = cartItemDTO.ProductID,
                     Quantity = cartItemDTO.Quantity,
-                    Price = cartItemDTO.Price
+                    Price = cartItemDTO.Price,
+                    Size = cartItemDTO.Size // Include the Size property
                 };
                 cart.CartItems.Add(cartItem);
             }

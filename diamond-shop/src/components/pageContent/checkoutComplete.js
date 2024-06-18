@@ -4,7 +4,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { routes } from '../../routes';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import { useAuth } from '../authcontext';
-import { jwtDecode } from 'jwt-decode';
+import {jwtDecode} from 'jwt-decode';
 
 const MyComponent = () => {
     return <CheckCircleIcon style={{ color: 'green' }} />;
@@ -19,6 +19,7 @@ const OrderConfirmation = () => {
         email: '',
         address: ''
     });
+    const [orderId, setOrderId] = useState(null);
 
     const { user } = useAuth();
     const location = useLocation();
@@ -70,19 +71,17 @@ const OrderConfirmation = () => {
     };
 
     useEffect(() => {
-        console.log('Current user:', user);
-
         if (user && user.token) {
             const params = new URLSearchParams(location.search);
-            const orderId = params.get('orderId');
-            console.log('Order ID from URL:', orderId);
+            const fetchedOrderId = params.get('orderId');
+            setOrderId(fetchedOrderId);
+            console.log('Order ID from URL:', fetchedOrderId);
 
-            fetchOrderDetails(orderId);
+            fetchOrderDetails(fetchedOrderId);
             fetchProductData();
 
             const decodedToken = jwtDecode(user.token);
-            console.log('Decoded token:', decodedToken);
-            const userId = decodedToken.unique_name; // Adjusted to use unique_name
+            const userId = decodedToken.unique_name;
             fetchCustomerInfo(userId);
         } else {
             console.error('User or token is missing', user);
@@ -134,7 +133,7 @@ const OrderConfirmation = () => {
                                     {orderDetails && orderDetails.length > 0 ? (
                                         orderDetails.map((detail) => (
                                             <Grid item xs={12} key={detail.orderDetailId}>
-                                                <Typography variant="h6">INFORMATION LINE #{detail.orderId}</Typography>
+                                                <Typography variant="h6">INFORMATION LINE #{orderId}</Typography>
                                                 <Box style={{ display: 'flex', marginBottom: '2%', marginTop: '2%' }}>
                                                     <img src={findProductImage(detail.productId)} alt={detail.productName} style={{ width: '100px', height: 'fit-content', marginRight: '10px' }} />
                                                     <Box>
