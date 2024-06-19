@@ -17,4 +17,5 @@ export const routes = {
     staffsite : '/staffSite',
     history : '/history',
     wishList: '/wish-list',
+    ringSize: '/ring-size-guide'
 }

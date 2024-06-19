@@ -21,6 +21,7 @@ import CheckOutPage from '../components/pageContent/checkoutContent'
 import CheckoutCompletePage from '../pages/checkoutCompletePage'
 import WishListPage from '../pages/wishListPage'
 import HoSo from '../components/userInfoContent/Pages/hoSoNguoiDung'
+import RingSizePage from '../pages/ringSizePage'
 
 
 export default function AppRoute() {
@@ -41,7 +42,7 @@ export default function AppRoute() {
       <Route path={routes.shoppingCart} element={<ShoppingCartPage />} />
       <Route path='/diamondDetail' element={<DiamondDetailPage />} />
       <Route path={routes.userInfo} element={<UserInfoPage />} />
-      
+      <Route path={routes.ringSize} element={<RingSizePage/>}/>
       <Route path={routes.staffsite} element={<StaffSite />} />
       <Route path={routes.detail} element={<DiamondDetailPage />} />
       <Route path='/history' element={<History />} />
