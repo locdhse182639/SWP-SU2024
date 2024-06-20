@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Container, Grid, Typography, Table, TableBody, TableRow, TableCell, Box, SnackbarContent } from '@mui/material';
+import { Container, Grid, Typography, Table, TableBody, TableRow, TableCell, Box, MenuItem, Select, FormControl, InputLabel } from '@mui/material';
 import Button from '@mui/material/Button';
 import ReportIcon from '@mui/icons-material/Report';
 import ViewInArIcon from '@mui/icons-material/ViewInAr';
@@ -10,10 +10,11 @@ import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 import Footer from '../components/footer';
 import '../css/diamondDetailPage.css';
 import NavBar from '../components/navBar';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../components/authcontext';
 import { jwtDecode } from 'jwt-decode';
 import CustomizedSnackbars from '../components/snackBar';
+import { routes } from '../routes';
 
 const DiamondDetailPage = () => {
   const { id } = useParams();
@@ -144,12 +145,29 @@ const DiamondDetailPage = () => {
               </div>
             ) : (
               <div className="product-specs">
-                <span className="spec-tag">{product.type}</span>
-                <span className="spec-tag">{product.size}</span>
+                {/* <span className="spec-tag">{product.type}</span> */}
+                {/* <span className="spec-tag">{product.size}</span> */}
               </div>
             )}
             <Typography style={{ color: 'black' }} variant="h5" className="price">${product.price} <span className="product-price">Price</span></Typography>
-            <Box className="payment-container">
+            {isRing && (
+              <Box display="flex" alignItems="center" mt={2}>
+                <Typography variant="body2" style={{ marginRight: '8px' }}>Current Ring Size:</Typography>
+                <FormControl variant="outlined" style={{ minWidth: 120 }}>
+                  <Select
+                    value={selectedSize}
+                    onChange={(e) => setSelectedSize(e.target.value)}
+                    displayEmpty
+                  >
+                    {product.size.split(',').map((size) => (
+                      <MenuItem key={size} value={size}>{size}</MenuItem>
+                    ))}
+                  </Select>
+                </FormControl>
+                <Link to={routes.ringSize} style={{ marginLeft: '16px', textDecoration: 'underline' }}>Ring Size Help</Link>
+              </Box>
+            )}
+            <Box className="payment-container" mt={2}>
               <Typography variant="body2" className="payment-options">
                 Flexible Payment Options:<br />
                 <span className="payment-detail">3 Interest-Free Payments of ${(product.price / 3).toFixed(2)}</span>

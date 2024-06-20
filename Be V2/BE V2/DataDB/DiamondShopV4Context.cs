@@ -37,6 +37,10 @@ namespace BE_V2.DataDB
 
         public virtual DbSet<CartItem> CartItems { get; set; }
 
+        public virtual DbSet<Wishlist> Wishlists { get; set; }
+
+        public virtual DbSet<WishlistItem> WishlistItems { get; set; }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
             => optionsBuilder.UseSqlServer("Server=DESKTOP-R3JQU5R\\SQLEXPRESS;Database=Diamond_Shop_V4;Trusted_Connection=True;TrustServerCertificate=True;");
@@ -239,6 +243,36 @@ namespace BE_V2.DataDB
                     .WithMany(p => p.CartItems)
                     .HasForeignKey(d => d.ProductID)
                     .HasConstraintName("FK__CartItem__Product__2C3393D0");
+            });
+
+            modelBuilder.Entity<Wishlist>(entity =>
+            {
+                entity.HasKey(e => e.WishlistId).HasName("PK__Wishlist__233189CB03175B66");
+
+                entity.ToTable("Wishlist");
+
+                entity.Property(e => e.WishlistId).HasColumnName("WishlistID");
+                entity.Property(e => e.CustomerId).HasColumnName("CustomerID");
+
+                entity.HasOne(d => d.Customer).WithMany(p => p.Wishlists)
+                    .HasForeignKey(d => d.CustomerId)
+                    .HasConstraintName("FK__Wishlist__Custom__02FC7413");
+            });
+            modelBuilder.Entity<WishlistItem>(entity =>
+            {
+                entity.HasKey(e => e.WishlistItemId).HasName("PK__Wishlist__171E21813C0A4C5A");
+
+                entity.Property(e => e.WishlistItemId).HasColumnName("WishlistItemID");
+                entity.Property(e => e.ProductId).HasColumnName("ProductID");
+                entity.Property(e => e.WishlistId).HasColumnName("WishlistID");
+
+                entity.HasOne(d => d.Product).WithMany(p => p.WishlistItems)
+                    .HasForeignKey(d => d.ProductId)
+                    .HasConstraintName("FK__WishlistI__Produ__06CD04F7");
+
+                entity.HasOne(d => d.Wishlist).WithMany(p => p.WishlistItems)
+                    .HasForeignKey(d => d.WishlistId)
+                    .HasConstraintName("FK__WishlistI__Wishl__05D8E0BE");
             });
 
             OnModelCreatingPartial(modelBuilder);

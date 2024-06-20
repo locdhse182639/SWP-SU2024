@@ -45,6 +45,8 @@ namespace BE_V2.DataDB
 
         public virtual ProductType? ProductTypeNavigation { get; set; }
 
+        public virtual ICollection<WishlistItem> WishlistItems { get; set; }
+
         public virtual ICollection<CartItem> CartItems { get; set; }
     }
 }
