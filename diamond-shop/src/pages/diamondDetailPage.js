@@ -24,24 +24,17 @@ const DiamondDetailPage = () => {
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [selectedSize, setSelectedSize] = useState('');
 
   useEffect(() => {
     const fetchProduct = async () => {
       try {
-        console.log(`Fetching product with ID: ${id}`);
         const response = await fetch(`https://localhost:7251/api/Products/${id}`);
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
         const data = await response.json();
-        console.log('Fetched product data:', data);
         setProduct(data);
-        if (data.productType === 2) {
-          setSelectedSize(data.size.split(',')[0]);
-        }
       } catch (error) {
-        console.error('Error fetching product:', error);
         setError(error.message);
       } finally {
         setLoading(false);
@@ -61,7 +54,6 @@ const DiamondDetailPage = () => {
     } else {
       try {
         const userId = jwtDecode(user.token).unique_name;
-        console.log(`User ID: ${userId}`);
 
         // Fetch the user's cart
         let cartResponse = await fetch(`https://localhost:7251/api/Cart/User/${userId}`);
@@ -87,8 +79,6 @@ const DiamondDetailPage = () => {
           throw new Error('Failed to fetch or create a cart');
         }
 
-        console.log('Cart data:', cart);
-
         // Add the product to the cart
         const response = await fetch('https://localhost:7251/api/CartItem', {
           method: 'POST',
@@ -100,16 +90,12 @@ const DiamondDetailPage = () => {
             productID: product.productId,
             quantity: 1,
             price: product.price,
-            size: product.productType === 2 ? selectedSize : null, // Include selected size if the product is a ring
           }),
         });
 
         if (!response.ok) {
           throw new Error('Failed to add item to cart');
         }
-
-        const addedItem = await response.json();
-        console.log('Added item to cart:', addedItem);
 
         alert('Product added to cart');
       } catch (error) {
@@ -123,7 +109,6 @@ const DiamondDetailPage = () => {
   if (!product) return <div>No product found</div>;
 
   const isDiamond = product.productType === 1;
-  const isRing = product.productType === 2;
   const depositPercentage = 20; // 20% deposit
   const depositAmount = product ? (product.price * depositPercentage) / 100 : 0;
 
@@ -188,7 +173,7 @@ const DiamondDetailPage = () => {
                 <span className="payment-detail">3 Interest-Free Payments of ${(product.price / 3).toFixed(2)}</span>
               </Typography>
             </Box>
-            <Typography variant="h6" className="deposit" mt={2}>
+            <Typography variant="h6" className="deposit">
               Deposit: ${depositAmount.toFixed(2)} (20%)
             </Typography>
             <div className="button-group">
