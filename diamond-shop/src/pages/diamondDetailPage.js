@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Container, Grid, Typography, Table, TableBody, TableRow, TableCell, Box, MenuItem, Select, FormControl, InputLabel } from '@mui/material';
+import { Container, Grid, Typography, Table, TableBody, TableRow, TableCell, Box, MenuItem, Select, FormControl, InputLabel, Link } from '@mui/material';
 import Button from '@mui/material/Button';
 import ReportIcon from '@mui/icons-material/Report';
 import ViewInArIcon from '@mui/icons-material/ViewInAr';
@@ -10,11 +10,9 @@ import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 import Footer from '../components/footer';
 import '../css/diamondDetailPage.css';
 import NavBar from '../components/navBar';
-import { useParams, useNavigate, Link } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { useAuth } from '../components/authcontext';
 import { jwtDecode } from 'jwt-decode';
-import CustomizedSnackbars from '../components/snackBar';
-import { routes } from '../routes';
 
 const DiamondDetailPage = () => {
   const { id } = useParams();
@@ -24,17 +22,24 @@ const DiamondDetailPage = () => {
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [selectedSize, setSelectedSize] = useState('');
 
   useEffect(() => {
     const fetchProduct = async () => {
       try {
+        console.log(`Fetching product with ID: ${id}`);
         const response = await fetch(`https://localhost:7251/api/Products/${id}`);
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
         const data = await response.json();
+        console.log('Fetched product data:', data);
         setProduct(data);
+        if (data.productType === 2) {
+          setSelectedSize(data.size.split(',')[0]);
+        }
       } catch (error) {
+        console.error('Error fetching product:', error);
         setError(error.message);
       } finally {
         setLoading(false);
@@ -54,6 +59,7 @@ const DiamondDetailPage = () => {
     } else {
       try {
         const userId = jwtDecode(user.token).unique_name;
+        console.log(`User ID: ${userId}`);
 
         // Fetch the user's cart
         let cartResponse = await fetch(`https://localhost:7251/api/Cart/User/${userId}`);
@@ -79,6 +85,8 @@ const DiamondDetailPage = () => {
           throw new Error('Failed to fetch or create a cart');
         }
 
+        console.log('Cart data:', cart);
+
         // Add the product to the cart
         const response = await fetch('https://localhost:7251/api/CartItem', {
           method: 'POST',
@@ -90,12 +98,16 @@ const DiamondDetailPage = () => {
             productID: product.productId,
             quantity: 1,
             price: product.price,
+            size: product.productType === 2 ? selectedSize : null, // Include selected size if the product is a ring
           }),
         });
 
         if (!response.ok) {
           throw new Error('Failed to add item to cart');
         }
+
+        const addedItem = await response.json();
+        console.log('Added item to cart:', addedItem);
 
         alert('Product added to cart');
       } catch (error) {
@@ -109,6 +121,7 @@ const DiamondDetailPage = () => {
   if (!product) return <div>No product found</div>;
 
   const isDiamond = product.productType === 1;
+  const isRing = product.productType === 2;
   const depositPercentage = 20; // 20% deposit
   const depositAmount = product ? (product.price * depositPercentage) / 100 : 0;
 
@@ -145,8 +158,8 @@ const DiamondDetailPage = () => {
               </div>
             ) : (
               <div className="product-specs">
-                {/* <span className="spec-tag">{product.type}</span> */}
-                {/* <span className="spec-tag">{product.size}</span> */}
+                <span className="spec-tag">{product.type}</span>
+                <span className="spec-tag">{product.size}</span>
               </div>
             )}
             <Typography style={{ color: 'black' }} variant="h5" className="price">${product.price} <span className="product-price">Price</span></Typography>
@@ -164,7 +177,7 @@ const DiamondDetailPage = () => {
                     ))}
                   </Select>
                 </FormControl>
-                <Link to={routes.ringSize} style={{ marginLeft: '16px', textDecoration: 'underline' }}>Ring Size Help</Link>
+                <Link href="#" style={{ marginLeft: '16px', textDecoration: 'underline' }}>Ring Size Help</Link>
               </Box>
             )}
             <Box className="payment-container" mt={2}>
@@ -173,7 +186,7 @@ const DiamondDetailPage = () => {
                 <span className="payment-detail">3 Interest-Free Payments of ${(product.price / 3).toFixed(2)}</span>
               </Typography>
             </Box>
-            <Typography variant="h6" className="deposit">
+            <Typography variant="h6" className="deposit" mt={2}>
               Deposit: ${depositAmount.toFixed(2)} (20%)
             </Typography>
             <div className="button-group">
@@ -352,7 +365,7 @@ const DiamondDetailPage = () => {
         </Grid>
       </Container>
       <Footer />
-    </div >
+    </div>
   );
 };
 

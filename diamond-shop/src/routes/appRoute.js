@@ -22,6 +22,8 @@ import CheckoutCompletePage from '../pages/checkoutCompletePage'
 import WishListPage from '../pages/wishListPage'
 import HoSo from '../components/userInfoContent/Pages/hoSoNguoiDung'
 import RingSizePage from '../pages/ringSizePage'
+import DiamondPage from '../pages/diamondPage'
+import NecklacePage from '../pages/necklacePage'
 
 
 export default function AppRoute() {
@@ -49,6 +51,8 @@ export default function AppRoute() {
       <Route path={routes.checkout} element={<CheckOutPage />} />
       <Route path={routes.checkoutcomplete} element={<CheckoutCompletePage />} />
       <Route path={routes.wishList} element={<WishListPage />} />
+      <Route path={routes.diamond} element={<DiamondPage />} />
+      <Route path={routes.necklace} element={<NecklacePage />} />
     </Routes>
   );
 }
