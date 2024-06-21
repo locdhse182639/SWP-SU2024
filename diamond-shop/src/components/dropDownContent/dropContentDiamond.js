@@ -16,31 +16,31 @@ const DropContentDiamond = () => {
               </h4>
               <div className='navbarDropdown-diamond-shape'>
                 <div className='navbarDropdown-diamond-shape-left'>
-                  <Link to={routes.diamondList}>
+                  <Link to={`${routes.diamond}?shape=Round`}>
                     <div className='navbarDropdown-diamond-item1'>
                       <img src='../assets/images/Round_Cut_Diamonds.png' alt="Round" />
                       <p>Round</p>
                     </div>
                   </Link>
-                  <Link to={routes.diamondList}>
+                  <Link to={`${routes.diamond}?shape=Princess`}>
                     <div className='navbarDropdown-diamond-item1'>
                       <img src='../assets/images/Princess_Cut_Diamonds.png' alt="Princess" />
                       <p>Princess</p>
                     </div>
                   </Link>
-                  <Link to={routes.diamondList}>
+                  <Link to={`${routes.diamond}?shape=Emerald`}>
                     <div className='navbarDropdown-diamond-item1'>
                       <img src='../assets/images/Emerald_Cut_Diamonds.png' alt="Emerald" />
                       <p>Emerald</p>
                     </div>
                   </Link>
-                  <Link to={routes.diamondList}>
+                  <Link to={`${routes.diamond}?shape=Cushion`}>
                     <div className='navbarDropdown-diamond-item1'>
                       <img src='../assets/images/Cushion_Cut_Diamonds.png' alt="Cushion" />
                       <p>Cushion</p>
                     </div>
                   </Link>
-                  <Link to={routes.diamondList}>
+                  <Link to={`${routes.diamond}?shape=Marquise`}>
                     <div className='navbarDropdown-diamond-item1'>
                       <img src='../assets/images/Marquise_Cut_Diamonds.png' alt="Marquise" />
                       <p>Marquise</p>
@@ -48,31 +48,25 @@ const DropContentDiamond = () => {
                   </Link>
                 </div>
                 <div className='navbarDropdown-diamond-shape-right'>
-                  <Link to={routes.diamondList}>
+                  <Link to={`${routes.diamond}?shape=Radiant`}>
                     <div className='navbarDropdown-diamond-item1'>
                       <img src='../assets/images/Radiant_Cut_Diamonds.png' alt="Radiant" />
                       <p>Radiant</p>
                     </div>
                   </Link>
-                  <Link to={routes.diamondList}>
-                    <div className='navbarDropdown-diamond-item1'>
-                      <img src='../assets/images/Emerald_Cut_Diamonds.png' alt="Emerald" />
-                      <p>Emerald</p>
-                    </div>
-                  </Link>
-                  <Link to={routes.diamondList}>
+                  <Link to={`${routes.diamond}?shape=Oval`}>
                     <div className='navbarDropdown-diamond-item1'>
                       <img src='../assets/images/Oval_Cut_Diamonds.png' alt="Oval" />
                       <p>Oval</p>
                     </div>
                   </Link>
-                  <Link to={routes.diamondList}>
+                  <Link to={`${routes.diamond}?shape=Pear`}>
                     <div className='navbarDropdown-diamond-item1'>
                       <img src='../assets/images/Pear_Cut_Diamonds.png' alt="Pear" />
                       <p>Pear</p>
                     </div>
                   </Link>
-                  <Link to={routes.diamondList}>
+                  <Link to={`${routes.diamond}?shape=Heart`}>
                     <div className='navbarDropdown-diamond-item1'>
                       <img src='../assets/images/Heart_Cut_Diamonds.png' alt="Heart" />
                       <p>Heart</p>
@@ -110,7 +104,7 @@ const DropContentDiamond = () => {
             </div>
             <div className='navbarDropdown-third-row'>
               <img style={{ width: '50%', height: '300px', paddingTop: '30px' }} src={giaImg} alt="GIA" />
-              <Link to={routes.diamondList} style={{ marginBottom: '0', fontSize: '20px' }}>
+              <Link to={routes.diamond} style={{ marginBottom: '0', fontSize: '20px' }}>
                 View All Diamonds
               </Link>
             </div>
