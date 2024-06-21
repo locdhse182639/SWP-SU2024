@@ -103,6 +103,9 @@ namespace BE_V2.Controllers
             return NoContent();
         }
 
+
+
+
         private bool WishlistItemExists(int id)
         {
             return _context.WishlistItems.Any(e => e.WishlistItemId == id);

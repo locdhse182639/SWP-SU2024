@@ -82,5 +82,23 @@ namespace BE_V2.Controllers
 
             return NoContent();
         }
+
+        [HttpDelete("Customer/{customerId}/clear")]
+        public async Task<IActionResult> ClearWishlist(int customerId)
+        {
+            var wishlist = await _context.Wishlists
+                .Include(w => w.WishlistItems)
+                .FirstOrDefaultAsync(w => w.CustomerId == customerId);
+
+            if (wishlist == null)
+            {
+                return NotFound("Wishlist not found.");
+            }
+
+            _context.WishlistItems.RemoveRange(wishlist.WishlistItems);
+            await _context.SaveChangesAsync();
+
+            return NoContent();
+        }
     }
 }

@@ -100,7 +100,7 @@ const ShoppingCartContent = () => {
       navigate(routes.login);
       return;
     }
-  
+
     try {
       // Fetch customer ID based on the user ID
       const userId = decodedToken(user.token);
@@ -109,7 +109,7 @@ const ShoppingCartContent = () => {
         throw new Error('Failed to fetch customer data');
       }
       const customerData = await customerResponse.json();
-  
+
       const order = {
         userId: userId,
         totalPrice: parseFloat(calculateTotal()),
@@ -121,7 +121,7 @@ const ShoppingCartContent = () => {
           quantity: item.quantity
         }))
       };
-  
+
       const response = await fetch('https://localhost:7251/api/Orders', {
         method: 'POST',
         headers: {
@@ -129,13 +129,13 @@ const ShoppingCartContent = () => {
         },
         body: JSON.stringify(order),
       });
-  
+
       if (!response.ok) {
         throw new Error('Failed to create order');
       }
-  
+
       const createdOrder = await response.json(); // Assuming the response contains the created order with orderId
-  
+
       // Clear the cart after successful order creation
       setCartItems([]);
       alert('Order created successfully!');
@@ -159,7 +159,7 @@ const ShoppingCartContent = () => {
         <Typography variant="h6">MY CART ({cartItems.length} ITEM{cartItems.length !== 1 ? 'S' : ''})</Typography>
       </Box>
       <Box sx={{ display: 'flex', alignItems: 'start' }}>
-        <Box sx={{ flex: 1, paddingRight:'2%' }}>
+        <Box sx={{ flex: 1, paddingRight: '2%' }}>
           {cartItems.map((item, index) => (
             <Paper key={index} sx={{ padding: 2, marginBottom: 4 }}>
               <Grid container spacing={2}>
@@ -186,7 +186,7 @@ const ShoppingCartContent = () => {
                     <br />
                     Ring Size: {item.product.size}
                   </Typography>
-                  <ProductQuantity/>
+                  <ProductQuantity />
                 </Grid>
               </Grid>
             </Paper>

@@ -89,9 +89,9 @@ const HomePageContent = () => {
                             our love story now until forever"</p>
 
                         <div className='btn-banner'>
-                            <a href={routes.engagementRings} style={{ textDecoration: 'none' }}>
+                            <Link to={routes.engagementRings} style={{ textDecoration: 'none' }}>
                                 <BasicButtons width='220px' height='60px' text='See More'></BasicButtons>
-                            </a>
+                            </Link>
                         </div>
                     </div>
                 </div>

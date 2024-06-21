@@ -2,8 +2,6 @@ import * as React from 'react';
 import { Box, Typography, IconButton, Checkbox, Stack } from '@mui/material';
 import FilterListIcon from '@mui/icons-material/FilterList';
 import SortIcon from '@mui/icons-material/Sort';
-import AppsIcon from '@mui/icons-material/Apps';
-// import './ComponentStyles.css'; 
 
 export default function CustomToolbar() {
     return (
