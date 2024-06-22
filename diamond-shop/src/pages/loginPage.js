@@ -17,6 +17,10 @@ import '../css/loginPage.css';
 import { routes } from '../routes';
 import { useAuth } from '../components/authcontext';
 import CustomizedSnackbars from '../components/snackBar';
+import IconButton from '@mui/material/IconButton';
+import InputAdornment from '@mui/material/InputAdornment';
+import Visibility from '@mui/icons-material/Visibility';
+import VisibilityOff from '@mui/icons-material/VisibilityOff';
 
 const defaultTheme = createTheme();
 
@@ -61,6 +65,10 @@ export default function SignIn() {
     }
   };
 
+  const [showPassword, setShowPassword] = React.useState(false);
+
+  const handleClickShowPassword = () => setShowPassword((show) => !show);
+
   return (
     <div>
       <NavBar />
@@ -100,12 +108,25 @@ export default function SignIn() {
                 fullWidth
                 name="password"
                 label="Password"
-                type="password"
+                type={showPassword ? 'text' : 'password'}
                 id="password"
                 autoComplete="current-password"
                 sx={{ '& .MuiInputBase-root': { color: 'black' } }}
-                toggleMask
+                InputProps={{
+                  endAdornment: (
+                    <InputAdornment position="end">
+                      <IconButton
+                        aria-label="toggle password visibility"
+                        onClick={handleClickShowPassword}
+                        edge="end"
+                      >
+                        {showPassword ? <VisibilityOff /> : <Visibility />}
+                      </IconButton>
+                    </InputAdornment>
+                  ),
+                }}
               />
+
               <FormControlLabel
                 control={<Checkbox value="remember" color="primary" />}
                 label="Remember me"
