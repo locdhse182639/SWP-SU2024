@@ -120,7 +120,7 @@
               "RelativeDocumentMoniker": "Controllers\\WishlistsController.cs",
               "ToolTip": "C:\\Users\\84528\\Documents\\FPT_Education\\Sem5\\SWP391\\SWP-SU2024\\Be V2\\BE V2\\Controllers\\WishlistsController.cs",
               "RelativeToolTip": "Controllers\\WishlistsController.cs",
-              "ViewState": "AQIAAEMAAAAAAAAAAAAwwGUAAAAJAAAA",
+              "ViewState": "AQIAAEMAAAAAAAAAAAAwwFEAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-06-21T06:20:53.926Z",
               "IsPinned": true,
@@ -136,8 +136,7 @@
               "RelativeToolTip": "Controllers\\WishlistItemsController.cs",
               "ViewState": "AQIAAGEAAAAAAAAAAADwv2kAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-21T06:48:01.823Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-06-21T06:48:01.823Z"
             },
             {
               "$type": "Document",
@@ -149,8 +148,7 @@
               "RelativeToolTip": "Controllers\\CartController.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAABQAAAASAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-13T02:19:56.051Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-06-13T02:19:56.051Z"
             },
             {
               "$type": "Document",
@@ -162,8 +160,7 @@
               "RelativeToolTip": "DataDB\\WishlistItem.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAsAAAAhAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-21T06:17:56.574Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-06-21T06:17:56.574Z"
             },
             {
               "$type": "Document",
@@ -175,8 +172,7 @@
               "RelativeToolTip": "appsettings.Development.json",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2024-06-19T12:20:46.142Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-06-19T12:20:46.142Z"
             },
             {
               "$type": "Document",
@@ -188,8 +184,7 @@
               "RelativeToolTip": "Controllers\\CartItemController.cs",
               "ViewState": "AQIAAFUAAAAAAAAAAAAkwAoAAAA0AAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-13T13:11:58.72Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-06-13T13:11:58.72Z"
             },
             {
               "$type": "Document",
@@ -201,8 +196,7 @@
               "RelativeToolTip": "DataDB\\CartDTO.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAkAAAABAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-14T05:45:02.315Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-06-14T05:45:02.315Z"
             },
             {
               "$type": "Document",
@@ -214,8 +208,7 @@
               "RelativeToolTip": "DataDB\\CartItem.cs",
               "ViewState": "AQIAAAMAAAAAAAAAAAAAAA0AAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-13T07:04:20.034Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-06-13T07:04:20.034Z"
             },
             {
               "$type": "Document",
@@ -227,8 +220,7 @@
               "RelativeToolTip": "DataDB\\WishlistItemDTO.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAQAAAAdAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-21T07:37:51.466Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-06-21T07:37:51.466Z"
             },
             {
               "$type": "Document",
@@ -240,8 +232,7 @@
               "RelativeToolTip": "appsettings.json",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAkAAAA8AAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2024-06-14T06:13:06.984Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-06-14T06:13:06.984Z"
             },
             {
               "$type": "Document",
@@ -253,8 +244,7 @@
               "RelativeToolTip": "DataDB\\Wishlist.cs",
               "ViewState": "AQIAAAgAAAAAAAAAAAAAwBYAAAAxAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-21T07:37:55.84Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-06-21T07:37:55.84Z"
             },
             {
               "$type": "Document",
@@ -266,8 +256,7 @@
               "RelativeToolTip": "DataDB\\DiamondShopV4Context.cs",
               "ViewState": "AQIAAPUAAAAAAAAAAADgvwgBAABUAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-21T07:38:54.551Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-06-21T07:38:54.551Z"
             },
             {
               "$type": "Document",
@@ -279,8 +268,7 @@
               "RelativeToolTip": "Controllers\\OrdersController.cs",
               "ViewState": "AQIAABAAAAAAAAAAAAAQwCAAAAAxAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-13T14:07:30.61Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-06-13T14:07:30.61Z"
             },
             {
               "$type": "Document",
@@ -292,8 +280,7 @@
               "RelativeToolTip": "Controllers\\ProductController.cs",
               "ViewState": "AQIAAE4AAAAAAAAAAAAowFsAAAAuAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-10T04:52:48.482Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-06-10T04:52:48.482Z"
             },
             {
               "$type": "Document",
@@ -305,8 +292,7 @@
               "RelativeToolTip": "Controllers\\DiamondController.cs",
               "ViewState": "AQIAABMAAAAAAAAAAAAzwBUAAAA5AAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-10T04:52:23.224Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-06-10T04:52:23.224Z"
             },
             {
               "$type": "Document",
@@ -318,8 +304,7 @@
               "RelativeToolTip": "DataDB\\Product.cs",
               "ViewState": "AQIAACgAAAAAAAAAAAAUwDIAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-10T06:32:47.416Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-06-10T06:32:47.416Z"
             },
             {
               "$type": "Document",
@@ -331,8 +316,7 @@
               "RelativeToolTip": "DataDB\\User.cs",
               "ViewState": "AQIAAAgAAAAAAAAAAAAQwB4AAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-10T06:44:07.78Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-06-10T06:44:07.78Z"
             },
             {
               "$type": "Document",
@@ -344,8 +328,7 @@
               "RelativeToolTip": "DataDB\\Cart.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAA8AAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-13T07:03:51.987Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-06-13T07:03:51.987Z"
             },
             {
               "$type": "Document",
@@ -357,8 +340,7 @@
               "RelativeToolTip": "DataDB\\OrderDetail.cs",
               "ViewState": "AQIAAAsAAAAAAAAAAAAmwBUAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-13T14:00:21.085Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-06-13T14:00:21.085Z"
             },
             {
               "$type": "Document",
@@ -370,8 +352,7 @@
               "RelativeToolTip": "DataDB\\Order.cs",
               "ViewState": "AQIAAAsAAAAAAAAAAAAQwAgAAAAaAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-13T14:00:09.099Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-06-13T14:00:09.099Z"
             },
             {
               "$type": "Document",
@@ -383,8 +364,7 @@
               "RelativeToolTip": "DataDB\\Diamond.cs",
               "ViewState": "AQIAABAAAAAAAAAAAAAgwCUAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-10T06:32:24.456Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-06-10T06:32:24.456Z"
             },
             {
               "$type": "Document",
@@ -396,8 +376,7 @@
               "RelativeToolTip": "Controllers\\CustomerController.cs",
               "ViewState": "AQIAACIAAAAAAAAAAADwvyoAAABRAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-13T15:08:34.244Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-06-13T15:08:34.244Z"
             },
             {
               "$type": "Document",
@@ -409,8 +388,7 @@
               "RelativeToolTip": "Controllers\\UsersController.cs",
               "ViewState": "AQIAAHEAAAAAAAAAAAAYwPcAAAAoAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-10T05:35:01.178Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-06-10T05:35:01.178Z"
             },
             {
               "$type": "Document",
@@ -422,8 +400,7 @@
               "RelativeToolTip": "Controllers\\HomeController.cs",
               "ViewState": "AQIAABAAAAAAAAAAAAAgwAAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-10T06:00:38.777Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-06-10T06:00:38.777Z"
             },
             {
               "$type": "Document",
@@ -435,8 +412,7 @@
               "RelativeToolTip": "DataDB\\Customer.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-13T07:54:16.027Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-06-13T07:54:16.027Z"
             }
           ]
         }
