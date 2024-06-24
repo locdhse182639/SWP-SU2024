@@ -19,5 +19,6 @@ export const routes = {
     wishList: '/wish-list',
     ringSize: '/ring-size-guide',
     diamond: '/diamond',
-    necklace:'/necklace'
+    necklace:'/necklace',
+    diamondEducation: '/diamond-education',
 }

@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Container, TextField, Button, Grid, Typography, Paper, Dialog, DialogContent, DialogActions } from '@mui/material';
 import { useAuth } from '../authcontext';
-import { useLocation, useNavigate } from 'react-router-dom';
-import {jwtDecode} from 'jwt-decode';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { jwtDecode } from 'jwt-decode';
 import { routes } from '../../routes';
 import { loadStripe } from '@stripe/stripe-js';
 import { Elements, CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
@@ -176,6 +176,7 @@ const OrderComponent = () => {
 
     return (
         <Container maxWidth="lg" style={{ marginTop: '20px' }}>
+            <Link to={routes.homePage}><h6>‹ Home Page</h6></Link>
             <Typography variant="h4" style={{ marginBottom: '20px', textAlign: 'center' }}>Secure Checkout</Typography>
             <Grid container spacing={3}>
                 <Grid item xs={12} md={7}>

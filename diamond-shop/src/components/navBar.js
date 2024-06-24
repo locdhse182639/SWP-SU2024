@@ -18,6 +18,7 @@ import '../css/navBar.css';
 import DropContentDiamond from './dropDownContent/dropContentDiamond';
 import DropContentJewelry from './dropDownContent/dropContentJewelry';
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
+import DropContentEducation from './dropDownContent/dropContentEducation';
 
 
 const Navbar = () => {
@@ -155,26 +156,22 @@ const Navbar = () => {
         </div>
         <div
           className="navbar-item"
-          onMouseEnter={() => handleMouseEnter('jewelry')}
-          onMouseLeave={handleMouseLeave}
-        >
-          <Box key='jewelry' display="flex" alignItems="center" mx={2}>
-            <Typography variant="body1">Jewelry</Typography>
-            <IconButton color="inherit" size="small">
-              <ExpandMoreIcon />
-            </IconButton>
-          </Box>
-        </div>
-        <div
-          className="navbar-item"
           onMouseEnter={() => handleMouseEnter('wedding')}
           onMouseLeave={handleMouseLeave}
         >
           <Box key='Wedding Rings' display="flex" alignItems="center" mx={2}>
-            <Typography variant="body1">Wedding Rings</Typography>
-            <IconButton color="inherit" size="small">
-              <ExpandMoreIcon />
-            </IconButton>
+            <button className="navbarDropdown-toggle">
+              <Typography variant="body1">Wedding Rings</Typography>
+              <IconButton color="inherit" size="small">
+                <ExpandMoreIcon />
+              </IconButton>
+            </button>
+            <div
+              className="navbarDropdownWrapper"
+              style={{ display: activeDropdown === 'wedding' ? 'block' : 'none' }}
+            >
+              <DropContentDiamond />
+            </div>
           </Box>
         </div>
         <div
@@ -183,10 +180,21 @@ const Navbar = () => {
           onMouseLeave={handleMouseLeave}
         >
           <Box key='Education' display="flex" alignItems="center" mx={2}>
-            <Typography variant="body1">Education</Typography>
-            <IconButton color="inherit" size="small">
-              <ExpandMoreIcon />
-            </IconButton>
+            <button className="navbarDropdown-toggle">
+              <Link to={routes.ringSize}>
+              <Typography variant="body1">Education</Typography>
+              </Link>
+              <IconButton color="inherit" size="small">
+                <ExpandMoreIcon />
+              </IconButton>
+              
+            </button>
+            <div
+              className="navbarDropdownWrapper"
+              style={{ display: activeDropdown === 'education' ? 'block' : 'none' }}
+            >
+              <DropContentEducation />
+            </div>
           </Box>
         </div>
       </Toolbar>

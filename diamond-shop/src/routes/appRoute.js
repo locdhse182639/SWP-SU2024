@@ -24,6 +24,7 @@ import HoSo from '../components/userInfoContent/Pages/hoSoNguoiDung'
 import RingSizePage from '../pages/ringSizePage'
 import DiamondPage from '../pages/diamondPage'
 import NecklacePage from '../pages/necklacePage'
+import DiamondEducation from '../pages/diamondEducation'
 
 
 export default function AppRoute() {
@@ -53,6 +54,7 @@ export default function AppRoute() {
       <Route path={routes.wishList} element={<WishListPage />} />
       <Route path={routes.diamond} element={<DiamondPage />} />
       <Route path={routes.necklace} element={<NecklacePage />} />
+      <Route path={routes.diamondEducation} element={<DiamondEducation/>}/>
     </Routes>
   );
 }

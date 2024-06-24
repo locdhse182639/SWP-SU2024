@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
-// import '../css/dropContentJewelry.css'
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import { Link } from 'react-router-dom';
 import { routes } from '../../routes';
-// import '../../css/dropContentER.css'
 import engageRing from '../../constant/engagement-rings.png'
 
 
