@@ -1,21 +1,21 @@
 import React, { useState } from 'react';
-import { Container, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Button, Dialog, DialogActions, DialogContent, DialogTitle } from '@mui/material';
+import { Container, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField } from '@mui/material';
 import DashboardNav from './DashboardNav';
 import './OrderPage.css';
 import SiteNav from './../../staffsite/StaffNav';
 import { useAuth } from '../../authcontext';
 
 // Generate Order Data
-function createData(id, customerID, totalPrice, orderDate, orderDetailID) {
-  return { id, customerID, totalPrice, orderDate, orderDetailID };
+function createData(id, customerID, totalPrice, orderDate, orderDetailID, deposit, amountPaid) {
+  return { id, customerID, totalPrice, orderDate, orderDetailID, deposit, amountPaid };
 }
 
 const orderData = [
-  createData(0, 'Elvis Presley', 312.44, '16 Mar, 2019', 'OD001'),
-  createData(1, 'Paul McCartney', 866.99, '16 Mar, 2019', 'OD002'),
-  createData(2, 'Tom Scholz', 100.81, '16 Mar, 2019', 'OD003'),
-  createData(3, 'Michael Jackson', 654.39, '16 Mar, 2019', 'OD004'),
-  createData(4, 'Bruce Springsteen', 212.79, '15 Mar, 2019', 'OD005'),
+  createData(0, 'Elvis Presley', 312.44, '16 Mar, 2019', 'OD001', 50, 262.44),
+  createData(1, 'Paul McCartney', 866.99, '16 Mar, 2019', 'OD002', 100, 766.99),
+  createData(2, 'Tom Scholz', 100.81, '16 Mar, 2019', 'OD003', 20, 80.81),
+  createData(3, 'Michael Jackson', 654.39, '16 Mar, 2019', 'OD004', 150, 504.39),
+  createData(4, 'Bruce Springsteen', 212.79, '15 Mar, 2019', 'OD005', 50, 162.79),
 ];
 
 // Sample order detail data
@@ -43,6 +43,9 @@ const orderDetails = {
 const OrderPage = () => {
   const [selectedOrder, setSelectedOrder] = useState(null);
   const [open, setOpen] = useState(false);
+  const [paymentOpen, setPaymentOpen] = useState(false);
+  const [paymentDetails, setPaymentDetails] = useState({});
+  const [datePaid, setDatePaid] = useState('');
 
   const handleViewDetails = (orderId) => {
     setSelectedOrder(orderId);
@@ -51,19 +54,26 @@ const OrderPage = () => {
 
   const handleClose = () => {
     setOpen(false);
+    setPaymentOpen(false);
   };
 
-  const handleReleaseBill = () => {
-    console.log('Bill Released');
-    // Add your bill release logic here
-    setOpen(false);
+  const handlePayment = (order) => {
+    setPaymentDetails(order);
+    setPaymentOpen(true);
+  };
+
+  const handlePaymentSubmit = () => {
+    console.log('Payment Details:', paymentDetails);
+    console.log('Date Paid:', datePaid);
+    // Add your payment submission logic here
+    setPaymentOpen(false);
   };
 
   const { user } = useAuth();
   console.log('User Role ID:', user?.roleId);
 
   return (
-    <div>
+    <div className='container-fluid'>
       <div>
         {user && user.roleId === 3 ? (
           <SiteNav />
@@ -72,7 +82,7 @@ const OrderPage = () => {
         )}
       </div>
 
-      <Container className='container-2'>
+      <div className='container-fluid-2'>
         <TableContainer component={Paper}>
           <Table>
             <TableHead>
@@ -101,13 +111,21 @@ const OrderPage = () => {
                     >
                       View Details
                     </Button>
+                    <Button
+                      variant="contained"
+                      color="secondary"
+                      onClick={() => handlePayment(row)}
+                      style={{ marginLeft: '10px' }}
+                    >
+                      Payment
+                    </Button>
                   </TableCell>
                 </TableRow>
               ))}
             </TableBody>
           </Table>
         </TableContainer>
-      </Container>
+      </div>
 
       <Dialog open={open} onClose={handleClose} classes={{ paper: 'dialog-container' }}>
         <DialogTitle className="dialog-title">Order Details</DialogTitle>
@@ -145,8 +163,37 @@ const OrderPage = () => {
           <Button onClick={handleClose} color="primary" className="dialog-button">
             Close
           </Button>
-          <Button onClick={handleReleaseBill} color="primary" variant="contained" className="dialog-button">
-            Release Bill
+        </DialogActions>
+      </Dialog>
+
+      <Dialog open={paymentOpen} onClose={handleClose} classes={{ paper: 'dialog-container' }}>
+        <DialogTitle className="dialog-title">Payment Details</DialogTitle>
+        <DialogContent className="dialog-content">
+          {paymentDetails && (
+            <div>
+              <p>Order ID: {paymentDetails.id}</p>
+              <p>Total: ${paymentDetails.totalPrice}</p>
+              <p>Deposit: ${paymentDetails.deposit}</p>
+              <p>Amount Paid: ${paymentDetails.amountPaid}</p>
+              <TextField
+                label="Date Paid"
+                type="date"
+                value={datePaid}
+                onChange={(e) => setDatePaid(e.target.value)}
+                InputLabelProps={{
+                  shrink: true,
+                }}
+                fullWidth
+              />
+            </div>
+          )}
+        </DialogContent>
+        <DialogActions className="dialog-actions">
+          <Button onClick={handleClose} color="primary" className="dialog-button">
+            Close
+          </Button>
+          <Button onClick={handlePaymentSubmit} color="primary" variant="contained" className="dialog-button">
+            Save
           </Button>
         </DialogActions>
       </Dialog>
