@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
-import { Box, Typography, IconButton, Select, MenuItem, FormControl, InputLabel, Slider, Stack } from '@mui/material';
-import FilterListIcon from '@mui/icons-material/FilterList';
-import SortIcon from '@mui/icons-material/Sort';
+import { Box, Typography, Select, MenuItem, FormControl, Slider, Stack, Button, TextField, Grid } from '@mui/material';
 
 const CustomToolbar = ({ onFilterChange, onSortChange }) => {
   const [filter, setFilter] = useState({
@@ -45,113 +43,188 @@ const CustomToolbar = ({ onFilterChange, onSortChange }) => {
   };
 
   return (
-    <Box display="flex" flexDirection="column" p={2} bgcolor="#eeeeee" gap={2}>
-      <Stack direction="row" spacing={2}>
-        <FormControl fullWidth>
-          <InputLabel>Shape</InputLabel>
-          <Select
-            name="shape"
-            value={filter.shape}
-            onChange={handleFilterChange}
-          >
-            <MenuItem value=""><em>All Shapes</em></MenuItem>
-            <MenuItem value="Round">Round</MenuItem>
-            <MenuItem value="Princess">Princess</MenuItem>
-            <MenuItem value="Cushion">Cushion</MenuItem>
-            <MenuItem value="Emerald">Emerald</MenuItem>
-            <MenuItem value="Oval">Oval</MenuItem>
-            <MenuItem value="Radiant">Radiant</MenuItem>
-            <MenuItem value="Asscher">Asscher</MenuItem>
-            <MenuItem value="Marquise">Marquise</MenuItem>
-            <MenuItem value="Heart">Heart</MenuItem>
-            <MenuItem value="Pear">Pear</MenuItem>
-          </Select>
-        </FormControl>
-        <FormControl fullWidth>
-          <InputLabel>Color</InputLabel>
-          <Select
-            name="color"
+    <Box display="flex" flexDirection="column" p={2} gap={2} sx={{ color: 'black' }}>
+      <Typography variant="h6" align="center" sx={{ color: 'black' }}>
+        Find the perfect GIA-certified natural diamond right for you!
+      </Typography>
+      <Stack direction="row" spacing={2} justifyContent="center">
+        <Button
+          variant={filter.shape === '' ? 'contained' : 'outlined'}
+          onClick={() => handleFilterChange({ target: { name: 'shape', value: '' } })}
+          sx={{ color: filter.shape === '' ? 'white' : 'gray', backgroundColor: filter.shape === '' ? 'black' : 'white', borderColor: 'gray' }}
+        >
+          Tất cả
+        </Button>
+        <Button><img src="/path/to/round-icon.png" alt="Round" /></Button>
+        <Button><img src="/path/to/princess-icon.png" alt="Princess" /></Button>
+        <Button><img src="/path/to/cushion-icon.png" alt="Cushion" /></Button>
+        <Button><img src="/path/to/emerald-icon.png" alt="Emerald" /></Button>
+        <Button><img src="/path/to/oval-icon.png" alt="Oval" /></Button>
+        <Button><img src="/path/to/radiant-icon.png" alt="Radiant" /></Button>
+        <Button><img src="/path/to/asscher-icon.png" alt="Asscher" /></Button>
+        <Button><img src="/path/to/marquise-icon.png" alt="Marquise" /></Button>
+        <Button><img src="/path/to/heart-icon.png" alt="Heart" /></Button>
+        <Button><img src="/path/to/pear-icon.png" alt="Pear" /></Button>
+      </Stack>
+
+      <Grid container spacing={2} alignItems="center">
+        <Grid item xs={2}>
+          <Typography sx={{ color: 'black' }}>Color</Typography>
+        </Grid>
+        <Grid item xs={4}>
+          <Slider
             value={filter.color}
             onChange={handleFilterChange}
-          >
-            <MenuItem value=""><em>All Colors</em></MenuItem>
-            <MenuItem value="D">D</MenuItem>
-            <MenuItem value="E">E</MenuItem>
-            <MenuItem value="F">F</MenuItem>
-            <MenuItem value="G">G</MenuItem>
-            <MenuItem value="H">H</MenuItem>
-            <MenuItem value="I">I</MenuItem>
-            <MenuItem value="J">J</MenuItem>
-            <MenuItem value="K">K</MenuItem>
-          </Select>
-        </FormControl>
-        <FormControl fullWidth>
-          <InputLabel>Clarity</InputLabel>
-          <Select
-            name="clarity"
+            name="color"
+            valueLabelDisplay="auto"
+            step={1}
+            marks
+            min={0}
+            max={10}
+            valueLabelFormat={(value) => ['D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M'][value]}
+            sx={{ color: '#757575' }}
+          />
+        </Grid>
+        <Grid item xs={2}>
+          <Typography sx={{ color: 'black' }}>Clarity</Typography>
+        </Grid>
+        <Grid item xs={4}>
+          <Slider
             value={filter.clarity}
             onChange={handleFilterChange}
-          >
-            <MenuItem value=""><em>All Clarities</em></MenuItem>
-            <MenuItem value="FL">FL</MenuItem>
-            <MenuItem value="IF">IF</MenuItem>
-            <MenuItem value="VVS1">VVS1</MenuItem>
-            <MenuItem value="VVS2">VVS2</MenuItem>
-            <MenuItem value="VS1">VS1</MenuItem>
-            <MenuItem value="VS2">VS2</MenuItem>
-            <MenuItem value="SI1">SI1</MenuItem>
-            <MenuItem value="SI2">SI2</MenuItem>
-          </Select>
-        </FormControl>
-        <FormControl fullWidth>
-          <InputLabel>Cut</InputLabel>
-          <Select
-            name="cut"
+            name="clarity"
+            valueLabelDisplay="auto"
+            step={1}
+            marks
+            min={0}
+            max={8}
+            valueLabelFormat={(value) => ['FL', 'IF', 'VVS1', 'VVS2', 'VS1', 'VS2', 'SI1', 'SI2', 'I1'][value]}
+            sx={{ color: '#757575' }}
+          />
+        </Grid>
+      </Grid>
+
+      <Grid container spacing={2} alignItems="center">
+        <Grid item xs={2}>
+          <Typography sx={{ color: 'black' }}>Cut</Typography>
+        </Grid>
+        <Grid item xs={4}>
+          <Slider
             value={filter.cut}
             onChange={handleFilterChange}
-          >
-            <MenuItem value=""><em>All Cuts</em></MenuItem>
-            <MenuItem value="Good">Good</MenuItem>
-            <MenuItem value="Very Good">Very Good</MenuItem>
-            <MenuItem value="Ideal">Ideal</MenuItem>
-            <MenuItem value="Astor Ideal">Astor Ideal</MenuItem>
-          </Select>
-        </FormControl>
-      </Stack>
-      <Stack direction="row" spacing={2} alignItems="center">
-        <Typography>Price Range</Typography>
-        <Slider
-          value={filter.priceRange}
-          onChange={handlePriceChange}
-          valueLabelDisplay="auto"
-          min={0}
-          max={5000000}
-        />
-      </Stack>
-      <Stack direction="row" spacing={2} alignItems="center">
-        <Typography>Carat Range</Typography>
-        <Slider
-          value={filter.caratRange}
-          onChange={handleCaratChange}
-          valueLabelDisplay="auto"
-          min={0}
-          max={8}
-        />
-      </Stack>
-      <Stack direction="row" spacing={2} alignItems="center">
-        <Typography>Sort By</Typography>
-        <FormControl fullWidth>
-          <Select
-            value={sort}
-            onChange={handleSortChange}
-            displayEmpty
-          >
-            <MenuItem value=""><em>No Sort</em></MenuItem>
-            <MenuItem value="price">Price</MenuItem>
-            <MenuItem value="caratWeight">Carat Weight</MenuItem>
-          </Select>
-        </FormControl>
-      </Stack>
+            name="cut"
+            valueLabelDisplay="auto"
+            step={1}
+            marks
+            min={0}
+            max={3}
+            valueLabelFormat={(value) => ['Excellent', 'Very Good', 'Good', 'Fair'][value]}
+            sx={{ color: '#757575' }}
+          />
+        </Grid>
+        <Grid item xs={2}>
+          <Typography sx={{ color: 'black' }}>Price Range</Typography>
+        </Grid>
+        <Grid item xs={4}>
+          <Slider
+            value={filter.priceRange}
+            onChange={handlePriceChange}
+            valueLabelDisplay="auto"
+            min={0}
+            max={5000000}
+            sx={{ color: '#757575' }}
+          />
+        </Grid>
+      </Grid>
+
+      <Grid container spacing={2} alignItems="center">
+        <Grid item xs={2}>
+          <Typography sx={{ color: 'black' }}>Carat Range</Typography>
+        </Grid>
+        <Grid item xs={4}>
+          <Slider
+            value={filter.caratRange}
+            onChange={handleCaratChange}
+            valueLabelDisplay="auto"
+            min={0}
+            max={8}
+            sx={{ color: '#757575' }}
+          />
+        </Grid>
+        <Grid item xs={2}>
+          <Typography sx={{ color: 'black' }}>Millimetre</Typography>
+        </Grid>
+        <Grid item xs={4}>
+          <Stack direction="row" spacing={2} justifyContent="center">
+            <TextField
+              label="Từ"
+              variant="outlined"
+              type="number"
+              sx={{
+                '& .MuiInputLabel-root': { color: '#757575' }, // Label color
+                '& .MuiOutlinedInput-root': {
+                  '& fieldset': { borderColor: '#757575' }, // Default border color
+                  '&:hover fieldset': { borderColor: 'black' }, // Border color on hover
+                  '&.Mui-focused fieldset': { borderColor: 'black' }, // Border color when focused
+                },
+                '& .MuiInputLabel-root.Mui-focused': { color: 'black' }, // Label color when focused
+              }}
+            />
+            <TextField
+              label="Đến"
+              variant="outlined"
+              type="number"
+              sx={{
+                '& .MuiInputLabel-root': { color: 'gray' }, // Label color
+                '& .MuiOutlinedInput-root': {
+                  '& fieldset': { borderColor: 'gray' }, // Default border color
+                  '&:hover fieldset': { borderColor: 'black' }, // Border color on hover
+                  '&.Mui-focused fieldset': { borderColor: 'black' }, // Border color when focused
+                },
+                '& .MuiInputLabel-root.Mui-focused': { color: 'black' }, // Label color when focused
+              }}
+            />
+          </Stack>
+
+        </Grid>
+      </Grid>
+
+      <Grid container spacing={2} alignItems="center">
+        <Grid item xs={2}>
+          <Typography sx={{ color: 'black' }}>Sort By</Typography>
+        </Grid>
+        <Grid item xs={2}>
+          <FormControl sx={{ width: '200px', paddingLeft: '0', color: 'gray' }}>
+            <Select
+              value={sort}
+              onChange={handleSortChange}
+              displayEmpty
+              sx={{ color: '#757575' }}
+            >
+              <MenuItem value=""><em>No Sort</em></MenuItem>
+              <MenuItem value="price">Price</MenuItem>
+              <MenuItem value="caratWeight">Carat Weight</MenuItem>
+            </Select>
+          </FormControl>
+        </Grid>
+      </Grid>
+<div style={{display:'flex', justifyContent:'center'}}>
+      <Button
+        variant="contained"
+        color="primary"
+        sx={{
+          backgroundColor: 'black',
+          color: 'white',
+          width: '20%',
+          '&:hover': {
+            backgroundColor: '#757575',
+            color: 'white',
+          },
+        }}
+      >
+        Xem ngay 977 viên kim cương
+      </Button>
+      </div>
     </Box>
   );
 };

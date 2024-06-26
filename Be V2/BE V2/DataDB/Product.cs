@@ -48,5 +48,8 @@ namespace BE_V2.DataDB
         public virtual ICollection<WishlistItem> WishlistItems { get; set; }
 
         public virtual ICollection<CartItem> CartItems { get; set; }
+
+        public virtual ICollection<Feedback> Feedbacks { get; set; } = new HashSet<Feedback>();  // Added Feedbacks collection
+
     }
 }

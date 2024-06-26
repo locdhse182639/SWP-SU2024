@@ -94,10 +94,16 @@ namespace BE_V2.DataDB
                 entity.Property(e => e.FeedbackId).HasColumnName("FeedbackID");
                 entity.Property(e => e.CustomerId).HasColumnName("CustomerID");
                 entity.Property(e => e.FeedbackText).HasMaxLength(1000);
+                entity.Property(e => e.ProductId).HasColumnName("ProductID");  // Added ProductId property
 
                 entity.HasOne(d => d.Customer).WithMany(p => p.Feedbacks)
                     .HasForeignKey(d => d.CustomerId)
                     .HasConstraintName("FK__Feedback__Custom__6477ECF3");
+
+                entity.HasOne(d => d.Product)  // Configuring the foreign key relationship for Product
+                    .WithMany(p => p.Feedbacks)
+                    .HasForeignKey(d => d.ProductId)
+                    .HasConstraintName("FK__Feedback__ProductID__649C50CB");  // Adjust the constraint name as needed
             });
 
             modelBuilder.Entity<Order>(entity =>

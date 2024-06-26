@@ -3,8 +3,36 @@
   "WorkspaceRootPath": "C:\\Users\\84528\\Documents\\FPT_Education\\Sem5\\SWP391\\SWP-SU2024\\Be V2\\BE V2\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{F12557B9-F3F6-42C9-B24A-0B2AFE5388E2}|BE V2.csproj|c:\\users\\84528\\documents\\fpt_education\\sem5\\swp391\\swp-su2024\\be v2\\be v2\\controllers\\feedbackcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F12557B9-F3F6-42C9-B24A-0B2AFE5388E2}|BE V2.csproj|solutionrelative:controllers\\feedbackcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F12557B9-F3F6-42C9-B24A-0B2AFE5388E2}|BE V2.csproj|c:\\users\\84528\\documents\\fpt_education\\sem5\\swp391\\swp-su2024\\be v2\\be v2\\datadb\\createfeedbackdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F12557B9-F3F6-42C9-B24A-0B2AFE5388E2}|BE V2.csproj|solutionrelative:datadb\\createfeedbackdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F12557B9-F3F6-42C9-B24A-0B2AFE5388E2}|BE V2.csproj|c:\\users\\84528\\documents\\fpt_education\\sem5\\swp391\\swp-su2024\\be v2\\be v2\\datadb\\feedback.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F12557B9-F3F6-42C9-B24A-0B2AFE5388E2}|BE V2.csproj|solutionrelative:datadb\\feedback.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F12557B9-F3F6-42C9-B24A-0B2AFE5388E2}|BE V2.csproj|c:\\users\\84528\\documents\\fpt_education\\sem5\\swp391\\swp-su2024\\be v2\\be v2\\datadb\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F12557B9-F3F6-42C9-B24A-0B2AFE5388E2}|BE V2.csproj|solutionrelative:datadb\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F12557B9-F3F6-42C9-B24A-0B2AFE5388E2}|BE V2.csproj|c:\\users\\84528\\documents\\fpt_education\\sem5\\swp391\\swp-su2024\\be v2\\be v2\\datadb\\customer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F12557B9-F3F6-42C9-B24A-0B2AFE5388E2}|BE V2.csproj|solutionrelative:datadb\\customer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F12557B9-F3F6-42C9-B24A-0B2AFE5388E2}|BE V2.csproj|c:\\users\\84528\\documents\\fpt_education\\sem5\\swp391\\swp-su2024\\be v2\\be v2\\controllers\\cartitemcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F12557B9-F3F6-42C9-B24A-0B2AFE5388E2}|BE V2.csproj|solutionrelative:controllers\\cartitemcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{F12557B9-F3F6-42C9-B24A-0B2AFE5388E2}|BE V2.csproj|c:\\users\\84528\\documents\\fpt_education\\sem5\\swp391\\swp-su2024\\be v2\\be v2\\controllers\\wishlistscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{F12557B9-F3F6-42C9-B24A-0B2AFE5388E2}|BE V2.csproj|solutionrelative:controllers\\wishlistscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F12557B9-F3F6-42C9-B24A-0B2AFE5388E2}|BE V2.csproj|c:\\users\\84528\\documents\\fpt_education\\sem5\\swp391\\swp-su2024\\be v2\\be v2\\datadb\\product.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F12557B9-F3F6-42C9-B24A-0B2AFE5388E2}|BE V2.csproj|solutionrelative:datadb\\product.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{F12557B9-F3F6-42C9-B24A-0B2AFE5388E2}|BE V2.csproj|c:\\users\\84528\\documents\\fpt_education\\sem5\\swp391\\swp-su2024\\be v2\\be v2\\controllers\\wishlistitemscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -27,10 +55,6 @@
       "RelativeMoniker": "D:0:0:{F12557B9-F3F6-42C9-B24A-0B2AFE5388E2}|BE V2.csproj|solutionrelative:datadb\\cartdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{F12557B9-F3F6-42C9-B24A-0B2AFE5388E2}|BE V2.csproj|c:\\users\\84528\\documents\\fpt_education\\sem5\\swp391\\swp-su2024\\be v2\\be v2\\controllers\\cartitemcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F12557B9-F3F6-42C9-B24A-0B2AFE5388E2}|BE V2.csproj|solutionrelative:controllers\\cartitemcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{F12557B9-F3F6-42C9-B24A-0B2AFE5388E2}|BE V2.csproj|c:\\users\\84528\\documents\\fpt_education\\sem5\\swp391\\swp-su2024\\be v2\\be v2\\controllers\\cartcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{F12557B9-F3F6-42C9-B24A-0B2AFE5388E2}|BE V2.csproj|solutionrelative:controllers\\cartcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -39,20 +63,12 @@
       "RelativeMoniker": "D:0:0:{F12557B9-F3F6-42C9-B24A-0B2AFE5388E2}|BE V2.csproj|solutionrelative:datadb\\wishlist.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{F12557B9-F3F6-42C9-B24A-0B2AFE5388E2}|BE V2.csproj|c:\\users\\84528\\documents\\fpt_education\\sem5\\swp391\\swp-su2024\\be v2\\be v2\\datadb\\diamondshopv4context.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F12557B9-F3F6-42C9-B24A-0B2AFE5388E2}|BE V2.csproj|solutionrelative:datadb\\diamondshopv4context.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{F12557B9-F3F6-42C9-B24A-0B2AFE5388E2}|BE V2.csproj|c:\\users\\84528\\documents\\fpt_education\\sem5\\swp391\\swp-su2024\\be v2\\be v2\\controllers\\orderscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{F12557B9-F3F6-42C9-B24A-0B2AFE5388E2}|BE V2.csproj|solutionrelative:controllers\\orderscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{F12557B9-F3F6-42C9-B24A-0B2AFE5388E2}|BE V2.csproj|c:\\users\\84528\\documents\\fpt_education\\sem5\\swp391\\swp-su2024\\be v2\\be v2\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
       "RelativeMoniker": "D:0:0:{F12557B9-F3F6-42C9-B24A-0B2AFE5388E2}|BE V2.csproj|solutionrelative:appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F12557B9-F3F6-42C9-B24A-0B2AFE5388E2}|BE V2.csproj|c:\\users\\84528\\documents\\fpt_education\\sem5\\swp391\\swp-su2024\\be v2\\be v2\\appsettings.development.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
-      "RelativeMoniker": "D:0:0:{F12557B9-F3F6-42C9-B24A-0B2AFE5388E2}|BE V2.csproj|solutionrelative:appsettings.development.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{F12557B9-F3F6-42C9-B24A-0B2AFE5388E2}|BE V2.csproj|c:\\users\\84528\\documents\\fpt_education\\sem5\\swp391\\swp-su2024\\be v2\\be v2\\controllers\\diamondcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -65,10 +81,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{F12557B9-F3F6-42C9-B24A-0B2AFE5388E2}|BE V2.csproj|c:\\users\\84528\\documents\\fpt_education\\sem5\\swp391\\swp-su2024\\be v2\\be v2\\datadb\\orderdetail.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{F12557B9-F3F6-42C9-B24A-0B2AFE5388E2}|BE V2.csproj|solutionrelative:datadb\\orderdetail.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F12557B9-F3F6-42C9-B24A-0B2AFE5388E2}|BE V2.csproj|c:\\users\\84528\\documents\\fpt_education\\sem5\\swp391\\swp-su2024\\be v2\\be v2\\datadb\\product.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F12557B9-F3F6-42C9-B24A-0B2AFE5388E2}|BE V2.csproj|solutionrelative:datadb\\product.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{F12557B9-F3F6-42C9-B24A-0B2AFE5388E2}|BE V2.csproj|c:\\users\\84528\\documents\\fpt_education\\sem5\\swp391\\swp-su2024\\be v2\\be v2\\datadb\\cart.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -91,14 +103,6 @@
       "RelativeMoniker": "D:0:0:{F12557B9-F3F6-42C9-B24A-0B2AFE5388E2}|BE V2.csproj|solutionrelative:controllers\\userscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{F12557B9-F3F6-42C9-B24A-0B2AFE5388E2}|BE V2.csproj|c:\\users\\84528\\documents\\fpt_education\\sem5\\swp391\\swp-su2024\\be v2\\be v2\\datadb\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F12557B9-F3F6-42C9-B24A-0B2AFE5388E2}|BE V2.csproj|solutionrelative:datadb\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F12557B9-F3F6-42C9-B24A-0B2AFE5388E2}|BE V2.csproj|c:\\users\\84528\\documents\\fpt_education\\sem5\\swp391\\swp-su2024\\be v2\\be v2\\datadb\\customer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F12557B9-F3F6-42C9-B24A-0B2AFE5388E2}|BE V2.csproj|solutionrelative:datadb\\customer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{F12557B9-F3F6-42C9-B24A-0B2AFE5388E2}|BE V2.csproj|c:\\users\\84528\\documents\\fpt_education\\sem5\\swp391\\swp-su2024\\be v2\\be v2\\controllers\\homecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{F12557B9-F3F6-42C9-B24A-0B2AFE5388E2}|BE V2.csproj|solutionrelative:controllers\\homecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
@@ -110,17 +114,17 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 2,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 6,
               "Title": "WishlistsController.cs",
               "DocumentMoniker": "C:\\Users\\84528\\Documents\\FPT_Education\\Sem5\\SWP391\\SWP-SU2024\\Be V2\\BE V2\\Controllers\\WishlistsController.cs",
               "RelativeDocumentMoniker": "Controllers\\WishlistsController.cs",
               "ToolTip": "C:\\Users\\84528\\Documents\\FPT_Education\\Sem5\\SWP391\\SWP-SU2024\\Be V2\\BE V2\\Controllers\\WishlistsController.cs",
               "RelativeToolTip": "Controllers\\WishlistsController.cs",
-              "ViewState": "AQIAABcAAAAAAAAAAAAswFEAAAAAAAAA",
+              "ViewState": "AQIAABcAAAAAAAAAAAAswC4AAAAeAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-06-21T06:20:53.926Z",
               "IsPinned": true,
@@ -129,78 +133,58 @@
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "WishlistItemsController.cs",
-              "DocumentMoniker": "C:\\Users\\84528\\Documents\\FPT_Education\\Sem5\\SWP391\\SWP-SU2024\\Be V2\\BE V2\\Controllers\\WishlistItemsController.cs",
-              "RelativeDocumentMoniker": "Controllers\\WishlistItemsController.cs",
-              "ToolTip": "C:\\Users\\84528\\Documents\\FPT_Education\\Sem5\\SWP391\\SWP-SU2024\\Be V2\\BE V2\\Controllers\\WishlistItemsController.cs",
-              "RelativeToolTip": "Controllers\\WishlistItemsController.cs",
-              "ViewState": "AQIAAGEAAAAAAAAAAADwv2kAAAAAAAAA",
+              "Title": "CreateFeedbackDTO.cs",
+              "DocumentMoniker": "C:\\Users\\84528\\Documents\\FPT_Education\\Sem5\\SWP391\\SWP-SU2024\\Be V2\\BE V2\\DataDB\\CreateFeedbackDTO.cs",
+              "RelativeDocumentMoniker": "DataDB\\CreateFeedbackDTO.cs",
+              "ToolTip": "C:\\Users\\84528\\Documents\\FPT_Education\\Sem5\\SWP391\\SWP-SU2024\\Be V2\\BE V2\\DataDB\\CreateFeedbackDTO.cs",
+              "RelativeToolTip": "DataDB\\CreateFeedbackDTO.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABwAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-21T06:48:01.823Z"
+              "WhenOpened": "2024-06-26T05:56:28.589Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "FeedbackController.cs",
+              "DocumentMoniker": "C:\\Users\\84528\\Documents\\FPT_Education\\Sem5\\SWP391\\SWP-SU2024\\Be V2\\BE V2\\Controllers\\FeedbackController.cs",
+              "RelativeDocumentMoniker": "Controllers\\FeedbackController.cs",
+              "ToolTip": "C:\\Users\\84528\\Documents\\FPT_Education\\Sem5\\SWP391\\SWP-SU2024\\Be V2\\BE V2\\Controllers\\FeedbackController.cs",
+              "RelativeToolTip": "Controllers\\FeedbackController.cs",
+              "ViewState": "AQIAACkAAAAAAAAAAAAqwDUAAAANAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-06-26T05:53:38.784Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 7,
-              "Title": "CartController.cs",
-              "DocumentMoniker": "C:\\Users\\84528\\Documents\\FPT_Education\\Sem5\\SWP391\\SWP-SU2024\\Be V2\\BE V2\\Controllers\\CartController.cs",
-              "RelativeDocumentMoniker": "Controllers\\CartController.cs",
-              "ToolTip": "C:\\Users\\84528\\Documents\\FPT_Education\\Sem5\\SWP391\\SWP-SU2024\\Be V2\\BE V2\\Controllers\\CartController.cs",
-              "RelativeToolTip": "Controllers\\CartController.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAABQAAAASAAAA",
+              "Title": "Product.cs",
+              "DocumentMoniker": "C:\\Users\\84528\\Documents\\FPT_Education\\Sem5\\SWP391\\SWP-SU2024\\Be V2\\BE V2\\DataDB\\Product.cs",
+              "RelativeDocumentMoniker": "DataDB\\Product.cs",
+              "ToolTip": "C:\\Users\\84528\\Documents\\FPT_Education\\Sem5\\SWP391\\SWP-SU2024\\Be V2\\BE V2\\DataDB\\Product.cs",
+              "RelativeToolTip": "DataDB\\Product.cs",
+              "ViewState": "AQIAACYAAAAAAAAAAAAAADMAAABnAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-13T02:19:56.051Z"
+              "WhenOpened": "2024-06-10T06:32:47.416Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 2,
-              "Title": "WishlistItem.cs",
-              "DocumentMoniker": "C:\\Users\\84528\\Documents\\FPT_Education\\Sem5\\SWP391\\SWP-SU2024\\Be V2\\BE V2\\DataDB\\WishlistItem.cs",
-              "RelativeDocumentMoniker": "DataDB\\WishlistItem.cs",
-              "ToolTip": "C:\\Users\\84528\\Documents\\FPT_Education\\Sem5\\SWP391\\SWP-SU2024\\Be V2\\BE V2\\DataDB\\WishlistItem.cs",
-              "RelativeToolTip": "DataDB\\WishlistItem.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAsAAAAhAAAA",
+              "Title": "Feedback.cs",
+              "DocumentMoniker": "C:\\Users\\84528\\Documents\\FPT_Education\\Sem5\\SWP391\\SWP-SU2024\\Be V2\\BE V2\\DataDB\\Feedback.cs",
+              "RelativeDocumentMoniker": "DataDB\\Feedback.cs",
+              "ToolTip": "C:\\Users\\84528\\Documents\\FPT_Education\\Sem5\\SWP391\\SWP-SU2024\\Be V2\\BE V2\\DataDB\\Feedback.cs",
+              "RelativeToolTip": "DataDB\\Feedback.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABQAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-21T06:17:56.574Z"
+              "WhenOpened": "2024-06-26T05:49:35.816Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 12,
-              "Title": "appsettings.Development.json",
-              "DocumentMoniker": "C:\\Users\\84528\\Documents\\FPT_Education\\Sem5\\SWP391\\SWP-SU2024\\Be V2\\BE V2\\appsettings.Development.json",
-              "RelativeDocumentMoniker": "appsettings.Development.json",
-              "ToolTip": "C:\\Users\\84528\\Documents\\FPT_Education\\Sem5\\SWP391\\SWP-SU2024\\Be V2\\BE V2\\appsettings.Development.json",
-              "RelativeToolTip": "appsettings.Development.json",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2024-06-19T12:20:46.142Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "CartItemController.cs",
-              "DocumentMoniker": "C:\\Users\\84528\\Documents\\FPT_Education\\Sem5\\SWP391\\SWP-SU2024\\Be V2\\BE V2\\Controllers\\CartItemController.cs",
-              "RelativeDocumentMoniker": "Controllers\\CartItemController.cs",
-              "ToolTip": "C:\\Users\\84528\\Documents\\FPT_Education\\Sem5\\SWP391\\SWP-SU2024\\Be V2\\BE V2\\Controllers\\CartItemController.cs",
-              "RelativeToolTip": "Controllers\\CartItemController.cs",
-              "ViewState": "AQIAAFUAAAAAAAAAAAAkwAoAAAA0AAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-13T13:11:58.72Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "CartDTO.cs",
-              "DocumentMoniker": "C:\\Users\\84528\\Documents\\FPT_Education\\Sem5\\SWP391\\SWP-SU2024\\Be V2\\BE V2\\DataDB\\CartDTO.cs",
-              "RelativeDocumentMoniker": "DataDB\\CartDTO.cs",
-              "ToolTip": "C:\\Users\\84528\\Documents\\FPT_Education\\Sem5\\SWP391\\SWP-SU2024\\Be V2\\BE V2\\DataDB\\CartDTO.cs",
-              "RelativeToolTip": "DataDB\\CartDTO.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAkAAAABAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-14T05:45:02.315Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 11,
               "Title": "CartItem.cs",
               "DocumentMoniker": "C:\\Users\\84528\\Documents\\FPT_Education\\Sem5\\SWP391\\SWP-SU2024\\Be V2\\BE V2\\DataDB\\CartItem.cs",
               "RelativeDocumentMoniker": "DataDB\\CartItem.cs",
@@ -212,7 +196,94 @@
             },
             {
               "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "CartDTO.cs",
+              "DocumentMoniker": "C:\\Users\\84528\\Documents\\FPT_Education\\Sem5\\SWP391\\SWP-SU2024\\Be V2\\BE V2\\DataDB\\CartDTO.cs",
+              "RelativeDocumentMoniker": "DataDB\\CartDTO.cs",
+              "ToolTip": "C:\\Users\\84528\\Documents\\FPT_Education\\Sem5\\SWP391\\SWP-SU2024\\Be V2\\BE V2\\DataDB\\CartDTO.cs",
+              "RelativeToolTip": "DataDB\\CartDTO.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAkAAAABAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-06-14T05:45:02.315Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "WishlistItem.cs",
+              "DocumentMoniker": "C:\\Users\\84528\\Documents\\FPT_Education\\Sem5\\SWP391\\SWP-SU2024\\Be V2\\BE V2\\DataDB\\WishlistItem.cs",
+              "RelativeDocumentMoniker": "DataDB\\WishlistItem.cs",
+              "ToolTip": "C:\\Users\\84528\\Documents\\FPT_Education\\Sem5\\SWP391\\SWP-SU2024\\Be V2\\BE V2\\DataDB\\WishlistItem.cs",
+              "RelativeToolTip": "DataDB\\WishlistItem.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAsAAAAhAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-06-21T06:17:56.574Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "CartController.cs",
+              "DocumentMoniker": "C:\\Users\\84528\\Documents\\FPT_Education\\Sem5\\SWP391\\SWP-SU2024\\Be V2\\BE V2\\Controllers\\CartController.cs",
+              "RelativeDocumentMoniker": "Controllers\\CartController.cs",
+              "ToolTip": "C:\\Users\\84528\\Documents\\FPT_Education\\Sem5\\SWP391\\SWP-SU2024\\Be V2\\BE V2\\Controllers\\CartController.cs",
+              "RelativeToolTip": "Controllers\\CartController.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABQAAAASAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-06-13T02:19:56.051Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Customer.cs",
+              "DocumentMoniker": "C:\\Users\\84528\\Documents\\FPT_Education\\Sem5\\SWP391\\SWP-SU2024\\Be V2\\BE V2\\DataDB\\Customer.cs",
+              "RelativeDocumentMoniker": "DataDB\\Customer.cs",
+              "ToolTip": "C:\\Users\\84528\\Documents\\FPT_Education\\Sem5\\SWP391\\SWP-SU2024\\Be V2\\BE V2\\DataDB\\Customer.cs",
+              "RelativeToolTip": "DataDB\\Customer.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABMAAAArAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-06-13T07:54:16.027Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 3,
+              "Title": "User.cs",
+              "DocumentMoniker": "C:\\Users\\84528\\Documents\\FPT_Education\\Sem5\\SWP391\\SWP-SU2024\\Be V2\\BE V2\\DataDB\\User.cs",
+              "RelativeDocumentMoniker": "DataDB\\User.cs",
+              "ToolTip": "C:\\Users\\84528\\Documents\\FPT_Education\\Sem5\\SWP391\\SWP-SU2024\\Be V2\\BE V2\\DataDB\\User.cs",
+              "RelativeToolTip": "DataDB\\User.cs",
+              "ViewState": "AQIAABUAAAAAAAAAAAAqwCMAAAAoAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-06-10T06:44:07.78Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "CartItemController.cs",
+              "DocumentMoniker": "C:\\Users\\84528\\Documents\\FPT_Education\\Sem5\\SWP391\\SWP-SU2024\\Be V2\\BE V2\\Controllers\\CartItemController.cs",
+              "RelativeDocumentMoniker": "Controllers\\CartItemController.cs",
+              "ToolTip": "C:\\Users\\84528\\Documents\\FPT_Education\\Sem5\\SWP391\\SWP-SU2024\\Be V2\\BE V2\\Controllers\\CartItemController.cs",
+              "RelativeToolTip": "Controllers\\CartItemController.cs",
+              "ViewState": "AQIAABsAAAAAAAAAAAASwC4AAAAiAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-06-13T13:11:58.72Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "WishlistItemsController.cs",
+              "DocumentMoniker": "C:\\Users\\84528\\Documents\\FPT_Education\\Sem5\\SWP391\\SWP-SU2024\\Be V2\\BE V2\\Controllers\\WishlistItemsController.cs",
+              "RelativeDocumentMoniker": "Controllers\\WishlistItemsController.cs",
+              "ToolTip": "C:\\Users\\84528\\Documents\\FPT_Education\\Sem5\\SWP391\\SWP-SU2024\\Be V2\\BE V2\\Controllers\\WishlistItemsController.cs",
+              "RelativeToolTip": "Controllers\\WishlistItemsController.cs",
+              "ViewState": "AQIAAGEAAAAAAAAAAADwv2kAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-06-21T06:48:01.823Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
               "Title": "WishlistItemDTO.cs",
               "DocumentMoniker": "C:\\Users\\84528\\Documents\\FPT_Education\\Sem5\\SWP391\\SWP-SU2024\\Be V2\\BE V2\\DataDB\\WishlistItemDTO.cs",
               "RelativeDocumentMoniker": "DataDB\\WishlistItemDTO.cs",
@@ -224,7 +295,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 16,
               "Title": "appsettings.json",
               "DocumentMoniker": "C:\\Users\\84528\\Documents\\FPT_Education\\Sem5\\SWP391\\SWP-SU2024\\Be V2\\BE V2\\appsettings.json",
               "RelativeDocumentMoniker": "appsettings.json",
@@ -236,7 +307,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 14,
               "Title": "Wishlist.cs",
               "DocumentMoniker": "C:\\Users\\84528\\Documents\\FPT_Education\\Sem5\\SWP391\\SWP-SU2024\\Be V2\\BE V2\\DataDB\\Wishlist.cs",
               "RelativeDocumentMoniker": "DataDB\\Wishlist.cs",
@@ -248,19 +319,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
-              "Title": "DiamondShopV4Context.cs",
-              "DocumentMoniker": "C:\\Users\\84528\\Documents\\FPT_Education\\Sem5\\SWP391\\SWP-SU2024\\Be V2\\BE V2\\DataDB\\DiamondShopV4Context.cs",
-              "RelativeDocumentMoniker": "DataDB\\DiamondShopV4Context.cs",
-              "ToolTip": "C:\\Users\\84528\\Documents\\FPT_Education\\Sem5\\SWP391\\SWP-SU2024\\Be V2\\BE V2\\DataDB\\DiamondShopV4Context.cs",
-              "RelativeToolTip": "DataDB\\DiamondShopV4Context.cs",
-              "ViewState": "AQIAAPUAAAAAAAAAAADgvwgBAABUAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-21T07:38:54.551Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 15,
               "Title": "OrdersController.cs",
               "DocumentMoniker": "C:\\Users\\84528\\Documents\\FPT_Education\\Sem5\\SWP391\\SWP-SU2024\\Be V2\\BE V2\\Controllers\\OrdersController.cs",
               "RelativeDocumentMoniker": "Controllers\\OrdersController.cs",
@@ -272,7 +331,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 14,
+              "DocumentIndex": 18,
               "Title": "ProductController.cs",
               "DocumentMoniker": "C:\\Users\\84528\\Documents\\FPT_Education\\Sem5\\SWP391\\SWP-SU2024\\Be V2\\BE V2\\Controllers\\ProductController.cs",
               "RelativeDocumentMoniker": "Controllers\\ProductController.cs",
@@ -284,7 +343,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 13,
+              "DocumentIndex": 17,
               "Title": "DiamondController.cs",
               "DocumentMoniker": "C:\\Users\\84528\\Documents\\FPT_Education\\Sem5\\SWP391\\SWP-SU2024\\Be V2\\BE V2\\Controllers\\DiamondController.cs",
               "RelativeDocumentMoniker": "Controllers\\DiamondController.cs",
@@ -296,31 +355,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 16,
-              "Title": "Product.cs",
-              "DocumentMoniker": "C:\\Users\\84528\\Documents\\FPT_Education\\Sem5\\SWP391\\SWP-SU2024\\Be V2\\BE V2\\DataDB\\Product.cs",
-              "RelativeDocumentMoniker": "DataDB\\Product.cs",
-              "ToolTip": "C:\\Users\\84528\\Documents\\FPT_Education\\Sem5\\SWP391\\SWP-SU2024\\Be V2\\BE V2\\DataDB\\Product.cs",
-              "RelativeToolTip": "DataDB\\Product.cs",
-              "ViewState": "AQIAACgAAAAAAAAAAAAUwDIAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-10T06:32:47.416Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 22,
-              "Title": "User.cs",
-              "DocumentMoniker": "C:\\Users\\84528\\Documents\\FPT_Education\\Sem5\\SWP391\\SWP-SU2024\\Be V2\\BE V2\\DataDB\\User.cs",
-              "RelativeDocumentMoniker": "DataDB\\User.cs",
-              "ToolTip": "C:\\Users\\84528\\Documents\\FPT_Education\\Sem5\\SWP391\\SWP-SU2024\\Be V2\\BE V2\\DataDB\\User.cs",
-              "RelativeToolTip": "DataDB\\User.cs",
-              "ViewState": "AQIAAAgAAAAAAAAAAAAQwB4AAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-10T06:44:07.78Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 17,
+              "DocumentIndex": 20,
               "Title": "Cart.cs",
               "DocumentMoniker": "C:\\Users\\84528\\Documents\\FPT_Education\\Sem5\\SWP391\\SWP-SU2024\\Be V2\\BE V2\\DataDB\\Cart.cs",
               "RelativeDocumentMoniker": "DataDB\\Cart.cs",
@@ -332,7 +367,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 15,
+              "DocumentIndex": 19,
               "Title": "OrderDetail.cs",
               "DocumentMoniker": "C:\\Users\\84528\\Documents\\FPT_Education\\Sem5\\SWP391\\SWP-SU2024\\Be V2\\BE V2\\DataDB\\OrderDetail.cs",
               "RelativeDocumentMoniker": "DataDB\\OrderDetail.cs",
@@ -344,7 +379,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 19,
+              "DocumentIndex": 22,
               "Title": "Order.cs",
               "DocumentMoniker": "C:\\Users\\84528\\Documents\\FPT_Education\\Sem5\\SWP391\\SWP-SU2024\\Be V2\\BE V2\\DataDB\\Order.cs",
               "RelativeDocumentMoniker": "DataDB\\Order.cs",
@@ -356,7 +391,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 20,
+              "DocumentIndex": 23,
               "Title": "Diamond.cs",
               "DocumentMoniker": "C:\\Users\\84528\\Documents\\FPT_Education\\Sem5\\SWP391\\SWP-SU2024\\Be V2\\BE V2\\DataDB\\Diamond.cs",
               "RelativeDocumentMoniker": "DataDB\\Diamond.cs",
@@ -368,7 +403,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 18,
+              "DocumentIndex": 21,
               "Title": "CustomerController.cs",
               "DocumentMoniker": "C:\\Users\\84528\\Documents\\FPT_Education\\Sem5\\SWP391\\SWP-SU2024\\Be V2\\BE V2\\Controllers\\CustomerController.cs",
               "RelativeDocumentMoniker": "Controllers\\CustomerController.cs",
@@ -380,7 +415,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 21,
+              "DocumentIndex": 24,
               "Title": "UsersController.cs",
               "DocumentMoniker": "C:\\Users\\84528\\Documents\\FPT_Education\\Sem5\\SWP391\\SWP-SU2024\\Be V2\\BE V2\\Controllers\\UsersController.cs",
               "RelativeDocumentMoniker": "Controllers\\UsersController.cs",
@@ -392,7 +427,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 24,
+              "DocumentIndex": 25,
               "Title": "HomeController.cs",
               "DocumentMoniker": "C:\\Users\\84528\\Documents\\FPT_Education\\Sem5\\SWP391\\SWP-SU2024\\Be V2\\BE V2\\Controllers\\HomeController.cs",
               "RelativeDocumentMoniker": "Controllers\\HomeController.cs",
@@ -401,18 +436,6 @@
               "ViewState": "AQIAABAAAAAAAAAAAAAgwAAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-06-10T06:00:38.777Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 23,
-              "Title": "Customer.cs",
-              "DocumentMoniker": "C:\\Users\\84528\\Documents\\FPT_Education\\Sem5\\SWP391\\SWP-SU2024\\Be V2\\BE V2\\DataDB\\Customer.cs",
-              "RelativeDocumentMoniker": "DataDB\\Customer.cs",
-              "ToolTip": "C:\\Users\\84528\\Documents\\FPT_Education\\Sem5\\SWP391\\SWP-SU2024\\Be V2\\BE V2\\DataDB\\Customer.cs",
-              "RelativeToolTip": "DataDB\\Customer.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-13T07:54:16.027Z"
             }
           ]
         }

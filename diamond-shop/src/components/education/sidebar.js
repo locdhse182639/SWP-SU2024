@@ -20,19 +20,9 @@ const Sidebar = () => {
                         Jewelry Education {isMetalOpen ? '▴' : '▾'}
                     </div>
                     {isMetalOpen && (
-                        <div style={{paddingLeft:'25%'}}>
-                            <Link to="/jewelry-education"><p style={{textAlign:'left'}}>Metal Education</p></Link>
-                            <Link to={routes.ringSize}><p style={{textAlign:'left'}}>Ring Size</p></Link>
-                        </div>
-                    )}
-                </li>
-                <li>
-                    <div className="section-header" onClick={togglePearl}>
-                        Service & Value {isPearlOpen ? '▴' : '▾'}
-                    </div>
-                    {isPearlOpen && (
-                        <div style={{paddingLeft:'25%'}}>
-                            <Link to="/pearl-education"><p style={{textAlign:'left'}}>Free Return</p></Link>
+                        <div style={{paddingLeft:'15px'}}>
+                            <Link style={{textAlign:'left'}} to="/diamond-education/metal-education"><p>Metal Education</p></Link>
+                            <Link style={{textAlign:'left'}} to={routes.ringSize}><p>Ring Size</p></Link>
                         </div>
                     )}
                 </li>
@@ -41,12 +31,12 @@ const Sidebar = () => {
                         Diamond Education {isDiamondOpen ? '▴' : '▾'}
                     </div>
                     {isDiamondOpen && (
-                        <div style={{paddingLeft:'25%'}}>
-                            <Link to="/diamond-education/4Cs"><p style={{textAlign:'left'}}>The 4Cs</p></Link>
-                            <Link to="/diamond-education/cut"><p style={{textAlign:'left'}}>Cut</p></Link>
-                            <Link to="/diamond-education/color"><p style={{textAlign:'left'}}>Color</p></Link>
-                            <Link to="/diamond-education/clarity"><p style={{textAlign:'left'}}>Clarity</p></Link>
-                            <Link to="/diamond-education/carat"><p style={{textAlign:'left'}}>Carat</p></Link>
+                        <div style={{paddingLeft:'15px'}}>
+                            <Link style={{textAlign:'left'}} to="/diamond-education/fourCs-education"><p>The 4Cs</p></Link>
+                            <Link style={{textAlign:'left'}} to="/diamond-education/cut"><p>Cut</p></Link>
+                            <Link style={{textAlign:'left'}} to="/diamond-education/color"><p>Color</p></Link>
+                            <Link style={{textAlign:'left'}} to="/diamond-education/clarity"><p>Clarity</p></Link>
+                            <Link style={{textAlign:'left'}} to="/diamond-education/carat"><p>Carat</p></Link>
                         </div>
                     )}
                 </li>

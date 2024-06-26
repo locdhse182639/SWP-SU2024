@@ -8,11 +8,12 @@ import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 import Footer from '../components/footer';
-import '../css/diamondDetailPage.css';
 import NavBar from '../components/navBar';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useAuth } from '../components/authcontext';
-import { jwtDecode } from 'jwt-decode';
+import {jwtDecode} from 'jwt-decode';
+import FeedbackComponent from '../components/feedback';
+import '../css/diamondDetailPage.css';
 
 const DiamondDetailPage = () => {
   const { id } = useParams();
@@ -363,6 +364,9 @@ const DiamondDetailPage = () => {
             </div>
           </Grid>
         </Grid>
+        <div style={{ paddingTop: '5%' }}>
+          <FeedbackComponent productId={id} />
+        </div>
       </Container>
       <Footer />
     </div>

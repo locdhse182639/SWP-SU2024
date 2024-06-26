@@ -8,6 +8,8 @@ import 'react-multi-carousel/lib/styles.css';
 import { CustomLeftArrow, CustomRightArrow } from '../customeArrow';
 import CustomToolbar from '../customToolBar';
 import CarouselComponent from '../carouselComponent ';
+import diamondBanner from '../../constant/diamondBanner.png'
+import DiamondFilter from '../diamondFilter';
 
 const useQuery = () => {
   return new URLSearchParams(useLocation().search);
@@ -97,7 +99,7 @@ const DiamondsContent = () => {
   };
 
   const backgroundBanner = {
-    backgroundImage: `url(../assets/images/diamond-banner.png)`,
+    backgroundImage: `url(${diamondBanner})`,
     backgroundSize: 'cover',
     backgroundRepeat: 'no-repeat',
     backgroundPosition: 'center',
@@ -178,6 +180,7 @@ const DiamondsContent = () => {
           <CarouselComponent />
         </div>
         <hr style={{ width: '100%' }}></hr>
+        {/* <DiamondFilter/> */}
       </Container>
       <Footer />
     </div>

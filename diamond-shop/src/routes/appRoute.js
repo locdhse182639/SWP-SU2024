@@ -21,10 +21,16 @@ import CheckOutPage from '../components/pageContent/checkoutContent'
 import CheckoutCompletePage from '../pages/checkoutCompletePage'
 import WishListPage from '../pages/wishListPage'
 import HoSo from '../components/userInfoContent/Pages/hoSoNguoiDung'
-import RingSizePage from '../pages/ringSizePage'
 import DiamondPage from '../pages/diamondPage'
 import NecklacePage from '../pages/necklacePage'
 import DiamondEducation from '../pages/diamondEducation'
+import RingSizePage from '../components/education/page/ringSizePage'
+import MetalEduPage from '../components/education/page/metalEduPage'
+import FourCsPage from '../components/education/page/4CsPage'
+import CutPage from '../components/education/page/cutPage'
+import ColorPage from '../components/education/page/colorPage'
+import ClarityPage from '../components/education/page/clarityPage'
+import CaratPage from '../components/education/page/caratPage'
 
 
 export default function AppRoute() {
@@ -45,7 +51,6 @@ export default function AppRoute() {
       <Route path={routes.shoppingCart} element={<ShoppingCartPage />} />
       <Route path='/diamondDetail' element={<DiamondDetailPage />} />
       <Route path={routes.userInfo} element={<UserInfoPage />} />
-      <Route path={routes.ringSize} element={<RingSizePage/>}/>
       <Route path={routes.staffsite} element={<StaffSite />} />
       <Route path={routes.detail} element={<DiamondDetailPage />} />
       <Route path='/history' element={<History />} />
@@ -54,7 +59,13 @@ export default function AppRoute() {
       <Route path={routes.wishList} element={<WishListPage />} />
       <Route path={routes.diamond} element={<DiamondPage />} />
       <Route path={routes.necklace} element={<NecklacePage />} />
-      <Route path={routes.diamondEducation} element={<DiamondEducation/>}/>
+      <Route path={routes.ringSize} element={<RingSizePage/>}/>
+      <Route path={routes.metalEdu} element={<MetalEduPage/>}/>
+      <Route path={routes.fourCs} element={<FourCsPage/>}/>
+      <Route path={routes.cut} element={<CutPage/>}/>
+      <Route path={routes.color} element={<ColorPage/>}/>
+      <Route path={routes.clarity} element={<ClarityPage/>}/>
+      <Route path={routes.carat} element={<CaratPage/>}/>
     </Routes>
   );
 }
