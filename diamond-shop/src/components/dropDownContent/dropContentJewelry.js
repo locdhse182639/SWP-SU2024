@@ -13,12 +13,12 @@ const DropContentJewelry = () => {
   };
 
   return (
-    <div className='container'>
+    <div className='container' style={{backgroundColor:'#f5f5f5'}}>
         <div className='dropdown-menu-1' style={{display:'flex', justifyContent:'space-around'}}>
           <div style={{ margin: '0' }} className='first-row'>
             <a>
               <h4
-                style={{ fontSize: '25px', paddingTop: '5px', marginTop: '0', paddingLeft: '50px', marginBottom: '0' }}
+                style={{ fontSize: '25px', fontWeight:'bold', paddingTop: '5px', marginTop: '0', paddingLeft: '25px', marginBottom: '0' }}
               >
                 Shape</h4>
             </a>
@@ -26,37 +26,37 @@ const DropContentJewelry = () => {
               <div className='diamond-shape-left'>
                 <a style={{ paddingTop: '5px', marginTop: '0', paddingLeft: '20px', marginBottom: '0', fontSize: '20px' }}>
                   Solitaire
-                </a>
+                </a><br/>
                 <a style={{ paddingTop: '5px', marginTop: '0', paddingLeft: '20px', marginBottom: '0', fontSize: '20px' }}>
                   Halo
-                </a>
+                </a><br/>
                 <a style={{ paddingTop: '5px', marginTop: '0', paddingLeft: '20px', marginBottom: '0', fontSize: '20px' }}>
                   Bridge Accent
-                </a>
+                </a><br/>
                 <a style={{ paddingTop: '5px', marginTop: '0', paddingLeft: '20px', marginBottom: '0', fontSize: '20px' }}>
                   Twist
-                </a>
+                </a><br/>
                 <a style={{ paddingTop: '5px', marginTop: '0', paddingLeft: '20px', marginBottom: '0', fontSize: '20px' }}>
                   ThreeStone
-                </a>
+                </a><br/>
               </div>
 
               <div className='diamond-shape-right'>
                 <a style={{ paddingTop: '5px', marginTop: '0', paddingLeft: '20px', marginBottom: '0', fontSize: '20px' }}>
                   Cathedral
-                </a>
+                </a><br/>
                 <a style={{ paddingTop: '5px', marginTop: '0', paddingLeft: '20px', marginBottom: '0', fontSize: '20px' }}>
                   Trellis
-                </a>
+                </a><br/>
                 <a style={{ paddingTop: '5px', marginTop: '0', paddingLeft: '20px', marginBottom: '0', fontSize: '20px' }}>
                   Double Halo
-                </a>
+                </a><br/>
                 <a style={{ paddingTop: '5px', marginTop: '0', paddingLeft: '20px', marginBottom: '0', fontSize: '20px' }}>
                   Royal
-                </a>
+                </a><br/>
                 <a style={{ paddingTop: '5px', marginTop: '0', paddingLeft: '20px', marginBottom: '0', fontSize: '20px' }}>
                   Five Stone
-                </a>
+                </a><br/>
               </div>
             </div>
           </div>
@@ -64,33 +64,64 @@ const DropContentJewelry = () => {
             <div className='second-row-content'>
               <a>
                 <h4
-                  style={{ fontSize: '25px', paddingTop: '5px', marginTop: '0', paddingLeft: '0px', marginBottom: '0' }}
+                  style={{ fontSize: '25px', fontWeight:'bold', paddingTop: '5px', marginTop: '0', paddingLeft: '0px', marginBottom: '0' }}
                 >
                   Shape Of Diamonds</h4>
               </a>
-              <a style={{ paddingTop: '5px', marginTop: '0', paddingLeft: '20px', marginBottom: '0', fontSize: '20px' }}>
+              <a style={{ paddingTop: '5px', marginTop: '0', paddingLeft: '10px', marginBottom: '0', fontSize: '20px' }}>
                 Round
-              </a>
-              <a style={{ paddingTop: '5px', marginTop: '0', paddingLeft: '20px', marginBottom: '0', fontSize: '20px' }}>
+              </a><br/>
+              <a style={{ paddingTop: '5px', marginTop: '0', paddingLeft: '10px', marginBottom: '0', fontSize: '20px' }}>
                 Heart
-              </a>
-              <a style={{ paddingTop: '5px', marginTop: '0', paddingLeft: '20px', marginBottom: '0', fontSize: '20px' }}>
+              </a><br/>
+              <a style={{ paddingTop: '5px', marginTop: '0', paddingLeft: '10px', marginBottom: '0', fontSize: '20px' }}>
                 Pear
-              </a>
-              <a style={{ paddingTop: '5px', marginTop: '0', paddingLeft: '20px', marginBottom: '0', fontSize: '20px' }}>
+              </a><br/>
+              <a style={{ paddingTop: '5px', marginTop: '0', paddingLeft: '10px', marginBottom: '0', fontSize: '20px' }}>
                 Emerald
-              </a>
-              <a style={{ paddingTop: '5px', marginTop: '0', paddingLeft: '20px', marginBottom: '0', fontSize: '20px' }}>
+              </a><br/>
+              <a style={{ paddingTop: '5px', marginTop: '0', paddingLeft: '10px', marginBottom: '0', fontSize: '20px' }}>
                 Cushion
-              </a>
-              <a style={{ paddingTop: '5px', marginTop: '0', paddingLeft: '20px', marginBottom: '0', fontSize: '20px' }}>
+              </a><br/>
+              <a style={{ paddingTop: '5px', marginTop: '0', paddingLeft: '10px', marginBottom: '0', fontSize: '20px' }}>
                 Oval
               </a>
             </div>
           </div>
-          <div className='third-row'>
-            <img style={{ width: '400px', height: '400px', paddingTop: '30px', paddingLeft: '10px', paddingRight: '50px' }} src={engageRing} />
-            <a style={{ paddingTop: '5px', marginTop: '0', paddingLeft: '10px', marginBottom: '0', fontSize: '20px' }}>
+            <div className='third-row'>
+            <div className='third-row-content'>
+              <a>
+                <h4
+                  style={{ fontSize: '25px', fontWeight:'bold', paddingTop: '5px', marginTop: '0', paddingLeft: '5px', marginBottom: '0' }}
+                >
+                  Metal</h4>
+              </a>
+              <a style={{ paddingTop: '5px', marginTop: '0', paddingLeft: '10px', marginBottom: '0', fontSize: '20px' }}>
+                Platinum
+              </a><br/>
+              <a style={{ paddingTop: '5px', marginTop: '0', paddingLeft: '10px', marginBottom: '0', fontSize: '20px' }}>
+                Gold
+              </a><br/>
+              <a style={{ paddingTop: '5px', marginTop: '0', paddingLeft: '10px', marginBottom: '0', fontSize: '20px' }}>
+                Silver
+              </a><br/>
+              <a style={{ paddingTop: '5px', marginTop: '0', paddingLeft: '10px', marginBottom: '0', fontSize: '20px' }}>
+              Tungsten Carbide
+              </a><br/>
+              <a style={{ paddingTop: '5px', marginTop: '0', paddingLeft: '10px', marginBottom: '0', fontSize: '20px' }}>
+              Cobalt
+              </a><br/>
+              <a style={{ paddingTop: '5px', marginTop: '0', paddingLeft: '10px', marginBottom: '0', fontSize: '20px' }}>
+                Tantalum
+              </a><br/>
+              <a style={{ paddingTop: '5px', marginTop: '0', paddingLeft: '10px', marginBottom: '0', fontSize: '20px' }}>
+                Titanium
+              </a>
+            </div>
+            </div>
+          <div className='fourth-row'>
+            <img style={{ width: '400px', height: '400px', paddingTop: '30px', paddingLeft: '10px', paddingRight: '50px' }} src={engageRing} /><br/>
+            <a style={{ paddingTop: '5px', marginTop: '0', paddingLeft: '10px', marginBottom: '2%', fontSize: '20px' }}>
               View All Diamonds
             </a>
           </div>

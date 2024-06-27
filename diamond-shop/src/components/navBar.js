@@ -141,7 +141,7 @@ const Navbar = () => {
           >
             <Box key='Engagement Rings' display="flex" alignItems="center" mx={2}>
               <button className="navbarDropdown-toggle">
-                <Typography variant="body1">Engagement Rings</Typography>
+                <Typography variant="body1">Rings</Typography>
                 <IconButton color="inherit" size="small">
                   <ExpandMoreIcon />
                 </IconButton>
@@ -151,26 +151,6 @@ const Navbar = () => {
                 style={{ display: activeDropdown === 'engagement' ? 'block' : 'none' }}
               >
                 <DropContentJewelry />
-              </div>
-            </Box>
-          </div>
-          <div
-            className="navbar-item"
-            onMouseEnter={() => handleMouseEnter('wedding')}
-            onMouseLeave={handleMouseLeave}
-          >
-            <Box key='Wedding Rings' display="flex" alignItems="center" mx={2}>
-              <button className="navbarDropdown-toggle">
-                <Typography variant="body1">Wedding Rings</Typography>
-                <IconButton color="inherit" size="small">
-                  <ExpandMoreIcon />
-                </IconButton>
-              </button>
-              <div
-                className="navbarDropdownWrapper"
-                style={{ display: activeDropdown === 'wedding' ? 'block' : 'none' }}
-              >
-                <DropContentDiamond />
               </div>
             </Box>
           </div>

@@ -58,7 +58,8 @@
 
 .diamond-shape {
     display: flex;
-    flex-direction: column;
+    /* flex-direction: column; */
+    justify-content: space-between;
 }
 
 .diamond-shape-left,

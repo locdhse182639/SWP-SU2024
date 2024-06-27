@@ -1,4 +1,4 @@
-/* src/styles.css */
+/* 
 .userinfo-container {
   display: flex;
   height: 100vh;
@@ -10,7 +10,6 @@
   padding: 10px;
   display: flex;
   flex-direction: column;
-  /* align-items: flex-start; */
 }
 
 .sidebar a {
@@ -67,4 +66,24 @@
 
 .user-info button:hover {
   background-color: #e65c00;
+} */
+
+
+.sidebar {
+  width: 30%; /* Set the width to 30% */
+  background-color: #f8f9fa; /* Optional: Add a background color */
+  padding: 10px; /* Optional: Add padding */
+}
+
+.sidebar-link {
+  display: block;
+  color: black;
+  text-align: left;
+  padding: 10px 15px;
+  text-decoration: none;
+  font-size: 18px; /* Adjust the font size if needed */
+}
+
+.sidebar-link:hover {
+  background-color: #e9ecef; /* Optional: Add a hover effect */
 }

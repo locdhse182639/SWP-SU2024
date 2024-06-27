@@ -1,105 +1,29 @@
-/* src/styles.css */
-.userinfo-container {
-    display: flex;
-    height: 100vh;
-}
-
-.sidebar {
-    width: 200px;
-    background-color: #f8f8f8;
-    padding: 10px;
+/* Add the following styles to your hoso.css */
+.user-info {
     display: flex;
     flex-direction: column;
+    margin-left: auto; /* Align to the right */
+    width: 70%; /* Set the width to 70% */
+    padding: 20px; /* Optional: Add padding */
 }
 
-.sidebar a {
-    text-decoration: none;
-    color: black;
-    padding: 10px;
-    margin: 5px 0;
+.form-group {
+    margin-bottom: 20px;
 }
 
-.sidebar a.active {
-    background-color: #e0e0e0;
-}
-
-.content {
-    flex: 1;
-    padding: 20px;
-}
-
-.user-info {
-    max-width: 600px;
-    margin: 0 auto;
-}
-
-.user-info .form-group {
-    margin-bottom: 15px;
-}
-
-.user-info label {
-    display: block;
-    font-weight: bold;
-    margin-bottom: 5px;
-}
-
-.user-info input,
-.user-info select,
-.user-info .radio-group {
+.custom-text-field {
     width: 100%;
-    padding: 8px;
-    box-sizing: border-box;
+    padding-top: 1%;
+    padding-bottom: 2%;
+    font-size: 18px;
+}
+
+.radio-group {
     display: flex;
-    align-items: center;
-    gap: 1.5rem;
+    justify-content: space-between;
+    width: 50%; /* Adjust width as needed */
 }
 
-.user-info .radio-group {
-    display: flex;
-    /* justify-content: space-around; */
-}
-
-.user-info Button {
-    padding: 10px 20px;
-    background-color: black;
-    color: white;
-    border: none;
-    cursor: pointer;
-}
-
-.user-info Button:hover {
-    background-color: gray;
-}
-
-.custom-text-field .MuiInput-underline:before {
-    border-bottom: 1px solid black;
-    /* màu gạch chân trước khi được chọn */
-}
-
-.custom-text-field .MuiInput-underline:after {
-    border-bottom: 1px solid black;
-    /* màu gạch chân sau khi được chọn */
-}
-
-.custom-text-field .MuiInputLabel-root {
-    color: black;
-    /* Màu nhãn trước khi được chọn */
-}
-
-.custom-text-field .Mui-focused .MuiInputLabel-root {
-    color: black !important;
-    /* Màu nhãn khi được chọn */
-}
-
-.custom-text-field .MuiInputBase-input {
-    color: black;
-    /* Màu chữ trong input */
-}
-
-#standard-read-only-input-label {
-    color: black;
-}
-
-#standard-required-label {
-    color: black;
+.radio-group label {
+    margin-right: 10px;
 }

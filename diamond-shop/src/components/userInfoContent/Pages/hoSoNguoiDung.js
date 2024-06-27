@@ -80,21 +80,18 @@ export default function HoSo() {
     }
   };
 
-  console.log(userInfo);
-
   return (
     <div>
-      {/* <h2 style={{ paddingLeft: '25%', paddingBottom: '2%', fontWeight: 'bold' }}>Personal Information</h2> */}
-      <div style={{paddingLeft: '20%', paddingBottom: '2%'}}>
-      <Breadcrumbs aria-label="breadcrumb">
-        <Link underline="hover" color="inherit" to={routes.homePage}>
-          Home Page
-        </Link>
-        <Typography color="text.primary">User Profile</Typography>
-      </Breadcrumbs>
-      <Typography variant="h4" gutterBottom>
-        Personal Information
-      </Typography>
+      <div style={{ paddingLeft: '20%', paddingBottom: '2%' }}>
+        <Breadcrumbs aria-label="breadcrumb">
+          <Link underline="hover" color="inherit" to={routes.homePage}>
+            Home Page
+          </Link>
+          <Typography color="text.primary">User Profile</Typography>
+        </Breadcrumbs>
+        <Typography variant="h4" gutterBottom>
+          Personal Information
+        </Typography>
       </div>
       <div className="user-info">
         <div className="form-group">
@@ -107,7 +104,6 @@ export default function HoSo() {
             }}
             variant="standard"
             className="custom-text-field"
-            style={{ width: '100%', paddingTop: '1%', paddingBottom: '2%', fontSize: '18px' }}
           />
           <small>Username can only be changed once.</small>
         </div>
@@ -121,7 +117,6 @@ export default function HoSo() {
             variant="standard"
             onChange={handleChange}
             className="custom-text-field"
-            style={{ width: '100%', paddingTop: '1%', paddingBottom: '2%', fontSize: '18px' }}
           />
         </div>
         <div className="form-group">
@@ -135,7 +130,6 @@ export default function HoSo() {
             variant="standard"
             onChange={handleChange}
             className="custom-text-field"
-            style={{ width: '100%', paddingTop: '1%', paddingBottom: '2%', fontSize: '18px' }}
           />
         </div>
         <div className="form-group">
@@ -149,7 +143,6 @@ export default function HoSo() {
             variant="standard"
             onChange={handleChange}
             className="custom-text-field"
-            style={{ width: '100%', paddingTop: '1%', paddingBottom: '2%', fontSize: '18px' }}
           />
         </div>
         <div className="form-group">
@@ -171,14 +164,13 @@ export default function HoSo() {
             variant="standard"
             onChange={handleChange}
             className="custom-text-field"
-            style={{ width: '100%', paddingBottom: '2%', fontSize: '18px' }}
           />
         </div>
         <AutohideSnackbar
-          // style={{ width: '30%', height: 'auto' }}
           variant="contained"
           onClick={handleSave}
-          text='Save' message='User profile saved successfully!'></AutohideSnackbar>
+          text='Save' message='User profile saved successfully!'
+        />
       </div>
     </div>
   );
