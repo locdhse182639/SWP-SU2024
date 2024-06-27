@@ -121,7 +121,9 @@ const Navbar = () => {
           >
             <Box key='Diamond' display="flex" alignItems="center" mx={2}>
               <button className="navbarDropdown-toggle">
-                <Typography variant="body1">Diamond</Typography>
+                <Link to={routes.diamond}>
+                  <Typography variant="body1">Diamond</Typography>
+                </Link>
                 <IconButton color="inherit" size="small">
                   <ExpandMoreIcon />
                 </IconButton>
@@ -141,7 +143,9 @@ const Navbar = () => {
           >
             <Box key='Engagement Rings' display="flex" alignItems="center" mx={2}>
               <button className="navbarDropdown-toggle">
-                <Typography variant="body1">Rings</Typography>
+                <Link to={routes.engagementRings}>
+                  <Typography variant="body1">Rings</Typography>
+                </Link>
                 <IconButton color="inherit" size="small">
                   <ExpandMoreIcon />
                 </IconButton>
@@ -193,7 +197,7 @@ const Navbar = () => {
                 '& fieldset': {
                   borderColor: 'gray',
                   borderRadius: '35px',
-                  width:'100%'  
+                  width: '100%'
                 },
                 '&:hover fieldset': { borderColor: 'black' },
                 '&.Mui-focused fieldset': { borderColor: 'black' },

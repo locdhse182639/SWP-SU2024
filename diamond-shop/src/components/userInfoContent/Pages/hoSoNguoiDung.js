@@ -82,7 +82,7 @@ export default function HoSo() {
 
   return (
     <div>
-      <div style={{ paddingLeft: '20%', paddingBottom: '2%' }}>
+      <div style={{ paddingLeft: '5%', paddingBottom: '2%' }}>
         <Breadcrumbs aria-label="breadcrumb">
           <Link underline="hover" color="inherit" to={routes.homePage}>
             Home Page

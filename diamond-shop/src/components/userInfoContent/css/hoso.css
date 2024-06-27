@@ -2,8 +2,8 @@
 .user-info {
     display: flex;
     flex-direction: column;
-    margin-left: auto; /* Align to the right */
-    width: 70%; /* Set the width to 70% */
+    margin-left: 10%; /* Align to the right */
+    width: 80%; /* Set the width to 80% */
     padding: 20px; /* Optional: Add padding */
 }
 
