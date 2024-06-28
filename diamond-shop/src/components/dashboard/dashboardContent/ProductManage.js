@@ -17,9 +17,10 @@ import {
     Tab,
     AppBar,
     IconButton,
-    TextField
+    TextField,
+    MenuItem
 } from '@mui/material';
-import { Edit, Delete, Description } from '@mui/icons-material';
+import { Edit, Delete } from '@mui/icons-material';
 import DashboardNav from './DashboardNav';
 import { useAuth } from '../../authcontext';
 import StaffNav from './../../staffsite/StaffNav';
@@ -28,7 +29,14 @@ import './ProductManage.css'; // Import the CSS file
 const ProductManage = () => {
     const [tabIndex, setTabIndex] = useState(0);
     const [open, setOpen] = useState(false);
+    const [openPriceDetail, setOpenPriceDetail] = useState(false);
     const [editingItem, setEditingItem] = useState(null);
+    const [priceDetails, setPriceDetails] = useState({
+        diamondprice: '',
+        jewelryprice: '',
+        processingprice: '',
+        profit: ''
+    });
     const [productData, setProductData] = useState([]);
     const [diamondData, setDiamondData] = useState([]);
 
@@ -37,22 +45,20 @@ const ProductManage = () => {
     };
 
     const handleOpen = (item) => {
-        if (tabIndex === 1 && item) {
-            const diamond = diamondData.find(d => d.diamondId === item.diamondId);
-            if (diamond) {
-                setEditingItem({ ...item, ...diamond });
-            } else {
-                setEditingItem(item);
-            }
-        } else {
-            setEditingItem(item);
-        }
+        setEditingItem(item);
         setOpen(true);
     };
 
     const handleClose = () => {
         setEditingItem(null);
+        setPriceDetails({
+            diamondprice: '',
+            jewelryprice: '',
+            processingprice: '',
+            profit: ''
+        });
         setOpen(false);
+        setOpenPriceDetail(false);
     };
 
     const fetchProducts = async () => {
@@ -86,11 +92,61 @@ const ProductManage = () => {
         fetchDiamonds();
     }, []);
 
-    const handleSave = async () => {
+    const calculatePrice = () => {
+        const { diamondprice, jewelryprice, processingprice, profit } = priceDetails;
+        return (parseFloat(diamondprice) + parseFloat(jewelryprice) + parseFloat(processingprice)) + ((parseFloat(diamondprice) + parseFloat(jewelryprice) + parseFloat(processingprice)) * (parseFloat(profit) / 100));
+    };
+
+    const handlePriceDetailChange = (event) => {
+        setPriceDetails({ ...priceDetails, [event.target.name]: event.target.value });
+    };
+
+    const handlePriceFieldClick = () => {
+        setOpenPriceDetail(true);
+    };
+
+    const handlePriceDetailSave = () => {
+        const calculatedPrice = calculatePrice();
+        setEditingItem({ ...editingItem, price: calculatedPrice });
+        setOpenPriceDetail(false);
+    };
+
+    const savePriceDetail = async (productId) => {
+        const priceDetailData = {
+            productID: productId,
+            diamondPrice: priceDetails.diamondprice,
+            jewelryPrice: priceDetails.jewelryprice,
+            processingPrice: priceDetails.processingprice,
+            profit: priceDetails.profit
+        };
+
         try {
+            const response = await fetch('https://localhost:7251/api/PriceDetail', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(priceDetailData)
+            });
+
+            if (!response.ok) {
+                throw new Error('Failed to save PriceDetail');
+            }
+
+            const data = await response.json();
+            console.log('PriceDetail saved successfully:', data);
+        } catch (error) {
+            console.error('Error saving PriceDetail:', error);
+        }
+    };
+
+    const handleFinalSave = async () => {
+        try {
+            let newProduct;
             if (tabIndex === 0) {
                 // Handling Jewelry Save
                 if (editingItem.productId) {
+                    // Update existing product
                     await fetch(`https://localhost:7251/api/Products/${editingItem.productId}`, {
                         method: 'PUT',
                         headers: {
@@ -98,19 +154,43 @@ const ProductManage = () => {
                         },
                         body: JSON.stringify(editingItem)
                     });
+                    newProduct = editingItem;
                 } else {
-                    await fetch('https://localhost:7251/api/Products', {
+                    // Create new product
+                    const response = await fetch('https://localhost:7251/api/Products', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json'
                         },
-                        body: JSON.stringify(editingItem)
+                        body: JSON.stringify({
+                            productName: editingItem.productName,
+                            productType: editingItem.productType,
+                            type: editingItem.type,
+                            size: editingItem.size,
+                            description: editingItem.description,
+                            price: editingItem.price,
+                            quantity: editingItem.quantity,
+                            diamondId: editingItem.diamondId,
+                            image1: editingItem.image1,
+                            image2: editingItem.image2,
+                            image3: editingItem.image3
+                        })
                     });
+
+                    if (!response.ok) {
+                        const errorData = await response.json();
+                        console.error('Error creating product:', errorData);
+                        throw new Error('Failed to create product');
+                    }
+
+                    newProduct = await response.json();
                 }
+                await savePriceDetail(newProduct.productId);
                 fetchProducts();
             } else {
                 // Handling Diamond Save
                 if (editingItem.diamondId) {
+                    // Update existing diamond
                     await fetch(`https://localhost:7251/api/Diamonds/${editingItem.diamondId}`, {
                         method: 'PUT',
                         headers: {
@@ -125,7 +205,9 @@ const ProductManage = () => {
                         },
                         body: JSON.stringify(editingItem)
                     });
+                    newProduct = editingItem;
                 } else {
+                    // Create new diamond
                     const newDiamondResponse = await fetch('https://localhost:7251/api/Diamonds', {
                         method: 'POST',
                         headers: {
@@ -133,22 +215,41 @@ const ProductManage = () => {
                         },
                         body: JSON.stringify(editingItem)
                     });
+
+                    if (!newDiamondResponse.ok) {
+                        const errorData = await newDiamondResponse.json();
+                        console.error('Error creating diamond:', errorData);
+                        throw new Error('Failed to create diamond');
+                    }
+
                     const newDiamond = await newDiamondResponse.json();
-                    await fetch('https://localhost:7251/api/Products', {
+                    const productResponse = await fetch('https://localhost:7251/api/Products', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json'
                         },
                         body: JSON.stringify({
-                            ...editingItem,
-                            diamondId: newDiamond.diamondId,
-                            productType: 1 // Automatically set productType to 1
+                            productName: editingItem.productName,
+                            productType: 1,
+                            description: editingItem.description,
+                            price: editingItem.price,
+                            diamondId: newDiamond.diamondId
                         })
                     });
+
+                    if (!productResponse.ok) {
+                        const errorData = await productResponse.json();
+                        console.error('Error creating product:', errorData);
+                        throw new Error('Failed to create product');
+                    }
+
+                    newProduct = await productResponse.json();
                 }
+                await savePriceDetail(newProduct.productId);
                 fetchDiamonds();
                 fetchProducts();
             }
+
             handleClose();
         } catch (error) {
             console.log('Error saving item', error);
@@ -250,7 +351,7 @@ const ProductManage = () => {
                                         <TableCell align="center">
                                             <img src={product.image1} alt="Product Image 1" />
                                         </TableCell>
-                                        <TableCell align="                                        center">
+                                        <TableCell align="center">
                                             <img src={product.image2} alt="Product Image 2" />
                                         </TableCell>
                                         <TableCell align="center">
@@ -350,6 +451,8 @@ const ProductManage = () => {
                         Add {tabIndex === 0 ? 'Jewelry' : 'Diamond'}
                     </Button>
                 </div>
+
+                {/* Product Detail Popup */}
                 <Dialog open={open} onClose={handleClose}>
                     <DialogTitle>{editingItem?.productId ? 'Edit Item' : 'Add Item'}</DialogTitle>
                     <DialogContent>
@@ -408,7 +511,10 @@ const ProductManage = () => {
                                     type="number"
                                     fullWidth
                                     value={editingItem?.price || ''}
-                                    onChange={(e) => setEditingItem({ ...editingItem, price: parseFloat(e.target.value) })}
+                                    onClick={handlePriceFieldClick} // Open the price detail popup on click
+                                    InputProps={{
+                                        readOnly: true,
+                                    }}
                                 />
                                 <TextField
                                     margin="dense"
@@ -572,7 +678,10 @@ const ProductManage = () => {
                                     type="number"
                                     fullWidth
                                     value={editingItem?.price || ''}
-                                    onChange={(e) => setEditingItem({ ...editingItem, price: parseFloat(e.target.value) })}
+                                    onClick={handlePriceFieldClick} // Open the price detail popup on click
+                                    InputProps={{
+                                        readOnly: true,
+                                    }}
                                 />
                                 <TextField
                                     margin="dense"
@@ -605,8 +714,59 @@ const ProductManage = () => {
                         <Button onClick={handleClose} color="primary">
                             Cancel
                         </Button>
-                        <Button onClick={handleSave} color="primary">
+                        <Button onClick={handleFinalSave} color="primary">
                             Save
+                        </Button>
+                    </DialogActions>
+                </Dialog>
+
+                {/* Price Detail Popup */}
+                <Dialog open={openPriceDetail} onClose={handleClose}>
+                    <DialogTitle>{'Enter Price Details'}</DialogTitle>
+                    <DialogContent>
+                        <TextField
+                            margin="dense"
+                            label="Diamond Price"
+                            type="number"
+                            fullWidth
+                            name="diamondprice"
+                            value={priceDetails.diamondprice}
+                            onChange={handlePriceDetailChange}
+                        />
+                        <TextField
+                            margin="dense"
+                            label="Jewelry Price"
+                            type="number"
+                            fullWidth
+                            name="jewelryprice"
+                            value={priceDetails.jewelryprice}
+                            onChange={handlePriceDetailChange}
+                        />
+                        <TextField
+                            margin="dense"
+                            label="Processing Price"
+                            type="number"
+                            fullWidth
+                            name="processingprice"
+                            value={priceDetails.processingprice}
+                            onChange={handlePriceDetailChange}
+                        />
+                        <TextField
+                            margin="dense"
+                            label="Profit Ratio(%)"
+                            type="number"
+                            fullWidth
+                            name="profit"
+                            value={priceDetails.profit}
+                            onChange={handlePriceDetailChange}
+                        />
+                    </DialogContent>
+                    <DialogActions>
+                        <Button onClick={handleClose} color="primary">
+                            Cancel
+                        </Button>
+                        <Button onClick={handlePriceDetailSave} color="primary">
+                            Save Price Detail
                         </Button>
                     </DialogActions>
                 </Dialog>
@@ -616,5 +776,3 @@ const ProductManage = () => {
 };
 
 export default ProductManage;
-
-

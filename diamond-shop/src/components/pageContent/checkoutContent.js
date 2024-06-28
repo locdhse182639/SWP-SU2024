@@ -152,6 +152,7 @@ const OrderComponent = () => {
             });
 
             if (response.ok) {
+                await sendPaymentConfirmationEmail();
                 setOpen(false);
                 navigate(`${routes.checkoutcomplete}?orderId=${orderId}`);
             } else {
@@ -159,6 +160,32 @@ const OrderComponent = () => {
             }
         } catch (error) {
             console.error('Error completing payment:', error);
+        }
+    };
+
+    const sendPaymentConfirmationEmail = async () => {
+        try {
+            const response = await fetch('https://localhost:7251/api/Email/send-payment-confirmation', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    email: customerInfo.email,
+                    orderId,
+                    customerName: customerInfo.name,
+                    orderDetails,
+                    totalAmount: calculateTotalAmount(),
+                    deposit: calculateTotalDeposit(),
+                    amountPaid: calculateTotalAmount() - calculateTotalDeposit()
+                })
+            });
+
+            if (!response.ok) {
+                throw new Error('Failed to send payment confirmation email');
+            }
+        } catch (error) {
+            console.error('Error sending payment confirmation email:', error);
         }
     };
 

@@ -14,36 +14,28 @@ namespace BE_V2.DataDB
         }
 
         public virtual DbSet<Customer> Customers { get; set; }
-
         public virtual DbSet<Diamond> Diamonds { get; set; }
-
         public virtual DbSet<Feedback> Feedbacks { get; set; }
-
         public virtual DbSet<Order> Orders { get; set; }
-
         public virtual DbSet<OrderDetail> OrderDetails { get; set; }
-
         public virtual DbSet<Payment> Payments { get; set; }
-
         public virtual DbSet<Product> Products { get; set; }
-
         public virtual DbSet<ProductType> ProductTypes { get; set; }
-
         public virtual DbSet<Role> Roles { get; set; }
-
         public virtual DbSet<User> Users { get; set; }
-
         public virtual DbSet<Cart> Carts { get; set; }
-
         public virtual DbSet<CartItem> CartItems { get; set; }
-
         public virtual DbSet<Wishlist> Wishlists { get; set; }
-
         public virtual DbSet<WishlistItem> WishlistItems { get; set; }
+        public virtual DbSet<Event> Events { get; set; }
+        public virtual DbSet<EventItem> EventItems { get; set; }
+        public virtual DbSet<PriceDetail> PriceDetails { get; set; }
+        public virtual DbSet<CustomerPoints> CustomerPoints { get; set; }
+        public virtual DbSet<OrderLog> OrderLogs { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
-            => optionsBuilder.UseSqlServer("Server=LAPTOP-FJU9TV47\\SQLEXPRESS;Database=Diamond_Shop_V4;Trusted_Connection=True;TrustServerCertificate=True;");
+            => optionsBuilder.UseSqlServer("Server=DESKTOP-R3JQU5R\\SQLEXPRESS;Database=Diamond_Shop_V4;Trusted_Connection=True;TrustServerCertificate=True;");
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -61,6 +53,11 @@ namespace BE_V2.DataDB
                 entity.HasOne(d => d.User).WithOne(p => p.Customer)
                     .HasForeignKey<Customer>(d => d.UserId)
                     .HasConstraintName("FK__Customer__UserID__571DF1D5");
+
+                entity.HasMany(d => d.Wishlists)
+                   .WithOne(p => p.Customer)
+                   .HasForeignKey(d => d.CustomerId)
+                   .HasConstraintName("FK__Wishlist__Custom__02FC7413");
             });
 
             modelBuilder.Entity<Diamond>(entity =>
@@ -175,6 +172,21 @@ namespace BE_V2.DataDB
                 entity.HasOne(d => d.ProductTypeNavigation).WithMany(p => p.Products)
                     .HasForeignKey(d => d.ProductType)
                     .HasConstraintName("FK__Product__Product__52593CB8");
+
+                entity.HasMany(d => d.WishlistItems)
+                    .WithOne(p => p.Product)
+                    .HasForeignKey(d => d.ProductId)
+                    .HasConstraintName("FK__WishlistI__Produ__06CD04F7");
+
+                entity.HasMany(d => d.EventItems)
+                    .WithOne(ei => ei.Product)
+                    .HasForeignKey(ei => ei.ProductID)
+                    .HasConstraintName("FK__EventItem__ProductID__02FC7413");
+
+                entity.HasMany(d => d.PriceDetails)
+                    .WithOne(p => p.Product)
+                    .HasForeignKey(p => p.ProductID)
+                    .HasConstraintName("FK__PriceDeta__ProductID__06CD04F7");
             });
 
             modelBuilder.Entity<ProductType>(entity =>
@@ -279,6 +291,105 @@ namespace BE_V2.DataDB
                 entity.HasOne(d => d.Wishlist).WithMany(p => p.WishlistItems)
                     .HasForeignKey(d => d.WishlistId)
                     .HasConstraintName("FK__WishlistI__Wishl__05D8E0BE");
+            });
+
+            modelBuilder.Entity<Event>(entity =>
+            {
+                entity.HasKey(e => e.EventID).HasName("PK__Event__1E20497A");
+
+                entity.ToTable("Event");
+
+                entity.Property(e => e.EventID).HasColumnName("EventID");
+                entity.Property(e => e.EventName).IsRequired().HasMaxLength(255);
+                entity.Property(e => e.Date).IsRequired();
+                entity.Property(e => e.Description).HasMaxLength(int.MaxValue);
+
+                entity.HasMany(e => e.EventItems)
+                      .WithOne(ei => ei.Event)
+                      .HasForeignKey(ei => ei.EventID)
+                      .HasConstraintName("FK__EventItem__EventID__02FC7413");
+            });
+
+            modelBuilder.Entity<EventItem>(entity =>
+            {
+                entity.HasKey(e => e.EventItemID).HasName("PK__EventItem__1BFD2C07");
+
+                entity.ToTable("EventItem");
+
+                entity.Property(e => e.EventItemID).HasColumnName("EventItemID");
+                entity.Property(e => e.EventID).IsRequired();
+                entity.Property(e => e.ProductID).IsRequired();
+                entity.Property(e => e.Date).IsRequired();
+                entity.Property(e => e.Discount).IsRequired();
+
+                entity.HasOne(ei => ei.Event)
+                      .WithMany(e => e.EventItems)
+                      .HasForeignKey(ei => ei.EventID)
+                      .HasConstraintName("FK__EventItem__EventID__02FC7413");
+
+                entity.HasOne(ei => ei.Product)
+                      .WithMany(p => p.EventItems)
+                      .HasForeignKey(ei => ei.ProductID)
+                      .HasConstraintName("FK__EventItem__ProductID__02FC7413");
+            });
+
+            modelBuilder.Entity<PriceDetail>(entity =>
+            {
+                entity.HasKey(e => e.PriceDetailID).HasName("PK__PriceDetail__1A14E395");
+
+                entity.ToTable("PriceDetail");
+
+                entity.Property(e => e.PriceDetailID).HasColumnName("PriceDetailID");
+                entity.Property(e => e.ProductID).IsRequired();
+                entity.Property(e => e.DiamondPrice).IsRequired();
+                entity.Property(e => e.JewelryPrice).IsRequired();
+                entity.Property(e => e.ProcessingPrice).IsRequired();
+                entity.Property(e => e.Profit).IsRequired();
+
+                entity.HasOne(pd => pd.Product)
+                      .WithMany(p => p.PriceDetails)
+                      .HasForeignKey(pd => pd.ProductID)
+                      .HasConstraintName("FK__PriceDeta__ProductID__06CD04F7");
+            });
+
+            modelBuilder.Entity<CustomerPoints>(entity =>
+            {
+                entity.HasKey(e => e.CustomerPointID).HasName("PK__CustomerPoints");
+
+                entity.ToTable("CustomerPoints");
+
+                entity.Property(e => e.CustomerPointID).HasColumnName("CustomerPointID");
+                entity.Property(e => e.CustomerID).IsRequired();
+                entity.Property(e => e.Points).IsRequired();
+                entity.Property(e => e.LastUpdated).IsRequired();
+
+                entity.HasOne(cp => cp.Customer)
+                      .WithMany(c => c.CustomerPoints)
+                      .HasForeignKey(cp => cp.CustomerID)
+                      .HasConstraintName("FK__CustomerPoints__CustomerID");
+            });
+
+            modelBuilder.Entity<OrderLog>(entity =>
+            {
+                entity.HasKey(e => e.LogID).HasName("PK__OrderLog__A5D58A608123E0B0");
+
+                entity.ToTable("OrderLogs");
+
+                entity.Property(e => e.LogID).HasColumnName("LogID");
+                entity.Property(e => e.OrderID).IsRequired();
+                entity.Property(e => e.Phase1).HasDefaultValue(false);
+                entity.Property(e => e.Phase2).HasDefaultValue(false);
+                entity.Property(e => e.Phase3).HasDefaultValue(false);
+                entity.Property(e => e.Phase4).HasDefaultValue(false);
+                entity.Property(e => e.TimePhase1).IsRequired();
+                entity.Property(e => e.TimePhase2).IsRequired();
+                entity.Property(e => e.TimePhase3).IsRequired();
+                entity.Property(e => e.TimePhase4).IsRequired();
+
+                entity.HasOne(ol => ol.Order)
+                      .WithMany(o => o.OrderLogs)
+                      .HasForeignKey(ol => ol.OrderID)
+                      .HasConstraintName("FK__OrderLog__OrderID__02FC7413");
             });
 
             OnModelCreatingPartial(modelBuilder);

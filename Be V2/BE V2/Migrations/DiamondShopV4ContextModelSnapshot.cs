@@ -22,6 +22,69 @@ namespace BE_V2.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("BE_V2.DataDB.Cart", b =>
+                {
+                    b.Property<int>("CartID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasColumnName("CartID");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CartID"));
+
+                    b.Property<DateTime>("CreatedAt")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("GETDATE()");
+
+                    b.Property<int>("UserID")
+                        .HasColumnType("int")
+                        .HasColumnName("UserID");
+
+                    b.HasKey("CartID")
+                        .HasName("PK__Cart__2F36C7C22AAEDC89");
+
+                    b.HasIndex("UserID");
+
+                    b.ToTable("Cart", (string)null);
+                });
+
+            modelBuilder.Entity("BE_V2.DataDB.CartItem", b =>
+                {
+                    b.Property<int>("CartItemID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasColumnName("CartItemID");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CartItemID"));
+
+                    b.Property<int>("CartID")
+                        .HasColumnType("int")
+                        .HasColumnName("CartID");
+
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(10, 2)");
+
+                    b.Property<int>("ProductID")
+                        .HasColumnType("int")
+                        .HasColumnName("ProductID");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Size")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("CartItemID")
+                        .HasName("PK__CartItem__3A4CA8E7AAB53760");
+
+                    b.HasIndex("CartID");
+
+                    b.HasIndex("ProductID");
+
+                    b.ToTable("CartItem", (string)null);
+                });
+
             modelBuilder.Entity("BE_V2.DataDB.Customer", b =>
                 {
                     b.Property<int>("CustomerId")
@@ -46,6 +109,32 @@ namespace BE_V2.Migrations
                         .HasFilter("[UserID] IS NOT NULL");
 
                     b.ToTable("Customer", (string)null);
+                });
+
+            modelBuilder.Entity("BE_V2.DataDB.CustomerPoints", b =>
+                {
+                    b.Property<int>("CustomerPointID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasColumnName("CustomerPointID");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CustomerPointID"));
+
+                    b.Property<int>("CustomerID")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("LastUpdated")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("Points")
+                        .HasColumnType("int");
+
+                    b.HasKey("CustomerPointID")
+                        .HasName("PK__CustomerPoints");
+
+                    b.HasIndex("CustomerID");
+
+                    b.ToTable("CustomerPoints", (string)null);
                 });
 
             modelBuilder.Entity("BE_V2.DataDB.Diamond", b =>
@@ -111,6 +200,65 @@ namespace BE_V2.Migrations
                     b.ToTable("Diamond", (string)null);
                 });
 
+            modelBuilder.Entity("BE_V2.DataDB.Event", b =>
+                {
+                    b.Property<int>("EventID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasColumnName("EventID");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("EventID"));
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(2147483647)
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("EventName")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
+
+                    b.HasKey("EventID")
+                        .HasName("PK__Event__1E20497A");
+
+                    b.ToTable("Event", (string)null);
+                });
+
+            modelBuilder.Entity("BE_V2.DataDB.EventItem", b =>
+                {
+                    b.Property<int>("EventItemID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasColumnName("EventItemID");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("EventItemID"));
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime2");
+
+                    b.Property<decimal>("Discount")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("EventID")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ProductID")
+                        .HasColumnType("int");
+
+                    b.HasKey("EventItemID")
+                        .HasName("PK__EventItem__1BFD2C07");
+
+                    b.HasIndex("EventID");
+
+                    b.HasIndex("ProductID");
+
+                    b.ToTable("EventItem", (string)null);
+                });
+
             modelBuilder.Entity("BE_V2.DataDB.Feedback", b =>
                 {
                     b.Property<int>("FeedbackId")
@@ -131,13 +279,23 @@ namespace BE_V2.Migrations
                         .HasMaxLength(1000)
                         .HasColumnType("nvarchar(1000)");
 
+                    b.Property<int?>("ProductId")
+                        .HasColumnType("int")
+                        .HasColumnName("ProductID");
+
                     b.Property<int?>("Rating")
                         .HasColumnType("int");
+
+                    b.Property<string>("UserName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("FeedbackId")
                         .HasName("PK__Feedback__6A4BEDF6BA84AC5C");
 
                     b.HasIndex("CustomerId");
+
+                    b.HasIndex("ProductId");
 
                     b.ToTable("Feedback", (string)null);
                 });
@@ -206,6 +364,58 @@ namespace BE_V2.Migrations
                     b.ToTable("OrderDetails");
                 });
 
+            modelBuilder.Entity("BE_V2.DataDB.OrderLog", b =>
+                {
+                    b.Property<int>("LogID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasColumnName("LogID");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("LogID"));
+
+                    b.Property<int>("OrderID")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("Phase1")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(false);
+
+                    b.Property<bool>("Phase2")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(false);
+
+                    b.Property<bool>("Phase3")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(false);
+
+                    b.Property<bool>("Phase4")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(false);
+
+                    b.Property<DateTime>("TimePhase1")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("TimePhase2")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("TimePhase3")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("TimePhase4")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("LogID")
+                        .HasName("PK__OrderLog__A5D58A608123E0B0");
+
+                    b.HasIndex("OrderID");
+
+                    b.ToTable("OrderLogs", (string)null);
+                });
+
             modelBuilder.Entity("BE_V2.DataDB.Payment", b =>
                 {
                     b.Property<int>("PaymentId")
@@ -237,6 +447,38 @@ namespace BE_V2.Migrations
                     b.HasIndex("OrderId");
 
                     b.ToTable("Payment", (string)null);
+                });
+
+            modelBuilder.Entity("BE_V2.DataDB.PriceDetail", b =>
+                {
+                    b.Property<int>("PriceDetailID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasColumnName("PriceDetailID");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PriceDetailID"));
+
+                    b.Property<decimal>("DiamondPrice")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("JewelryPrice")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("ProcessingPrice")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("ProductID")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("Profit")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.HasKey("PriceDetailID")
+                        .HasName("PK__PriceDetail__1A14E395");
+
+                    b.HasIndex("ProductID");
+
+                    b.ToTable("PriceDetail", (string)null);
                 });
 
             modelBuilder.Entity("BE_V2.DataDB.Product", b =>
@@ -390,6 +632,93 @@ namespace BE_V2.Migrations
                     b.ToTable("Users");
                 });
 
+            modelBuilder.Entity("BE_V2.DataDB.Wishlist", b =>
+                {
+                    b.Property<int>("WishlistId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasColumnName("WishlistID");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("WishlistId"));
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("CustomerId")
+                        .HasColumnType("int")
+                        .HasColumnName("CustomerID");
+
+                    b.HasKey("WishlistId")
+                        .HasName("PK__Wishlist__233189CB03175B66");
+
+                    b.HasIndex("CustomerId");
+
+                    b.ToTable("Wishlist", (string)null);
+                });
+
+            modelBuilder.Entity("BE_V2.DataDB.WishlistItem", b =>
+                {
+                    b.Property<int>("WishlistItemId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasColumnName("WishlistItemID");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("WishlistItemId"));
+
+                    b.Property<DateTime>("AddedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int")
+                        .HasColumnName("ProductID");
+
+                    b.Property<int>("WishlistId")
+                        .HasColumnType("int")
+                        .HasColumnName("WishlistID");
+
+                    b.HasKey("WishlistItemId")
+                        .HasName("PK__Wishlist__171E21813C0A4C5A");
+
+                    b.HasIndex("ProductId");
+
+                    b.HasIndex("WishlistId");
+
+                    b.ToTable("WishlistItems");
+                });
+
+            modelBuilder.Entity("BE_V2.DataDB.Cart", b =>
+                {
+                    b.HasOne("BE_V2.DataDB.User", "User")
+                        .WithMany("Carts")
+                        .HasForeignKey("UserID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("FK__Cart__UserID__2A4B4B5E");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("BE_V2.DataDB.CartItem", b =>
+                {
+                    b.HasOne("BE_V2.DataDB.Cart", "Cart")
+                        .WithMany("CartItems")
+                        .HasForeignKey("CartID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("FK__CartItem__CartID__2B3F6F97");
+
+                    b.HasOne("BE_V2.DataDB.Product", "Product")
+                        .WithMany("CartItems")
+                        .HasForeignKey("ProductID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("FK__CartItem__Product__2C3393D0");
+
+                    b.Navigation("Cart");
+
+                    b.Navigation("Product");
+                });
+
             modelBuilder.Entity("BE_V2.DataDB.Customer", b =>
                 {
                     b.HasOne("BE_V2.DataDB.User", "User")
@@ -400,6 +729,39 @@ namespace BE_V2.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("BE_V2.DataDB.CustomerPoints", b =>
+                {
+                    b.HasOne("BE_V2.DataDB.Customer", "Customer")
+                        .WithMany("CustomerPoints")
+                        .HasForeignKey("CustomerID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("FK__CustomerPoints__CustomerID");
+
+                    b.Navigation("Customer");
+                });
+
+            modelBuilder.Entity("BE_V2.DataDB.EventItem", b =>
+                {
+                    b.HasOne("BE_V2.DataDB.Event", "Event")
+                        .WithMany("EventItems")
+                        .HasForeignKey("EventID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("FK__EventItem__EventID__02FC7413");
+
+                    b.HasOne("BE_V2.DataDB.Product", "Product")
+                        .WithMany("EventItems")
+                        .HasForeignKey("ProductID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("FK__EventItem__ProductID__02FC7413");
+
+                    b.Navigation("Event");
+
+                    b.Navigation("Product");
+                });
+
             modelBuilder.Entity("BE_V2.DataDB.Feedback", b =>
                 {
                     b.HasOne("BE_V2.DataDB.Customer", "Customer")
@@ -407,7 +769,14 @@ namespace BE_V2.Migrations
                         .HasForeignKey("CustomerId")
                         .HasConstraintName("FK__Feedback__Custom__6477ECF3");
 
+                    b.HasOne("BE_V2.DataDB.Product", "Product")
+                        .WithMany("Feedbacks")
+                        .HasForeignKey("ProductId")
+                        .HasConstraintName("FK__Feedback__ProductID__649C50CB");
+
                     b.Navigation("Customer");
+
+                    b.Navigation("Product");
                 });
 
             modelBuilder.Entity("BE_V2.DataDB.Order", b =>
@@ -437,6 +806,18 @@ namespace BE_V2.Migrations
                     b.Navigation("Product");
                 });
 
+            modelBuilder.Entity("BE_V2.DataDB.OrderLog", b =>
+                {
+                    b.HasOne("BE_V2.DataDB.Order", "Order")
+                        .WithMany("OrderLogs")
+                        .HasForeignKey("OrderID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("FK__OrderLog__OrderID__02FC7413");
+
+                    b.Navigation("Order");
+                });
+
             modelBuilder.Entity("BE_V2.DataDB.Payment", b =>
                 {
                     b.HasOne("BE_V2.DataDB.Order", "Order")
@@ -445,6 +826,18 @@ namespace BE_V2.Migrations
                         .HasConstraintName("FK__Payment__OrderID__60A75C0F");
 
                     b.Navigation("Order");
+                });
+
+            modelBuilder.Entity("BE_V2.DataDB.PriceDetail", b =>
+                {
+                    b.HasOne("BE_V2.DataDB.Product", "Product")
+                        .WithMany("PriceDetails")
+                        .HasForeignKey("ProductID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("FK__PriceDeta__ProductID__06CD04F7");
+
+                    b.Navigation("Product");
                 });
 
             modelBuilder.Entity("BE_V2.DataDB.Product", b =>
@@ -474,11 +867,53 @@ namespace BE_V2.Migrations
                     b.Navigation("Role");
                 });
 
+            modelBuilder.Entity("BE_V2.DataDB.Wishlist", b =>
+                {
+                    b.HasOne("BE_V2.DataDB.Customer", "Customer")
+                        .WithMany("Wishlists")
+                        .HasForeignKey("CustomerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("FK__Wishlist__Custom__02FC7413");
+
+                    b.Navigation("Customer");
+                });
+
+            modelBuilder.Entity("BE_V2.DataDB.WishlistItem", b =>
+                {
+                    b.HasOne("BE_V2.DataDB.Product", "Product")
+                        .WithMany("WishlistItems")
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("FK__WishlistI__Produ__06CD04F7");
+
+                    b.HasOne("BE_V2.DataDB.Wishlist", "Wishlist")
+                        .WithMany("WishlistItems")
+                        .HasForeignKey("WishlistId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("FK__WishlistI__Wishl__05D8E0BE");
+
+                    b.Navigation("Product");
+
+                    b.Navigation("Wishlist");
+                });
+
+            modelBuilder.Entity("BE_V2.DataDB.Cart", b =>
+                {
+                    b.Navigation("CartItems");
+                });
+
             modelBuilder.Entity("BE_V2.DataDB.Customer", b =>
                 {
+                    b.Navigation("CustomerPoints");
+
                     b.Navigation("Feedbacks");
 
                     b.Navigation("Orders");
+
+                    b.Navigation("Wishlists");
                 });
 
             modelBuilder.Entity("BE_V2.DataDB.Diamond", b =>
@@ -486,16 +921,33 @@ namespace BE_V2.Migrations
                     b.Navigation("Products");
                 });
 
+            modelBuilder.Entity("BE_V2.DataDB.Event", b =>
+                {
+                    b.Navigation("EventItems");
+                });
+
             modelBuilder.Entity("BE_V2.DataDB.Order", b =>
                 {
                     b.Navigation("OrderDetails");
+
+                    b.Navigation("OrderLogs");
 
                     b.Navigation("Payments");
                 });
 
             modelBuilder.Entity("BE_V2.DataDB.Product", b =>
                 {
+                    b.Navigation("CartItems");
+
+                    b.Navigation("EventItems");
+
+                    b.Navigation("Feedbacks");
+
                     b.Navigation("OrderDetails");
+
+                    b.Navigation("PriceDetails");
+
+                    b.Navigation("WishlistItems");
                 });
 
             modelBuilder.Entity("BE_V2.DataDB.ProductType", b =>
@@ -510,7 +962,14 @@ namespace BE_V2.Migrations
 
             modelBuilder.Entity("BE_V2.DataDB.User", b =>
                 {
+                    b.Navigation("Carts");
+
                     b.Navigation("Customer");
+                });
+
+            modelBuilder.Entity("BE_V2.DataDB.Wishlist", b =>
+                {
+                    b.Navigation("WishlistItems");
                 });
 #pragma warning restore 612, 618
         }

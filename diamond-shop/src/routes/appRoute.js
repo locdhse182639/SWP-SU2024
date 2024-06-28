@@ -31,6 +31,8 @@ import CutPage from '../components/education/page/cutPage'
 import ColorPage from '../components/education/page/colorPage'
 import ClarityPage from '../components/education/page/clarityPage'
 import CaratPage from '../components/education/page/caratPage'
+import ViewEventPage from '../components/event/ViewEventPage'
+import EventPage from '../components/dashboard/dashboardContent/EventPage'
 
 
 export default function AppRoute() {
@@ -66,6 +68,8 @@ export default function AppRoute() {
       <Route path={routes.color} element={<ColorPage/>}/>
       <Route path={routes.clarity} element={<ClarityPage/>}/>
       <Route path={routes.carat} element={<CaratPage/>}/>
+      <Route path={routes.EventPage} element={<EventPage/>}/>
+      <Route path={routes.ViewEventPage + "/:id"} element={<ViewEventPage />} />
     </Routes>
   );
 }

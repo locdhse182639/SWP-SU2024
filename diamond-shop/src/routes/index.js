@@ -27,4 +27,6 @@ export const routes = {
     color: '/diamond-education/color',
     clarity: '/diamond-education/clarity',
     carat:'/diamond-education/carat',
+    EventPage:'/Event',
+    ViewEventPage:'/ViewEvent',
 }
