@@ -9,6 +9,7 @@ import ThongBao from './notice';
 import LichSuMuaHang from './lichsumuahang';
 import NavBar from '../../navBar'; // Assuming you have a NavBar component
 import Footer from '../../footer';
+import TrackLog from './Tracklog';
 
 const UserInfoPage = () => {
     return (
@@ -23,11 +24,12 @@ const UserInfoPage = () => {
                         <Route path="doimatkhau" element={<DoiMatKhau />} />
                         <Route path="thongbao" element={<ThongBao />} />
                         <Route path="lichsumuahang" element={<LichSuMuaHang />} />
+                        <Route path='tracking' element={<TrackLog />} />
                         <Route path="/" element={<Navigate to="hoso" />} />
                     </Routes>
                 </div>
             </div>
-            <Footer/>
+            <Footer />
         </div>
     );
 };

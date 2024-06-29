@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './../css/Tracklog.css';
+import './../css/Tracklog.css'
 import { Stepper, Step, StepLabel, Typography, Button, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
 
 const TrackLog = () => {

@@ -13,7 +13,7 @@ body {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-.sidebar {
+.sidebar-user {
     width: 250px;
     background-color: #fff;
     padding: 20px;
@@ -23,7 +23,7 @@ body {
     align-items: center;
 }
 
-.sidebar a {
+.sidebar-user a {
     text-decoration: none;
     color: #1877f2;
     padding: 10px 20px;
@@ -34,8 +34,8 @@ body {
     font-weight: bold;
 }
 
-.sidebar a.active,
-.sidebar a:hover {
+.sidebar-user a.active,
+.sidebar-user a:hover {
     background-color: #e7f3ff;
 }
 
