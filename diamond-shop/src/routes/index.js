@@ -29,4 +29,5 @@ export const routes = {
     carat:'/diamond-education/carat',
     EventPage:'/Event',
     ViewEventPage:'/ViewEvent',
+    MoldManage: '/MoldManage',
 }

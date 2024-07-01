@@ -32,6 +32,11 @@ namespace BE_V2.DataDB
         public virtual DbSet<PriceDetail> PriceDetails { get; set; }
         public virtual DbSet<CustomerPoints> CustomerPoints { get; set; }
         public virtual DbSet<OrderLog> OrderLogs { get; set; }
+        public virtual DbSet<DiamondPriceTable> DiamondPriceTable { get; set; } // Added DiamondPriceTable
+        public virtual DbSet<RingPriceTable> RingPriceTable { get; set; }
+        public virtual DbSet<NecklacePriceTable> NecklacePriceTable { get; set; }
+        public virtual DbSet<RingMold> RingMold { get; set; }
+        public virtual DbSet<NecklaceMold> NecklaceMold { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
@@ -91,16 +96,16 @@ namespace BE_V2.DataDB
                 entity.Property(e => e.FeedbackId).HasColumnName("FeedbackID");
                 entity.Property(e => e.CustomerId).HasColumnName("CustomerID");
                 entity.Property(e => e.FeedbackText).HasMaxLength(1000);
-                entity.Property(e => e.ProductId).HasColumnName("ProductID");  // Added ProductId property
+                entity.Property(e => e.ProductId).HasColumnName("ProductID");
 
                 entity.HasOne(d => d.Customer).WithMany(p => p.Feedbacks)
                     .HasForeignKey(d => d.CustomerId)
                     .HasConstraintName("FK__Feedback__Custom__6477ECF3");
 
-                entity.HasOne(d => d.Product)  // Configuring the foreign key relationship for Product
+                entity.HasOne(d => d.Product)
                     .WithMany(p => p.Feedbacks)
                     .HasForeignKey(d => d.ProductId)
-                    .HasConstraintName("FK__Feedback__ProductID__649C50CB");  // Adjust the constraint name as needed
+                    .HasConstraintName("FK__Feedback__ProductID__649C50CB");
             });
 
             modelBuilder.Entity<Order>(entity =>
@@ -154,39 +159,73 @@ namespace BE_V2.DataDB
 
             modelBuilder.Entity<Product>(entity =>
             {
-                entity.HasKey(e => e.ProductId).HasName("PK__Product__B40CC6ED5D24FBE4");
+                entity.HasKey(e => e.ProductId).HasName("PK_Product");
 
                 entity.ToTable("Product");
 
                 entity.Property(e => e.ProductId).HasColumnName("ProductID");
-                entity.Property(e => e.DiamondId).HasColumnName("DiamondID");
-                entity.Property(e => e.Price).HasColumnType("decimal(10, 2)");
                 entity.Property(e => e.ProductName).HasMaxLength(255);
+                entity.Property(e => e.ProductType).HasColumnName("ProductType");
+                entity.Property(e => e.Material).HasMaxLength(50);
                 entity.Property(e => e.Size).HasMaxLength(50);
-                entity.Property(e => e.Type).HasMaxLength(50);
+                entity.Property(e => e.Description).HasColumnType("nvarchar(max)");
+                entity.Property(e => e.Price).HasColumnType("decimal(18, 2)");
+                entity.Property(e => e.ProcessingPrice).HasColumnType("decimal(18, 2)");
+                entity.Property(e => e.ExchangeRate).HasColumnType("decimal(18, 2)");
+                entity.Property(e => e.Quantity).HasColumnName("Quantity");
+                entity.Property(e => e.MainDiamondId).HasColumnName("MainDiamondId");
+                entity.Property(e => e.Image1).HasColumnType("nvarchar(max)");
+                entity.Property(e => e.Image2).HasColumnType("nvarchar(max)");
+                entity.Property(e => e.Image3).HasColumnType("nvarchar(max)");
+                entity.Property(e => e.SecondaryDiamondId).HasColumnName("SecondaryDiamondId");
+                entity.Property(e => e.RingMoldId).HasColumnName("RingMoldId");
+                entity.Property(e => e.NecklaceMoldId).HasColumnName("NecklaceMoldId");
+                entity.Property(e => e.SecondaryDiamondCount).HasColumnName("SecondaryDiamondCount");
 
-                entity.HasOne(d => d.Diamond).WithMany(p => p.Products)
-                    .HasForeignKey(d => d.DiamondId)
-                    .HasConstraintName("FK__Product__Diamond__534D60F1");
+                entity.HasOne(d => d.MainDiamond)
+                    .WithMany(p => p.Products)
+                    .HasForeignKey(d => d.MainDiamondId)
+                    .HasConstraintName("FK_Product_MainDiamond");
 
-                entity.HasOne(d => d.ProductTypeNavigation).WithMany(p => p.Products)
+                entity.HasOne(d => d.SecondaryDiamond)
+                    .WithMany()
+                    .HasForeignKey(d => d.SecondaryDiamondId)
+                    .HasConstraintName("FK_Product_SecondaryDiamond");
+
+                entity.HasOne(d => d.ProductTypeNavigation)
+                    .WithMany(p => p.Products)
                     .HasForeignKey(d => d.ProductType)
-                    .HasConstraintName("FK__Product__Product__52593CB8");
+                    .HasConstraintName("FK_Product_ProductType");
+
+                entity.HasOne(d => d.RingMold)
+                    .WithMany()
+                    .HasForeignKey(d => d.RingMoldId)
+                    .HasConstraintName("FK_Product_RingMold");
+
+                entity.HasOne(d => d.NecklaceMold)
+                    .WithMany()
+                    .HasForeignKey(d => d.NecklaceMoldId)
+                    .HasConstraintName("FK_Product_NecklaceMold");
 
                 entity.HasMany(d => d.WishlistItems)
                     .WithOne(p => p.Product)
                     .HasForeignKey(d => d.ProductId)
-                    .HasConstraintName("FK__WishlistI__Produ__06CD04F7");
+                    .HasConstraintName("FK_WishlistItems_Product");
 
                 entity.HasMany(d => d.EventItems)
                     .WithOne(ei => ei.Product)
                     .HasForeignKey(ei => ei.ProductID)
-                    .HasConstraintName("FK__EventItem__ProductID__02FC7413");
+                    .HasConstraintName("FK_EventItems_Product");
 
                 entity.HasMany(d => d.PriceDetails)
                     .WithOne(p => p.Product)
                     .HasForeignKey(p => p.ProductID)
-                    .HasConstraintName("FK__PriceDeta__ProductID__06CD04F7");
+                    .HasConstraintName("FK_PriceDetails_Product");
+
+                entity.HasMany(d => d.Feedbacks)
+                    .WithOne(f => f.Product)
+                    .HasForeignKey(f => f.ProductId)
+                    .HasConstraintName("FK_Feedbacks_Product");
             });
 
             modelBuilder.Entity<ProductType>(entity =>
@@ -276,6 +315,7 @@ namespace BE_V2.DataDB
                     .HasForeignKey(d => d.CustomerId)
                     .HasConstraintName("FK__Wishlist__Custom__02FC7413");
             });
+
             modelBuilder.Entity<WishlistItem>(entity =>
             {
                 entity.HasKey(e => e.WishlistItemId).HasName("PK__Wishlist__171E21813C0A4C5A");
@@ -381,15 +421,55 @@ namespace BE_V2.DataDB
                 entity.Property(e => e.Phase2).HasDefaultValue(false);
                 entity.Property(e => e.Phase3).HasDefaultValue(false);
                 entity.Property(e => e.Phase4).HasDefaultValue(false);
-                entity.Property(e => e.TimePhase1).IsRequired();
-                entity.Property(e => e.TimePhase2).IsRequired();
-                entity.Property(e => e.TimePhase3).IsRequired();
-                entity.Property(e => e.TimePhase4).IsRequired();
 
                 entity.HasOne(ol => ol.Order)
                       .WithMany(o => o.OrderLogs)
                       .HasForeignKey(ol => ol.OrderID)
-                      .HasConstraintName("FK__OrderLog__OrderID__02FC7413");
+                      .HasConstraintName("FK__OrderLogs__OrderID__02FC7413");
+            });
+
+            modelBuilder.Entity<DiamondPriceTable>(entity =>
+            {
+                entity.HasKey(e => new { e.Carat, e.Color, e.Clarity, e.Cut }).HasName("PK_DiamondPriceTable");
+                entity.Property(e => e.Price).HasColumnType("decimal(18, 2)");
+            });
+
+            modelBuilder.Entity<RingPriceTable>(entity =>
+            {
+                entity.HasKey(e => new { e.Material, e.Size, e.CaratWeight }).HasName("PK_RingPriceTable");
+                entity.Property(e => e.Material).HasMaxLength(50);
+                entity.Property(e => e.Size).HasColumnType("decimal(3, 1)");
+                entity.Property(e => e.CaratWeight).HasColumnType("decimal(4, 2)");
+                entity.Property(e => e.BasePrice).HasColumnType("decimal(18, 2)");
+            });
+
+            modelBuilder.Entity<NecklacePriceTable>(entity =>
+            {
+                entity.HasKey(e => new { e.Material, e.Length, e.CaratWeight }).HasName("PK_NecklacePriceTable");
+                entity.Property(e => e.Material).HasMaxLength(50);
+                entity.Property(e => e.Length).HasColumnType("int");
+                entity.Property(e => e.CaratWeight).HasColumnType("decimal(3, 2)");
+                entity.Property(e => e.BasePrice).HasColumnType("decimal(18, 2)");
+            });
+
+            modelBuilder.Entity<RingMold>(entity =>
+            {
+                entity.HasKey(e => e.RingMoldId);
+                entity.Property(e => e.Material).HasMaxLength(50);
+                entity.Property(e => e.Size).HasMaxLength(50);
+                entity.Property(e => e.CaratWeight).HasColumnType("decimal(4, 2)");
+                entity.Property(e => e.Gender).HasMaxLength(6);
+                entity.Property(e => e.RingType).HasMaxLength(10);
+                entity.Property(e => e.BasePrice).HasColumnType("decimal(18, 2)");
+            });
+
+            modelBuilder.Entity<NecklaceMold>(entity =>
+            {
+                entity.HasKey(e => e.NecklaceMoldId);
+                entity.Property(e => e.Material).HasMaxLength(50);
+                entity.Property(e => e.Size).HasMaxLength(50);
+                entity.Property(e => e.CaratWeight).HasColumnType("decimal(3, 2)");
+                entity.Property(e => e.BasePrice).HasColumnType("decimal(18, 2)");
             });
 
             OnModelCreatingPartial(modelBuilder);

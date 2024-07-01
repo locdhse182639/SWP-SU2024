@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace BE_V2.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialCreate : Migration
+    public partial class NewMigrationName : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -37,6 +37,21 @@ namespace BE_V2.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "DiamondPriceTable",
+                columns: table => new
+                {
+                    Carat = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    Color = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Clarity = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Cut = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_DiamondPriceTable", x => new { x.Carat, x.Color, x.Clarity, x.Cut });
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Event",
                 columns: table => new
                 {
@@ -52,6 +67,36 @@ namespace BE_V2.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "NecklaceMold",
+                columns: table => new
+                {
+                    NecklaceMoldId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Material = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    Length = table.Column<int>(type: "int", nullable: false),
+                    CaratWeight = table.Column<decimal>(type: "decimal(3,2)", nullable: false),
+                    BasePrice = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_NecklaceMold", x => x.NecklaceMoldId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "NecklacePriceTable",
+                columns: table => new
+                {
+                    Material = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    Length = table.Column<int>(type: "int", nullable: false),
+                    CaratWeight = table.Column<decimal>(type: "decimal(3,2)", nullable: false),
+                    BasePrice = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_NecklacePriceTable", x => new { x.Material, x.Length, x.CaratWeight });
+                });
+
+            migrationBuilder.CreateTable(
                 name: "ProductTypes",
                 columns: table => new
                 {
@@ -62,6 +107,38 @@ namespace BE_V2.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK__ProductT__A1312F4E6F0C4623", x => x.ProductTypeID);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "RingMold",
+                columns: table => new
+                {
+                    RingMoldId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Material = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    Size = table.Column<decimal>(type: "decimal(3,1)", nullable: false),
+                    CaratWeight = table.Column<decimal>(type: "decimal(4,2)", nullable: false),
+                    Gender = table.Column<string>(type: "nvarchar(6)", maxLength: 6, nullable: false),
+                    RingType = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: false),
+                    BasePrice = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_RingMold", x => x.RingMoldId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "RingPriceTable",
+                columns: table => new
+                {
+                    Material = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    Size = table.Column<decimal>(type: "decimal(3,1)", nullable: false),
+                    CaratWeight = table.Column<decimal>(type: "decimal(4,2)", nullable: false),
+                    BasePrice = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_RingPriceTable", x => new { x.Material, x.Size, x.CaratWeight });
                 });
 
             migrationBuilder.CreateTable(
@@ -85,29 +162,49 @@ namespace BE_V2.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     ProductName = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true),
                     ProductType = table.Column<int>(type: "int", nullable: true),
-                    Type = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
+                    Material = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
                     Size = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Price = table.Column<decimal>(type: "decimal(10,2)", nullable: true),
+                    ProcessingPrice = table.Column<decimal>(type: "decimal(18,2)", nullable: true),
+                    ExchangeRate = table.Column<decimal>(type: "decimal(18,2)", nullable: true),
                     Quantity = table.Column<int>(type: "int", nullable: true),
-                    DiamondID = table.Column<int>(type: "int", nullable: true),
+                    MainDiamondId = table.Column<int>(type: "int", nullable: true),
                     Image1 = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Image2 = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Image3 = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    Image3 = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    SecondaryDiamondId = table.Column<int>(type: "int", nullable: true),
+                    RingMoldId = table.Column<int>(type: "int", nullable: true),
+                    NecklaceMoldId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK__Product__B40CC6ED5D24FBE4", x => x.ProductID);
+                    table.PrimaryKey("PK_Product", x => x.ProductID);
                     table.ForeignKey(
-                        name: "FK__Product__Diamond__534D60F1",
-                        column: x => x.DiamondID,
+                        name: "FK_Product_MainDiamond",
+                        column: x => x.MainDiamondId,
                         principalTable: "Diamond",
                         principalColumn: "DiamondID");
                     table.ForeignKey(
-                        name: "FK__Product__Product__52593CB8",
+                        name: "FK_Product_NecklaceMold",
+                        column: x => x.NecklaceMoldId,
+                        principalTable: "NecklaceMold",
+                        principalColumn: "NecklaceMoldId");
+                    table.ForeignKey(
+                        name: "FK_Product_ProductType",
                         column: x => x.ProductType,
                         principalTable: "ProductTypes",
                         principalColumn: "ProductTypeID");
+                    table.ForeignKey(
+                        name: "FK_Product_RingMold",
+                        column: x => x.RingMoldId,
+                        principalTable: "RingMold",
+                        principalColumn: "RingMoldId");
+                    table.ForeignKey(
+                        name: "FK_Product_SecondaryDiamond",
+                        column: x => x.SecondaryDiamondId,
+                        principalTable: "Diamond",
+                        principalColumn: "DiamondID");
                 });
 
             migrationBuilder.CreateTable(
@@ -293,15 +390,15 @@ namespace BE_V2.Migrations
                 {
                     table.PrimaryKey("PK__Feedback__6A4BEDF6BA84AC5C", x => x.FeedbackID);
                     table.ForeignKey(
+                        name: "FK_Feedbacks_Product",
+                        column: x => x.ProductID,
+                        principalTable: "Product",
+                        principalColumn: "ProductID");
+                    table.ForeignKey(
                         name: "FK__Feedback__Custom__6477ECF3",
                         column: x => x.CustomerID,
                         principalTable: "Customer",
                         principalColumn: "CustomerID");
-                    table.ForeignKey(
-                        name: "FK__Feedback__ProductID__649C50CB",
-                        column: x => x.ProductID,
-                        principalTable: "Product",
-                        principalColumn: "ProductID");
                 });
 
             migrationBuilder.CreateTable(
@@ -391,7 +488,7 @@ namespace BE_V2.Migrations
                 {
                     table.PrimaryKey("PK__OrderLog__A5D58A608123E0B0", x => x.LogID);
                     table.ForeignKey(
-                        name: "FK__OrderLog__OrderID__02FC7413",
+                        name: "FK__OrderLogs__OrderID__02FC7413",
                         column: x => x.OrderID,
                         principalTable: "Orders",
                         principalColumn: "OrderID",
@@ -525,14 +622,29 @@ namespace BE_V2.Migrations
                 column: "ProductID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Product_DiamondID",
+                name: "IX_Product_MainDiamondId",
                 table: "Product",
-                column: "DiamondID");
+                column: "MainDiamondId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Product_NecklaceMoldId",
+                table: "Product",
+                column: "NecklaceMoldId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Product_ProductType",
                 table: "Product",
                 column: "ProductType");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Product_RingMoldId",
+                table: "Product",
+                column: "RingMoldId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Product_SecondaryDiamondId",
+                table: "Product",
+                column: "SecondaryDiamondId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Users_RoleID",
@@ -565,10 +677,16 @@ namespace BE_V2.Migrations
                 name: "CustomerPoints");
 
             migrationBuilder.DropTable(
+                name: "DiamondPriceTable");
+
+            migrationBuilder.DropTable(
                 name: "EventItem");
 
             migrationBuilder.DropTable(
                 name: "Feedback");
+
+            migrationBuilder.DropTable(
+                name: "NecklacePriceTable");
 
             migrationBuilder.DropTable(
                 name: "OrderDetails");
@@ -581,6 +699,9 @@ namespace BE_V2.Migrations
 
             migrationBuilder.DropTable(
                 name: "PriceDetail");
+
+            migrationBuilder.DropTable(
+                name: "RingPriceTable");
 
             migrationBuilder.DropTable(
                 name: "WishlistItems");
@@ -604,7 +725,13 @@ namespace BE_V2.Migrations
                 name: "Diamond");
 
             migrationBuilder.DropTable(
+                name: "NecklaceMold");
+
+            migrationBuilder.DropTable(
                 name: "ProductTypes");
+
+            migrationBuilder.DropTable(
+                name: "RingMold");
 
             migrationBuilder.DropTable(
                 name: "Customer");

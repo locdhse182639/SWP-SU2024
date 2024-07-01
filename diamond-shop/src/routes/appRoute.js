@@ -33,6 +33,7 @@ import ClarityPage from '../components/education/page/clarityPage'
 import CaratPage from '../components/education/page/caratPage'
 import ViewEventPage from '../components/event/ViewEventPage'
 import EventPage from '../components/dashboard/dashboardContent/EventPage'
+import MoldManage from '../components/dashboard/dashboardContent/MoldManage'
 
 
 export default function AppRoute() {
@@ -70,6 +71,7 @@ export default function AppRoute() {
       <Route path={routes.carat} element={<CaratPage/>}/>
       <Route path={routes.EventPage} element={<EventPage/>}/>
       <Route path={routes.ViewEventPage + "/:id"} element={<ViewEventPage />} />
+      <Route path={routes.MoldManage} element={<MoldManage/>} />
     </Routes>
   );
 }

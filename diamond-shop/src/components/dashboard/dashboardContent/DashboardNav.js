@@ -42,6 +42,9 @@ export default function NavBar() {
                     <div className='navbar-item'>
                         <a href={routes.productPage}>Product</a>
                     </div>
+                    <div className='navbar-item'>
+                        <a href={routes.MoldManage}>Mold</a>
+                    </div>
                     {user && user.roleId !== 2 && ( // Conditional rendering based on user roleId
                         <div className='navbar-item'>
                             <a href={routes.accountPage}>Account</a>

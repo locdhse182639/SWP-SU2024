@@ -200,6 +200,29 @@ namespace BE_V2.Migrations
                     b.ToTable("Diamond", (string)null);
                 });
 
+            modelBuilder.Entity("BE_V2.DataDB.DiamondPriceTable", b =>
+                {
+                    b.Property<decimal>("Carat")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("Color")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Clarity")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Cut")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18, 2)");
+
+                    b.HasKey("Carat", "Color", "Clarity", "Cut")
+                        .HasName("PK_DiamondPriceTable");
+
+                    b.ToTable("DiamondPriceTable");
+                });
+
             modelBuilder.Entity("BE_V2.DataDB.Event", b =>
                 {
                     b.Property<int>("EventID")
@@ -298,6 +321,54 @@ namespace BE_V2.Migrations
                     b.HasIndex("ProductId");
 
                     b.ToTable("Feedback", (string)null);
+                });
+
+            modelBuilder.Entity("BE_V2.DataDB.NecklaceMold", b =>
+                {
+                    b.Property<int>("NecklaceMoldId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("NecklaceMoldId"));
+
+                    b.Property<decimal>("BasePrice")
+                        .HasColumnType("decimal(18, 2)");
+
+                    b.Property<decimal>("CaratWeight")
+                        .HasColumnType("decimal(3, 2)");
+
+                    b.Property<int>("Length")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Material")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.HasKey("NecklaceMoldId");
+
+                    b.ToTable("NecklaceMold");
+                });
+
+            modelBuilder.Entity("BE_V2.DataDB.NecklacePriceTable", b =>
+                {
+                    b.Property<string>("Material")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<int>("Length")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("CaratWeight")
+                        .HasColumnType("decimal(3, 2)");
+
+                    b.Property<decimal>("BasePrice")
+                        .HasColumnType("decimal(18, 2)");
+
+                    b.HasKey("Material", "Length", "CaratWeight")
+                        .HasName("PK_NecklacePriceTable");
+
+                    b.ToTable("NecklacePriceTable");
                 });
 
             modelBuilder.Entity("BE_V2.DataDB.Order", b =>
@@ -481,62 +552,6 @@ namespace BE_V2.Migrations
                     b.ToTable("PriceDetail", (string)null);
                 });
 
-            modelBuilder.Entity("BE_V2.DataDB.Product", b =>
-                {
-                    b.Property<int>("ProductId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasColumnName("ProductID");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ProductId"));
-
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("DiamondId")
-                        .HasColumnType("int")
-                        .HasColumnName("DiamondID");
-
-                    b.Property<string>("Image1")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Image2")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Image3")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<decimal?>("Price")
-                        .HasColumnType("decimal(10, 2)");
-
-                    b.Property<string>("ProductName")
-                        .HasMaxLength(255)
-                        .HasColumnType("nvarchar(255)");
-
-                    b.Property<int?>("ProductType")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("Quantity")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Size")
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.Property<string>("Type")
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.HasKey("ProductId")
-                        .HasName("PK__Product__B40CC6ED5D24FBE4");
-
-                    b.HasIndex("DiamondId");
-
-                    b.HasIndex("ProductType");
-
-                    b.ToTable("Product", (string)null);
-                });
-
             modelBuilder.Entity("BE_V2.DataDB.ProductType", b =>
                 {
                     b.Property<int>("ProductTypeId")
@@ -555,6 +570,64 @@ namespace BE_V2.Migrations
                         .HasName("PK__ProductT__A1312F4E6F0C4623");
 
                     b.ToTable("ProductTypes");
+                });
+
+            modelBuilder.Entity("BE_V2.DataDB.RingMold", b =>
+                {
+                    b.Property<int>("RingMoldId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("RingMoldId"));
+
+                    b.Property<decimal>("BasePrice")
+                        .HasColumnType("decimal(18, 2)");
+
+                    b.Property<decimal>("CaratWeight")
+                        .HasColumnType("decimal(4, 2)");
+
+                    b.Property<string>("Gender")
+                        .IsRequired()
+                        .HasMaxLength(6)
+                        .HasColumnType("nvarchar(6)");
+
+                    b.Property<string>("Material")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("RingType")
+                        .IsRequired()
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)");
+
+                    b.Property<decimal>("Size")
+                        .HasColumnType("decimal(3, 1)");
+
+                    b.HasKey("RingMoldId");
+
+                    b.ToTable("RingMold");
+                });
+
+            modelBuilder.Entity("BE_V2.DataDB.RingPriceTable", b =>
+                {
+                    b.Property<string>("Material")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<decimal>("Size")
+                        .HasColumnType("decimal(3, 1)");
+
+                    b.Property<decimal>("CaratWeight")
+                        .HasColumnType("decimal(4, 2)");
+
+                    b.Property<decimal>("BasePrice")
+                        .HasColumnType("decimal(18, 2)");
+
+                    b.HasKey("Material", "Size", "CaratWeight")
+                        .HasName("PK_RingPriceTable");
+
+                    b.ToTable("RingPriceTable");
                 });
 
             modelBuilder.Entity("BE_V2.DataDB.Role", b =>
@@ -686,6 +759,88 @@ namespace BE_V2.Migrations
                     b.ToTable("WishlistItems");
                 });
 
+            modelBuilder.Entity("Product", b =>
+                {
+                    b.Property<int>("ProductId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasColumnName("ProductID");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ProductId"));
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal?>("ExchangeRate")
+                        .HasColumnType("decimal(18, 2)");
+
+                    b.Property<string>("Image1")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Image2")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Image3")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("MainDiamondId")
+                        .HasColumnType("int")
+                        .HasColumnName("MainDiamondId");
+
+                    b.Property<string>("Material")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<int?>("NecklaceMoldId")
+                        .HasColumnType("int")
+                        .HasColumnName("NecklaceMoldId");
+
+                    b.Property<decimal?>("Price")
+                        .HasColumnType("decimal(10, 2)");
+
+                    b.Property<decimal?>("ProcessingPrice")
+                        .HasColumnType("decimal(18, 2)");
+
+                    b.Property<string>("ProductName")
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
+
+                    b.Property<int?>("ProductType")
+                        .HasColumnType("int")
+                        .HasColumnName("ProductType");
+
+                    b.Property<int?>("Quantity")
+                        .HasColumnType("int")
+                        .HasColumnName("Quantity");
+
+                    b.Property<int?>("RingMoldId")
+                        .HasColumnType("int")
+                        .HasColumnName("RingMoldId");
+
+                    b.Property<int?>("SecondaryDiamondId")
+                        .HasColumnType("int")
+                        .HasColumnName("SecondaryDiamondId");
+
+                    b.Property<string>("Size")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.HasKey("ProductId")
+                        .HasName("PK_Product");
+
+                    b.HasIndex("MainDiamondId");
+
+                    b.HasIndex("NecklaceMoldId");
+
+                    b.HasIndex("ProductType");
+
+                    b.HasIndex("RingMoldId");
+
+                    b.HasIndex("SecondaryDiamondId");
+
+                    b.ToTable("Product", (string)null);
+                });
+
             modelBuilder.Entity("BE_V2.DataDB.Cart", b =>
                 {
                     b.HasOne("BE_V2.DataDB.User", "User")
@@ -707,7 +862,7 @@ namespace BE_V2.Migrations
                         .IsRequired()
                         .HasConstraintName("FK__CartItem__CartID__2B3F6F97");
 
-                    b.HasOne("BE_V2.DataDB.Product", "Product")
+                    b.HasOne("Product", "Product")
                         .WithMany("CartItems")
                         .HasForeignKey("ProductID")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -750,7 +905,7 @@ namespace BE_V2.Migrations
                         .IsRequired()
                         .HasConstraintName("FK__EventItem__EventID__02FC7413");
 
-                    b.HasOne("BE_V2.DataDB.Product", "Product")
+                    b.HasOne("Product", "Product")
                         .WithMany("EventItems")
                         .HasForeignKey("ProductID")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -769,10 +924,10 @@ namespace BE_V2.Migrations
                         .HasForeignKey("CustomerId")
                         .HasConstraintName("FK__Feedback__Custom__6477ECF3");
 
-                    b.HasOne("BE_V2.DataDB.Product", "Product")
+                    b.HasOne("Product", "Product")
                         .WithMany("Feedbacks")
                         .HasForeignKey("ProductId")
-                        .HasConstraintName("FK__Feedback__ProductID__649C50CB");
+                        .HasConstraintName("FK_Feedbacks_Product");
 
                     b.Navigation("Customer");
 
@@ -796,7 +951,7 @@ namespace BE_V2.Migrations
                         .HasForeignKey("OrderId")
                         .HasConstraintName("FK__OrderDeta__Order__5CD6CB2B");
 
-                    b.HasOne("BE_V2.DataDB.Product", "Product")
+                    b.HasOne("Product", "Product")
                         .WithMany("OrderDetails")
                         .HasForeignKey("ProductId")
                         .HasConstraintName("FK__OrderDeta__Produ__5DCAEF64");
@@ -813,7 +968,7 @@ namespace BE_V2.Migrations
                         .HasForeignKey("OrderID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired()
-                        .HasConstraintName("FK__OrderLog__OrderID__02FC7413");
+                        .HasConstraintName("FK__OrderLogs__OrderID__02FC7413");
 
                     b.Navigation("Order");
                 });
@@ -830,7 +985,7 @@ namespace BE_V2.Migrations
 
             modelBuilder.Entity("BE_V2.DataDB.PriceDetail", b =>
                 {
-                    b.HasOne("BE_V2.DataDB.Product", "Product")
+                    b.HasOne("Product", "Product")
                         .WithMany("PriceDetails")
                         .HasForeignKey("ProductID")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -838,23 +993,6 @@ namespace BE_V2.Migrations
                         .HasConstraintName("FK__PriceDeta__ProductID__06CD04F7");
 
                     b.Navigation("Product");
-                });
-
-            modelBuilder.Entity("BE_V2.DataDB.Product", b =>
-                {
-                    b.HasOne("BE_V2.DataDB.Diamond", "Diamond")
-                        .WithMany("Products")
-                        .HasForeignKey("DiamondId")
-                        .HasConstraintName("FK__Product__Diamond__534D60F1");
-
-                    b.HasOne("BE_V2.DataDB.ProductType", "ProductTypeNavigation")
-                        .WithMany("Products")
-                        .HasForeignKey("ProductType")
-                        .HasConstraintName("FK__Product__Product__52593CB8");
-
-                    b.Navigation("Diamond");
-
-                    b.Navigation("ProductTypeNavigation");
                 });
 
             modelBuilder.Entity("BE_V2.DataDB.User", b =>
@@ -881,7 +1019,7 @@ namespace BE_V2.Migrations
 
             modelBuilder.Entity("BE_V2.DataDB.WishlistItem", b =>
                 {
-                    b.HasOne("BE_V2.DataDB.Product", "Product")
+                    b.HasOne("Product", "Product")
                         .WithMany("WishlistItems")
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -898,6 +1036,44 @@ namespace BE_V2.Migrations
                     b.Navigation("Product");
 
                     b.Navigation("Wishlist");
+                });
+
+            modelBuilder.Entity("Product", b =>
+                {
+                    b.HasOne("BE_V2.DataDB.Diamond", "MainDiamond")
+                        .WithMany("Products")
+                        .HasForeignKey("MainDiamondId")
+                        .HasConstraintName("FK_Product_MainDiamond");
+
+                    b.HasOne("BE_V2.DataDB.NecklaceMold", "NecklaceMold")
+                        .WithMany()
+                        .HasForeignKey("NecklaceMoldId")
+                        .HasConstraintName("FK_Product_NecklaceMold");
+
+                    b.HasOne("BE_V2.DataDB.ProductType", "ProductTypeNavigation")
+                        .WithMany("Products")
+                        .HasForeignKey("ProductType")
+                        .HasConstraintName("FK_Product_ProductType");
+
+                    b.HasOne("BE_V2.DataDB.RingMold", "RingMold")
+                        .WithMany()
+                        .HasForeignKey("RingMoldId")
+                        .HasConstraintName("FK_Product_RingMold");
+
+                    b.HasOne("BE_V2.DataDB.Diamond", "SecondaryDiamond")
+                        .WithMany()
+                        .HasForeignKey("SecondaryDiamondId")
+                        .HasConstraintName("FK_Product_SecondaryDiamond");
+
+                    b.Navigation("MainDiamond");
+
+                    b.Navigation("NecklaceMold");
+
+                    b.Navigation("ProductTypeNavigation");
+
+                    b.Navigation("RingMold");
+
+                    b.Navigation("SecondaryDiamond");
                 });
 
             modelBuilder.Entity("BE_V2.DataDB.Cart", b =>
@@ -935,21 +1111,6 @@ namespace BE_V2.Migrations
                     b.Navigation("Payments");
                 });
 
-            modelBuilder.Entity("BE_V2.DataDB.Product", b =>
-                {
-                    b.Navigation("CartItems");
-
-                    b.Navigation("EventItems");
-
-                    b.Navigation("Feedbacks");
-
-                    b.Navigation("OrderDetails");
-
-                    b.Navigation("PriceDetails");
-
-                    b.Navigation("WishlistItems");
-                });
-
             modelBuilder.Entity("BE_V2.DataDB.ProductType", b =>
                 {
                     b.Navigation("Products");
@@ -969,6 +1130,21 @@ namespace BE_V2.Migrations
 
             modelBuilder.Entity("BE_V2.DataDB.Wishlist", b =>
                 {
+                    b.Navigation("WishlistItems");
+                });
+
+            modelBuilder.Entity("Product", b =>
+                {
+                    b.Navigation("CartItems");
+
+                    b.Navigation("EventItems");
+
+                    b.Navigation("Feedbacks");
+
+                    b.Navigation("OrderDetails");
+
+                    b.Navigation("PriceDetails");
+
                     b.Navigation("WishlistItems");
                 });
 #pragma warning restore 612, 618
