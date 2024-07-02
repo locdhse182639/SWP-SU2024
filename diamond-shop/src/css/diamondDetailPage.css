@@ -147,7 +147,7 @@
 
 .select-button {
     flex: 1;
-    background-color: #1e2a78;
+    background-color: #000000;
     color: #fff;
     font-size: 1rem;
     padding: 12px 24px;
@@ -314,6 +314,7 @@
 .additional-content {
     padding: 10px 0;
     border-bottom: 1px solid #ddd;
+
 }
 
 .additional-links a {
@@ -327,3 +328,24 @@
     text-decoration: underline;
 }
 
+
+.diamond-specs-table {
+    width: 100%;
+    border-collapse: collapse;
+    
+  }
+  
+  .diamond-specs-table .spec-value {
+    text-align: left;
+  }
+  
+  .diamond-specs-table td, .diamond-specs-table th {
+    border: 1px solid black;
+    padding: 8px;
+    color:black;
+    font-size: smaller;
+  }
+  
+  .diamond-specs-table tr {
+    background-color: transparent;
+  }

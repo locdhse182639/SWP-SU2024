@@ -1,6 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { Container, Grid, Typography, Table, TableBody, TableRow, TableCell, Box, MenuItem, Select, FormControl, InputLabel, Link } from '@mui/material';
-import Button from '@mui/material/Button';
+import { Container, Grid, Typography, Table, TableBody, TableRow, TableCell, Box, MenuItem, Select, FormControl, Link, Paper, Button } from '@mui/material';
+import NavBar from '../components/navBar';
+import SizeSelection from '../components/sizeSelection';
+import { useParams, useNavigate } from 'react-router-dom';
+import { useAuth } from '../components/authcontext';
+import { jwtDecode } from 'jwt-decode';
+import FeedbackComponent from '../components/feedback';
+import '../css/diamondDetailPage.css';
 import ReportIcon from '@mui/icons-material/Report';
 import ViewInArIcon from '@mui/icons-material/ViewInAr';
 import ZoomInIcon from '@mui/icons-material/ZoomIn';
@@ -8,12 +14,6 @@ import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 import Footer from '../components/footer';
-import NavBar from '../components/navBar';
-import { useParams, useNavigate } from 'react-router-dom';
-import { useAuth } from '../components/authcontext';
-import {jwtDecode} from 'jwt-decode';
-import FeedbackComponent from '../components/feedback';
-import '../css/diamondDetailPage.css';
 
 const DiamondDetailPage = () => {
   const { id } = useParams();
@@ -24,23 +24,38 @@ const DiamondDetailPage = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [selectedSize, setSelectedSize] = useState('');
+  const [finalPrice, setFinalPrice] = useState(0);
+  const [mainDiamond, setMainDiamond] = useState(null);
+  const [secondaryDiamond, setSecondaryDiamond] = useState(null);
 
   useEffect(() => {
     const fetchProduct = async () => {
       try {
-        console.log(`Fetching product with ID: ${id}`);
         const response = await fetch(`https://localhost:7251/api/Products/${id}`);
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
         const data = await response.json();
-        console.log('Fetched product data:', data);
-        setProduct(data);
-        if (data.productType === 2) {
-          setSelectedSize(data.size.split(',')[0]);
+        setProduct(data.product);
+        setFinalPrice(data.finalPrice);
+        if (data.product.productType === 2) {
+          setSelectedSize(data.product.size.split(',')[0]);
+        }
+
+        // Fetch main diamond details
+        if (data.product.mainDiamondId) {
+          const mainDiamondResponse = await fetch(`https://localhost:7251/api/Diamonds/${data.product.mainDiamondId}`);
+          const mainDiamondData = await mainDiamondResponse.json();
+          setMainDiamond(mainDiamondData);
+        }
+
+        // Fetch secondary diamond details
+        if (data.product.secondaryDiamondId) {
+          const secondaryDiamondResponse = await fetch(`https://localhost:7251/api/Diamonds/${data.product.secondaryDiamondId}`);
+          const secondaryDiamondData = await secondaryDiamondResponse.json();
+          setSecondaryDiamond(secondaryDiamondData);
         }
       } catch (error) {
-        console.error('Error fetching product:', error);
         setError(error.message);
       } finally {
         setLoading(false);
@@ -49,6 +64,11 @@ const DiamondDetailPage = () => {
 
     fetchProduct();
   }, [id]);
+
+  const handleSizeSelected = (size, price) => {
+    setSelectedSize(size);
+    setFinalPrice(price);
+  };
 
   const handleToggleSection = (section) => {
     setExpandedSection(expandedSection === section ? null : section);
@@ -59,57 +79,63 @@ const DiamondDetailPage = () => {
       navigate('/login');
     } else {
       try {
-        const userId = jwtDecode(user.token).unique_name;
-        console.log(`User ID: ${userId}`);
-
-        // Fetch the user's cart
+        const userId = parseInt(jwtDecode(user.token).unique_name);
+        const sizeString = selectedSize.toString();
+  
+        const productResponse = await fetch('https://localhost:7251/api/Products/CreateOrGetProductWithSize', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ productId: product.productId, size: sizeString }),
+        });
+  
+        if (!productResponse.ok) {
+          throw new Error('Failed to create or get product with size');
+        }
+  
+        const productWithSize = await productResponse.json();
+  
         let cartResponse = await fetch(`https://localhost:7251/api/Cart/User/${userId}`);
         let cart;
         if (cartResponse.ok) {
           cart = await cartResponse.json();
         } else if (cartResponse.status === 404) {
-          // Create a new cart if not found
           cartResponse = await fetch('https://localhost:7251/api/Cart', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
             },
-            body: JSON.stringify(userId), // Pass userId as plain text
+            body: JSON.stringify({ userId: userId }), // Wrap the userId in an object
           });
-
+  
           if (!cartResponse.ok) {
             throw new Error('Failed to create a cart');
           }
-
+  
           cart = await cartResponse.json();
         } else {
           throw new Error('Failed to fetch or create a cart');
         }
-
-        console.log('Cart data:', cart);
-
-        // Add the product to the cart
+  
         const response = await fetch('https://localhost:7251/api/CartItem', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({
-            cartID: cart.cartID, // Use the existing or newly created cart ID
-            productID: product.productId,
+            cartID: cart.cartID,
+            productID: productWithSize.productId,
             quantity: 1,
-            price: product.price,
-            size: product.productType === 2 ? selectedSize : null, // Include selected size if the product is a ring
+            price: productWithSize.price,
+            size: sizeString,
           }),
         });
-
+  
         if (!response.ok) {
           throw new Error('Failed to add item to cart');
         }
-
-        const addedItem = await response.json();
-        console.log('Added item to cart:', addedItem);
-
+  
         alert('Product added to cart');
       } catch (error) {
         console.error('Error selecting product:', error);
@@ -123,8 +149,8 @@ const DiamondDetailPage = () => {
 
   const isDiamond = product.productType === 1;
   const isRing = product.productType === 2;
-  const depositPercentage = 20; // 20% deposit
-  const depositAmount = product ? (product.price * depositPercentage) / 100 : 0;
+  const depositPercentage = 20;
+  const depositAmount = (finalPrice * depositPercentage) / 100;
 
   return (
     <div>
@@ -146,131 +172,93 @@ const DiamondDetailPage = () => {
             </div>
           </Grid>
           <Grid item xs={12} md={6}>
-            <Typography style={{ color: 'black' }} variant="h4" className="product-title">{product.productName}</Typography>
-            <Typography variant="body1" className="shipping-info">
-              Ships as a loose {isDiamond ? 'diamond' : 'product'} by: <strong>Thursday, June 13</strong>
-            </Typography>
-            <a href="#" className="shipping-link">Free Overnight Shipping, Hassle-Free Returns</a>
-            {isDiamond ? (
-              <div className="diamond-specs">
-                <span className="spec-tag">{product.caratWeight}ct</span>
-                <span className="spec-tag">{product.color}</span>
-                <span className="spec-tag">{product.clarity}</span>
-              </div>
-            ) : (
-              <div className="product-specs">
-                <span className="spec-tag">{product.type}</span>
-                <span className="spec-tag">{product.size}</span>
-              </div>
-            )}
-            <Typography style={{ color: 'black' }} variant="h5" className="price">${product.price} <span className="product-price">Price</span></Typography>
+            <Typography variant="h4" style={{ marginBottom: '2rem' }} className="product-title">{product.productName}</Typography>
+
+            <Typography variant="h5" className="price">Price: {finalPrice} <span className="product-price">VND</span></Typography>
             {isRing && (
               <Box display="flex" alignItems="center" mt={2}>
                 <Typography variant="body2" style={{ marginRight: '8px' }}>Current Ring Size:</Typography>
-                <FormControl variant="outlined" style={{ minWidth: 120 }}>
-                  <Select
-                    value={selectedSize}
-                    onChange={(e) => setSelectedSize(e.target.value)}
-                    displayEmpty
-                  >
-                    {product.size.split(',').map((size) => (
-                      <MenuItem key={size} value={size}>{size}</MenuItem>
-                    ))}
-                  </Select>
-                </FormControl>
+                <SizeSelection
+                  productId={id}
+                  onSizeSelected={handleSizeSelected}
+                  productType={product.productType}
+                  material={product.material}
+                  caratWeight={product.ringMold.caratWeight}
+                  mainDiamondId={product.mainDiamondId}
+                  secondaryDiamondId={product.secondaryDiamondId}
+                  secondaryDiamondCount={product.secondaryDiamondCount}
+                  processingPrice={product.processingPrice}
+                  exchangeRate={product.exchangeRate}
+                />
                 <Link href="#" style={{ marginLeft: '16px', textDecoration: 'underline' }}>Ring Size Help</Link>
               </Box>
             )}
-            <Box className="payment-container" mt={2}>
-              <Typography variant="body2" className="payment-options">
-                Flexible Payment Options:<br />
-                <span className="payment-detail">3 Interest-Free Payments of ${(product.price / 3).toFixed(2)}</span>
-              </Typography>
-            </Box>
+
             <Typography variant="h6" className="deposit" mt={2}>
-              Deposit: ${depositAmount.toFixed(2)} (20%)
+              Deposit: {depositAmount.toFixed(2)} (20%)
             </Typography>
             <div className="button-group">
-              <Button style={{ backgroundColor: 'black' }} variant="contained" className="select-button" onClick={handleSelectProduct}>
+              <Button variant="contained"  className="select-button" onClick={handleSelectProduct} style={{ backgroundColor: 'black', color: 'white' }}>
                 SELECT THIS {isDiamond ? 'DIAMOND' : 'PRODUCT'}
               </Button>
-              <Button style={{ color: 'black' }} variant="outlined" className="consult-button">CONSULT AN EXPERT</Button>
             </div>
           </Grid>
         </Grid>
         <Grid container spacing={2} className="additional-info-section">
           <Grid item xs={12} md={6}>
-            <div className="report-links">
-              <a style={{ color: 'black' }} href="#">
-                <ReportIcon /><br />
-                {isDiamond ? 'GIA Report' : 'Product Report'}
-              </a>
-              <a style={{ color: 'black' }} href="#">
-                <ViewInArIcon /><br />
-                View Size
-              </a>
-              <a style={{ color: 'black' }} href="#">
-                <ZoomInIcon /><br />
-                Super Zoom
-              </a>
-            </div>
             <Table className="product-specs-table">
               <TableBody>
                 {isDiamond ? (
                   <>
                     <TableRow>
                       <TableCell>Shape</TableCell>
-                      <TableCell className="spec-value">{product.shape} <InfoOutlinedIcon className="info-icon" /></TableCell>
+                      <TableCell className="spec-value">{product.mainDiamond.shape} </TableCell>
                     </TableRow>
                     <TableRow>
                       <TableCell>Color</TableCell>
-                      <TableCell className="spec-value">{product.color} <InfoOutlinedIcon className="info-icon" /></TableCell>
+                      <TableCell className="spec-value">{product.mainDiamond.color} </TableCell>
                     </TableRow>
                     <TableRow>
                       <TableCell>Clarity</TableCell>
-                      <TableCell className="spec-value">{product.clarity} <InfoOutlinedIcon className="info-icon" /></TableCell>
+                      <TableCell className="spec-value">{product.mainDiamond.clarity} </TableCell>
                     </TableRow>
                     <TableRow>
                       <TableCell>Carat Weight</TableCell>
-                      <TableCell className="spec-value">{product.caratWeight} <InfoOutlinedIcon className="info-icon" /></TableCell>
+                      <TableCell className="spec-value">{product.mainDiamond.caratWeight} </TableCell>
                     </TableRow>
                     <TableRow>
                       <TableCell>Fluorescence</TableCell>
-                      <TableCell className="spec-value">{product.fluorescence} <InfoOutlinedIcon className="info-icon" /></TableCell>
+                      <TableCell className="spec-value">{product.mainDiamond.fluorescence} </TableCell>
                     </TableRow>
                     <TableRow>
                       <TableCell>Length/Width Ratio</TableCell>
-                      <TableCell className="spec-value">{product.lengthWidthRatio} <InfoOutlinedIcon className="info-icon" /></TableCell>
+                      <TableCell className="spec-value">{product.mainDiamond.lengthWidthRatio} </TableCell>
                     </TableRow>
                     <TableRow>
                       <TableCell>Depth %</TableCell>
-                      <TableCell className="spec-value">{product.depth} <InfoOutlinedIcon className="info-icon" /></TableCell>
+                      <TableCell className="spec-value">{product.mainDiamond.depth} </TableCell>
                     </TableRow>
                     <TableRow>
                       <TableCell>Table %</TableCell>
-                      <TableCell className="spec-value">{product.tables} <InfoOutlinedIcon className="info-icon" /></TableCell>
+                      <TableCell className="spec-value">{product.mainDiamond.tables} </TableCell>
                     </TableRow>
                     {expandedSection === 'additional' && (
                       <>
                         <TableRow>
                           <TableCell>Symmetry</TableCell>
-                          <TableCell className="spec-value">{product.symmetry} <InfoOutlinedIcon className="info-icon" /></TableCell>
+                          <TableCell className="spec-value">{product.mainDiamond.symmetry}</TableCell>
                         </TableRow>
                         <TableRow>
                           <TableCell>Girdle</TableCell>
-                          <TableCell className="spec-value">{product.girdle} <InfoOutlinedIcon className="info-icon" /></TableCell>
-                        </TableRow>
-                        <TableRow>
-                          <TableCell>Culet</TableCell>
-                          <TableCell className="spec-value">{product.culet} <InfoOutlinedIcon className="info-icon" /></TableCell>
+                          <TableCell className="spec-value">{product.mainDiamond.girdle} </TableCell>
                         </TableRow>
                         <TableRow>
                           <TableCell>Measurements</TableCell>
-                          <TableCell className="spec-value">{product.measurements}</TableCell>
+                          <TableCell className="spec-value">{product.mainDiamond.measurements}</TableCell>
                         </TableRow>
                         <TableRow>
                           <TableCell>Certificate</TableCell>
-                          <TableCell className="spec-value">{product.certificate}</TableCell>
+                          <TableCell className="spec-value">{product.mainDiamond.certificate}</TableCell>
                         </TableRow>
                       </>
                     )}
@@ -278,16 +266,20 @@ const DiamondDetailPage = () => {
                 ) : (
                   <>
                     <TableRow>
-                      <TableCell>Type</TableCell>
-                      <TableCell className="spec-value">{product.type} <InfoOutlinedIcon className="info-icon" /></TableCell>
+                      <TableCell>Material</TableCell>
+                      <TableCell className="spec-value">{product.material || 'N/A'}</TableCell>
                     </TableRow>
                     <TableRow>
                       <TableCell>Size</TableCell>
-                      <TableCell className="spec-value">{product.size} <InfoOutlinedIcon className="info-icon" /></TableCell>
+                      <TableCell className="spec-value">{selectedSize || product.size}</TableCell>
                     </TableRow>
                     <TableRow>
                       <TableCell>Description</TableCell>
-                      <TableCell className="spec-value">{product.description} <InfoOutlinedIcon className="info-icon" /></TableCell>
+                      <TableCell className="spec-value">{product.description}</TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell>Secondary Diamond Count</TableCell>
+                      <TableCell className="spec-value">{product.secondaryDiamondCount}</TableCell>
                     </TableRow>
                   </>
                 )}
@@ -309,60 +301,134 @@ const DiamondDetailPage = () => {
               </TableBody>
             </Table>
           </Grid>
-          <Grid item xs={12} md={6}>
-            <Typography variant="h5" className="order-includes-title">
-              Your Order Includes:
-            </Typography>
-            <div className="order-includes">
-              <div className="order-includes-item">
-                <div className="icon">
-                  🚚
+          {!isDiamond && (
+            <Grid item xs={12} md={6}>
+              <div className="additional-links">
+                <div className="additional-link" onClick={() => handleToggleSection('gradingReport')}>
+                  <Typography>GIA Grading Report</Typography>
+                  {expandedSection === 'gradingReport' ? <ExpandLessIcon /> : <ExpandMoreIcon />}
                 </div>
-                <div>
-                  <Typography variant="h6">Free Shipping</Typography>
-                  <Typography>We're committed to making your entire experience a pleasant one, from shopping to shipping.</Typography>
-                </div>
+                {expandedSection === 'gradingReport' && (
+                  <div className="additional-content">
+                    {mainDiamond && (
+                      <>
+                        <Typography variant="h6">Main Diamond</Typography>
+                        <Table className="diamond-specs-table">
+                          <TableBody>
+                            <TableRow>
+                              <TableCell>Shape</TableCell>
+                              <TableCell className="spec-value">{mainDiamond.shape}</TableCell>
+                            </TableRow>
+                            <TableRow>
+                              <TableCell>Carat Weight</TableCell>
+                              <TableCell className="spec-value">{mainDiamond.caratWeight}</TableCell>
+                            </TableRow>
+                            <TableRow>
+                              <TableCell>Color</TableCell>
+                              <TableCell className="spec-value">{mainDiamond.color}</TableCell>
+                            </TableRow>
+                            <TableRow>
+                              <TableCell>Clarity</TableCell>
+                              <TableCell className="spec-value">{mainDiamond.clarity}</TableCell>
+                            </TableRow>
+                            <TableRow>
+                              <TableCell>Cut</TableCell>
+                              <TableCell className="spec-value">{mainDiamond.cut}</TableCell>
+                            </TableRow>
+                            <TableRow>
+                              <TableCell>Fluorescence</TableCell>
+                              <TableCell className="spec-value">{mainDiamond.fluorescence}</TableCell>
+                            </TableRow>
+                            <TableRow>
+                              <TableCell>Symmetry</TableCell>
+                              <TableCell className="spec-value">{mainDiamond.symmetry}</TableCell>
+                            </TableRow>
+                            <TableRow>
+                              <TableCell>Girdle</TableCell>
+                              <TableCell className="spec-value">{mainDiamond.girdle}</TableCell>
+                            </TableRow>
+                            <TableRow>
+                              <TableCell>Depth %</TableCell>
+                              <TableCell className="spec-value">{mainDiamond.depth}</TableCell>
+                            </TableRow>
+                            <TableRow>
+                              <TableCell>Table %</TableCell>
+                              <TableCell className="spec-value">{mainDiamond.tables}</TableCell>
+                            </TableRow>
+                            <TableRow>
+                              <TableCell>Measurements</TableCell>
+                              <TableCell className="spec-value">{mainDiamond.measurements}</TableCell>
+                            </TableRow>
+                            <TableRow>
+                              <TableCell>Certificate</TableCell>
+                              <TableCell className="spec-value">{mainDiamond.certificate}</TableCell>
+                            </TableRow>
+                          </TableBody>
+                        </Table>
+                      </>
+                    )}
+                    {secondaryDiamond && (
+                      <>
+                        <Typography variant="h6" style={{ marginTop: '16px' }}>Secondary Diamond</Typography>
+                        <Table className="diamond-specs-table">
+                          <TableBody>
+                            <TableRow>
+                              <TableCell>Shape</TableCell>
+                              <TableCell className="spec-value">{secondaryDiamond.shape}</TableCell>
+                            </TableRow>
+                            <TableRow>
+                              <TableCell>Carat Weight</TableCell>
+                              <TableCell className="spec-value">{secondaryDiamond.caratWeight}</TableCell>
+                            </TableRow>
+                            <TableRow>
+                              <TableCell>Color</TableCell>
+                              <TableCell className="spec-value">{secondaryDiamond.color}</TableCell>
+                            </TableRow>
+                            <TableRow>
+                              <TableCell>Clarity</TableCell>
+                              <TableCell className="spec-value">{secondaryDiamond.clarity}</TableCell>
+                            </TableRow>
+                            <TableRow>
+                              <TableCell>Cut</TableCell>
+                              <TableCell className="spec-value">{secondaryDiamond.cut}</TableCell>
+                            </TableRow>
+                            <TableRow>
+                              <TableCell>Fluorescence</TableCell>
+                              <TableCell className="spec-value">{secondaryDiamond.fluorescence}</TableCell>
+                            </TableRow>
+                            <TableRow>
+                              <TableCell>Symmetry</TableCell>
+                              <TableCell className="spec-value">{secondaryDiamond.symmetry}</TableCell>
+                            </TableRow>
+                            <TableRow>
+                              <TableCell>Girdle</TableCell>
+                              <TableCell className="spec-value">{secondaryDiamond.girdle}</TableCell>
+                            </TableRow>
+                            <TableRow>
+                              <TableCell>Depth %</TableCell>
+                              <TableCell className="spec-value">{secondaryDiamond.depth}</TableCell>
+                            </TableRow>
+                            <TableRow>
+                              <TableCell>Table %</TableCell>
+                              <TableCell className="spec-value">{secondaryDiamond.tables}</TableCell>
+                            </TableRow>
+                            <TableRow>
+                              <TableCell>Measurements</TableCell>
+                              <TableCell className="spec-value">{secondaryDiamond.measurements}</TableCell>
+                            </TableRow>
+                            <TableRow>
+                              <TableCell>Certificate</TableCell>
+                              <TableCell className="spec-value">{secondaryDiamond.certificate}</TableCell>
+                            </TableRow>
+                          </TableBody>
+                        </Table>
+                      </>
+                    )}
+                  </div>
+                )}
               </div>
-              <div className="order-includes-item">
-                <div className="icon">
-                  🔄
-                </div>
-                <div>
-                  <Typography variant="h6">Free Returns</Typography>
-                  <Typography>Our commitment to you does not end at delivery. We offer free returns (U.S and Canada) to make your experience as easy as possible.</Typography>
-                </div>
-              </div>
-            </div>
-            <div className="additional-links">
-              <div className="additional-link" onClick={() => handleToggleSection('productDetails')}>
-                <Typography>Product Details</Typography>
-                {expandedSection === 'productDetails' ? <ExpandLessIcon /> : <ExpandMoreIcon />}
-              </div>
-              {expandedSection === 'productDetails' && (
-                <div className="additional-content">
-                  <Typography>This {product.caratWeight}ct {product.shape} {product.color} diamond is sold exclusively on Luxe Jewel House.</Typography>
-                </div>
-              )}
-              <div className="additional-link" onClick={() => handleToggleSection('gradingReport')}>
-                <Typography>GIA Grading Report</Typography>
-                {expandedSection === 'gradingReport' ? <ExpandLessIcon /> : <ExpandMoreIcon />}
-              </div>
-              {expandedSection === 'gradingReport' && (
-                <div className="additional-content">
-                  <Typography>The GIA grading report provides a detailed analysis of your diamond's quality and characteristics.</Typography>
-                </div>
-              )}
-              <div className="additional-link" onClick={() => handleToggleSection('upgradeProgram')}>
-                <Typography>Lifetime Diamond Upgrade Program</Typography>
-                {expandedSection === 'upgradeProgram' ? <ExpandLessIcon /> : <ExpandMoreIcon />}
-              </div>
-              {expandedSection === 'upgradeProgram' && (
-                <div className="additional-content">
-                  <Typography>Upgrade your diamond at any time for a diamond of greater value. The full value of your original diamond will be applied to your new purchase.</Typography>
-                </div>
-              )}
-            </div>
-          </Grid>
+            </Grid>
+          )}
         </Grid>
         <div style={{ paddingTop: '5%' }}>
           <FeedbackComponent productId={id} />
