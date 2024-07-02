@@ -2,10 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { Container, TextField, Button, Grid, Typography, Paper, Dialog, DialogContent, DialogActions } from '@mui/material';
 import { useAuth } from '../authcontext';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { jwtDecode } from 'jwt-decode';
 import { routes } from '../../routes';
 import { loadStripe } from '@stripe/stripe-js';
 import { Elements, CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
+import { jwtDecode } from 'jwt-decode';
 
 const stripePromise = loadStripe('pk_test_51PSbFdKR5DFR0i2ROV0LuBgiZKkYE5emvJqy7LfRqjaLC4XyWTXw7KR4LRMxgpKFZhd6SwH5d8FAPJSvWHJHSqZn009MaycEOo'); // Replace with your actual publishable key
 
@@ -152,6 +152,7 @@ const OrderComponent = () => {
             });
 
             if (response.ok) {
+                await updateOrderLogPhase1(orderId); // Update OrderLog Phase1
                 await sendPaymentConfirmationEmail();
                 setOpen(false);
                 navigate(`${routes.checkoutcomplete}?orderId=${orderId}`);
@@ -160,6 +161,24 @@ const OrderComponent = () => {
             }
         } catch (error) {
             console.error('Error completing payment:', error);
+        }
+    };
+
+    const updateOrderLogPhase1 = async (orderId) => {
+        try {
+            const response = await fetch(`https://localhost:7251/api/OrderLogs/${orderId}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ statusType: 'phase1' })
+            });
+
+            if (!response.ok) {
+                throw new Error('Failed to update order log');
+            }
+        } catch (error) {
+            console.error('Error updating order log:', error);
         }
     };
 

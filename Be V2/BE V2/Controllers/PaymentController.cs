@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace BE_V2.Controllers
 {
@@ -34,8 +35,28 @@ namespace BE_V2.Controllers
             _context.Payments.Add(payment);
             await _context.SaveChangesAsync();
 
+            // Update Phase1 in OrderLog
+            var orderLog = await _context.OrderLogs.FirstOrDefaultAsync(log => log.OrderID == paymentRequest.OrderId);
+            if (orderLog != null)
+            {
+                orderLog.Phase1 = true;
+                orderLog.TimePhase1 = DateTime.UtcNow;
+                await _context.SaveChangesAsync();
+            }
+
             _logger.LogInformation($"Payment completed successfully for Order ID: {paymentRequest.OrderId}");
             return Ok(new { message = "Payment completed successfully" });
+        }
+
+        [HttpGet("order/{orderId}")]
+        public async Task<IActionResult> GetPaymentByOrderId(int orderId)
+        {
+            var payment = await _context.Payments.FirstOrDefaultAsync(p => p.OrderId == orderId);
+            if (payment == null)
+            {
+                return NotFound();
+            }
+            return Ok(payment);
         }
 
         public class PaymentRequest
