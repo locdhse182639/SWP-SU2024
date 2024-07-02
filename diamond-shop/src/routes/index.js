@@ -31,4 +31,6 @@ export const routes = {
     ViewEventPage:'/ViewEvent',
     MoldManage: '/MoldManage',
     diamondPrice: '/diamond-price-list',
+    warrantyPolicy: '/warranty-policy',
+    privacyPolicy: '/privacy-policy',
 }

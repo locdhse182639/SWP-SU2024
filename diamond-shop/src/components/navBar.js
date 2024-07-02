@@ -69,18 +69,8 @@ const Navbar = () => {
     <AppBar position="static" color="default" elevation={0}>
       <Toolbar style={{ justifyContent: 'space-between' }}>
         <Box display="flex" alignItems="center">
-          <IconButton color="inherit">
-            <PhoneIcon />
-          </IconButton>
-          <Typography variant="body2">1-800-123-4567</Typography>
-          <IconButton color="inherit">
-            <LocationOnIcon />
-          </IconButton>
-          <Typography variant="body2">Stores</Typography>
-          <IconButton color="inherit">
-            <HeadsetMicIcon />
-          </IconButton>
-          <Typography variant="body2">Virtual Appointment</Typography>
+          <PhoneIcon/>
+          <Typography variant="body2">1-800-123-4567</Typography>          
         </Box>
         <Box display="flex" alignItems="center">
           <IconButton color="inherit">

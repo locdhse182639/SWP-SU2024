@@ -187,34 +187,6 @@ const ProductManage = () => {
         fetchNecklaceMolds();
     }, []);
 
-    // const calculatePrice = async () => {
-    //     const selectedMaterial = editingItem.material;
-    //     const selectedSize = editingItem.size;
-    //     const selectedCaratWeight = editingItem.caratWeight;
-    
-    //     if (!selectedMaterial || !selectedSize || !selectedCaratWeight) {
-    //         return;
-    //     }
-    
-    //     try {
-    //         const response = await fetch(
-    //             `https://localhost:7251/api/${editingItem.productType === 2 ? 'RingPriceTable' : 'NecklacePriceTable'}/${selectedMaterial}/${selectedSize}/${selectedCaratWeight}`
-    //         );
-    //         if (!response.ok) {
-    //             throw new Error(`HTTP error! status: ${response.status}`);
-    //         }
-    //         const data = await response.json();
-    //         const basePrice = data.basePrice;
-    
-    //         const { processingPrice, exchangeRate, secondaryDiamondCount, diamondPrice, secondaryDiamondPrice } = editingItem;
-    //         const finalPrice = (parseFloat(basePrice) + parseFloat(diamondPrice || 0) + parseFloat(secondaryDiamondPrice || 0) * parseInt(secondaryDiamondCount || 0) + parseFloat(processingPrice || 0)) * parseFloat(exchangeRate || 1);
-    //         setPrice(finalPrice.toFixed(2)); // Set the price state
-    //     } catch (error) {
-    //         console.log('Error fetching price', error);
-    //         setPrice(0);
-    //     }
-    // };
-
     const handleFinalSave = async () => {
         try {
             const itemToSave = {
@@ -282,6 +254,7 @@ const ProductManage = () => {
                             'Content-Type': 'application/json'
                         },
                         body: JSON.stringify({
+                            productId: editingItem.productId,
                             productName: editingItem.productName,
                             productType: 1,
                             description: editingItem.description,
@@ -300,7 +273,6 @@ const ProductManage = () => {
                         throw new Error('Failed to update product');
                     }
     
-                    newProduct = await productUpdateResponse.json();
                 } else {
                     const newDiamondResponse = await fetch('https://localhost:7251/api/Diamonds', {
                         method: 'POST',

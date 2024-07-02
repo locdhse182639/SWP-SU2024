@@ -35,6 +35,8 @@ import ViewEventPage from '../components/event/ViewEventPage'
 import EventPage from '../components/dashboard/dashboardContent/EventPage'
 import MoldManage from '../components/dashboard/dashboardContent/MoldManage'
 import DiamondPricePage from '../pages/diamondPricePage'
+import WarrantyPolicy from '../pages/warrantyPolicyPage'
+import PrivacyPolicy from '../pages/privacyPolicy'
 
 
 export default function AppRoute() {
@@ -74,6 +76,8 @@ export default function AppRoute() {
       <Route path={routes.ViewEventPage + "/:id"} element={<ViewEventPage />} />
       <Route path={routes.MoldManage} element={<MoldManage/>} />
       <Route path={routes.diamondPrice} element={<DiamondPricePage/>}/>
+      <Route path={routes.warrantyPolicy} element={<WarrantyPolicy/>}/>
+      <Route path={routes.privacyPolicy} element={<PrivacyPolicy/>}/>
     </Routes>
   );
 }
