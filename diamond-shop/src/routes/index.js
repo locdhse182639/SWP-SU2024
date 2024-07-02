@@ -30,4 +30,7 @@ export const routes = {
     EventPage:'/Event',
     ViewEventPage:'/ViewEvent',
     MoldManage: '/MoldManage',
+    diamondPrice: '/diamond-price-list',
+    warrantyPolicy: '/warranty-policy',
+    privacyPolicy: '/privacy-policy',
 }

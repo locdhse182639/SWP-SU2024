@@ -69,18 +69,8 @@ const Navbar = () => {
     <AppBar position="static" color="default" elevation={0}>
       <Toolbar style={{ justifyContent: 'space-between' }}>
         <Box display="flex" alignItems="center">
-          <IconButton color="inherit">
-            <PhoneIcon />
-          </IconButton>
-          <Typography variant="body2">1-800-123-4567</Typography>
-          <IconButton color="inherit">
-            <LocationOnIcon />
-          </IconButton>
-          <Typography variant="body2">Stores</Typography>
-          <IconButton color="inherit">
-            <HeadsetMicIcon />
-          </IconButton>
-          <Typography variant="body2">Virtual Appointment</Typography>
+          <PhoneIcon/>
+          <Typography variant="body2">1-800-123-4567</Typography>          
         </Box>
         <Box display="flex" alignItems="center">
           <IconButton color="inherit">
@@ -178,6 +168,28 @@ const Navbar = () => {
               >
                 <DropContentEducation />
               </div>
+            </Box>
+          </div>
+          <div
+            className="navbar-item"
+            // onMouseEnter={() => handleMouseEnter('education')}
+            // onMouseLeave={handleMouseLeave}
+          >
+            <Box key='diamondPrice' display="flex" alignItems="center" mx={2}>
+              <button className="navbarDropdown-toggle">
+                <Link to={routes.diamondPrice}>
+                  <Typography variant="body1">Diamond Price List</Typography>
+                </Link>
+                {/* <IconButton color="inherit" size="small">
+                  <ExpandMoreIcon />
+                </IconButton> */}
+              </button>
+              {/* <div
+                className="navbarDropdownWrapper"
+                style={{ display: activeDropdown === 'education' ? 'block' : 'none' }}
+              >
+                <DropContentEducation />
+              </div> */}
             </Box>
           </div>
         </Box>

@@ -32,5 +32,35 @@ namespace BE_V2.Controllers
 
             return diamondPrice;
         }
+
+        // GET: api/DiamondPrice/Attributes
+        [HttpGet("Attributes")]
+        public async Task<ActionResult<DiamondAttributes>> GetDiamondAttributes()
+        {
+            var carats = await _context.DiamondPriceTable.Select(d => d.Carat).Distinct().ToListAsync();
+            var colors = await _context.DiamondPriceTable.Select(d => d.Color).Distinct().ToListAsync();
+            var clarities = await _context.DiamondPriceTable.Select(d => d.Clarity).Distinct().ToListAsync();
+            var cuts = await _context.DiamondPriceTable.Select(d => d.Cut).Distinct().ToListAsync();
+
+            var attributes = new DiamondAttributes
+            {
+                Carats = carats,
+                Colors = colors,
+                Clarities = clarities,
+                Cuts = cuts
+            };
+
+            return attributes;
+        }
     }
+
+    public class DiamondAttributes
+    {
+        public List<decimal> Carats { get; set; }
+        public List<string> Colors { get; set; }
+        public List<string> Clarities { get; set; }
+        public List<string> Cuts { get; set; }
+    }
+
+
 }

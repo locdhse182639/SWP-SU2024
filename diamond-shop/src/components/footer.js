@@ -4,6 +4,8 @@ import FacebookIcon from '@mui/icons-material/Facebook';
 import YouTubeIcon from '@mui/icons-material/YouTube';
 import InstagramIcon from '@mui/icons-material/Instagram';
 import logo from '../constant/logo.png';
+import { Link } from 'react-router-dom';
+import { routes } from '../routes';
 
 const Footer = () => {
     return ( 
@@ -12,17 +14,15 @@ const Footer = () => {
                 <div className="footer-left">
                     <img src={logo} alt="Luxe Jewel House" className="footer-logo" />
                     <ul className="footer-links">
-                        <li><a href="#">About Us</a></li>
-                        <li><a href="#">Purchase, Exchange and Warranty Policy</a></li>
-                        <li><a href="#">Privacy Policy</a></li>
-                        <li><a href="#">Purchase support</a></li>
+                        <li><Link to={routes.warrantyPolicy}>Warranty Policy</Link></li>
+                        <li><Link to={routes.privacyPolicy}>Privacy Policy</Link></li>
                     </ul>
-                    <p>Attractive promotion information:</p>
+                    {/* <p>Attractive promotion information:</p>
                     <div className="footer-socials">
                         <a href="#"><FacebookIcon></FacebookIcon></a>
                         <a href="#"><InstagramIcon></InstagramIcon></a>
                         <a href="#"><YouTubeIcon></YouTubeIcon></a>
-                    </div>
+                    </div> */}
                 </div>
                 <div className="footer-right">
                     <h4>CONTACT</h4>

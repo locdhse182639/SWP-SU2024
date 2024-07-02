@@ -59,9 +59,9 @@ const HomePageContent = () => {
                         </p>
                         <div style={{ paddingLeft: '10%' }}>
                             <Link to={routes.engagementRings} style={{ textDecoration: 'none' }}>
-                                <BasicButtons width='220px' height='60px' text='Shop Engagement'></BasicButtons>
+                                <BasicButtons width='220px' height='60px' text='Shop Jewelry'></BasicButtons>
                             </Link><br />
-                            <BasicButtons width='220px' height='60px' text='Shop Jewelry'></BasicButtons>
+                            {/* <BasicButtons width='220px' height='60px' text='Shop Jewelry'></BasicButtons> */}
                         </div>
                     </div>
                 </div>
@@ -164,24 +164,6 @@ const HomePageContent = () => {
                         </Grid>
                     ))}
                 </Grid>
-                <hr className='rhr' />
-
-                <div className='advise-form'>
-                    <h4>Get advice from us</h4>
-                    <p className='advise-form-text'>Register now below to receive support from us.</p>
-                    <div>
-                        <div className='advise-form-row1'>
-                            <BasicTextFields width='100%' height='50px' label='Full Name'></BasicTextFields>
-                        </div>
-                        <div className='advise-form-row2'>
-                            <BasicTextFields width='100%' height='50px' label='Phone Number'></BasicTextFields>
-                            <SelectTextFields width='100%' height='50px' label='Country' defaultValue='Country' helperText='Please select your country.'></SelectTextFields>
-                        </div>
-                        <div style={{ paddingTop: '5%' }} className='advise-form-btn'>
-                            <BasicButtons width='180px' height='50px' text='Advise now'></BasicButtons>
-                        </div>
-                    </div>
-                </div>
                 <div onClick={setIsOpenPopup.bind(this, true)} style={{ padding: '5%' }}>
                     <FixedButton></FixedButton>
                 </div>
