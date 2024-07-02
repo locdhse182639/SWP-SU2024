@@ -2,10 +2,10 @@ import React from 'react';
 import styled from 'styled-components';
 import Navbar from '../components/navBar';
 import { Breadcrumbs, Typography } from '@mui/material';
-import { Link as RouterLink } from 'react-router-dom';
-import { Link as ScrollLink } from 'react-scroll';
+import { Link } from 'react-router-dom';
 import { routes } from '../routes';
 import Footer from '../components/footer';
+
 
 const HeaderSection = styled.section`
   background-color: white;
@@ -64,7 +64,7 @@ const NavbarItem = styled.li`
   align-items: center;
 `;
 
-const NavbarLink = styled(ScrollLink)`
+const NavbarLink = styled.a`
   color: black;
   text-decoration: none;
   font-size: 20px;
@@ -74,7 +74,6 @@ const NavbarLink = styled(ScrollLink)`
   display: flex;
   align-items: center;
   padding: 0 5px; 
-  cursor: pointer;
   &:hover {
     background-color: black;
     color: white;
@@ -221,6 +220,60 @@ const DiamondPricePage = () => {
                 { grade: "J", if: "105,000,000", vvs1: "102,000,000", vvs2: "98,800,000", vs1: "96,500,000", vs2: "94,000,000" },
             ],
         },
+        // {
+        //     size: "6.3mm(<1CT)",
+        //     prices: [
+        //         { grade: "D", if: "192,300,000", vvs1: "188,100,000", vvs2: "183,600,000", vs1: "166,600,000", vs2: "162,000,000" },
+        //         { grade: "E", if: "190,600,000", vvs1: "186,400,000", vvs2: "182,600,000", vs1: "164,300,000", vs2: "160,100,000" },
+        //         { grade: "F", if: "188,200,000", vvs1: "183,200,000", vvs2: "180,000,000", vs1: "162,200,000", vs2: "158,800,000" },
+        //         { grade: "J", if: "102,600,000", vvs1: "98,000,000", vvs2: "85,000,000", vs1: "72,200,000", vs2: "60,500,000" },
+        //     ],
+        // },
+        // {
+        //     size: "6.3mm(>1CT)",
+        //     prices: [
+        //         { grade: "D", if: "205,300,000", vvs1: "203,600,000", vvs2: "202,000,000", vs1: "199,900,000", vs2: "198,100,000" },
+        //         { grade: "E", if: "203,600,000", vvs1: "201,700,000", vvs2: "198,300,000", vs1: "195,600,000", vs2: "190,400,000" },
+        //         { grade: "F", if: "198,400,000", vvs1: "195,600,000", vvs2: "189,100,000", vs1: "185,200,000", vs2: "183,800,000" },
+        //         { grade: "J", if: "102,600,000", vvs1: "98,000,000", vvs2: "85,000,000", vs1: "72,200,000", vs2: "60,500,000" },
+        //     ],
+        // },
+        // {
+        //     size: "6.8mm",
+        //     prices: [
+        //         { grade: "D", if: "340,000,000", vvs1: "338,000,000", vvs2: "326,000,000", vs1: "315,800,000", vs2: "300,600,000" },
+        //         { grade: "E", if: "338,000,000", vvs1: "330,000,000", vvs2: "325,200,000", vs1: "311,600,000", vs2: "292,000,000" },
+        //         { grade: "F", if: "299,600,000", vvs1: "295,600,000", vvs2: "291,100,000", vs1: "284,000,000", vs2: "282,000,000" },
+        //         { grade: "J", if: "140,000,000", vvs1: "138,000,000", vvs2: "136,100,000", vs1: "134,000,000", vs2: "112,600,000" },
+        //     ],
+        // },
+        // {
+        //     size: "7.2mm",
+        //     prices: [
+        //         { grade: "D", if: "450,000,000", vvs1: "430,000,000", vvs2: "418,800,000", vs1: "416,000,000", vs2: "415,000,000" },
+        //         { grade: "E", if: "435,000,000", vvs1: "415,800,000", vvs2: "403,600,000", vs1: "401,200,000", vs2: "399,600,000" },
+        //         { grade: "F", if: "420,200,000", vvs1: "400,000,000", vvs2: "383,000,000", vs1: "374,600,000", vs2: "368,000,000" },
+        //         { grade: "J", if: "198,800,000", vvs1: "196,000,000", vvs2: "172,000,000", vs1: "168,000,000", vs2: "166,200,000" },
+        //     ],
+        // },
+        // {
+        //     size: "8.1mm",
+        //     prices: [
+        //         { grade: "D", if: "1,850,000,000", vvs1: "1,680,000,000", vvs2: "1,420,000,000", vs1: "1,100,000,000", vs2: "980,000,000" },
+        //         { grade: "E", if: "1,650,000,000", vvs1: "1,480,000,000", vvs2: "1,220,000,000", vs1: "960,000,000", vs2: "910,000,000" },
+        //         { grade: "F", if: "1,450,000,000", vvs1: "1,280,000,000", vvs2: "1,020,000,000", vs1: "760,000,000", vs2: "710,000,000" },
+        //         { grade: "J", if: "430,000,000", vvs1: "429,000,000", vvs2: "380,000,000", vs1: "352,000,000", vs2: "330,000,000" },
+        //     ],
+        // },
+        // {
+        //     size: "9.0mm",
+        //     prices: [
+        //         { grade: "D", if: "4,800,000,000", vvs1: "2,800,000,000", vvs2: "2,700,000,000", vs1: "2,200,000,000", vs2: "1,900,000,000" },
+        //         { grade: "E", if: "2,900,000,000", vvs1: "2,700,000,000", vvs2: "2,400,000,000", vs1: "2,000,000,000", vs2: "1,800,000,000" },
+        //         { grade: "F", if: "2,700,000,000", vvs1: "2,400,000,000", vvs2: "2,200,000,000", vs1: "1,900,000,000", vs2: "1,600,000,000" },
+        //         { grade: "J", if: "879,000,000", vvs1: "850,200,000", vvs2: "742,000,000", vs1: "793,300,000", vs2: "742,000,000" },
+        //     ],
+        // },
     ];
 
     return (
@@ -229,36 +282,36 @@ const DiamondPricePage = () => {
             <PageContainer>
                 <NavbarContainer>
                     <NavbarList>
-                        <NavbarItem><NavbarLink to="3.6mm" smooth={true} duration={500}>3.6mm</NavbarLink></NavbarItem>
-                        <NavbarItem><NavbarLink to="3.9mm" smooth={true} duration={500}>3.9mm</NavbarLink></NavbarItem>
-                        <NavbarItem><NavbarLink to="4.1mm" smooth={true} duration={500}>4.1mm</NavbarLink></NavbarItem>
-                        <NavbarItem><NavbarLink to="4.5mm" smooth={true} duration={500}>4.5mm</NavbarLink></NavbarItem>
-                        <NavbarItem><NavbarLink to="5.0mm" smooth={true} duration={500}>5.0mm</NavbarLink></NavbarItem>
-                        <NavbarItem><NavbarLink to="5.2mm" smooth={true} duration={500}>5.2mm</NavbarLink></NavbarItem>
-                        <NavbarItem><NavbarLink to="5.3mm" smooth={true} duration={500}>5.3mm</NavbarLink></NavbarItem>
-                        <NavbarItem><NavbarLink to="5.4mm" smooth={true} duration={500}>5.4mm</NavbarLink></NavbarItem>
-                        <NavbarItem><NavbarLink to="6.0mm" smooth={true} duration={500}>6.0mm</NavbarLink></NavbarItem>
-                        <NavbarItem><NavbarLink to="6.2mm" smooth={true} duration={500}>6.2mm</NavbarLink></NavbarItem>
+                        <NavbarItem><NavbarLink href="#3.6mm">3.6mm</NavbarLink></NavbarItem>
+                        <NavbarItem><NavbarLink href="#3.9mm">3.9mm</NavbarLink></NavbarItem>
+                        <NavbarItem><NavbarLink href="#4.1mm">4.1mm</NavbarLink></NavbarItem>
+                        <NavbarItem><NavbarLink href="#4.5mm">4.5mm</NavbarLink></NavbarItem>
+                        <NavbarItem><NavbarLink href="#5.0mm">5.0mm</NavbarLink></NavbarItem>
+                        <NavbarItem><NavbarLink href="#5.2mm">5.2mm</NavbarLink></NavbarItem>
+                        <NavbarItem><NavbarLink href="#5.3mm">5.3mm</NavbarLink></NavbarItem>
+                        <NavbarItem><NavbarLink href="#5.4mm">5.4mm</NavbarLink></NavbarItem>
+                        <NavbarItem><NavbarLink href="#6.0mm">6.0mm</NavbarLink></NavbarItem>
+                        <NavbarItem><NavbarLink href="#6.2mm">6.2mm</NavbarLink></NavbarItem>
                     </NavbarList>
                 </NavbarContainer>
                 <HeaderSection>
-                    <div style={{ display: 'flex', justifyContent: 'center' }}>
+                <div style={{ display: 'flex', justifyContent: 'center' }}>
                         <Breadcrumbs aria-label="breadcrumb">
-                            <RouterLink underline="hover" color="inherit" to={routes.homePage}>
+                            <Link underline="hover" color="inherit" to={routes.homePage}>
                                 Home Page
-                            </RouterLink>
-                            <RouterLink underline="hover" color="inherit" to={routes.diamondPrice}>
-                                Diamond Price List
-                            </RouterLink>
+                            </Link>
+                            <Link underline="hover" color="inherit" to={routes.diamondPrice}>
+                            Diamond Price List
+                            </Link>
                         </Breadcrumbs>
                     </div>
-                    <Title style={{ fontWeight: '600', fontSize: '40px' }}>Natural diamond price list</Title>
+                    <Title style={{fontWeight:'600', fontSize:'40px'}}>Natural diamond price list</Title>
                     <Subtitle>**ROUND BRILLIANT CUT – G3 EXCELLENT – FLUORESCENCE**</Subtitle>
                     <Description>
-                        Diamond price list is based on glass (mm), water color (color) and cleanliness.<br />
-                        If you want to buy diamond jewelry like rings, necklaces, earrings... but don't
-                        know the current price of diamonds, please quickly refer to the latest updated
-                        price quote below.
+                    Diamond price list is based on glass (mm), water color (color) and cleanliness.<br/> 
+                    If you want to buy diamond jewelry like rings, necklaces, earrings... but don't 
+                    know the current price of diamonds, please quickly refer to the latest updated 
+                    price quote below.
                     </Description>
                     <Note>(Currency unit: VNĐ)</Note>
                 </HeaderSection>
@@ -294,7 +347,7 @@ const DiamondPricePage = () => {
                     </Section>
                 ))}
             </PageContainer>
-            <Footer />
+            <Footer/>
         </div>
     );
 };
