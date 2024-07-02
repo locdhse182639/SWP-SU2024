@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace BE_V2.Migrations
 {
     /// <inheritdoc />
-    public partial class NewMigrationName : Migration
+    public partial class create : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -73,7 +73,7 @@ namespace BE_V2.Migrations
                     NecklaceMoldId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Material = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    Length = table.Column<int>(type: "int", nullable: false),
+                    Size = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     CaratWeight = table.Column<decimal>(type: "decimal(3,2)", nullable: false),
                     BasePrice = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
                 },
@@ -116,7 +116,7 @@ namespace BE_V2.Migrations
                     RingMoldId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Material = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    Size = table.Column<decimal>(type: "decimal(3,1)", nullable: false),
+                    Size = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     CaratWeight = table.Column<decimal>(type: "decimal(4,2)", nullable: false),
                     Gender = table.Column<string>(type: "nvarchar(6)", maxLength: 6, nullable: false),
                     RingType = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: false),
@@ -165,7 +165,7 @@ namespace BE_V2.Migrations
                     Material = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
                     Size = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Price = table.Column<decimal>(type: "decimal(10,2)", nullable: true),
+                    Price = table.Column<decimal>(type: "decimal(18,2)", nullable: true),
                     ProcessingPrice = table.Column<decimal>(type: "decimal(18,2)", nullable: true),
                     ExchangeRate = table.Column<decimal>(type: "decimal(18,2)", nullable: true),
                     Quantity = table.Column<int>(type: "int", nullable: true),
@@ -175,7 +175,8 @@ namespace BE_V2.Migrations
                     Image3 = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     SecondaryDiamondId = table.Column<int>(type: "int", nullable: true),
                     RingMoldId = table.Column<int>(type: "int", nullable: true),
-                    NecklaceMoldId = table.Column<int>(type: "int", nullable: true)
+                    NecklaceMoldId = table.Column<int>(type: "int", nullable: true),
+                    SecondaryDiamondCount = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {

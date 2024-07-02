@@ -180,6 +180,28 @@ const Navbar = () => {
               </div>
             </Box>
           </div>
+          <div
+            className="navbar-item"
+            // onMouseEnter={() => handleMouseEnter('education')}
+            // onMouseLeave={handleMouseLeave}
+          >
+            <Box key='diamondPrice' display="flex" alignItems="center" mx={2}>
+              <button className="navbarDropdown-toggle">
+                <Link to={routes.diamondPrice}>
+                  <Typography variant="body1">Diamond Price List</Typography>
+                </Link>
+                {/* <IconButton color="inherit" size="small">
+                  <ExpandMoreIcon />
+                </IconButton> */}
+              </button>
+              {/* <div
+                className="navbarDropdownWrapper"
+                style={{ display: activeDropdown === 'education' ? 'block' : 'none' }}
+              >
+                <DropContentEducation />
+              </div> */}
+            </Box>
+          </div>
         </Box>
         <Box display="flex" alignItems="center" justifyContent="flex-end">
           <TextField

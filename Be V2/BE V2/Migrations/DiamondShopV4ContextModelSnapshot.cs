@@ -337,10 +337,12 @@ namespace BE_V2.Migrations
                     b.Property<decimal>("CaratWeight")
                         .HasColumnType("decimal(3, 2)");
 
-                    b.Property<int>("Length")
-                        .HasColumnType("int");
-
                     b.Property<string>("Material")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("Size")
                         .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
@@ -601,8 +603,10 @@ namespace BE_V2.Migrations
                         .HasMaxLength(10)
                         .HasColumnType("nvarchar(10)");
 
-                    b.Property<decimal>("Size")
-                        .HasColumnType("decimal(3, 1)");
+                    b.Property<string>("Size")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.HasKey("RingMoldId");
 
@@ -796,7 +800,7 @@ namespace BE_V2.Migrations
                         .HasColumnName("NecklaceMoldId");
 
                     b.Property<decimal?>("Price")
-                        .HasColumnType("decimal(10, 2)");
+                        .HasColumnType("decimal(18, 2)");
 
                     b.Property<decimal?>("ProcessingPrice")
                         .HasColumnType("decimal(18, 2)");
@@ -816,6 +820,10 @@ namespace BE_V2.Migrations
                     b.Property<int?>("RingMoldId")
                         .HasColumnType("int")
                         .HasColumnName("RingMoldId");
+
+                    b.Property<int?>("SecondaryDiamondCount")
+                        .HasColumnType("int")
+                        .HasColumnName("SecondaryDiamondCount");
 
                     b.Property<int?>("SecondaryDiamondId")
                         .HasColumnType("int")
