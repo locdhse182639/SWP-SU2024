@@ -39,6 +39,7 @@ import WarrantyPolicy from '../pages/warrantyPolicyPage'
 import PrivacyPolicy from '../pages/privacyPolicy'
 import CertificateManage from '../components/dashboard/dashboardContent/CertificateManage'
 import WarrantyManage from '../components/dashboard/dashboardContent/WarrantyManage'
+import RoundCutPage from '../components/diamondShape/page/roundPage'
 
 
 export default function AppRoute() {
