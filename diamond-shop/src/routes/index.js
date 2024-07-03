@@ -33,4 +33,6 @@ export const routes = {
     diamondPrice: '/diamond-price-list',
     warrantyPolicy: '/warranty-policy',
     privacyPolicy: '/privacy-policy',
+    certificateManage: '/certificate-manage',
+    warrantyManage: '/warranty-manage',
 }

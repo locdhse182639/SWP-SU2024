@@ -3,48 +3,48 @@
   "WorkspaceRootPath": "C:\\Users\\DMIN\\OneDrive\\Desktop\\SWP project\\SWP-SU2024\\Be V2\\BE V2\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{F12557B9-F3F6-42C9-B24A-0B2AFE5388E2}|BE V2.csproj|c:\\users\\dmin\\onedrive\\desktop\\swp project\\swp-su2024\\be v2\\be v2\\controllers\\paymentcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F12557B9-F3F6-42C9-B24A-0B2AFE5388E2}|BE V2.csproj|solutionrelative:controllers\\paymentcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{F12557B9-F3F6-42C9-B24A-0B2AFE5388E2}|BE V2.csproj|c:\\users\\dmin\\onedrive\\desktop\\swp project\\swp-su2024\\be v2\\be v2\\controllers\\warrantycontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F12557B9-F3F6-42C9-B24A-0B2AFE5388E2}|BE V2.csproj|solutionrelative:controllers\\warrantycontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{F12557B9-F3F6-42C9-B24A-0B2AFE5388E2}|BE V2.csproj|c:\\users\\dmin\\onedrive\\desktop\\swp project\\swp-su2024\\be v2\\be v2\\controllers\\orderscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{F12557B9-F3F6-42C9-B24A-0B2AFE5388E2}|BE V2.csproj|solutionrelative:controllers\\orderscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{F12557B9-F3F6-42C9-B24A-0B2AFE5388E2}|BE V2.csproj|c:\\users\\dmin\\onedrive\\desktop\\swp project\\swp-su2024\\be v2\\be v2\\controllers\\orderlogscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F12557B9-F3F6-42C9-B24A-0B2AFE5388E2}|BE V2.csproj|solutionrelative:controllers\\orderlogscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{F12557B9-F3F6-42C9-B24A-0B2AFE5388E2}|BE V2.csproj|c:\\users\\dmin\\onedrive\\desktop\\swp project\\swp-su2024\\be v2\\be v2\\controllers\\diamondcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F12557B9-F3F6-42C9-B24A-0B2AFE5388E2}|BE V2.csproj|solutionrelative:controllers\\diamondcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{F12557B9-F3F6-42C9-B24A-0B2AFE5388E2}|BE V2.csproj|c:\\users\\dmin\\onedrive\\desktop\\swp project\\swp-su2024\\be v2\\be v2\\datadb\\orderlog.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F12557B9-F3F6-42C9-B24A-0B2AFE5388E2}|BE V2.csproj|solutionrelative:datadb\\orderlog.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{F12557B9-F3F6-42C9-B24A-0B2AFE5388E2}|BE V2.csproj|c:\\users\\dmin\\onedrive\\desktop\\swp project\\swp-su2024\\be v2\\be v2\\datadb\\certificate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F12557B9-F3F6-42C9-B24A-0B2AFE5388E2}|BE V2.csproj|solutionrelative:datadb\\certificate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{F12557B9-F3F6-42C9-B24A-0B2AFE5388E2}|BE V2.csproj|c:\\users\\dmin\\onedrive\\desktop\\swp project\\swp-su2024\\be v2\\be v2\\datadb\\order.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F12557B9-F3F6-42C9-B24A-0B2AFE5388E2}|BE V2.csproj|solutionrelative:datadb\\order.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{F12557B9-F3F6-42C9-B24A-0B2AFE5388E2}|BE V2.csproj|c:\\users\\dmin\\onedrive\\desktop\\swp project\\swp-su2024\\be v2\\be v2\\datadb\\warranty.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F12557B9-F3F6-42C9-B24A-0B2AFE5388E2}|BE V2.csproj|solutionrelative:datadb\\warranty.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F12557B9-F3F6-42C9-B24A-0B2AFE5388E2}|BE V2.csproj|c:\\users\\dmin\\onedrive\\desktop\\swp project\\swp-su2024\\be v2\\be v2\\datadb\\orderdetail.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F12557B9-F3F6-42C9-B24A-0B2AFE5388E2}|BE V2.csproj|solutionrelative:datadb\\orderdetail.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F12557B9-F3F6-42C9-B24A-0B2AFE5388E2}|BE V2.csproj|c:\\users\\dmin\\onedrive\\desktop\\swp project\\swp-su2024\\be v2\\be v2\\datadb\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F12557B9-F3F6-42C9-B24A-0B2AFE5388E2}|BE V2.csproj|solutionrelative:datadb\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F12557B9-F3F6-42C9-B24A-0B2AFE5388E2}|BE V2.csproj|c:\\users\\dmin\\onedrive\\desktop\\swp project\\swp-su2024\\be v2\\be v2\\datadb\\diamond.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F12557B9-F3F6-42C9-B24A-0B2AFE5388E2}|BE V2.csproj|solutionrelative:datadb\\diamond.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F12557B9-F3F6-42C9-B24A-0B2AFE5388E2}|BE V2.csproj|c:\\users\\dmin\\onedrive\\desktop\\swp project\\swp-su2024\\be v2\\be v2\\datadb\\product.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F12557B9-F3F6-42C9-B24A-0B2AFE5388E2}|BE V2.csproj|solutionrelative:datadb\\product.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{F12557B9-F3F6-42C9-B24A-0B2AFE5388E2}|BE V2.csproj|c:\\users\\dmin\\onedrive\\desktop\\swp project\\swp-su2024\\be v2\\be v2\\datadb\\diamondshopv4context.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{F12557B9-F3F6-42C9-B24A-0B2AFE5388E2}|BE V2.csproj|solutionrelative:datadb\\diamondshopv4context.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{F12557B9-F3F6-42C9-B24A-0B2AFE5388E2}|BE V2.csproj|c:\\users\\dmin\\onedrive\\desktop\\swp project\\swp-su2024\\be v2\\be v2\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
-      "RelativeMoniker": "D:0:0:{F12557B9-F3F6-42C9-B24A-0B2AFE5388E2}|BE V2.csproj|solutionrelative:appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F12557B9-F3F6-42C9-B24A-0B2AFE5388E2}|BE V2.csproj|c:\\users\\dmin\\onedrive\\desktop\\swp project\\swp-su2024\\be v2\\be v2\\controllers\\diamondpricecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F12557B9-F3F6-42C9-B24A-0B2AFE5388E2}|BE V2.csproj|solutionrelative:controllers\\diamondpricecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F12557B9-F3F6-42C9-B24A-0B2AFE5388E2}|BE V2.csproj|c:\\users\\dmin\\onedrive\\desktop\\swp project\\swp-su2024\\be v2\\be v2\\controllers\\diamondcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F12557B9-F3F6-42C9-B24A-0B2AFE5388E2}|BE V2.csproj|solutionrelative:controllers\\diamondcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F12557B9-F3F6-42C9-B24A-0B2AFE5388E2}|BE V2.csproj|c:\\users\\dmin\\onedrive\\desktop\\swp project\\swp-su2024\\be v2\\be v2\\be v2.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
-      "RelativeMoniker": "D:0:0:{F12557B9-F3F6-42C9-B24A-0B2AFE5388E2}|BE V2.csproj|solutionrelative:be v2.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F12557B9-F3F6-42C9-B24A-0B2AFE5388E2}|BE V2.csproj|c:\\users\\dmin\\onedrive\\desktop\\swp project\\swp-su2024\\be v2\\be v2\\migrations\\20240702051444_create.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F12557B9-F3F6-42C9-B24A-0B2AFE5388E2}|BE V2.csproj|solutionrelative:migrations\\20240702051444_create.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{F12557B9-F3F6-42C9-B24A-0B2AFE5388E2}|BE V2.csproj|c:\\users\\dmin\\onedrive\\desktop\\swp project\\swp-su2024\\be v2\\be v2\\datadb\\order.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F12557B9-F3F6-42C9-B24A-0B2AFE5388E2}|BE V2.csproj|solutionrelative:datadb\\order.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -54,58 +54,71 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 4,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "PaymentController.cs",
-              "DocumentMoniker": "C:\\Users\\DMIN\\OneDrive\\Desktop\\SWP project\\SWP-SU2024\\Be V2\\BE V2\\Controllers\\PaymentController.cs",
-              "RelativeDocumentMoniker": "Controllers\\PaymentController.cs",
-              "ToolTip": "C:\\Users\\DMIN\\OneDrive\\Desktop\\SWP project\\SWP-SU2024\\Be V2\\BE V2\\Controllers\\PaymentController.cs",
-              "RelativeToolTip": "Controllers\\PaymentController.cs",
-              "ViewState": "AQIAAAIAAAAAAAAAAAAowBEAAAAJAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-07-02T15:01:19.981Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "Order.cs",
-              "DocumentMoniker": "C:\\Users\\DMIN\\OneDrive\\Desktop\\SWP project\\SWP-SU2024\\Be V2\\BE V2\\DataDB\\Order.cs",
-              "RelativeDocumentMoniker": "DataDB\\Order.cs",
-              "ToolTip": "C:\\Users\\DMIN\\OneDrive\\Desktop\\SWP project\\SWP-SU2024\\Be V2\\BE V2\\DataDB\\Order.cs",
-              "RelativeToolTip": "DataDB\\Order.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAB8AAABVAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-07-02T14:56:01.056Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
               "DocumentIndex": 3,
-              "Title": "OrderLog.cs",
-              "DocumentMoniker": "C:\\Users\\DMIN\\OneDrive\\Desktop\\SWP project\\SWP-SU2024\\Be V2\\BE V2\\DataDB\\OrderLog.cs",
-              "RelativeDocumentMoniker": "DataDB\\OrderLog.cs",
-              "ToolTip": "C:\\Users\\DMIN\\OneDrive\\Desktop\\SWP project\\SWP-SU2024\\Be V2\\BE V2\\DataDB\\OrderLog.cs",
-              "RelativeToolTip": "DataDB\\OrderLog.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAABUAAAAAAAAA",
+              "Title": "Certificate.cs",
+              "DocumentMoniker": "C:\\Users\\DMIN\\OneDrive\\Desktop\\SWP project\\SWP-SU2024\\Be V2\\BE V2\\DataDB\\Certificate.cs",
+              "RelativeDocumentMoniker": "DataDB\\Certificate.cs",
+              "ToolTip": "C:\\Users\\DMIN\\OneDrive\\Desktop\\SWP project\\SWP-SU2024\\Be V2\\BE V2\\DataDB\\Certificate.cs",
+              "RelativeToolTip": "DataDB\\Certificate.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABwAAAAhAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-07-02T14:55:06.099Z",
+              "WhenOpened": "2024-07-03T19:02:56.746Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "User.cs",
+              "DocumentMoniker": "C:\\Users\\DMIN\\OneDrive\\Desktop\\SWP project\\SWP-SU2024\\Be V2\\BE V2\\DataDB\\User.cs",
+              "RelativeDocumentMoniker": "DataDB\\User.cs",
+              "ToolTip": "C:\\Users\\DMIN\\OneDrive\\Desktop\\SWP project\\SWP-SU2024\\Be V2\\BE V2\\DataDB\\User.cs",
+              "RelativeToolTip": "DataDB\\User.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAB0AAAApAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-07-03T18:37:09.14Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "Diamond.cs",
+              "DocumentMoniker": "C:\\Users\\DMIN\\OneDrive\\Desktop\\SWP project\\SWP-SU2024\\Be V2\\BE V2\\DataDB\\Diamond.cs",
+              "RelativeDocumentMoniker": "DataDB\\Diamond.cs",
+              "ToolTip": "C:\\Users\\DMIN\\OneDrive\\Desktop\\SWP project\\SWP-SU2024\\Be V2\\BE V2\\DataDB\\Diamond.cs",
+              "RelativeToolTip": "DataDB\\Diamond.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABcAAAAnAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-07-03T18:35:32.913Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 2,
-              "Title": "OrderLogsController.cs",
-              "DocumentMoniker": "C:\\Users\\DMIN\\OneDrive\\Desktop\\SWP project\\SWP-SU2024\\Be V2\\BE V2\\Controllers\\OrderLogsController.cs",
-              "RelativeDocumentMoniker": "Controllers\\OrderLogsController.cs",
-              "ToolTip": "C:\\Users\\DMIN\\OneDrive\\Desktop\\SWP project\\SWP-SU2024\\Be V2\\BE V2\\Controllers\\OrderLogsController.cs",
-              "RelativeToolTip": "Controllers\\OrderLogsController.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAABgAAAAFAAAA",
+              "Title": "DiamondController.cs",
+              "DocumentMoniker": "C:\\Users\\DMIN\\OneDrive\\Desktop\\SWP project\\SWP-SU2024\\Be V2\\BE V2\\Controllers\\DiamondController.cs",
+              "RelativeDocumentMoniker": "Controllers\\DiamondController.cs",
+              "ToolTip": "C:\\Users\\DMIN\\OneDrive\\Desktop\\SWP project\\SWP-SU2024\\Be V2\\BE V2\\Controllers\\DiamondController.cs",
+              "RelativeToolTip": "Controllers\\DiamondController.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABYAAABLAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-07-02T14:54:48.318Z",
+              "WhenOpened": "2024-07-03T18:35:16.34Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "WarrantyController.cs",
+              "DocumentMoniker": "C:\\Users\\DMIN\\OneDrive\\Desktop\\SWP project\\SWP-SU2024\\Be V2\\BE V2\\Controllers\\WarrantyController.cs",
+              "RelativeDocumentMoniker": "Controllers\\WarrantyController.cs",
+              "ToolTip": "C:\\Users\\DMIN\\OneDrive\\Desktop\\SWP project\\SWP-SU2024\\Be V2\\BE V2\\Controllers\\WarrantyController.cs",
+              "RelativeToolTip": "Controllers\\WarrantyController.cs",
+              "ViewState": "AQIAACMAAAAAAAAAAAAowCsAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-07-03T17:33:37.737Z",
               "EditorCaption": ""
             },
             {
@@ -116,84 +129,75 @@
               "RelativeDocumentMoniker": "Controllers\\OrdersController.cs",
               "ToolTip": "C:\\Users\\DMIN\\OneDrive\\Desktop\\SWP project\\SWP-SU2024\\Be V2\\BE V2\\Controllers\\OrdersController.cs",
               "RelativeToolTip": "Controllers\\OrdersController.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAB8AAAANAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAF8AAAANAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-07-02T14:54:39.679Z",
+              "WhenOpened": "2024-07-03T17:11:21.09Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "DiamondPriceController.cs",
-              "DocumentMoniker": "C:\\Users\\DMIN\\OneDrive\\Desktop\\SWP project\\SWP-SU2024\\Be V2\\BE V2\\Controllers\\DiamondPriceController.cs",
-              "RelativeDocumentMoniker": "Controllers\\DiamondPriceController.cs",
-              "ToolTip": "C:\\Users\\DMIN\\OneDrive\\Desktop\\SWP project\\SWP-SU2024\\Be V2\\BE V2\\Controllers\\DiamondPriceController.cs",
-              "RelativeToolTip": "Controllers\\DiamondPriceController.cs",
-              "ViewState": "AQIAABsAAAAAAAAAAAAAAB8AAAAAAAAA",
+              "DocumentIndex": 4,
+              "Title": "Warranty.cs",
+              "DocumentMoniker": "C:\\Users\\DMIN\\OneDrive\\Desktop\\SWP project\\SWP-SU2024\\Be V2\\BE V2\\DataDB\\Warranty.cs",
+              "RelativeDocumentMoniker": "DataDB\\Warranty.cs",
+              "ToolTip": "C:\\Users\\DMIN\\OneDrive\\Desktop\\SWP project\\SWP-SU2024\\Be V2\\BE V2\\DataDB\\Warranty.cs",
+              "RelativeToolTip": "DataDB\\Warranty.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA8AAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-07-02T05:47:40.205Z"
+              "WhenOpened": "2024-07-03T17:08:05.103Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
-              "Title": "DiamondController.cs",
-              "DocumentMoniker": "C:\\Users\\DMIN\\OneDrive\\Desktop\\SWP project\\SWP-SU2024\\Be V2\\BE V2\\Controllers\\DiamondController.cs",
-              "RelativeDocumentMoniker": "Controllers\\DiamondController.cs",
-              "ToolTip": "C:\\Users\\DMIN\\OneDrive\\Desktop\\SWP project\\SWP-SU2024\\Be V2\\BE V2\\Controllers\\DiamondController.cs",
-              "RelativeToolTip": "Controllers\\DiamondController.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA8AAAA/AAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-07-02T05:48:10.604Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 9,
               "Title": "DiamondShopV4Context.cs",
               "DocumentMoniker": "C:\\Users\\DMIN\\OneDrive\\Desktop\\SWP project\\SWP-SU2024\\Be V2\\BE V2\\DataDB\\DiamondShopV4Context.cs",
               "RelativeDocumentMoniker": "DataDB\\DiamondShopV4Context.cs",
               "ToolTip": "C:\\Users\\DMIN\\OneDrive\\Desktop\\SWP project\\SWP-SU2024\\Be V2\\BE V2\\DataDB\\DiamondShopV4Context.cs",
               "RelativeToolTip": "DataDB\\DiamondShopV4Context.cs",
-              "ViewState": "AQIAACMAAAAAAAAAAAAQwC0AAAAJAAAA",
+              "ViewState": "AQIAAMIBAAAAAAAAAAAUwOkBAAAMAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-07-02T05:15:13.924Z",
+              "WhenOpened": "2024-07-03T17:06:50.448Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "appsettings.json",
-              "DocumentMoniker": "C:\\Users\\DMIN\\OneDrive\\Desktop\\SWP project\\SWP-SU2024\\Be V2\\BE V2\\appsettings.json",
-              "RelativeDocumentMoniker": "appsettings.json",
-              "ToolTip": "C:\\Users\\DMIN\\OneDrive\\Desktop\\SWP project\\SWP-SU2024\\Be V2\\BE V2\\appsettings.json",
-              "RelativeToolTip": "appsettings.json",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAkAAACLAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2024-07-02T05:14:50.549Z",
+              "DocumentIndex": 5,
+              "Title": "OrderDetail.cs",
+              "DocumentMoniker": "C:\\Users\\DMIN\\OneDrive\\Desktop\\SWP project\\SWP-SU2024\\Be V2\\BE V2\\DataDB\\OrderDetail.cs",
+              "RelativeDocumentMoniker": "DataDB\\OrderDetail.cs",
+              "ToolTip": "C:\\Users\\DMIN\\OneDrive\\Desktop\\SWP project\\SWP-SU2024\\Be V2\\BE V2\\DataDB\\OrderDetail.cs",
+              "RelativeToolTip": "DataDB\\OrderDetail.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABsAAAAxAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-07-03T16:47:22.099Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 10,
-              "Title": "20240702051444_create.cs",
-              "DocumentMoniker": "C:\\Users\\DMIN\\OneDrive\\Desktop\\SWP project\\SWP-SU2024\\Be V2\\BE V2\\Migrations\\20240702051444_create.cs",
-              "RelativeDocumentMoniker": "Migrations\\20240702051444_create.cs",
-              "ToolTip": "C:\\Users\\DMIN\\OneDrive\\Desktop\\SWP project\\SWP-SU2024\\Be V2\\BE V2\\Migrations\\20240702051444_create.cs",
-              "RelativeToolTip": "Migrations\\20240702051444_create.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Title": "Order.cs",
+              "DocumentMoniker": "C:\\Users\\DMIN\\OneDrive\\Desktop\\SWP project\\SWP-SU2024\\Be V2\\BE V2\\DataDB\\Order.cs",
+              "RelativeDocumentMoniker": "DataDB\\Order.cs",
+              "ToolTip": "C:\\Users\\DMIN\\OneDrive\\Desktop\\SWP project\\SWP-SU2024\\Be V2\\BE V2\\DataDB\\Order.cs",
+              "RelativeToolTip": "DataDB\\Order.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABkAAAAzAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-07-02T05:14:44.838Z"
+              "WhenOpened": "2024-07-03T16:44:08.851Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
-              "Title": "BE V2.csproj",
-              "DocumentMoniker": "C:\\Users\\DMIN\\OneDrive\\Desktop\\SWP project\\SWP-SU2024\\Be V2\\BE V2\\BE V2.csproj",
-              "RelativeDocumentMoniker": "BE V2.csproj",
-              "ToolTip": "C:\\Users\\DMIN\\OneDrive\\Desktop\\SWP project\\SWP-SU2024\\Be V2\\BE V2\\BE V2.csproj",
-              "RelativeToolTip": "BE V2.csproj",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAiwA4AAABEAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2024-07-02T05:13:18.583Z"
+              "DocumentIndex": 8,
+              "Title": "Product.cs",
+              "DocumentMoniker": "C:\\Users\\DMIN\\OneDrive\\Desktop\\SWP project\\SWP-SU2024\\Be V2\\BE V2\\DataDB\\Product.cs",
+              "RelativeDocumentMoniker": "DataDB\\Product.cs",
+              "ToolTip": "C:\\Users\\DMIN\\OneDrive\\Desktop\\SWP project\\SWP-SU2024\\Be V2\\BE V2\\DataDB\\Product.cs",
+              "RelativeToolTip": "DataDB\\Product.cs",
+              "ViewState": "AQIAABMAAAAAAAAAAAA3wC0AAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-07-03T16:43:48.937Z",
+              "EditorCaption": ""
             }
           ]
         }

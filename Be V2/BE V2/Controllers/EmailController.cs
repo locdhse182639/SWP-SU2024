@@ -1,10 +1,14 @@
 ﻿using BE_V2.DataDB;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Configuration;
-using System.Threading.Tasks;
-using System.Net.Mail;
+using Microsoft.Extensions.Logging;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 using System.Net;
+using System.Net.Mail;
+using System.Threading.Tasks;
 
 namespace BE_V2.Controllers
 {
@@ -31,21 +35,29 @@ namespace BE_V2.Controllers
             var smtpPassword = smtpSettings["Password"];
             var enableSsl = bool.Parse(smtpSettings["EnableSsl"]);
 
+            var orderDetails = string.Join("<br>", request.OrderDetails.Select(od => $"<div class='product'><p>Product: {od.ProductName}</p><p>Quantity: {od.Quantity}</p><p>Price: ${od.ProductPrice}</p></div>"));
+
+            // Read the HTML template from file
+            var templatePath = Path.Combine(Directory.GetCurrentDirectory(), "Templates", "EmailTemplate.html");
+            var emailTemplate = await System.IO.File.ReadAllTextAsync(templatePath);
+
+            // Replace placeholders with actual data
+            var emailBody = emailTemplate
+                .Replace("{OrderId}", request.OrderId.ToString())
+                .Replace("{DayCreated}", DateTime.Now.ToString("yyyy-MM-dd"))
+                .Replace("{OrderDetails}", orderDetails)
+                .Replace("{CustomerName}", request.CustomerName)
+                .Replace("{CustomerEmail}", request.Email)
+                .Replace("{TotalAmount}", request.TotalAmount.ToString("F2"))
+                .Replace("{Deposit}", request.Deposit.ToString("F2"))
+                .Replace("{AmountPaid}", request.AmountPaid.ToString("F2"));
+
             var mail = new MailMessage();
             mail.To.Add(new MailAddress(request.Email));
             mail.From = new MailAddress(smtpUsername);
             mail.Subject = "Payment Confirmation";
-            mail.Body = $@"
-                Dear {request.CustomerName},
-                Your payment for Order ID: {request.OrderId} has been successfully processed.
-                Order Details:
-                {string.Join("\n", request.OrderDetails.Select(od => $"Product: {od.ProductName}, Quantity: {od.Quantity}, Price: {od.ProductPrice}"))}
-                Total Amount: ${request.TotalAmount}
-                Deposit: ${request.Deposit}
-                Amount Paid: ${request.AmountPaid}
-                Thank you for shopping with us!
-            ";
-            mail.IsBodyHtml = false;
+            mail.Body = emailBody;
+            mail.IsBodyHtml = true;
 
             var smtp = new SmtpClient(smtpServer, smtpPort)
             {

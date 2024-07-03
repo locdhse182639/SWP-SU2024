@@ -69,7 +69,6 @@ const ProductManage = () => {
         symmetry: '',
         girdle: '',
         measurements: '',
-        certificate: '',
         image1: '',
         image2: '',
         image3: '',
@@ -215,7 +214,7 @@ const ProductManage = () => {
                         throw new Error('Failed to update product');
                     }
     
-                    newProduct = await response.json();
+                    // newProduct = await response.json();
                 } else {
                     const response = await fetch('https://localhost:7251/api/Products', {
                         method: 'POST',
@@ -570,7 +569,6 @@ const ProductManage = () => {
                                     <TableCell align="center">Symmetry</TableCell>
                                     <TableCell align="center">Girdle</TableCell>
                                     <TableCell align="center">Measurements</TableCell>
-                                    <TableCell align="center">Certificate</TableCell>
                                     <TableCell align="center">Price</TableCell>
                                     <TableCell align="center">Image 1</TableCell>
                                     <TableCell align="center">Image 2</TableCell>
@@ -598,7 +596,6 @@ const ProductManage = () => {
                                             <TableCell align="center">{diamond.symmetry}</TableCell>
                                             <TableCell align="center">{diamond.girdle}</TableCell>
                                             <TableCell align="center">{diamond.measurements}</TableCell>
-                                            <TableCell align="center">{diamond.certificate}</TableCell>
                                             <TableCell align="center">{product.price}</TableCell>
                                             <TableCell align="center">
                                                 <img src={product.image1} alt="Diamond Image 1" />
@@ -1028,14 +1025,6 @@ const ProductManage = () => {
                                     fullWidth
                                     value={editingItem?.measurements || ''}
                                     onChange={(e) => setEditingItem({ ...editingItem, measurements: e.target.value })}
-                                />
-                                <TextField
-                                    margin="dense"
-                                    label="Certificate"
-                                    type="text"
-                                    fullWidth
-                                    value={editingItem?.certificate || ''}
-                                    onChange={(e) => setEditingItem({ ...editingItem, certificate: e.target.value })}
                                 />
                                 <TextField
                                     margin="dense"

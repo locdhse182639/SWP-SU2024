@@ -37,6 +37,8 @@ import MoldManage from '../components/dashboard/dashboardContent/MoldManage'
 import DiamondPricePage from '../pages/diamondPricePage'
 import WarrantyPolicy from '../pages/warrantyPolicyPage'
 import PrivacyPolicy from '../pages/privacyPolicy'
+import CertificateManage from '../components/dashboard/dashboardContent/CertificateManage'
+import WarrantyManage from '../components/dashboard/dashboardContent/WarrantyManage'
 
 
 export default function AppRoute() {
@@ -78,6 +80,8 @@ export default function AppRoute() {
       <Route path={routes.diamondPrice} element={<DiamondPricePage/>}/>
       <Route path={routes.warrantyPolicy} element={<WarrantyPolicy/>}/>
       <Route path={routes.privacyPolicy} element={<PrivacyPolicy/>}/>
+      <Route path={routes.certificateManage} element={<CertificateManage/>}/>
+      <Route path={routes.warrantyManage} element={<WarrantyManage/>} />
     </Routes>
   );
 }

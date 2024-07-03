@@ -256,10 +256,6 @@ const DiamondDetailPage = () => {
                           <TableCell>Measurements</TableCell>
                           <TableCell className="spec-value">{product.mainDiamond.measurements}</TableCell>
                         </TableRow>
-                        <TableRow>
-                          <TableCell>Certificate</TableCell>
-                          <TableCell className="spec-value">{product.mainDiamond.certificate}</TableCell>
-                        </TableRow>
                       </>
                     )}
                   </>
@@ -359,10 +355,7 @@ const DiamondDetailPage = () => {
                               <TableCell>Measurements</TableCell>
                               <TableCell className="spec-value">{mainDiamond.measurements}</TableCell>
                             </TableRow>
-                            <TableRow>
-                              <TableCell>Certificate</TableCell>
-                              <TableCell className="spec-value">{mainDiamond.certificate}</TableCell>
-                            </TableRow>
+                            
                           </TableBody>
                         </Table>
                       </>
@@ -416,10 +409,7 @@ const DiamondDetailPage = () => {
                               <TableCell>Measurements</TableCell>
                               <TableCell className="spec-value">{secondaryDiamond.measurements}</TableCell>
                             </TableRow>
-                            <TableRow>
-                              <TableCell>Certificate</TableCell>
-                              <TableCell className="spec-value">{secondaryDiamond.certificate}</TableCell>
-                            </TableRow>
+                            
                           </TableBody>
                         </Table>
                       </>
