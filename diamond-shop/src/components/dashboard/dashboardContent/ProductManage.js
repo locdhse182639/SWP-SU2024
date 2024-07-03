@@ -115,7 +115,6 @@ const ProductManage = () => {
             } else {
                 setEditingItem(initialJewelryState);
             }
-            // calculatePrice();
         }
         setOpen(true);
     };
@@ -202,14 +201,21 @@ const ProductManage = () => {
             let newProduct;
             if (tabIndex === 0) { // Jewelry
                 if (editingItem.productId) {
-                    await fetch(`https://localhost:7251/api/Products/${editingItem.productId}`, {
+                    const response = await fetch(`https://localhost:7251/api/Products/${editingItem.productId}`, {
                         method: 'PUT',
                         headers: {
                             'Content-Type': 'application/json'
                         },
                         body: JSON.stringify(itemToSave)
                     });
-                    newProduct = itemToSave;
+    
+                    if (!response.ok) {
+                        const errorData = await response.json();
+                        console.error('Error updating product:', errorData);
+                        throw new Error('Failed to update product');
+                    }
+    
+                    newProduct = await response.json();
                 } else {
                     const response = await fetch('https://localhost:7251/api/Products', {
                         method: 'POST',
@@ -227,16 +233,22 @@ const ProductManage = () => {
     
                     newProduct = await response.json();
                 }
-                fetchProducts();
+                await fetchProducts();
             } else { // Diamonds
                 if (editingItem.diamondId) {
-                    await fetch(`https://localhost:7251/api/Diamonds/${editingItem.diamondId}`, {
+                    const diamondResponse = await fetch(`https://localhost:7251/api/Diamonds/${editingItem.diamondId}`, {
                         method: 'PUT',
                         headers: {
                             'Content-Type': 'application/json'
                         },
                         body: JSON.stringify(editingItem)
                     });
+    
+                    if (!diamondResponse.ok) {
+                        const errorData = await diamondResponse.json();
+                        console.error('Error updating diamond:', errorData);
+                        throw new Error('Failed to update diamond');
+                    }
     
                     const diamondPriceResponse = await fetch(`https://localhost:7251/api/DiamondPrice?carat=${editingItem.caratWeight}&color=${editingItem.color}&clarity=${editingItem.clarity}&cut=${editingItem.cut}`);
                     if (!diamondPriceResponse.ok) {
@@ -273,6 +285,7 @@ const ProductManage = () => {
                         throw new Error('Failed to update product');
                     }
     
+
                 } else {
                     const newDiamondResponse = await fetch('https://localhost:7251/api/Diamonds', {
                         method: 'POST',
@@ -326,8 +339,8 @@ const ProductManage = () => {
     
                     newProduct = await productResponse.json();
                 }
-                fetchDiamonds();
-                fetchProducts();
+                await fetchDiamonds();
+                await fetchProducts();
             }
     
             handleClose();
@@ -405,7 +418,6 @@ const ProductManage = () => {
                             material: selectedMold.material,
                             size: selectedMold.size.toString()  // Ensure size is a string
                         }));
-                        // calculatePrice(); // Call calculatePrice after setting the mold
                     } else {
                         console.error('Selected mold not found in moldData:', e.target.value);
                         setEditingItem((prev) => ({
@@ -454,11 +466,6 @@ const ProductManage = () => {
                 updatedItem.mainDiamondId = '';
                 updatedItem.secondaryDiamondId = '';
                 updatedItem.secondaryDiamondCount = 0;
-            }
-    
-            // Trigger price calculation if relevant fields are changed
-            if (['processingPrice', 'exchangeRate', 'secondaryDiamondCount', 'mainDiamondId', 'secondaryDiamondId', 'ringMoldId', 'necklaceMoldId', 'material', 'size', 'caratWeight'].includes(name)) {
-                // calculatePrice();
             }
     
             return updatedItem;

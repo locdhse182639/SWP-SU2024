@@ -98,6 +98,9 @@ const OrderConfirmation = () => {
         return orderDetails.reduce((total, item) => total + item.productPrice * item.quantity, 0).toFixed(2);
     };
 
+    const params = new URLSearchParams(location.search);
+    const orderId = params.get('orderId');
+
     return (
         <Container maxWidth="1440px" style={{ marginTop: '20px' }}>
             <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '10px' }}>
@@ -134,7 +137,7 @@ const OrderConfirmation = () => {
                                     {orderDetails && orderDetails.length > 0 ? (
                                         orderDetails.map((detail) => (
                                             <Grid item xs={12} key={detail.orderDetailId}>
-                                                <Typography variant="h6">INFORMATION LINE #{detail.orderId}</Typography>
+                                                <Typography variant="h6">INFORMATION LINE #{orderId}</Typography>
                                                 <Box style={{ display: 'flex', marginBottom: '2%', marginTop: '2%' }}>
                                                     <img src={findProductImage(detail.productId)} alt={detail.productName} style={{ width: '100px', height: 'fit-content', marginRight: '10px' }} />
                                                     <Box>
@@ -169,10 +172,7 @@ const OrderConfirmation = () => {
                                         <Typography variant="body2" style={{ fontSize: '1.2rem' }}><strong>Phone number:</strong> {customerInfo.phone}</Typography>
                                     </Box>
                                     <Divider />
-                                    <Box style={{ marginTop: '10px' }}>
-                                        <Typography variant="h6" style={{ fontSize: '1.5rem' }}>PAYMENTS</Typography>
-                                        <Typography variant="body2" style={{ fontSize: '1.2rem' }}>VN PAY QR CODE</Typography>
-                                    </Box>
+
                                 </Grid>
                             </Grid>
                         </Paper>

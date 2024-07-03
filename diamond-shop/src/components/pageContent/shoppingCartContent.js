@@ -100,7 +100,7 @@ const ShoppingCartContent = () => {
       navigate(routes.login);
       return;
     }
-
+  
     try {
       // Fetch customer ID based on the user ID
       const userId = decodedToken(user.token);
@@ -109,7 +109,7 @@ const ShoppingCartContent = () => {
         throw new Error('Failed to fetch customer data');
       }
       const customerData = await customerResponse.json();
-
+  
       const order = {
         userId: userId,
         totalPrice: parseFloat(calculateTotal()),
@@ -121,7 +121,7 @@ const ShoppingCartContent = () => {
           quantity: item.quantity
         }))
       };
-
+  
       const response = await fetch('https://localhost:7251/api/Orders', {
         method: 'POST',
         headers: {
@@ -129,13 +129,38 @@ const ShoppingCartContent = () => {
         },
         body: JSON.stringify(order),
       });
-
+  
       if (!response.ok) {
         throw new Error('Failed to create order');
       }
-
+  
       const createdOrder = await response.json(); // Assuming the response contains the created order with orderId
-
+  
+      // Create an OrderLog entry with Phase1 set to false
+      const orderLog = {
+        orderID: createdOrder.orderId,
+        phase1: false,
+        phase2: false,
+        phase3: false,
+        phase4: false,
+        timePhase1: new Date().toISOString(),
+        timePhase2: new Date().toISOString(),
+        timePhase3: new Date().toISOString(),
+        timePhase4: new Date().toISOString()
+      };
+  
+      const logResponse = await fetch('https://localhost:7251/api/OrderLogs', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(orderLog),
+      });
+  
+      if (!logResponse.ok) {
+        throw new Error('Failed to create order log');
+      }
+  
       // Clear the cart after successful order creation
       setCartItems([]);
       alert('Order created successfully!');
@@ -192,22 +217,7 @@ const ShoppingCartContent = () => {
             </Paper>
           ))}
 
-          <Box sx={{ display: 'flex', justifyContent: 'space-between', marginTop: 15 }}>
-            <Box sx={{ flex: 1 }}>
-              <Typography variant="subtitle1" sx={{ marginBottom: 1 }}>SHIPPING</Typography>
-              <Typography variant="body2">- Free Shipping Worldwide</Typography>
-              <Typography variant="body2">- Overnight Shipping</Typography>
-              <Typography variant="body2">- Order Tracking Every step of the way</Typography>
-              <Link to="#" underline="hover">More Info...</Link>
-            </Box>
-            <Box sx={{ flex: 1 }}>
-              <Typography variant="subtitle1" sx={{ marginBottom: 1 }}>RETURNS</Typography>
-              <Typography variant="body2">- 100% Money Back Guarantee</Typography>
-              <Typography variant="body2">- Free returns from the US & Canada</Typography>
-              <Typography variant="body2">- Fully Insured Returns</Typography>
-              <Link to="#" underline="hover">More Info...</Link>
-            </Box>
-          </Box>
+          
         </Box>
         <Box>
           <Paper sx={{ padding: 2, maxWidth: 400, marginLeft: 'auto' }}>
@@ -220,21 +230,13 @@ const ShoppingCartContent = () => {
               <Typography variant="body1">Deposit Total</Typography>
               <Typography variant="body1">${calculateTotalDeposit()}</Typography>
             </Box>
-            <Box sx={{ display: 'flex', justifyContent: 'space-between', marginBottom: 1 }}>
-              <Typography variant="body1">US & Int. Shipping</Typography>
-              <Typography variant="body1">Free</Typography>
-            </Box>
-            <Box sx={{ display: 'flex', justifyContent: 'space-between', marginBottom: 2 }}>
-              <Typography variant="body1">Taxes/Duties Estimate</Typography>
-              <Typography variant="body1">TBD</Typography>
-            </Box>
             <Divider sx={{ marginBottom: 2 }} />
             <Box sx={{ display: 'flex', justifyContent: 'space-between', marginBottom: 2 }}>
               <Typography variant="h6">Deposit</Typography>
               <Typography variant="h6">${calculateTotalDeposit()}</Typography>
             </Box>
             <Typography variant="body2" color="textSecondary" sx={{ marginBottom: 2 }}>
-              or interest-free installments from ${(calculateTotal() / 3).toFixed(2)} / mo.
+                                                                                     
             </Typography>
             <Button
               variant="contained"
@@ -245,11 +247,6 @@ const ShoppingCartContent = () => {
               CHECKOUT
             </Button>
           </Paper>
-          <Box sx={{ textAlign: 'left', marginTop: 3 }}>
-            <Typography variant="body2">24/7 Customer Service</Typography>
-            <Typography variant="body2">1-800-242-2728</Typography>
-            <Link to="#" underline="hover">Chat With Us</Link>
-          </Box>
         </Box>
       </Box>
     </Box>

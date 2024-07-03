@@ -22,10 +22,41 @@ const OrderPage = () => {
   const [orderLog, setOrderLog] = useState({});
   const [datePaid, setDatePaid] = useState('');
   const { user } = useAuth();
+  const [payment, setPayment] = useState([]);
 
   useEffect(() => {
     fetchOrders();
   }, []);
+
+  const fetchPaymentDetails = async (orderId) => {
+    try {
+      const paymentResponse = await fetch(`https://localhost:7251/api/Payment/order/${orderId}`);
+      if (!paymentResponse.ok) {
+        throw new Error('Failed to fetch payment details');
+      }
+      const paymentData = await paymentResponse.json();
+      setPaymentDetails(paymentData);
+
+      // Fetch order log to check Phase4 and set DatePaid if necessary
+      const orderLogResponse = await fetch(`https://localhost:7251/api/OrderLogs/order/${orderId}`);
+      if (!orderLogResponse.ok) {
+        throw new Error('Failed to fetch order log');
+      }
+      const orderLogData = await orderLogResponse.json();
+      setOrderLog(orderLogData);
+      if (orderLogData.phase4) {
+        setDatePaid(new Date(orderLogData.timePhase4).toISOString().split('T')[0]); // Format to YYYY-MM-DD
+      } else {
+        setDatePaid(''); // Clear date if Phase4 is not true
+      }
+
+      setPaymentOpen(true);
+    } catch (err) {
+      console.error('Error fetching payment details or order log:', err);
+    }
+  };
+
+
 
   const fetchOrders = async () => {
     try {
@@ -71,8 +102,7 @@ const OrderPage = () => {
   };
 
   const handlePayment = (order) => {
-    setPaymentDetails(order);
-    setPaymentOpen(true);
+    fetchPaymentDetails(order.orderId);
   };
 
   const handlePaymentSubmit = async () => {
@@ -92,7 +122,7 @@ const OrderPage = () => {
     const currentDateTime = new Date().toISOString();
     try {
       await axios.put(`https://localhost:7251/api/OrderLogs/${orderLog.logID}`, {
-        statusType: phase 
+        statusType: phase
       });
       setOrderLog((prevLog) => ({
         ...prevLog,
@@ -234,19 +264,21 @@ const OrderPage = () => {
           {paymentDetails && (
             <div>
               <p>Order ID: {paymentDetails.orderId}</p>
-              <p>Total: ${paymentDetails.totalPrice}</p>
+              <p>Total: ${paymentDetails.total}</p>
               <p>Deposit: ${paymentDetails.deposit}</p>
               <p>Amount Paid: ${paymentDetails.amountPaid}</p>
-              <TextField
-                label="Date Paid"
-                type="date"
-                value={datePaid}
-                onChange={(e) => setDatePaid(e.target.value)}
-                InputLabelProps={{
-                  shrink: true,
-                }}
-                fullWidth
-              />
+              {orderLog.phase4 && (
+                <TextField
+                  label="Date Paid"
+                  type="date"
+                  value={datePaid}
+                  onChange={(e) => setDatePaid(e.target.value)}
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                  fullWidth
+                />
+              )}
             </div>
           )}
         </DialogContent>
