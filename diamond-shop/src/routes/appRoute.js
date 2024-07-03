@@ -37,6 +37,7 @@ import MoldManage from '../components/dashboard/dashboardContent/MoldManage'
 import DiamondPricePage from '../pages/diamondPricePage'
 import WarrantyPolicy from '../pages/warrantyPolicyPage'
 import PrivacyPolicy from '../pages/privacyPolicy'
+import RoundCutPage from '../components/diamondShape/page/roundPage'
 
 
 export default function AppRoute() {
