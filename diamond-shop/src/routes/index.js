@@ -35,4 +35,6 @@ export const routes = {
     privacyPolicy: '/privacy-policy',
     certificateManage: '/certificate-manage',
     warrantyManage: '/warranty-manage',
+    resetPassword: '/login/reset-password',
+    newPassword: '/login/enter-new-password',
 }

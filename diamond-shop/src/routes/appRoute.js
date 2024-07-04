@@ -40,6 +40,8 @@ import PrivacyPolicy from '../pages/privacyPolicy'
 import CertificateManage from '../components/dashboard/dashboardContent/CertificateManage'
 import WarrantyManage from '../components/dashboard/dashboardContent/WarrantyManage'
 // import RoundCutPage from '../components/diamondShape/page/roundPage'
+import PasswordReset from '../pages/resetPass/passwordResetPage'
+import NewPassword from '../pages/resetPass/enterPassPage'
 
 
 export default function AppRoute() {
@@ -83,6 +85,8 @@ export default function AppRoute() {
       <Route path={routes.privacyPolicy} element={<PrivacyPolicy/>}/>
       <Route path={routes.certificateManage} element={<CertificateManage/>}/>
       <Route path={routes.warrantyManage} element={<WarrantyManage/>} />
+      <Route path={routes.resetPassword} element={<PasswordReset/>}/>
+      <Route path={routes.newPassword} element={<NewPassword/>}/>
     </Routes>
   );
 }
