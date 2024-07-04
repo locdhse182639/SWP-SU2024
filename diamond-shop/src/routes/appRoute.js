@@ -39,7 +39,7 @@ import WarrantyPolicy from '../pages/warrantyPolicyPage'
 import PrivacyPolicy from '../pages/privacyPolicy'
 import CertificateManage from '../components/dashboard/dashboardContent/CertificateManage'
 import WarrantyManage from '../components/dashboard/dashboardContent/WarrantyManage'
-import RoundCutPage from '../components/diamondShape/page/roundPage'
+// import RoundCutPage from '../components/diamondShape/page/roundPage'
 
 
 export default function AppRoute() {
@@ -47,7 +47,7 @@ export default function AppRoute() {
     <Routes>
       <Route path={`${routes.detail}/:id`} element={<DiamondDetailPage />} />
       <Route path={routes.dashboard} element={<DashboardPage />}></Route>
-      <Route path='/OrderPage' element={<OrderPage />}></Route>
+      <Route path={routes.orderPage} element={<OrderPage />}></Route>
       <Route path={routes.feedbackPage} element={<FbPage />}></Route>
       <Route path={routes.accountPage} element={<AccountPage />}></Route>
       <Route path={routes.productPage} element={<ProductPage />}></Route>

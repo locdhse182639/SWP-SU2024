@@ -95,14 +95,54 @@ namespace BE_V2.Controllers
             return Ok(result);
         }
 
-        // GET: api/Warranties
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Warranty>>> GetWarranties()
+        public async Task<ActionResult<IEnumerable<object>>> GetWarranties()
         {
-            return await _context.Warranties
+            var warranties = await _context.Warranties
                 .Include(w => w.Order)
-                .ThenInclude(o => o.OrderDetails)
+                    .ThenInclude(o => o.Customer)
+                        .ThenInclude(c => c.User)
+                .Include(w => w.Order)
+                    .ThenInclude(o => o.OrderDetails)
+                        .ThenInclude(od => od.Product)
+                            .ThenInclude(p => p.MainDiamond)
+                                .ThenInclude(d => d.Certificate)
                 .ToListAsync();
+
+            var result = warranties.Select(w => new
+            {
+                w.WarrantyId,
+                w.PurchaseDate,
+                w.WarrantyEndDate,
+                w.StoreRepresentativeSignature,
+                Order = new
+                {
+                    w.Order.OrderId,
+                    Customer = new
+                    {
+                        w.Order.Customer.User.Name,
+                        w.Order.Customer.User.PhoneNumber,
+                        w.Order.Customer.User.Email,
+                        w.Order.Customer.User.Address
+                    },
+                    OrderDetails = w.Order.OrderDetails.Select(od => new
+                    {
+                        od.ProductId,
+                        od.ProductName,
+                        od.Product.MainDiamond.Shape,
+                        od.Product.MainDiamond.Cut,
+                        od.Product.MainDiamond.Color,
+                        od.Product.MainDiamond.Clarity,
+                        od.Product.MainDiamond.CaratWeight,
+                        CertificateId = od.Product.MainDiamond.Certificate.CertificateId
+                    }).ToList()
+                }
+            }).ToList();
+
+            // Logging to ensure the data is being loaded correctly
+            Console.WriteLine("Fetched Warranties: " + Newtonsoft.Json.JsonConvert.SerializeObject(result));
+
+            return Ok(result);
         }
 
         // PUT: api/Warranties/5

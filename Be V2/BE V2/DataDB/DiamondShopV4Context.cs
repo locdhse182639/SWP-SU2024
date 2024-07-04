@@ -129,7 +129,7 @@ namespace BE_V2.DataDB
 
                 entity.Property(e => e.OrderId).HasColumnName("OrderID");
                 entity.Property(e => e.CustomerId).HasColumnName("CustomerID");
-                entity.Property(e => e.TotalPrice).HasColumnType("decimal(10, 2)");
+                entity.Property(e => e.TotalPrice).HasColumnType("decimal(15, 2)");
 
                 entity.HasOne(d => d.Customer).WithMany(p => p.Orders)
                     .HasForeignKey(d => d.CustomerId)
@@ -144,7 +144,7 @@ namespace BE_V2.DataDB
                 entity.Property(e => e.OrderId).HasColumnName("OrderID");
                 entity.Property(e => e.ProductId).HasColumnName("ProductID");
                 entity.Property(e => e.ProductName).HasMaxLength(255);
-                entity.Property(e => e.ProductPrice).HasColumnType("decimal(10, 2)");
+                entity.Property(e => e.ProductPrice).HasColumnType("decimal(15, 2)");
 
                 entity.HasOne(d => d.Order).WithMany(p => p.OrderDetails)
                     .HasForeignKey(d => d.OrderId)
@@ -162,10 +162,10 @@ namespace BE_V2.DataDB
                 entity.ToTable("Payment");
 
                 entity.Property(e => e.PaymentId).HasColumnName("PaymentID");
-                entity.Property(e => e.AmountPaid).HasColumnType("decimal(10, 2)");
-                entity.Property(e => e.Deposit).HasColumnType("decimal(10, 2)");
+                entity.Property(e => e.AmountPaid).HasColumnType("decimal(15, 2)");
+                entity.Property(e => e.Deposit).HasColumnType("decimal(15, 2)");
                 entity.Property(e => e.OrderId).HasColumnName("OrderID");
-                entity.Property(e => e.Total).HasColumnType("decimal(10, 2)");
+                entity.Property(e => e.Total).HasColumnType("decimal(15, 2)");
 
                 entity.HasOne(d => d.Order).WithMany(p => p.Payments)
                     .HasForeignKey(d => d.OrderId)
@@ -304,7 +304,7 @@ namespace BE_V2.DataDB
                 entity.Property(e => e.CartID).HasColumnName("CartID");
                 entity.Property(e => e.ProductID).HasColumnName("ProductID");
                 entity.Property(e => e.Quantity).IsRequired();
-                entity.Property(e => e.Price).HasColumnType("decimal(10, 2)").IsRequired();
+                entity.Property(e => e.Price).HasColumnType("decimal(15, 2)").IsRequired();
 
                 entity.HasOne(d => d.Cart)
                     .WithMany(p => p.CartItems)

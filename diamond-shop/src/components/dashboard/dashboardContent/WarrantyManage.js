@@ -13,11 +13,13 @@ import {
     DialogContent,
     DialogTitle,
     TextField,
+    Tabs,
+    Tab,
 } from '@mui/material';
 import DashboardNav from './DashboardNav';
 import StaffNav from './../../staffsite/StaffNav';
 import { useAuth } from '../../authcontext';
-import './WarrantyManage.css'
+import './WarrantyManage.css';
 
 const WarrantyManage = () => {
     const [warranties, setWarranties] = useState([]);
@@ -25,6 +27,7 @@ const WarrantyManage = () => {
     const [showWarrantyModal, setShowWarrantyModal] = useState(false);
     const [showViewWarrantyModal, setShowViewWarrantyModal] = useState(false);
     const [selectedWarranty, setSelectedWarranty] = useState(null);
+    const [selectedProductIndex, setSelectedProductIndex] = useState(0);
     const { user } = useAuth();
     const [warrantyDetails, setWarrantyDetails] = useState({
         orderId: '',
@@ -87,7 +90,7 @@ const WarrantyManage = () => {
                 throw new Error('Failed to save warranty');
             }
 
-            fetchWarranties();
+            fetchWarranties(); // Refresh warranties list
             setShowWarrantyModal(false);
             setSelectedWarranty(null);
         } catch (error) {
@@ -113,24 +116,26 @@ const WarrantyManage = () => {
             if (!response.ok) {
                 throw new Error('Failed to delete warranty');
             }
-            fetchWarranties();
+            fetchWarranties(); // Refresh warranties list
         } catch (error) {
             console.error('Error deleting warranty', error);
         }
     };
 
-    const handleViewWarranty = async (warranty) => {
-        try {
-            const response = await fetch(`https://localhost:7251/api/Warranties/${warranty.warrantyId}`);
-            if (!response.ok) {
-                throw new Error('Failed to fetch warranty details');
-            }
-            const data = await response.json();
-            setSelectedWarranty(data);
+    const handleViewWarranty = (warranty) => {
+        console.log("Viewing warranty:", warranty);
+        if (warranty && warranty.order && warranty.order.orderDetails) {
+            console.log("Order details:", warranty.order.orderDetails);
+            setSelectedWarranty(warranty);
+            setSelectedProductIndex(0); // Reset to the first product
             setShowViewWarrantyModal(true);
-        } catch (error) {
-            console.error('Error fetching warranty details', error);
+        } else {
+            console.error("Warranty or order details are undefined");
         }
+    };
+
+    const handleChangeTab = (event, newValue) => {
+        setSelectedProductIndex(newValue);
     };
 
     useEffect(() => {
@@ -238,84 +243,80 @@ const WarrantyManage = () => {
                 <Dialog open={showViewWarrantyModal} onClose={() => setShowViewWarrantyModal(false)} maxWidth="md" fullWidth>
                     <DialogTitle>View Warranty</DialogTitle>
                     <DialogContent>
-                        {selectedWarranty && (
-                            <div className="container-warranty">
+                        {selectedWarranty && selectedWarranty.order && selectedWarranty.order.orderDetails ? (
+                            <div className="container">
                                 <div className="header">
                                     <img style={{ height: '60px', width: '60px' }} src="logo.png" alt="Luxe Jewel House" />
                                     <h1>Luxe Jewel House</h1>
                                     <p>Diamond Warranty Certificate</p>
                                 </div>
-                                <div className="form-group">
-                                    <label>Warranty ID</label>
-                                    <input type="text" value={selectedWarranty.warrantyId} readOnly />
-                                </div>
-                                <div className="form-group">
-                                    <label>Customer Name</label>
-                                    <input type="text" value={selectedWarranty.order.customer.name} readOnly />
-                                </div>
-                                <div className="form-group">
-                                    <label>Phone Number</label>
-                                    <input type="text" value={selectedWarranty.order.customer.phoneNumber} readOnly />
-                                </div>
-                                <div className="form-group">
-                                    <label>Email</label>
-                                    <input type="text" value={selectedWarranty.order.customer.email} readOnly />
-                                </div>
-                                <div className="form-group">
-                                    <label>Address</label>
-                                    <input type="text" value={selectedWarranty.order.customer.address} readOnly />
-                                </div>
-                                {selectedWarranty.order.orderDetails.map(detail => (
-                                    <React.Fragment key={detail.productId}>
-                                        <div className="form-group">
-                                            <label>Product ID</label>
-                                            <input type="text" value={detail.productId} readOnly />
-                                        </div>
-                                        <div className="form-group">
-                                            <label>Product Name</label>
-                                            <input type="text" value={detail.productName} readOnly />
-                                        </div>
-                                        <div className="form-group">
-                                            <label>Shape</label>
-                                            <input type="text" value={detail.shape} readOnly />
-                                        </div>
-                                        <div className="form-group">
-                                            <label>Cut</label>
-                                            <input type="text" value={detail.cut} readOnly />
-                                        </div>
-                                        <div className="form-group">
-                                            <label>Color</label>
-                                            <input type="text" value={detail.color} readOnly />
-                                        </div>
-                                        <div className="form-group">
-                                            <label>Clarity</label>
-                                            <input type="text" value={detail.clarity} readOnly />
-                                        </div>
-                                        <div className="form-group">
-                                            <label>Carat Weight</label>
-                                            <input type="text" value={detail.caratWeight} readOnly />
-                                        </div>
-                                        <div className="form-group">
-                                            <label>Certificate</label>
-                                            <input type="text" value={detail.certificateId} readOnly />
-                                        </div>
-                                    </React.Fragment>
+                                <Tabs value={selectedProductIndex} onChange={handleChangeTab}>
+                                    {selectedWarranty.order.orderDetails.map((detail, index) => (
+                                        <Tab label={detail.productName} key={index} />
+                                    ))}
+                                </Tabs>
+                                {selectedWarranty.order.orderDetails.map((detail, index) => (
+                                    <div key={index} role="tabpanel" hidden={selectedProductIndex !== index}>
+                                        {selectedProductIndex === index && (
+                                            <div>
+                                                <div className="form-group">
+                                                    <label>Warranty ID</label>
+                                                    <input type="text" value={selectedWarranty.warrantyId} readOnly />
+                                                </div>
+                                                <div className="form-group">
+                                                    <label>Customer Name</label>
+                                                    <input type="text" value={selectedWarranty.order.customer.name} readOnly />
+                                                </div>
+                                                <div className="form-group">
+                                                    <label>Phone Number</label>
+                                                    <input type="text" value={selectedWarranty.order.customer.phoneNumber} readOnly />
+                                                </div>
+                                                <div className="form-group">
+                                                    <label>Email</label>
+                                                    <input type="text" value={selectedWarranty.order.customer.email} readOnly />
+                                                </div>
+                                                <div className="form-group">
+                                                    <label>Address</label>
+                                                    <input type="text" value={selectedWarranty.order.customer.address} readOnly />
+                                                </div>
+                                                <div className="form-group">
+                                                    <label>Product ID</label>
+                                                    <input type="text" value={detail.productId} readOnly />
+                                                </div>
+                                                <div className="form-group">
+                                                    <label>Product Name</label>
+                                                    <input type="text" value={detail.productName} readOnly />
+                                                </div>
+                                                <div className="form-group">
+                                                    <label>Shape</label>
+                                                    <input type="text" value={detail.shape} readOnly />
+                                                </div>
+                                                <div className="form-group">
+                                                    <label>Cut</label>
+                                                    <input type="text" value={detail.cut} readOnly />
+                                                </div>
+                                                <div className="form-group">
+                                                    <label>Color</label>
+                                                    <input type="text" value={detail.color} readOnly />
+                                                </div>
+                                                <div className="form-group">
+                                                    <label>Clarity</label>
+                                                    <input type="text" value={detail.clarity} readOnly />
+                                                </div>
+                                                <div className="form-group">
+                                                    <label>Carat Weight</label>
+                                                    <input type="text" value={detail.caratWeight} readOnly />
+                                                </div>
+                                                <div className="form-group">
+                                                    <label>Certificate</label>
+                                                    <input type="text" value={detail.certificateId} readOnly />
+                                                </div>
+                                            </div>
+                                        )}
+                                    </div>
                                 ))}
-                                <div className="form-group">
-                                    <label>Purchase Date</label>
-                                    <input type="text" value={new Date(selectedWarranty.purchaseDate).toLocaleDateString()} readOnly />
-                                </div>
-                                <div className="form-group">
-                                    <label>Warranty End Date</label>
-                                    <input type="text" value={new Date(selectedWarranty.warrantyEndDate).toLocaleDateString()} readOnly />
-                                </div>
-                                <div className="form-group">
-                                    <label>Store Representative Signature</label>
-                                    <input type="text" value={selectedWarranty.storeRepresentativeSignature} readOnly />
-                                </div>
-                                <div className="form-group">
-                                    <label>Warranty Content</label>
-                                    <table className="warranty-table">
+                                <div class="form-group">
+                                    <table class="warranty-table">
                                         <thead>
                                             <tr>
                                                 <th>Warranty Content</th>
@@ -380,6 +381,8 @@ const WarrantyManage = () => {
                                     <p>&copy; 2024 Luxe Jewel House. All Rights Reserved.</p>
                                 </div>
                             </div>
+                        ) : (
+                            <p>No warranty details available.</p>
                         )}
                     </DialogContent>
                     <DialogActions>
@@ -388,6 +391,7 @@ const WarrantyManage = () => {
                         </Button>
                     </DialogActions>
                 </Dialog>
+
             </div>
         </div>
     );

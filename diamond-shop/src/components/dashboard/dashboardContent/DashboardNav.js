@@ -37,7 +37,7 @@ export default function NavBar() {
                         <a href={routes.orderPage}>Order</a>
                     </div>
                     <div className='navbar-item'>
-                        <a href="#">Event</a>
+                        <a href={routes.EventPage}>Event</a>
                     </div>
                     <div className='navbar-item'>
                         <a href={routes.productPage}>Product</a>

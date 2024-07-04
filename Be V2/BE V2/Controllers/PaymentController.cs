@@ -1,7 +1,6 @@
 ﻿using BE_V2.DataDB;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using System;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 
@@ -57,6 +56,13 @@ namespace BE_V2.Controllers
                 return NotFound();
             }
             return Ok(payment);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetAllPayments()
+        {
+            var payments = await _context.Payments.ToListAsync();
+            return Ok(payments);
         }
 
         public class PaymentRequest

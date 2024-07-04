@@ -1,14 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import {
-  Container, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper,
+  Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper,
   Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField, Switch, FormControlLabel, Typography, Link, Box
 } from '@mui/material';
 import DashboardNav from './DashboardNav';
-import './OrderPage.css';
 import SiteNav from './../../staffsite/StaffNav';
 import { useAuth } from '../../authcontext';
 import axios from 'axios';
-import Title from '../Title';
 import { routes } from '../../../routes';
 
 const OrderPage = () => {
@@ -22,46 +20,14 @@ const OrderPage = () => {
   const [orderLog, setOrderLog] = useState({});
   const [datePaid, setDatePaid] = useState('');
   const { user } = useAuth();
-  const [payment, setPayment] = useState([]);
 
   useEffect(() => {
     fetchOrders();
   }, []);
 
-  const fetchPaymentDetails = async (orderId) => {
-    try {
-      const paymentResponse = await fetch(`https://localhost:7251/api/Payment/order/${orderId}`);
-      if (!paymentResponse.ok) {
-        throw new Error('Failed to fetch payment details');
-      }
-      const paymentData = await paymentResponse.json();
-      setPaymentDetails(paymentData);
-
-      // Fetch order log to check Phase4 and set DatePaid if necessary
-      const orderLogResponse = await fetch(`https://localhost:7251/api/OrderLogs/order/${orderId}`);
-      if (!orderLogResponse.ok) {
-        throw new Error('Failed to fetch order log');
-      }
-      const orderLogData = await orderLogResponse.json();
-      setOrderLog(orderLogData);
-      if (orderLogData.phase4) {
-        setDatePaid(new Date(orderLogData.timePhase4).toISOString().split('T')[0]); // Format to YYYY-MM-DD
-      } else {
-        setDatePaid(''); // Clear date if Phase4 is not true
-      }
-
-      setPaymentOpen(true);
-    } catch (err) {
-      console.error('Error fetching payment details or order log:', err);
-    }
-  };
-
-
-
   const fetchOrders = async () => {
     try {
       const response = await axios.get('https://localhost:7251/api/Orders');
-      console.log('Orders Response:', response.data);
       setOrders(response.data || []);
     } catch (err) {
       console.error('Error fetching orders:', err);
@@ -71,7 +37,6 @@ const OrderPage = () => {
   const fetchOrderDetails = async (orderId) => {
     try {
       const response = await axios.get(`https://localhost:7251/api/Orders/${orderId}`);
-      console.log('Order Details Response:', response.data.orderDetails);
       setOrderDetails(response.data.orderDetails);
       setSelectedOrder(orderId);
       setOpen(true);
@@ -83,11 +48,37 @@ const OrderPage = () => {
   const fetchOrderLog = async (orderId) => {
     try {
       const response = await axios.get(`https://localhost:7251/api/OrderLogs/order/${orderId}`);
-      console.log('Order Log Response:', response.data);
       setOrderLog(response.data);
       setOrderLogOpen(true);
     } catch (err) {
       console.error('Error fetching order log:', err);
+    }
+  };
+
+  const fetchPaymentDetails = async (orderId) => {
+    try {
+      const paymentResponse = await fetch(`https://localhost:7251/api/Payment/order/${orderId}`);
+      if (!paymentResponse.ok) {
+        throw new Error('Failed to fetch payment details');
+      }
+      const paymentData = await paymentResponse.json();
+      setPaymentDetails(paymentData);
+
+      const orderLogResponse = await fetch(`https://localhost:7251/api/OrderLogs/order/${orderId}`);
+      if (!orderLogResponse.ok) {
+        throw new Error('Failed to fetch order log');
+      }
+      const orderLogData = await orderLogResponse.json();
+      setOrderLog(orderLogData);
+      if (orderLogData.phase4) {
+        setDatePaid(new Date(orderLogData.timePhase4).toISOString().split('T')[0]);
+      } else {
+        setDatePaid('');
+      }
+
+      setPaymentOpen(true);
+    } catch (err) {
+      console.error('Error fetching payment details or order log:', err);
     }
   };
 
@@ -129,13 +120,21 @@ const OrderPage = () => {
         [phase]: !prevLog[phase],
         [timePhase]: prevLog[phase] ? "" : currentDateTime
       }));
+
+      if (phase === 'phase4' && !orderLog.phase4) {
+        await axios.post('https://localhost:7251/api/Warranties', {
+          OrderId: orderId,
+          WarrantyEndDate: new Date(new Date().setFullYear(new Date().getFullYear() + 1)).toISOString(),
+          StoreRepresentativeSignature: 'Luxel Jewel House'
+        });
+        console.log('Warranty created for order:', orderId);
+      }
     } catch (err) {
-      console.error('Error updating order log:', err);
+      console.error('Error updating order log or creating warranty:', err);
     }
   };
 
   const handleSaveOrderLog = () => {
-    // Save the updated order log here
     console.log('Order log saved:', orderLog);
     setOrderLogOpen(false);
   };
@@ -143,11 +142,7 @@ const OrderPage = () => {
   return (
     <div className='container-fluid'>
       <div>
-        {user && user.roleId === 3 ? (
-          <SiteNav />
-        ) : (
-          <DashboardNav />
-        )}
+        {user && user.roleId === 3 ? <SiteNav /> : <DashboardNav />}
       </div>
 
       <div className='container-fluid-2'>
@@ -212,10 +207,6 @@ const OrderPage = () => {
           </Table>
         </TableContainer>
       </div>
-
-      <Link color="primary" href={routes.orderPage} sx={{ mt: 3 }}>
-        See more orders
-      </Link>
 
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle>Order Details</DialogTitle>
@@ -300,28 +291,28 @@ const OrderPage = () => {
               control={<Switch checked={orderLog.phase1} onChange={() => togglePhase('phase1', 'timePhase1', orderLog.logID)} />}
               label="Ordered"
             />
-            <Typography variant="body2">Time Phase 1: {orderLog.timePhase1}</Typography>
+            {orderLog.phase1 && <Typography variant="body2">Time Phase 1: {orderLog.timePhase1}</Typography>}
           </Box>
           <Box>
             <FormControlLabel
               control={<Switch checked={orderLog.phase2} onChange={() => togglePhase('phase2', 'timePhase2', orderLog.logID)} />}
               label="Created"
             />
-            <Typography variant="body2">Time Phase 2: {orderLog.timePhase2}</Typography>
+            {orderLog.phase2 &&<Typography variant="body2">Time Phase 2: {orderLog.timePhase2}</Typography>}
           </Box>
           <Box>
             <FormControlLabel
               control={<Switch checked={orderLog.phase3} onChange={() => togglePhase('phase3', 'timePhase3', orderLog.logID)} />}
               label="Received"
             />
-            <Typography variant="body2">Time Phase 3: {orderLog.timePhase3}</Typography>
+             {orderLog.phase3 &&<Typography variant="body2">Time Phase 3: {orderLog.timePhase3}</Typography>}
           </Box>
           <Box>
             <FormControlLabel
               control={<Switch checked={orderLog.phase4} onChange={() => togglePhase('phase4', 'timePhase4', orderLog.logID)} />}
               label="Finished"
             />
-            <Typography variant="body2">Time Phase 4: {orderLog.timePhase4}</Typography>
+             {orderLog.phase4 &&<Typography variant="body2">Time Phase 4: {orderLog.timePhase4}</Typography>}
           </Box>
         </DialogContent>
         <DialogActions>
