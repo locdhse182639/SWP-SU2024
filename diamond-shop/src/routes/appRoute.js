@@ -39,7 +39,8 @@ import WarrantyPolicy from '../pages/warrantyPolicyPage'
 import PrivacyPolicy from '../pages/privacyPolicy'
 import CertificateManage from '../components/dashboard/dashboardContent/CertificateManage'
 import WarrantyManage from '../components/dashboard/dashboardContent/WarrantyManage'
-import PasswordReset from '../pages/passwordResetPage'
+import PasswordReset from '../pages/resetPass/passwordResetPage'
+import NewPassword from '../pages/resetPass/enterPassPage'
 
 
 export default function AppRoute() {
@@ -84,6 +85,7 @@ export default function AppRoute() {
       <Route path={routes.certificateManage} element={<CertificateManage/>}/>
       <Route path={routes.warrantyManage} element={<WarrantyManage/>} />
       <Route path={routes.resetPassword} element={<PasswordReset/>}/>
+      <Route path={routes.newPassword} element={<NewPassword/>}/>
     </Routes>
   );
 }
