@@ -193,7 +193,7 @@ const Navbar = () => {
             </Box>
           </div>
         </Box>
-        <Box display="flex" alignItems="center" justifyContent="flex-end">
+        {/* <Box display="flex" alignItems="center" justifyContent="flex-end">
           <TextField
             variant="outlined"
             placeholder="Search"
@@ -217,7 +217,7 @@ const Navbar = () => {
               '& .MuiInputLabel-root.Mui-focused': { color: 'black' },
             }}
           />
-        </Box>
+        </Box> */}
 
       </Toolbar>
     </AppBar>
