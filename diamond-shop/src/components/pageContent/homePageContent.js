@@ -46,6 +46,11 @@ const HomePageContent = () => {
         height: '650px'
     };
 
+    const imageRoutes = {
+        'nhan-kim-cuong': routes.engagementRings,
+        'day-chuyen-kim-cuong': routes.necklace
+    };
+
     const diamondShapes = ['Round', 'Princess', 'Emerald', 'Cushion', 'Marquise', 'Radiant', 'Oval', 'Pear', 'Heart'];
 
     const [isOpenPopup, setIsOpenPopup] = useState(false);
@@ -73,8 +78,8 @@ const HomePageContent = () => {
                         {diamondShapes.map((shape, index) => (
                             <Grid key={index} className='diamond-item'>
                                 <Link className='diamond-item' to={`${routes.diamond}?shape=${shape}`}>
-                                <img src={`../assets/images/${shape.replace(' ', '_')}_Cut_Diamonds.png`} alt={`${shape} cut diamond`} />
-                                <p>{shape}</p>
+                                    <img src={`../assets/images/${shape.replace(' ', '_')}_Cut_Diamonds.png`} alt={`${shape} cut diamond`} />
+                                    <p>{shape}</p>
                                 </Link>
                             </Grid>
                         ))}
@@ -159,11 +164,13 @@ const HomePageContent = () => {
                     </div>
                 </div>
                 <Grid container className='list-img'>
-                    {['nhan-kim-cuong', 'day-chuyen-kim-cuong', 'vong-tay-kim-cuong', 'hoa-tai-kim-cuong'].map((imgName, index) => (
+                    {['nhan-kim-cuong', 'day-chuyen-kim-cuong'].map((imgName, index) => (
                         <Grid key={index} className='list-jewelry-img-child'>
                             <img src={`../assets/images/${imgName}.png`} alt={imgName} />
                             <div className='btn'>
-                                <BasicButtons width='180px' height='30px' text='See more'></BasicButtons>
+                                <Link to={imageRoutes[imgName]}>
+                                    <BasicButtons width='180px' height='30px' text='See more'></BasicButtons>
+                                </Link>
                             </div>
                         </Grid>
                     ))}

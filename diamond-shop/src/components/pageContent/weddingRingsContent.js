@@ -1,16 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { Box, Button, Container, Typography } from '@mui/material';
-import Footer from '../footer';
 import ProductCard from '../productCard';
 import '../../css/engagementRings.css';
-import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
-import { CustomLeftArrow, CustomRightArrow } from '../customeArrow';
-import CustomToolbar from '../customToolBar';
 import CarouselComponent from '../carouselComponent ';
 import { useLocation } from 'react-router-dom';
+import banner from '../../constant/weddingRing-banner.png';
 
-const EngagementRingsContent = () => {
+const WeddingRingsContent = () => {
   const [productData, setProductData] = useState([]);
   const location = useLocation();
 
@@ -33,7 +30,7 @@ const EngagementRingsContent = () => {
   }, []);
 
   const backgroundBanner = {
-    backgroundImage: `url(../assets/images/engagement-ring-banner.png)`,
+    backgroundImage: `url(${banner})`,
     backgroundSize: 'cover',
     backgroundRepeat: 'no-repeat',
     backgroundPosition: 'center',
@@ -74,36 +71,11 @@ const EngagementRingsContent = () => {
     <div className='container'>
       <Container style={{ maxWidth: '1800px' }} className="custom-container">
         <div style={backgroundBanner} className='banner-content'>
-          <p style={{ color: 'black', position: 'absolute', bottom: '60%', right: '10%', fontFamily:'Arsenal SC', fontSize:'40px'}}>
-            "ENGAGEMENT RINGS"
+          <p style={{ color: 'black', position: 'absolute', bottom: '50%', right: '70%', fontFamily:'Playwrite IN' }}>
+            crafting happiness
           </p>
         </div>
         <div style={{ backgroundColor: 'white' }} className='explore-diamond-banner'>
-          <div style={{ backgroundColor: '#fafafa' }}>
-            <h3>Explore Engagement Rings</h3>
-            <p style={{ display: 'flex', justifyContent: 'center', fontFamily: 'initial', fontSize: '110%' }}>
-              From completed designs to custom engagement rings,
-              we have the perfect ring to help you pop the question.
-              Explore some of our most popular styles below.
-            </p>
-
-            <div className='scroll-bar'>
-              <Carousel
-                responsive={responsive}
-                customLeftArrow={<CustomLeftArrow />}
-                customRightArrow={<CustomRightArrow />}
-                itemClass="carousel-item-padding-40-px"
-              >
-                {ringType.map(ring => (
-                  <div key={ring.productId} className='ER-items'>
-                    <img src={ring.image1} alt={ring.productName} />
-                    <p>{ring.productName}</p>
-                  </div>
-                ))}
-              </Carousel>
-            </div>
-          </div>
-          <CustomToolbar />
           <div style={{ padding: '40px' }} className='product-card'>
             <ProductCard products={ringType} />
           </div>
@@ -111,9 +83,8 @@ const EngagementRingsContent = () => {
         </div>
         <hr style={{ width: '100%' }}></hr>
       </Container>
-      <Footer />
     </div>
   );
 }
 
-export default EngagementRingsContent;
+export default WeddingRingsContent;

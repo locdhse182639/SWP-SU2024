@@ -42,6 +42,7 @@ import WarrantyManage from '../components/dashboard/dashboardContent/WarrantyMan
 // import RoundCutPage from '../components/diamondShape/page/roundPage'
 import PasswordReset from '../pages/resetPass/passwordResetPage'
 import NewPassword from '../pages/resetPass/enterPassPage'
+import WeddingRingsPage from '../pages/weddingRingsPage'
 
 
 export default function AppRoute() {
@@ -87,6 +88,7 @@ export default function AppRoute() {
       <Route path={routes.warrantyManage} element={<WarrantyManage/>} />
       <Route path={routes.resetPassword} element={<PasswordReset/>}/>
       <Route path={routes.newPassword} element={<NewPassword/>}/>
+      <Route path={routes.weddingRings} element={<WeddingRingsPage/>}/>
     </Routes>
   );
 }

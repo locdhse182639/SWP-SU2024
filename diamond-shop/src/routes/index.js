@@ -37,4 +37,5 @@ export const routes = {
     warrantyManage: '/warranty-manage',
     resetPassword: '/login/reset-password',
     newPassword: '/login/enter-new-password',
+    weddingRings: '/wedding-rings',
 }

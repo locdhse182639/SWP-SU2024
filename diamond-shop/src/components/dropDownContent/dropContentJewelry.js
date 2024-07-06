@@ -3,6 +3,8 @@ import React, { useState } from 'react';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import engageRing from '../../constant/engagement-rings.png'
 import '../../css/jewelryDropdown.css';
+import { Link } from 'react-router-dom';
+import { routes } from '../../routes';
 
 
 const DropContentJewelry = () => {
@@ -66,26 +68,14 @@ const DropContentJewelry = () => {
               <h4
                 style={{ fontSize: '25px', fontWeight: 'bold', paddingTop: '5px', marginTop: '0', paddingLeft: '0px', marginBottom: '0' }}
               >
-                Shape Of Diamonds</h4>
+                Type</h4>
             </a>
-            <a style={{ paddingTop: '5px', marginTop: '0', paddingLeft: '10px', marginBottom: '0', fontSize: '20px' }}>
-              Round
-            </a><br />
-            <a style={{ paddingTop: '5px', marginTop: '0', paddingLeft: '10px', marginBottom: '0', fontSize: '20px' }}>
-              Heart
-            </a><br />
-            <a style={{ paddingTop: '5px', marginTop: '0', paddingLeft: '10px', marginBottom: '0', fontSize: '20px' }}>
-              Pear
-            </a><br />
-            <a style={{ paddingTop: '5px', marginTop: '0', paddingLeft: '10px', marginBottom: '0', fontSize: '20px' }}>
-              Emerald
-            </a><br />
-            <a style={{ paddingTop: '5px', marginTop: '0', paddingLeft: '10px', marginBottom: '0', fontSize: '20px' }}>
-              Cushion
-            </a><br />
-            <a style={{ paddingTop: '5px', marginTop: '0', paddingLeft: '10px', marginBottom: '0', fontSize: '20px' }}>
-              Oval
-            </a>
+            <Link to={routes.engagementRings} style={{ paddingTop: '5px', marginTop: '0', paddingLeft: '10px', marginBottom: '0', fontSize: '20px' }}>
+              Engagement Rings
+            </Link><br />
+            <Link to={routes.weddingRings} style={{ paddingTop: '5px', marginTop: '0', paddingLeft: '10px', marginBottom: '0', fontSize: '20px' }}>
+              Wedding Rings
+            </Link><br />
           </div>
         </div>
         <div className='third-row'>
