@@ -206,6 +206,7 @@ namespace BE_V2.Controllers
                 if (ringMold != null)
                 {
                     moldPrice = ringMold.BasePrice;
+                    Console.WriteLine($"Ring Mold Price: {moldPrice}");
                 }
             }
             else if (product.ProductType == 3 && product.NecklaceMoldId != null)
@@ -214,6 +215,7 @@ namespace BE_V2.Controllers
                 if (necklaceMold != null)
                 {
                     moldPrice = necklaceMold.BasePrice;
+                    Console.WriteLine($"Necklace Mold Price: {moldPrice}");
                 }
             }
 
@@ -227,19 +229,25 @@ namespace BE_V2.Controllers
                     if (mainDiamondPriceEntry != null)
                     {
                         mainDiamondPrice = mainDiamondPriceEntry.Price;
+                        Console.WriteLine($"Main Diamond Base Price: {mainDiamondPrice}");
+
                         switch (mainDiamond.Origin)
                         {
                             case "South Africa":
                                 mainDiamondPrice *= 1.1m; // Apply 10% increase for South Africa
+                                Console.WriteLine("Main Diamond Origin: South Africa, Adjusted Price: " + mainDiamondPrice);
                                 break;
                             case "Russia":
                                 mainDiamondPrice *= 1.2m; // Apply 20% increase for Russia
+                                Console.WriteLine("Main Diamond Origin: Russia, Adjusted Price: " + mainDiamondPrice);
                                 break;
                             case "Canada":
                                 mainDiamondPrice *= 1.15m; // Apply 15% increase for Canada
+                                Console.WriteLine("Main Diamond Origin: Canada, Adjusted Price: " + mainDiamondPrice);
                                 break;
                             case "Botswana":
                                 mainDiamondPrice *= 1.25m; // Apply 25% increase for Botswana
+                                Console.WriteLine("Main Diamond Origin: Botswana, Adjusted Price: " + mainDiamondPrice);
                                 break;
                             default:
                                 break;
@@ -258,19 +266,25 @@ namespace BE_V2.Controllers
                     if (secondaryDiamondPriceEntry != null)
                     {
                         secondaryDiamondPrice = secondaryDiamondPriceEntry.Price;
+                        Console.WriteLine($"Secondary Diamond Base Price: {secondaryDiamondPrice}");
+
                         switch (secondaryDiamond.Origin)
                         {
                             case "South Africa":
                                 secondaryDiamondPrice *= 1.1m; // Apply 10% increase for South Africa
+                                Console.WriteLine("Secondary Diamond Origin: South Africa, Adjusted Price: " + secondaryDiamondPrice);
                                 break;
                             case "Russia":
                                 secondaryDiamondPrice *= 1.2m; // Apply 20% increase for Russia
+                                Console.WriteLine("Secondary Diamond Origin: Russia, Adjusted Price: " + secondaryDiamondPrice);
                                 break;
                             case "Canada":
                                 secondaryDiamondPrice *= 1.15m; // Apply 15% increase for Canada
+                                Console.WriteLine("Secondary Diamond Origin: Canada, Adjusted Price: " + secondaryDiamondPrice);
                                 break;
                             case "Botswana":
                                 secondaryDiamondPrice *= 1.25m; // Apply 25% increase for Botswana
+                                Console.WriteLine("Secondary Diamond Origin: Botswana, Adjusted Price: " + secondaryDiamondPrice);
                                 break;
                             default:
                                 break;
@@ -279,11 +293,19 @@ namespace BE_V2.Controllers
                 }
             }
 
+            Console.WriteLine($"Total Secondary Diamond Price: {secondaryDiamondPrice * (product.SecondaryDiamondCount ?? 0)}");
+
             // Calculate the final price
             decimal exchangeRateMultiplier = (product.ExchangeRate ?? 0) / 100 + 1;
             decimal finalPrice = (moldPrice + mainDiamondPrice + (secondaryDiamondPrice * (product.SecondaryDiamondCount ?? 0)) + (product.ProcessingPrice ?? 0)) * exchangeRateMultiplier;
 
+            Console.WriteLine($"Subtotal before exchange rate: {moldPrice + mainDiamondPrice + (secondaryDiamondPrice * (product.SecondaryDiamondCount ?? 0)) + (product.ProcessingPrice ?? 0)}");
+            Console.WriteLine($"Exchange Rate Multiplier: {exchangeRateMultiplier}");
+            Console.WriteLine($"Final Price before rounding: {finalPrice}");
+
             finalPrice = Math.Floor(finalPrice / 100000) * 100000;
+            Console.WriteLine($"Final Price after rounding: {finalPrice}");
+
             return finalPrice;
         }
 
@@ -291,93 +313,221 @@ namespace BE_V2.Controllers
         [HttpPost("CreateOrGetProductWithSize")]
         public async Task<ActionResult<Product>> CreateOrGetProductWithSize([FromBody] CreateOrGetProductWithSizeRequest request)
         {
-            // Fetch the existing product
-            var existingProduct = await _context.Products
-                .Include(p => p.MainDiamond)
-                .Include(p => p.SecondaryDiamond)
-                .Include(p => p.ProductTypeNavigation)
-                .Include(p => p.RingMold)
-                .Include(p => p.NecklaceMold)
-                .FirstOrDefaultAsync(p => p.ProductId == request.ProductId);
-
-            if (existingProduct == null)
+            try
             {
-                return NotFound();
+                Console.WriteLine($"Received request for ProductId: {request.ProductId}, Size: {request.Size}");
+
+                // Fetch the existing product
+                var existingProduct = await _context.Products
+                    .Include(p => p.MainDiamond)
+                    .Include(p => p.SecondaryDiamond)
+                    .Include(p => p.ProductTypeNavigation)
+                    .Include(p => p.RingMold)
+                    .Include(p => p.NecklaceMold)
+                    .FirstOrDefaultAsync(p => p.ProductId == request.ProductId);
+
+                if (existingProduct == null)
+                {
+                    Console.WriteLine("Product not found");
+                    return NotFound();
+                }
+
+                if (existingProduct.ProductType == 1) // Diamond
+                {
+                    Console.WriteLine($"Returning existing diamond product with ID: {existingProduct.ProductId}");
+                    return Ok(existingProduct);
+                }
+
+                // Convert size to decimal for price table lookup
+                if (!decimal.TryParse(request.Size, out decimal sizeDecimal))
+                {
+                    Console.WriteLine("Invalid size format");
+                    return BadRequest("Invalid size format.");
+                }
+
+                if (existingProduct.ProductType == 2) // Ring
+                {
+                    // Fetch the ring price based on the selected size
+                    var ringPriceTable = await _context.RingPriceTable
+                        .FirstOrDefaultAsync(rpt => rpt.Material == existingProduct.RingMold.Material &&
+                                                    rpt.Size == sizeDecimal &&
+                                                    rpt.CaratWeight == existingProduct.RingMold.CaratWeight);
+
+                    if (ringPriceTable == null)
+                    {
+                        Console.WriteLine("Ring price for the selected size not found");
+                        return NotFound("Ring price for the selected size not found.");
+                    }
+
+                    // Check if a ring mold with the requested size already exists
+                    var existingRingMold = await _context.RingMold
+                        .FirstOrDefaultAsync(rm => rm.Material == existingProduct.RingMold.Material &&
+                                                    rm.CaratWeight == existingProduct.RingMold.CaratWeight &&
+                                                    rm.Gender == existingProduct.RingMold.Gender &&
+                                                    rm.RingType == existingProduct.RingMold.RingType &&
+                                                    rm.Size == request.Size);
+
+                    if (existingRingMold != null)
+                    {
+                        // Check if a product with the existing ring mold exists
+                        var productWithExistingSize = await _context.Products
+                            .FirstOrDefaultAsync(p => p.RingMoldId == existingRingMold.RingMoldId && p.ProductType == 2);
+
+                        if (productWithExistingSize != null)
+                        {
+                            Console.WriteLine($"Returning existing ring product with ID: {productWithExistingSize.ProductId}");
+                            return Ok(productWithExistingSize);
+                        }
+                        else
+                        {
+                            Console.WriteLine("Ring mold exists but no product for it yet");
+                        }
+                    }
+
+                    // Create a new ring mold with the requested size if it doesn't exist
+                    if (existingRingMold == null)
+                    {
+                        var newRingMold = new RingMold
+                        {
+                            Material = existingProduct.RingMold.Material,
+                            CaratWeight = existingProduct.RingMold.CaratWeight,
+                            Gender = existingProduct.RingMold.Gender,
+                            RingType = existingProduct.RingMold.RingType,
+                            BasePrice = ringPriceTable.BasePrice, // Use the dynamically fetched price
+                            Size = request.Size
+                        };
+
+                        _context.RingMold.Add(newRingMold);
+                        await _context.SaveChangesAsync();
+
+                        existingRingMold = newRingMold;
+                        Console.WriteLine($"New Ring Mold created with ID: {newRingMold.RingMoldId}");
+                    }
+
+                    // Create a new product with the existing or new ring mold
+                    var newProduct = new Product
+                    {
+                        ProductName = existingProduct.ProductName,
+                        ProductType = existingProduct.ProductType,
+                        Material = existingProduct.Material,
+                        Size = request.Size,
+                        Description = existingProduct.Description,
+                        Price = CalculateNewPrice(existingProduct, existingRingMold.BasePrice),
+                        ProcessingPrice = existingProduct.ProcessingPrice,
+                        ExchangeRate = existingProduct.ExchangeRate,
+                        Quantity = 1,
+                        MainDiamondId = existingProduct.MainDiamondId,
+                        Image1 = existingProduct.Image1,
+                        Image2 = existingProduct.Image2,
+                        Image3 = existingProduct.Image3,
+                        SecondaryDiamondId = existingProduct.SecondaryDiamondId,
+                        RingMoldId = existingRingMold.RingMoldId,
+                        NecklaceMoldId = null,
+                        SecondaryDiamondCount = existingProduct.SecondaryDiamondCount,
+                    };
+
+                    _context.Products.Add(newProduct);
+                    await _context.SaveChangesAsync();
+
+                    Console.WriteLine($"New Ring Product created with ID: {newProduct.ProductId}");
+
+                    return CreatedAtAction("GetProduct", new { id = newProduct.ProductId }, newProduct);
+                }
+                else if (existingProduct.ProductType == 3) // Necklace
+                {
+                    // Fetch the necklace price based on the selected size
+                    var necklacePriceTable = await _context.NecklacePriceTable
+                        .FirstOrDefaultAsync(npt => npt.Material == existingProduct.NecklaceMold.Material &&
+                                                    npt.Length == sizeDecimal &&
+                                                    npt.CaratWeight == existingProduct.NecklaceMold.CaratWeight);
+
+                    if (necklacePriceTable == null)
+                    {
+                        Console.WriteLine("Necklace price for the selected length not found");
+                        return NotFound("Necklace price for the selected length not found.");
+                    }
+
+                    // Check if a necklace mold with the requested size already exists
+                    var existingNecklaceMold = await _context.NecklaceMold
+                        .FirstOrDefaultAsync(nm => nm.Material == existingProduct.NecklaceMold.Material &&
+                                                   nm.CaratWeight == existingProduct.NecklaceMold.CaratWeight &&
+                                                   nm.Size == request.Size);
+
+                    if (existingNecklaceMold != null)
+                    {
+                        // Check if a product with the existing necklace mold exists
+                        var productWithExistingSize = await _context.Products
+                            .FirstOrDefaultAsync(p => p.NecklaceMoldId == existingNecklaceMold.NecklaceMoldId && p.ProductType == 3);
+
+                        if (productWithExistingSize != null)
+                        {
+                            Console.WriteLine($"Returning existing necklace product with ID: {productWithExistingSize.ProductId}");
+                            return Ok(productWithExistingSize);
+                        }
+                        else
+                        {
+                            Console.WriteLine("Necklace mold exists but no product for it yet");
+                        }
+                    }
+
+                    // Create a new necklace mold with the requested size if it doesn't exist
+                    if (existingNecklaceMold == null)
+                    {
+                        var newNecklaceMold = new NecklaceMold
+                        {
+                            Material = existingProduct.NecklaceMold.Material,
+                            CaratWeight = existingProduct.NecklaceMold.CaratWeight,
+                            BasePrice = necklacePriceTable.BasePrice, // Use the dynamically fetched price
+                            Size = request.Size
+                        };
+
+                        _context.NecklaceMold.Add(newNecklaceMold);
+                        await _context.SaveChangesAsync();
+
+                        existingNecklaceMold = newNecklaceMold;
+                        Console.WriteLine($"New Necklace Mold created with ID: {newNecklaceMold.NecklaceMoldId}");
+                    }
+
+                    // Create a new product with the existing or new necklace mold
+                    var newProduct = new Product
+                    {
+                        ProductName = existingProduct.ProductName,
+                        ProductType = existingProduct.ProductType,
+                        Material = existingProduct.Material,
+                        Size = request.Size,
+                        Description = existingProduct.Description,
+                        Price = CalculateNewPrice(existingProduct, existingNecklaceMold.BasePrice),
+                        ProcessingPrice = existingProduct.ProcessingPrice,
+                        ExchangeRate = existingProduct.ExchangeRate,
+                        Quantity = 1,
+                        MainDiamondId = existingProduct.MainDiamondId,
+                        Image1 = existingProduct.Image1,
+                        Image2 = existingProduct.Image2,
+                        Image3 = existingProduct.Image3,
+                        SecondaryDiamondId = existingProduct.SecondaryDiamondId,
+                        RingMoldId = null,
+                        NecklaceMoldId = existingNecklaceMold.NecklaceMoldId,
+                        SecondaryDiamondCount = existingProduct.SecondaryDiamondCount,
+                    };
+
+                    _context.Products.Add(newProduct);
+                    await _context.SaveChangesAsync();
+
+                    Console.WriteLine($"New Necklace Product created with ID: {newProduct.ProductId}");
+
+                    return CreatedAtAction("GetProduct", new { id = newProduct.ProductId }, newProduct);
+                }
+
+                return BadRequest("Invalid product type.");
             }
-
-            // Convert size to decimal for price table lookup
-            if (!decimal.TryParse(request.Size, out decimal sizeDecimal))
+            catch (Exception ex)
             {
-                return BadRequest("Invalid size format.");
+                Console.WriteLine($"Error: {ex.Message}");
+                return StatusCode(500, "Internal server error");
             }
-
-            // Fetch the ring price based on the selected size
-            var ringPriceTable = await _context.RingPriceTable
-                .FirstOrDefaultAsync(rpt => rpt.Material == existingProduct.RingMold.Material &&
-                                            rpt.Size == sizeDecimal &&
-                                            rpt.CaratWeight == existingProduct.RingMold.CaratWeight);
-
-            if (ringPriceTable == null)
-            {
-                return NotFound("Ring price for the selected size not found.");
-            }
-
-            // Check if a ring mold with the requested size already exists
-            var existingRingMold = await _context.RingMold
-                .FirstOrDefaultAsync(rm => rm.Material == existingProduct.RingMold.Material &&
-                                            rm.CaratWeight == existingProduct.RingMold.CaratWeight &&
-                                            rm.Gender == existingProduct.RingMold.Gender &&
-                                            rm.RingType == existingProduct.RingMold.RingType &&
-                                            rm.Size == request.Size);
-
-            if (existingRingMold != null)
-            {
-                // Return existing product with the requested ring mold size
-                var productWithExistingSize = await _context.Products
-                    .FirstOrDefaultAsync(p => p.RingMoldId == existingRingMold.RingMoldId && p.ProductType == 2);
-
-                return Ok(productWithExistingSize);
-            }
-
-            // Create a new ring mold with the requested size
-            var newRingMold = new RingMold
-            {
-                Material = existingProduct.RingMold.Material,
-                CaratWeight = existingProduct.RingMold.CaratWeight,
-                Gender = existingProduct.RingMold.Gender,
-                RingType = existingProduct.RingMold.RingType,
-                BasePrice = ringPriceTable.BasePrice, // Use the dynamically fetched price
-                Size = request.Size
-            };
-
-            _context.RingMold.Add(newRingMold);
-            await _context.SaveChangesAsync();
-
-            // Create a new product with the new ring mold
-            var newProduct = new Product
-            {
-                ProductName = existingProduct.ProductName,
-                ProductType = existingProduct.ProductType,
-                Material = existingProduct.Material,
-                Size = request.Size,
-                Description = existingProduct.Description,
-                Price = CalculateNewPrice(existingProduct, newRingMold.BasePrice),
-                ProcessingPrice = existingProduct.ProcessingPrice,
-                ExchangeRate = existingProduct.ExchangeRate,
-                Quantity = existingProduct.Quantity,
-                MainDiamondId = existingProduct.MainDiamondId,
-                Image1 = existingProduct.Image1,
-                Image2 = existingProduct.Image2,
-                Image3 = existingProduct.Image3,
-                SecondaryDiamondId = existingProduct.SecondaryDiamondId,
-                RingMoldId = newRingMold.RingMoldId
-            };
-
-            _context.Products.Add(newProduct);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetProduct", new { id = newProduct.ProductId }, newProduct);
         }
+
+
 
         public class CreateOrGetProductWithSizeRequest
         {

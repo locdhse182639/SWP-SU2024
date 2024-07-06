@@ -81,7 +81,7 @@ const DiamondDetailPage = () => {
       try {
         const userId = parseInt(jwtDecode(user.token).unique_name);
         const sizeString = selectedSize.toString();
-  
+
         const productResponse = await fetch('https://localhost:7251/api/Products/CreateOrGetProductWithSize', {
           method: 'POST',
           headers: {
@@ -89,13 +89,20 @@ const DiamondDetailPage = () => {
           },
           body: JSON.stringify({ productId: product.productId, size: sizeString }),
         });
-  
+
         if (!productResponse.ok) {
           throw new Error('Failed to create or get product with size');
         }
-  
-        const productWithSize = await productResponse.json();
-  
+
+        const rawProductResponse = await productResponse.text();
+        console.log(`Raw Product Response: ${rawProductResponse}`);
+
+        if (!rawProductResponse) {
+          throw new Error('Empty response received from server');
+        }
+
+        const productWithSize = JSON.parse(rawProductResponse);
+
         let cartResponse = await fetch(`https://localhost:7251/api/Cart/User/${userId}`);
         let cart;
         if (cartResponse.ok) {
@@ -106,18 +113,20 @@ const DiamondDetailPage = () => {
             headers: {
               'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ userId: userId }), // Wrap the userId in an object
+            body: JSON.stringify({ userId: userId }),
           });
-  
+
           if (!cartResponse.ok) {
             throw new Error('Failed to create a cart');
           }
-  
+
           cart = await cartResponse.json();
         } else {
           throw new Error('Failed to fetch or create a cart');
         }
-  
+
+        console.log(`Product Price: ${productWithSize.price}`); // Debug log
+
         const response = await fetch('https://localhost:7251/api/CartItem', {
           method: 'POST',
           headers: {
@@ -131,11 +140,11 @@ const DiamondDetailPage = () => {
             size: sizeString,
           }),
         });
-  
+
         if (!response.ok) {
           throw new Error('Failed to add item to cart');
         }
-  
+
         alert('Product added to cart');
       } catch (error) {
         console.error('Error selecting product:', error);
@@ -143,12 +152,15 @@ const DiamondDetailPage = () => {
     }
   };
 
+
+
   if (loading) return <div>Loading...</div>;
   if (error) return <div>Error: {error}</div>;
   if (!product) return <div>No product found</div>;
 
   const isDiamond = product.productType === 1;
   const isRing = product.productType === 2;
+  const isNecklace = product.productType === 3;
   const depositPercentage = 20;
   const depositAmount = (finalPrice * depositPercentage) / 100;
 
@@ -193,13 +205,37 @@ const DiamondDetailPage = () => {
                 <Link href="#" style={{ marginLeft: '16px', textDecoration: 'underline' }}>Ring Size Help</Link>
               </Box>
             )}
+            {isNecklace && (
+              <Box display="flex" alignItems="center" mt={2}>
+                <Typography variant="body2" style={{ marginRight: '8px' }}>Current Necklace Length:</Typography>
+                <SizeSelection
+                  productId={id}
+                  onSizeSelected={handleSizeSelected}
+                  productType={product.productType}
+                  material={product.material}
+                  caratWeight={product.necklaceMold.caratWeight}
+                  mainDiamondId={product.mainDiamondId}
+                  secondaryDiamondId={product.secondaryDiamondId}
+                  secondaryDiamondCount={product.secondaryDiamondCount}
+                  processingPrice={product.processingPrice}
+                  exchangeRate={product.exchangeRate}
+                />
+                <Link href="#" style={{ marginLeft: '16px', textDecoration: 'underline' }}>Necklace Length Help</Link>
+              </Box>
+            )}
 
             <Typography variant="h6" className="deposit" mt={2}>
               Deposit: {depositAmount.toFixed(2)} (20%)
             </Typography>
             <div className="button-group">
-              <Button variant="contained"  className="select-button" onClick={handleSelectProduct} style={{ backgroundColor: 'black', color: 'white' }}>
-                SELECT THIS {isDiamond ? 'DIAMOND' : 'PRODUCT'}
+              <Button
+                variant="contained"
+                className="select-button"
+                onClick={handleSelectProduct}
+                style={{ backgroundColor: 'black', color: 'white' }}
+                disabled={product.quantity === 0}
+              >
+                {product.quantity === 0 ? 'PRODUCT UNAVAILABLE' : `SELECT THIS ${isDiamond ? 'DIAMOND' : 'PRODUCT'}`}
               </Button>
             </div>
           </Grid>
@@ -355,7 +391,7 @@ const DiamondDetailPage = () => {
                               <TableCell>Measurements</TableCell>
                               <TableCell className="spec-value">{mainDiamond.measurements}</TableCell>
                             </TableRow>
-                            
+
                           </TableBody>
                         </Table>
                       </>
@@ -409,7 +445,7 @@ const DiamondDetailPage = () => {
                               <TableCell>Measurements</TableCell>
                               <TableCell className="spec-value">{secondaryDiamond.measurements}</TableCell>
                             </TableRow>
-                            
+
                           </TableBody>
                         </Table>
                       </>
@@ -430,3 +466,5 @@ const DiamondDetailPage = () => {
 };
 
 export default DiamondDetailPage;
+
+

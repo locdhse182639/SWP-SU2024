@@ -9,7 +9,7 @@ using FluentValidation;
 using FluentValidation.AspNetCore;
 using Hangfire;
 using Hangfire.SqlServer;
-using BE_V2.Services;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -87,7 +87,6 @@ builder.Services.AddHangfire(configuration =>
 builder.Services.AddHangfireServer();
 
 // Thêm các dịch vụ tùy chỉnh
-builder.Services.AddScoped<ICustomerService, CustomerService>();
 builder.Services.AddScoped<OrderService>();
 var app = builder.Build();
 

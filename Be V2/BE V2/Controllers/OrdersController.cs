@@ -18,25 +18,45 @@ namespace BE_V2.Controllers
             _context = context;
         }
 
-        // POST: api/Orders
         [HttpPost]
         public async Task<ActionResult<Order>> PostOrder(OrderDTO orderDTO)
         {
+            Console.WriteLine($"Received order request for UserID: {orderDTO.UserID} with TotalPrice: {orderDTO.TotalPrice}");
+
             var customer = await _context.Customers.FirstOrDefaultAsync(c => c.UserId == orderDTO.UserID);
             if (customer == null)
             {
+                Console.WriteLine("Customer not found.");
                 return NotFound("Customer not found.");
             }
+
+            var customerPoints = await _context.CustomerPoints.FirstOrDefaultAsync(cp => cp.CustomerID == customer.CustomerId);
+            decimal discount = 0;
+            bool pointsUsed = false;
+
+            // Check if points are being used and if the customer has enough points
+            if (orderDTO.UsePoints && customerPoints != null && customerPoints.Points >= orderDTO.PointsToUse)
+            {
+                discount = orderDTO.PointsToUse * 0.0005m; // 0.05% per point
+                customerPoints.Points -= orderDTO.PointsToUse; // Deduct points
+                _context.CustomerPoints.Update(customerPoints);
+                pointsUsed = true;
+                Console.WriteLine($"Points used: {orderDTO.PointsToUse}, Discount applied: {discount}");
+            }
+
+            var discountedTotalPrice = orderDTO.TotalPrice * (1 - discount);
 
             var order = new Order
             {
                 CustomerId = customer.CustomerId,
-                TotalPrice = orderDTO.TotalPrice,
+                TotalPrice = discountedTotalPrice,
                 OrderDate = DateOnly.FromDateTime(orderDTO.OrderDate)
             };
 
             _context.Orders.Add(order);
             await _context.SaveChangesAsync();
+
+            Console.WriteLine($"Order created with ID: {order.OrderId}, TotalPrice after discount: {order.TotalPrice}");
 
             var orderDetails = orderDTO.OrderDetails.Select(detail => new OrderDetail
             {
@@ -50,6 +70,8 @@ namespace BE_V2.Controllers
             _context.OrderDetails.AddRange(orderDetails);
             await _context.SaveChangesAsync();
 
+            Console.WriteLine("Order details saved.");
+
             // Create an OrderLog entry
             var orderLog = new OrderLog
             {
@@ -58,6 +80,33 @@ namespace BE_V2.Controllers
                 TimePhase1 = DateTime.UtcNow
             };
             _context.OrderLogs.Add(orderLog);
+            await _context.SaveChangesAsync();
+
+            Console.WriteLine("Order log created.");
+
+            // Allocate points based on the purchase amount, only if points were not used for discount
+            if (!pointsUsed)
+            {
+                var pointsEarned = (int)(orderDTO.TotalPrice / 10_000_000); // 1 point per 10 million VND
+                if (customerPoints == null)
+                {
+                    customerPoints = new CustomerPoints
+                    {
+                        CustomerID = customer.CustomerId,
+                        Points = pointsEarned,
+                        LastUpdated = DateTime.Now
+                    };
+                    _context.CustomerPoints.Add(customerPoints);
+                }
+                else
+                {
+                    customerPoints.Points += pointsEarned;
+                    customerPoints.LastUpdated = DateTime.Now;
+                    _context.CustomerPoints.Update(customerPoints);
+                }
+                Console.WriteLine($"Points earned: {pointsEarned}, Total points: {customerPoints.Points}");
+            }
+
             await _context.SaveChangesAsync();
 
             // Clear the cart after successful order creation
@@ -69,6 +118,8 @@ namespace BE_V2.Controllers
                 await _context.SaveChangesAsync();
             }
 
+            Console.WriteLine("Cart cleared after order creation.");
+
             return CreatedAtAction(nameof(GetOrder), new { id = order.OrderId }, new
             {
                 order.OrderId,
@@ -78,6 +129,10 @@ namespace BE_V2.Controllers
                 OrderDetails = orderDetails
             });
         }
+
+
+
+
 
         // GET: api/Orders/5
         [HttpGet("{id}")]
@@ -92,12 +147,20 @@ namespace BE_V2.Controllers
                 return NotFound();
             }
 
+            var totalOrderDetailPrice = order.OrderDetails.Sum(od => od.ProductPrice * od.Quantity);
+            var discountPercentage = 0m;
+            if (totalOrderDetailPrice > order.TotalPrice)
+            {
+                discountPercentage = (1m - (decimal)(order.TotalPrice / totalOrderDetailPrice)) * 100m;
+            }
+
             var result = new
             {
                 order.OrderId,
                 order.CustomerId,
                 order.TotalPrice,
                 order.OrderDate,
+                DiscountPercentage = discountPercentage,
                 OrderDetails = order.OrderDetails.Select(od => new
                 {
                     od.OrderDetailId,
@@ -115,7 +178,53 @@ namespace BE_V2.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Order>>> GetOrders()
         {
-            return await _context.Orders.Include(o => o.OrderDetails).ToListAsync();
+            var orders = await _context.Orders.Include(o => o.OrderDetails).ToListAsync();
+            var orderResults = orders.Select(order =>
+            {
+                var totalOrderDetailPrice = order.OrderDetails.Sum(od => od.ProductPrice * od.Quantity);
+                var discountPercentage = 0m;
+                if (totalOrderDetailPrice > order.TotalPrice)
+                {
+                    discountPercentage = (1m - (decimal)(order.TotalPrice / totalOrderDetailPrice)) * 100m;
+                }
+
+                return new
+                {
+                    order.OrderId,
+                    order.CustomerId,
+                    order.TotalPrice,
+                    order.OrderDate,
+                    DiscountPercentage = discountPercentage,
+                    OrderDetails = order.OrderDetails.Select(od => new
+                    {
+                        od.OrderDetailId,
+                        od.ProductId,
+                        od.ProductName,
+                        od.ProductPrice,
+                        od.Quantity
+                    })
+                };
+            });
+
+            return Ok(orderResults);
         }
+    }
+
+    public class OrderDTO
+    {
+        public int UserID { get; set; }
+        public decimal TotalPrice { get; set; }
+        public DateTime OrderDate { get; set; }
+        public bool UsePoints { get; set; }
+        public int PointsToUse { get; set; }
+        public List<OrderDetailDTO> OrderDetails { get; set; }
+    }
+
+    public class OrderDetailDTO
+    {
+        public int ProductId { get; set; }
+        public string ProductName { get; set; }
+        public decimal ProductPrice { get; set; }
+        public int Quantity { get; set; }
     }
 }
