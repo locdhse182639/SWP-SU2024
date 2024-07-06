@@ -150,6 +150,28 @@ const Navbar = () => {
           </div>
           <div
             className="navbar-item"
+            onMouseEnter={() => handleMouseEnter('necklaces')}
+            onMouseLeave={handleMouseLeave}
+          >
+            <Box key='Necklaces' display="flex" alignItems="center" mx={2}>
+              <button className="navbarDropdown-toggle">
+                <Link to={routes.necklace}>
+                  <Typography variant="body1">Necklaces</Typography>
+                </Link>
+                {/* <IconButton color="inherit" size="small">
+                  <ExpandMoreIcon />
+                </IconButton> */}
+              </button>
+              {/* <div
+                className="navbarDropdownWrapper"
+                style={{ display: activeDropdown === 'necklaces' ? 'block' : 'none' }}
+              >
+                <DropContentDiamond />
+              </div> */}
+            </Box>
+          </div>
+          <div
+            className="navbar-item"
             onMouseEnter={() => handleMouseEnter('education')}
             onMouseLeave={handleMouseLeave}
           >

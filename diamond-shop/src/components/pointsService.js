@@ -23,7 +23,6 @@ export const fetchPoints = async (customerId) => {
     }
 };
 
-// Apply points to an order
 export const applyPoints = async (customerId, points) => {
     try {
         const response = await fetch(`${API_URL}/purchase`, {

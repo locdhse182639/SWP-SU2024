@@ -4,13 +4,14 @@ import { routes } from '../../routes';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../authcontext';
-import { jwtDecode } from 'jwt-decode';
+import {jwtDecode} from 'jwt-decode';
 import ProductQuantity from '../productQuantity';
 import PointsDisplay from '../PointDisplay';
 
 const ShoppingCartContent = () => {
   const [cartItems, setCartItems] = useState([]);
   const [pointsApplied, setPointsApplied] = useState(0);
+  const [customerId, setCustomerId] = useState(null);
   const depositPercentage = 20; // 20% deposit
   const { user } = useAuth();
   const navigate = useNavigate();
@@ -27,6 +28,23 @@ const ShoppingCartContent = () => {
   };
 
   useEffect(() => {
+    const fetchCustomerId = async () => {
+      if (user && user.token) {
+        try {
+          const userId = decodedToken(user.token);
+          const customerResponse = await fetch(`https://localhost:7251/api/Customers/User/${userId}`);
+          if (!customerResponse.ok) {
+            throw new Error('Failed to fetch customer data');
+          }
+          const customerData = await customerResponse.json();
+          console.log(customerData);
+          setCustomerId(customerData.customerId);
+        } catch (error) {
+          console.error('Error fetching customer ID:', error);
+        }
+      }
+    };
+
     const fetchCartItems = async () => {
       if (user && user.token) {
         try {
@@ -47,6 +65,7 @@ const ShoppingCartContent = () => {
       }
     };
 
+    fetchCustomerId();
     fetchCartItems();
   }, [user]);
 
@@ -110,16 +129,9 @@ const ShoppingCartContent = () => {
       navigate(routes.login);
       return;
     }
-  
+
     try {
-      // Fetch customer ID based on the user ID
       const userId = decodedToken(user.token);
-      const customerResponse = await fetch(`https://localhost:7251/api/Customers/User/${userId}`);
-      if (!customerResponse.ok) {
-        throw new Error('Failed to fetch customer data');
-      }
-      const customerData = await customerResponse.json();
-  
       const order = {
         userId: userId,
         totalPrice: parseFloat(calculateTotal()),
@@ -131,7 +143,7 @@ const ShoppingCartContent = () => {
           quantity: item.quantity
         }))
       };
-  
+
       const response = await fetch('https://localhost:7251/api/Orders', {
         method: 'POST',
         headers: {
@@ -139,13 +151,13 @@ const ShoppingCartContent = () => {
         },
         body: JSON.stringify(order),
       });
-  
+
       if (!response.ok) {
         throw new Error('Failed to create order');
       }
-  
+
       const createdOrder = await response.json(); // Assuming the response contains the created order with orderId
-  
+
       // Create an OrderLog entry with Phase1 set to false
       const orderLog = {
         orderID: createdOrder.orderId,
@@ -158,7 +170,7 @@ const ShoppingCartContent = () => {
         timePhase3: new Date().toISOString(),
         timePhase4: new Date().toISOString()
       };
-  
+
       const logResponse = await fetch('https://localhost:7251/api/OrderLogs', {
         method: 'POST',
         headers: {
@@ -166,11 +178,11 @@ const ShoppingCartContent = () => {
         },
         body: JSON.stringify(orderLog),
       });
-  
+
       if (!logResponse.ok) {
         throw new Error('Failed to create order log');
       }
-  
+
       // Clear the cart after successful order creation
       setCartItems([]);
       alert('Order created successfully!');
@@ -180,7 +192,6 @@ const ShoppingCartContent = () => {
       alert('Failed to create order');
     }
   };
-
 
   return (
     <Box sx={{ padding: 4, maxWidth: '1200px', margin: 'auto' }}>
@@ -227,7 +238,7 @@ const ShoppingCartContent = () => {
             </Paper>
           ))}
 
-          
+
         </Box>
         <Box>
           <Paper sx={{ padding: 2, maxWidth: 400, marginLeft: 'auto' }}>
@@ -253,7 +264,9 @@ const ShoppingCartContent = () => {
               <Typography variant="h6">Total After Points</Typography>
               <Typography variant="h6">${calculateTotalAfterPoints()}</Typography>
             </Box>
-            <PointsDisplay customerId={decodedToken(user.token)} onPointsApplied={handlePointsApplied} />
+            {customerId && (
+              <PointsDisplay customerId={customerId} onPointsApplied={handlePointsApplied} />
+            )}
             <Button
               variant="contained"
               fullWidth

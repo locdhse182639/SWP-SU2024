@@ -22,11 +22,11 @@ const PointsDisplay = ({ customerId, onPointsApplied }) => {
 
     const handleApplyPoints = async () => {
         try {
-            const pointsToApply = points; // Sử dụng toàn bộ điểm hiện có
+            const pointsToApply = points; 
             const data = await applyPoints(customerId, pointsToApply);
             setPoints(data.remainingPoints);
             onPointsApplied(pointsToApply);
-            setApplied(true); // Ẩn cả nút Apply và dòng chữ "Your Points" sau khi nhấn
+            setApplied(true); 
             alert(`Applied ${pointsToApply} points. Remaining points: ${data.remainingPoints}`);
         } catch (error) {
             console.error('Error applying points:', error);

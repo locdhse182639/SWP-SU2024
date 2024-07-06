@@ -8,6 +8,7 @@ import 'react-multi-carousel/lib/styles.css';
 import { CustomLeftArrow, CustomRightArrow } from '../customeArrow';
 import CustomToolbar from '../customToolBar';
 import CarouselComponent from '../carouselComponent ';
+import banner from '../../constant/necklaces-banner.png'
 
 const NecklacesContent = () => {
   const [productData, setProductData] = useState([]);
@@ -31,7 +32,7 @@ const NecklacesContent = () => {
   }, []);
 
   const backgroundBanner = {
-    backgroundImage: `url(../assets/images/necklace-banner.png)`, // Update the banner image for necklaces
+    backgroundImage: `url(${banner})`, 
     backgroundSize: 'cover',
     backgroundRepeat: 'no-repeat',
     backgroundPosition: 'center',
@@ -65,36 +66,11 @@ const NecklacesContent = () => {
     <div className='container'>
       <Container style={{ maxWidth: '1800px' }} className="custom-container">
         <div style={backgroundBanner} className='banner-content'>
-          <p style={{ color: 'black', position: 'absolute', bottom: '60%', right: '10%' }}>
+          <p style={{ color: 'white', position: 'absolute', bottom: '60%', right: '10%' }}>
             "NECKLACES"
           </p>
         </div>
         <div style={{ backgroundColor: 'white' }} className='explore-diamond-banner'>
-          <div style={{ backgroundColor: '#fafafa' }}>
-            <h3>Explore Necklaces</h3>
-            <p style={{ display: 'flex', justifyContent: 'center', fontFamily: 'initial', fontSize: '110%' }}>
-              From elegant pendants to luxurious chains,
-              we have the perfect necklace for any occasion.
-              Explore some of our most popular styles below.
-            </p>
-
-            <div className='scroll-bar'>
-              <Carousel
-                responsive={responsive}
-                customLeftArrow={<CustomLeftArrow />}
-                customRightArrow={<CustomRightArrow />}
-                itemClass="carousel-item-padding-40-px"
-              >
-                {necklaceType.map(necklace => (
-                  <div key={necklace.productId} className='necklace-items'>
-                    <img src={necklace.image1} alt={necklace.productName} />
-                    <p>{necklace.productName}</p>
-                  </div>
-                ))}
-              </Carousel>
-            </div>
-          </div>
-          <CustomToolbar />
           <div style={{ padding: '40px' }} className='product-card'>
             <ProductCard products={necklaceType} />
           </div>

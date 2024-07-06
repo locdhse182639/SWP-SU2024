@@ -409,6 +409,16 @@ namespace BE_V2.Controllers
                 _context.Customers.Add(customer);
                 await _context.SaveChangesAsync();
 
+                // Add to CustomerPoints table
+                var customerPoints = new CustomerPoints
+                {
+                    CustomerID = customer.CustomerId,
+                    Points = 0,
+                    LastUpdated = DateTime.Now
+                };
+                _context.CustomerPoints.Add(customerPoints);
+                await _context.SaveChangesAsync();
+
                 return CreatedAtAction("GetUser", new { id = user.UserId }, user);
             }
             catch (DbUpdateException)

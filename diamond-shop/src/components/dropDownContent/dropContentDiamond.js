@@ -77,14 +77,6 @@ const DropContentDiamond = () => {
             </div>
             <div className='navbarDropdown-second-row'>
               <div className='navbarDropdown-second-row-content'>
-                <div style={{marginBottom:'6%'}}>
-                <h4 style={{ fontSize: '150%', paddingTop: '5%', marginTop: '0', paddingLeft: '0px', marginBottom: '0' }}>
-                  Build Your Own Jewelry
-                </h4>
-                <Link to={routes.diamondList} style={{ paddingTop: '5px', marginTop: '0', paddingLeft: '0', marginBottom: '0', fontSize: '20px' }}>
-                  Rings
-                </Link>
-                </div>
                 <h4 style={{ fontSize: '25px', paddingTop: '5px', marginTop: '0', paddingLeft: '0px', marginBottom: '0' }}>
                   Learn About
                 </h4>

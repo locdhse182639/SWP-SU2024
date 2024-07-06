@@ -77,6 +77,46 @@ namespace BE_V2.Controllers
             }
         }
 
+        [HttpPost("send-customer-support")]
+        public IActionResult SendCustomerSupportEmail([FromBody] CustomerSupportRequest request)
+        {
+            var smtpSettings = _configuration.GetSection("Smtp");
+            var smtpServer = smtpSettings["Server"];
+            var smtpPort = int.Parse(smtpSettings["Port"]);
+            var smtpUsername = smtpSettings["Username"];
+            var smtpPassword = smtpSettings["Password"];
+            var enableSsl = bool.Parse(smtpSettings["EnableSsl"]);
+
+            var mail = new MailMessage();
+            mail.To.Add(new MailAddress(smtpUsername));
+            mail.From = new MailAddress(smtpUsername);
+            mail.Subject = $"Customer Support Inquiry from {request.CustomerName}";
+            mail.Body = $"You have received a new customer support inquiry:\n\n" +
+                        $"Customer Name: {request.CustomerName}\n" +
+                        $"Customer Email: {request.CustomerEmail}\n" +
+                        $"Phone Number: {request.PhoneNumber}\n\n" +
+                        $"Message:\n{request.Message}\n\n" +
+                        $"Date: {DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}";
+            mail.IsBodyHtml = false;
+
+            var smtp = new SmtpClient(smtpServer, smtpPort)
+            {
+                Credentials = new NetworkCredential(smtpUsername, smtpPassword),
+                EnableSsl = enableSsl
+            };
+
+            try
+            {
+                smtp.Send(mail);
+                return Ok(new { message = "Customer support email sent successfully" });
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error sending customer support email");
+                return StatusCode(500, "Error sending email: " + ex.Message);
+            }
+        }
+
         public class PaymentConfirmationRequest
         {
             public string Email { get; set; }
@@ -86,6 +126,14 @@ namespace BE_V2.Controllers
             public decimal TotalAmount { get; set; }
             public decimal Deposit { get; set; }
             public decimal AmountPaid { get; set; }
+        }
+
+        public class CustomerSupportRequest
+        {
+            public string CustomerName { get; set; }
+            public string CustomerEmail { get; set; }
+            public string PhoneNumber { get; set; }
+            public string Message { get; set; }
         }
 
         public class OrderDetail
