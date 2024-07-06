@@ -69,6 +69,7 @@ const ProductManage = () => {
         symmetry: '',
         girdle: '',
         measurements: '',
+        origin: '',
         image1: '',
         image2: '',
         image3: '',
@@ -88,6 +89,7 @@ const ProductManage = () => {
     const tablesOptions = [53, 54, 55, 56, 57];
     const symmetryOptions = ['Excellent', 'Very Good', 'Good', 'Fair'];
     const girdleOptions = ['Thin', 'Medium', 'Slightly Thick', 'Thick'];
+    const originOptions = ['South Africa', 'Russia', 'Canada', 'Botswana']
 
     const handleTabChange = (event, newValue) => {
         setTabIndex(newValue);
@@ -257,7 +259,8 @@ const ProductManage = () => {
                     }
     
                     const diamondPriceData = await diamondPriceResponse.json();
-                    const diamondPrice = diamondPriceData.price || 0;
+                    const diamondPrice = diamondPriceData || 0;
+                    console.log(diamondPrice);
     
                     const productUpdateResponse = await fetch(`https://localhost:7251/api/Products/${editingItem.productId}`, {
                         method: 'PUT',
@@ -311,6 +314,7 @@ const ProductManage = () => {
     
                     const diamondPriceData = await diamondPriceResponse.json();
                     const diamondPrice = diamondPriceData.price || 0;
+                    console.log(diamondPrice);
     
                     const productResponse = await fetch('https://localhost:7251/api/Products', {
                         method: 'POST',
@@ -558,6 +562,7 @@ const ProductManage = () => {
                                     <TableCell align="center">Product Name</TableCell>
                                     <TableCell align="center">Description</TableCell>
                                     <TableCell align="center">Shape</TableCell>
+                                    <TableCell align="center">Origin</TableCell>
                                     <TableCell align="center">Cut</TableCell>
                                     <TableCell align="center">Color</TableCell>
                                     <TableCell align="center">Clarity</TableCell>
@@ -585,6 +590,7 @@ const ProductManage = () => {
                                             <TableCell align="center">{product.productName}</TableCell>
                                             <TableCell align="center">{product.description}</TableCell>
                                             <TableCell align="center">{diamond.shape}</TableCell>
+                                            <TableCell align="center">{diamond.origin}</TableCell>
                                             <TableCell align="center">{diamond.cut}</TableCell>
                                             <TableCell align="center">{diamond.color}</TableCell>
                                             <TableCell align="center">{diamond.clarity}</TableCell>
@@ -610,7 +616,7 @@ const ProductManage = () => {
                                                 <IconButton onClick={() => handleOpen(product)}>
                                                     <Edit />
                                                 </IconButton>
-                                                <IconButton onClick={() => handleDelete(product.diamondId)}>
+                                                <IconButton onClick={() => handleDelete(product.mainDiamondId)}>
                                                     <Delete />
                                                 </IconButton>
                                             </TableCell>
@@ -765,16 +771,6 @@ const ProductManage = () => {
                                 />
                                 <TextField
                                     margin="dense"
-                                    label="Price"
-                                    type="number"
-                                    fullWidth
-                                    value={price}
-                                    InputProps={{
-                                        readOnly: true,
-                                    }}
-                                />
-                                <TextField
-                                    margin="dense"
                                     label="Image 1"
                                     type="text"
                                     fullWidth
@@ -833,6 +829,24 @@ const ProductManage = () => {
                                 >
                                     <option value="" disabled></option>
                                     {shapeOptions.map((option) => (
+                                        <option key={option} value={option}>
+                                            {option}
+                                        </option>
+                                    ))}
+                                </TextField>
+                                <TextField
+                                    select
+                                    margin="dense"
+                                    label="Origin"
+                                    fullWidth
+                                    value={editingItem?.origin || ''}
+                                    onChange={(e) => setEditingItem({ ...editingItem, origin: e.target.value })}
+                                    SelectProps={{
+                                        native: true,
+                                    }}
+                                >
+                                    <option value="" disabled></option>
+                                    {originOptions.map((option) => (
                                         <option key={option} value={option}>
                                             {option}
                                         </option>

@@ -6,9 +6,11 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../authcontext';
 import { jwtDecode } from 'jwt-decode';
 import ProductQuantity from '../productQuantity';
+import PointsDisplay from '../PointDisplay';
 
 const ShoppingCartContent = () => {
   const [cartItems, setCartItems] = useState([]);
+  const [pointsApplied, setPointsApplied] = useState(0);
   const depositPercentage = 20; // 20% deposit
   const { user } = useAuth();
   const navigate = useNavigate();
@@ -93,6 +95,14 @@ const ShoppingCartContent = () => {
 
   const calculateTotalDeposit = () => {
     return cartItems.reduce((total, item) => total + (item.price * depositPercentage / 100), 0).toFixed(2);
+  };
+
+  const handlePointsApplied = (points) => {
+    setPointsApplied(points);
+  };
+
+  const calculateTotalAfterPoints = () => {
+    return (cartItems.reduce((total, item) => total + item.price, 0) - pointsApplied).toFixed(2);
   };
 
   const handleCheckout = async () => {
@@ -238,6 +248,12 @@ const ShoppingCartContent = () => {
             <Typography variant="body2" color="textSecondary" sx={{ marginBottom: 2 }}>
                                                                                      
             </Typography>
+            <Divider sx={{ marginBottom: 2 }} />
+            <Box sx={{ display: 'flex', justifyContent: 'space-between', marginBottom: 2 }}>
+              <Typography variant="h6">Total After Points</Typography>
+              <Typography variant="h6">${calculateTotalAfterPoints()}</Typography>
+            </Box>
+            <PointsDisplay customerId={decodedToken(user.token)} onPointsApplied={handlePointsApplied} />
             <Button
               variant="contained"
               fullWidth

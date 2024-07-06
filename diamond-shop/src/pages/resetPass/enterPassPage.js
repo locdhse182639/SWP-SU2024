@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
-import { Link, Navigate } from 'react-router-dom';
+import { Link, Navigate, useLocation } from 'react-router-dom';
 import { TextField, Button, Typography, Box, Container } from '@mui/material';
-import logo from '../../constant/logo.png'
+import logo from '../../constant/logo.png';
 import { routes } from '../../routes';
 
 const validationSchema = yup.object({
@@ -15,6 +15,9 @@ const validationSchema = yup.object({
 
 const NewPassword = () => {
     const [resetSuccessful, setResetSuccessful] = useState(false);
+    const [errorMessage, setErrorMessage] = useState('');
+    const location = useLocation();
+    const email = location.state?.email;
 
     const formik = useFormik({
         initialValues: {
@@ -22,9 +25,30 @@ const NewPassword = () => {
             confirmPassword: '',
         },
         validationSchema: validationSchema,
-        onSubmit: (values) => {
-            alert('Reset password successful!');
-            setResetSuccessful(true); // Set state to indicate successful reset
+        onSubmit: async (values) => {
+            try {
+                const response = await fetch('https://localhost:7251/api/users/forgot-password/reset', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        email: email,
+                        newPassword: values.password,
+                    }),
+                });
+                if (response.ok) {
+                    setResetSuccessful(true);
+                } else {
+                    const contentType = response.headers.get('content-type');
+                    const errorResponse = contentType && contentType.includes('application/json')
+                        ? await response.json()
+                        : await response.text();
+                    alert(errorResponse.message || errorResponse || 'Failed to reset password Please try again.');
+                }
+            } catch (error) {
+                setErrorMessage('Failed to reset password. Please try again.');
+            }
         },
     });
 
@@ -48,7 +72,7 @@ const NewPassword = () => {
                 }}
             >
                 <Box sx={{ textAlign: 'center', marginBottom: 2 }}>
-                    <img src={logo} alt="Logo" style={{ maxWidth: '100px', width:'60px', height:'60px' }} />
+                    <img src={logo} alt="Logo" style={{ maxWidth: '100px', width: '60px', height: '60px' }} />
                 </Box>
                 <Typography component="h1" variant="h5">
                     Reset Password
@@ -84,6 +108,11 @@ const NewPassword = () => {
                         error={formik.touched.confirmPassword && Boolean(formik.errors.confirmPassword)}
                         helperText={formik.touched.confirmPassword && formik.errors.confirmPassword}
                     />
+                    {errorMessage && (
+                        <Typography color="error" variant="body2" align="center">
+                            {errorMessage}
+                        </Typography>
+                    )}
                     <Button
                         type="submit"
                         fullWidth

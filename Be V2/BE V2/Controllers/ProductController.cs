@@ -227,6 +227,23 @@ namespace BE_V2.Controllers
                     if (mainDiamondPriceEntry != null)
                     {
                         mainDiamondPrice = mainDiamondPriceEntry.Price;
+                        switch (mainDiamond.Origin)
+                        {
+                            case "South Africa":
+                                mainDiamondPrice *= 1.1m; // Apply 10% increase for South Africa
+                                break;
+                            case "Russia":
+                                mainDiamondPrice *= 1.2m; // Apply 20% increase for Russia
+                                break;
+                            case "Canada":
+                                mainDiamondPrice *= 1.15m; // Apply 15% increase for Canada
+                                break;
+                            case "Botswana":
+                                mainDiamondPrice *= 1.25m; // Apply 25% increase for Botswana
+                                break;
+                            default:
+                                break;
+                        }
                     }
                 }
             }
@@ -241,6 +258,23 @@ namespace BE_V2.Controllers
                     if (secondaryDiamondPriceEntry != null)
                     {
                         secondaryDiamondPrice = secondaryDiamondPriceEntry.Price;
+                        switch (secondaryDiamond.Origin)
+                        {
+                            case "South Africa":
+                                secondaryDiamondPrice *= 1.1m; // Apply 10% increase for South Africa
+                                break;
+                            case "Russia":
+                                secondaryDiamondPrice *= 1.2m; // Apply 20% increase for Russia
+                                break;
+                            case "Canada":
+                                secondaryDiamondPrice *= 1.15m; // Apply 15% increase for Canada
+                                break;
+                            case "Botswana":
+                                secondaryDiamondPrice *= 1.25m; // Apply 25% increase for Botswana
+                                break;
+                            default:
+                                break;
+                        }
                     }
                 }
             }
@@ -367,6 +401,23 @@ namespace BE_V2.Controllers
                     if (mainDiamondPriceEntry != null)
                     {
                         mainDiamondPrice = mainDiamondPriceEntry.Price;
+                        switch (mainDiamond.Origin)
+                        {
+                            case "South Africa":
+                                mainDiamondPrice *= 1.1m; // Apply 10% increase for South Africa
+                                break;
+                            case "Russia":
+                                mainDiamondPrice *= 1.2m; // Apply 20% increase for Russia
+                                break;
+                            case "Canada":
+                                mainDiamondPrice *= 1.15m; // Apply 15% increase for Canada
+                                break;
+                            case "Botswana":
+                                mainDiamondPrice *= 1.25m; // Apply 25% increase for Botswana
+                                break;
+                            default:
+                                break;
+                        }
                     }
                 }
             }
@@ -381,6 +432,23 @@ namespace BE_V2.Controllers
                     if (secondaryDiamondPriceEntry != null)
                     {
                         secondaryDiamondPrice = secondaryDiamondPriceEntry.Price;
+                        switch (secondaryDiamond.Origin)
+                        {
+                            case "South Africa":
+                                secondaryDiamondPrice *= 1.1m; // Apply 10% increase for South Africa
+                                break;
+                            case "Russia":
+                                secondaryDiamondPrice *= 1.2m; // Apply 20% increase for Russia
+                                break;
+                            case "Canada":
+                                secondaryDiamondPrice *= 1.15m; // Apply 15% increase for Canada
+                                break;
+                            case "Botswana":
+                                secondaryDiamondPrice *= 1.25m; // Apply 25% increase for Botswana
+                                break;
+                            default:
+                                break;
+                        }
                     }
                 }
             }
@@ -417,29 +485,62 @@ namespace BE_V2.Controllers
             // Fetch the main diamond price
             if (request.MainDiamondId != null)
             {
-                var mainDiamond = await _context.Diamonds.FindAsync(request.MainDiamondId);
+                var mainDiamond = _context.Diamonds.Find(request.MainDiamondId);
                 if (mainDiamond != null)
                 {
-                    var mainDiamondPriceEntry = await _context.DiamondPriceTable
-                        .FirstOrDefaultAsync(d => d.Carat == mainDiamond.CaratWeight && d.Color == mainDiamond.Color && d.Clarity == mainDiamond.Clarity && d.Cut == mainDiamond.Cut);
+                    var mainDiamondPriceEntry = _context.DiamondPriceTable
+                        .FirstOrDefault(d => d.Carat == mainDiamond.CaratWeight && d.Color == mainDiamond.Color && d.Clarity == mainDiamond.Clarity && d.Cut == mainDiamond.Cut);
                     if (mainDiamondPriceEntry != null)
                     {
                         mainDiamondPrice = mainDiamondPriceEntry.Price;
+                        switch (mainDiamond.Origin)
+                        {
+                            case "South Africa":
+                                mainDiamondPrice *= 1.1m; // Apply 10% increase for South Africa
+                                break;
+                            case "Russia":
+                                mainDiamondPrice *= 1.2m; // Apply 20% increase for Russia
+                                break;
+                            case "Canada":
+                                mainDiamondPrice *= 1.15m; // Apply 15% increase for Canada
+                                break;
+                            case "Botswana":
+                                mainDiamondPrice *= 1.25m; // Apply 25% increase for Botswana
+                                break;
+                            default:
+                                break;
+                        }
                     }
                 }
             }
 
-            // Fetch the secondary diamond price
             if (request.SecondaryDiamondId != null)
             {
-                var secondaryDiamond = await _context.Diamonds.FindAsync(request.SecondaryDiamondId);
+                var secondaryDiamond = _context.Diamonds.Find(request.SecondaryDiamondId);
                 if (secondaryDiamond != null)
                 {
-                    var secondaryDiamondPriceEntry = await _context.DiamondPriceTable
-                        .FirstOrDefaultAsync(d => d.Carat == secondaryDiamond.CaratWeight && d.Color == secondaryDiamond.Color && d.Clarity == secondaryDiamond.Clarity && d.Cut == secondaryDiamond.Cut);
+                    var secondaryDiamondPriceEntry = _context.DiamondPriceTable
+                        .FirstOrDefault(d => d.Carat == secondaryDiamond.CaratWeight && d.Color == secondaryDiamond.Color && d.Clarity == secondaryDiamond.Clarity && d.Cut == secondaryDiamond.Cut);
                     if (secondaryDiamondPriceEntry != null)
                     {
                         secondaryDiamondPrice = secondaryDiamondPriceEntry.Price;
+                        switch (secondaryDiamond.Origin)
+                        {
+                            case "South Africa":
+                                secondaryDiamondPrice *= 1.1m; // Apply 10% increase for South Africa
+                                break;
+                            case "Russia":
+                                secondaryDiamondPrice *= 1.2m; // Apply 20% increase for Russia
+                                break;
+                            case "Canada":
+                                secondaryDiamondPrice *= 1.15m; // Apply 15% increase for Canada
+                                break;
+                            case "Botswana":
+                                secondaryDiamondPrice *= 1.25m; // Apply 25% increase for Botswana
+                                break;
+                            default:
+                                break;
+                        }
                     }
                 }
             }

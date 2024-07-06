@@ -1,33 +1,52 @@
 import * as React from 'react';
 import { useTheme } from '@mui/material/styles';
 import { LineChart, axisClasses } from '@mui/x-charts';
-
 import Title from './Title';
+import axios from 'axios';
 
 // Generate Sales Data
 function createData(time, amount) {
   return { time, amount: amount ?? null };
 }
 
-const data = [
-  createData('00:00', 0),
-  createData('03:00', 300),
-  createData('06:00', 600),
-  createData('09:00', 2000),
-  createData('12:00', 1500),
-  createData('15:00', 2000),
-  createData('18:00', 2400),
-  createData('21:00', 5000),
-  createData('24:00'),
-];
-
 export default function Chart() {
   const theme = useTheme();
- 
+  const [data, setData] = React.useState([]);
+
+  React.useEffect(() => {
+    // Fetch data from API
+    async function fetchData() {
+      try {
+        const response = await axios.get('https://localhost:7251/api/Orders');
+        const orders = response.data;
+
+        // Process the orders to get the total price per day for the last 10 days
+        const today = new Date();
+        const past10Days = Array.from({ length: 10 }, (_, i) => {
+          const date = new Date();
+          date.setDate(today.getDate() - i);
+          return date.toISOString().split('T')[0]; // Get date in YYYY-MM-DD format
+        });
+
+        const totalPriceByDay = past10Days.map(date => {
+          const dayOrders = orders.filter(order => order.orderDate === date);
+          const totalPrice = dayOrders.reduce((sum, order) => sum + order.totalPrice, 0);
+          return createData(date, totalPrice);
+        });
+
+        setData(totalPriceByDay.reverse()); // Reverse to have the oldest date first
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    }
+
+    fetchData();
+  }, []);
+
   return (
     <React.Fragment>
-      <Title>Today</Title>
-      <div style={{  width: '100%', flexGrow: 1, overflow: 'hidden' }}>
+      <Title>Sales for the Last 10 Days</Title>
+      <div style={{ width: '100%', flexGrow: 1, overflow: 'hidden' }}>
         <LineChart
           dataset={data}
           margin={{
@@ -44,18 +63,7 @@ export default function Chart() {
               tickLabelStyle: theme.typography.body2,
             },
           ]}
-          yAxis={[
-            {
-              label: 'Sales ($)',
-              labelStyle: {
-                ...theme.typography.body1,
-                fill: theme.palette.text.primary,
-              },
-              tickLabelStyle: theme.typography.body2,
-              max: 2500,
-              tickNumber: 3,
-            },
-          ]}
+          
           series={[
             {
               dataKey: 'amount',

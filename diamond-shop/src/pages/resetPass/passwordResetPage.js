@@ -28,10 +28,29 @@ const PasswordReset = () => {
             email: ''
         },
         validationSchema: validationSchema,
-        onSubmit: (values) => {
-            setOtpSent(true);
-            setOpen(true);
-            setCountdown(60);
+        onSubmit: async (values) => {
+            try {
+                const response = await fetch('https://localhost:7251/api/users/forgot-password/send-otp', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ email: values.email }),
+                });
+                if (response.ok) {
+                    setOtpSent(true);
+                    setOpen(true);
+                    setCountdown(60);
+                } else {
+                    const contentType = response.headers.get('content-type');
+                    const errorResponse = contentType && contentType.includes('application/json')
+                        ? await response.json()
+                        : await response.text();
+                    alert(errorResponse.message || errorResponse || 'Failed to send OTP. Please try again.');
+                }
+            } catch (error) {
+                alert('Failed to send OTP. Please try again.');
+            }
         }
     });
 
@@ -57,16 +76,45 @@ const PasswordReset = () => {
         return () => clearTimeout(timer);
     }, [otpSent, countdown]);
 
-    const handleResendOtp = () => {
+    const handleResendOtp = async () => {
         setCountdown(60);
+        try {
+            const response = await fetch('https://localhost:7251/api/users/forgot-password/send-otp', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ email: formik.values.email }),
+            });
+            if (!response.ok) {
+                alert('Failed to resend OTP. Please try again.');
+            }
+        } catch (error) {
+            alert('Failed to resend OTP. Please try again.');
+        }
     };
 
-    const handleConfirmOtp = () => {
+    const handleConfirmOtp = async () => {
         const otpString = otp.join('');
         const isValid = otpSchema.isValidSync({ otp: otpString });
 
         if (isValid) {
-            navigate('/login/enter-new-password');
+            try {
+                const response = await fetch('https://localhost:7251/api/users/forgot-password/send-otp', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ email: formik.values.email, otp: otpString }),
+                });
+                if (response.ok) {
+                    navigate('/login/enter-new-password', { state: { email: formik.values.email } });
+                } else {
+                    alert('Invalid OTP. Please try again.');
+                }
+            } catch (error) {
+                alert('Invalid OTP. Please try again.');
+            }
         } else {
             alert('Please enter a valid 6-digit OTP');
         }
@@ -85,7 +133,7 @@ const PasswordReset = () => {
                     <Typography style={{ textAlign: 'center' }} variant="body1" gutterBottom>
                         Enter your email and we'll send you OTP code to reset your password.
                     </Typography>
-                    <form style={{width:'auto'}} onSubmit={formik.handleSubmit}>
+                    <form style={{ width: 'auto' }} onSubmit={formik.handleSubmit}>
                         <TextField
                             variant="outlined"
                             margin="normal"
@@ -168,7 +216,7 @@ const PasswordReset = () => {
                         ))}
                     </Box>
                     {countdown > 0 ? (
-                        <Typography gutterBottom>{`Resend OTP in ${countdown}s`}</Typography>
+                        <Typography gutterBottom>Resend OTP in {countdown}s</Typography>
                     ) : (
                         <Button onClick={handleResendOtp}
                             sx={{

@@ -46,6 +46,8 @@ const HomePageContent = () => {
         height: '650px'
     };
 
+    const diamondShapes = ['Round', 'Princess', 'Emerald', 'Cushion', 'Marquise', 'Radiant', 'Oval', 'Pear', 'Heart'];
+
     const [isOpenPopup, setIsOpenPopup] = useState(false);
 
     return (
@@ -68,10 +70,12 @@ const HomePageContent = () => {
                 <div className='explore-diamond-banner'>
                     <h3>Explore Diamonds</h3>
                     <Grid container spacing={5} className='list-img' style={{ gap: '5%', paddingTop: '4%' }}>
-                        {['Round', 'Princess', 'Emerald', 'Cushion', 'Marquise', 'Radiant', 'Oval', 'Pear', 'Heart'].map((shape, index) => (
+                        {diamondShapes.map((shape, index) => (
                             <Grid key={index} className='diamond-item'>
+                                <Link className='diamond-item' to={`${routes.diamond}?shape=${shape}`}>
                                 <img src={`../assets/images/${shape.replace(' ', '_')}_Cut_Diamonds.png`} alt={`${shape} cut diamond`} />
                                 <p>{shape}</p>
+                                </Link>
                             </Grid>
                         ))}
                     </Grid>
@@ -95,7 +99,7 @@ const HomePageContent = () => {
                             our love story now until forever"</p>
 
                         <div className='btn-banner'>
-                            <Link to={routes.engagementRings} style={{ textDecoration: 'none' }}>
+                            <Link to={`${routes.engagementRings}?ringType=Engagement`} style={{ textDecoration: 'none' }}>
                                 <BasicButtons width='220px' height='60px' text='See More'></BasicButtons>
                             </Link>
                         </div>
@@ -110,9 +114,9 @@ const HomePageContent = () => {
                         <p style={{ textAlign: 'left' }}>"The symbol of love and promise when<br />
                             our hearts open up and let each other in."</p>
                         <div className='btn-banner'>
-                            <a href={routes.weddingRings} style={{ textDecoration: 'none' }}>
+                            <Link to={`${routes.engagementRings}?ringType=Jewelry`} style={{ textDecoration: 'none' }}>
                                 <BasicButtons width='220px' height='60px' text='See More'></BasicButtons>
-                            </a>
+                            </Link>
                         </div>
                     </div>
                 </div>

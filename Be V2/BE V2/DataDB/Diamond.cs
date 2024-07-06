@@ -31,6 +31,8 @@ public partial class Diamond
 
     public string? Measurements { get; set; }
 
+    public string? Origin { get; set; }
+
     public virtual Certificate? Certificate { get; set; }
 
     public virtual ICollection<Product> Products { get; set; } = new List<Product>();

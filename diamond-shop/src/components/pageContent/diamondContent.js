@@ -40,7 +40,7 @@ const DiamondsContent = () => {
       
       // Combine the data based on DiamondID
       const combinedData = products.map(product => {
-        const diamond = diamonds.find(diamond => diamond.diamondId === product.diamondId);
+        const diamond = diamonds.find(diamond => diamond.diamondId === product.mainDiamondId);
         if (diamond) {
           return { ...product, ...diamond };
         }

@@ -148,7 +148,7 @@ export default function SignIn() {
                 </Grid>
                 <Grid item>
                   {"Don't have an account? "}
-                  <Link href={routes.register} variant="body2" sx={{ color: 'black', fontSize: '16px' }}>
+                  <Link to={routes.register} variant="body2" sx={{ color: 'black', fontSize: '16px' }}>
                     {"Sign Up"}
                   </Link>
                 </Grid>

@@ -8,9 +8,11 @@ import 'react-multi-carousel/lib/styles.css';
 import { CustomLeftArrow, CustomRightArrow } from '../customeArrow';
 import CustomToolbar from '../customToolBar';
 import CarouselComponent from '../carouselComponent ';
+import { useLocation } from 'react-router-dom';
 
 const EngagementRingsContent = () => {
   const [productData, setProductData] = useState([]);
+  const location = useLocation();
 
   const fetchProducts = async () => {
     try {
@@ -58,8 +60,15 @@ const EngagementRingsContent = () => {
       items: 1
     }
   };
+  const query =new URLSearchParams(location.search);
+  const ringTypeFilter = query.get('ringType') || 'Engagement';
+  const genderFilter = query.get('gender') || '';
 
-  const ringType = productData.filter(product => product.productType === 2);
+  const ringType = productData.filter(product => {
+    const isRingTypeMatch = product.ringMold && product.ringMold.ringType === ringTypeFilter;
+    const isGenderMatch = genderFilter ? product.ringMold && product.ringMold.gender === genderFilter : true;
+    return isRingTypeMatch && isGenderMatch;
+  });
 
   return (
     <div className='container'>
