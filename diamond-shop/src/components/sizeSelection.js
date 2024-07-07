@@ -9,7 +9,12 @@ const SizeSelection = ({ productId, onSizeSelected, productType, material, carat
   useEffect(() => {
     const fetchSizes = async () => {
       try {
-        const response = await fetch(`https://localhost:7251/api/RingPriceTable/${material}/${caratWeight}/sizes`);
+        let response;
+        if (productType === 2) {
+          response = await fetch(`https://localhost:7251/api/RingPriceTable/${material}/${caratWeight}/sizes`);
+        } else if (productType === 3) {
+          response = await fetch(`https://localhost:7251/api/NecklacePriceTable/${material}/${caratWeight}/lengths`);
+        }
         if (!response.ok) {
           throw new Error('Failed to fetch sizes');
         }
@@ -22,7 +27,7 @@ const SizeSelection = ({ productId, onSizeSelected, productType, material, carat
     };
 
     fetchSizes();
-  }, [material, caratWeight]);
+  }, [material, caratWeight, productType]);
 
   const handleSizeChange = (event) => {
     const size = event.target.value;
@@ -41,7 +46,7 @@ const SizeSelection = ({ productId, onSizeSelected, productType, material, carat
           body: JSON.stringify({
             productType: productType,
             material: material,
-            size: size.toString(),  // Convert size to string here
+            size: size.toString(),
             caratWeight: caratWeight,
             mainDiamondId: mainDiamondId,
             secondaryDiamondId: secondaryDiamondId,
@@ -70,7 +75,7 @@ const SizeSelection = ({ productId, onSizeSelected, productType, material, carat
   return (
     <div>
       <FormControl variant="outlined" style={{ minWidth: 120 }}>
-        <InputLabel>Size</InputLabel>
+        <InputLabel>{productType === 2 ? 'Size' : 'Length'}</InputLabel>
         <Select value={selectedSize} onChange={handleSizeChange} displayEmpty>
           {sizes.map((size) => (
             <MenuItem key={size} value={size}>{size}</MenuItem>
@@ -79,7 +84,7 @@ const SizeSelection = ({ productId, onSizeSelected, productType, material, carat
       </FormControl>
       {error && <Typography color="error">{error}</Typography>}
       <Button variant="contained" color="primary" onClick={handleSubmit} style={{ marginLeft: 16 }}>
-        Confirm Size
+        Confirm {productType === 2 ? 'Size' : 'Length'}
       </Button>
     </div>
   );

@@ -1,6 +1,6 @@
-﻿using BE_V2.DTOs;
-using BE_V2.Services;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using BE_V2.DataDB;
 using System.Threading.Tasks;
 
 namespace BE_V2.Controllers
@@ -9,48 +9,26 @@ namespace BE_V2.Controllers
     [ApiController]
     public class CustomerPointsController : ControllerBase
     {
-        private readonly ICustomerService _customerService;
+        private readonly DiamondShopV4Context _context;
 
-        public CustomerPointsController(ICustomerService customerService)
+        public CustomerPointsController(DiamondShopV4Context context)
         {
-            _customerService = customerService;
+            _context = context;
         }
 
-        [HttpPost("purchase")]
-        public async Task<IActionResult> Purchase([FromBody] PurchaseRequest request)
-        {
-            try
-            {
-                // Áp dụng chiết khấu nếu khách hàng muốn sử dụng điểm
-                var discountedTotal = await _customerService.ApplyDiscountAsync(request.CustomerId, request.OrderTotal, request.UsePoints);
-
-                // Cập nhật điểm thưởng cho khách hàng
-                var pointsDTO = new CustomerPointsDTO
-                {
-                    CustomerID = request.CustomerId,
-                    Points = request.Quantity // Giả sử mỗi sản phẩm mua sẽ tích 1 điểm
-                };
-                await _customerService.AddPointsAsync(pointsDTO);
-
-                return Ok(new { message = "Purchase completed successfully", discountedTotal });
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, ex.Message);
-            }
-        }
-
-        [HttpGet("points/{customerId}")]
+        // GET: api/CustomerPoints/{customerId}
+        [HttpGet("{customerId}")]
         public async Task<IActionResult> GetCustomerPoints(int customerId)
         {
             try
             {
-                var points = await _customerService.GetCustomerPointsAsync(customerId);
-                if (points == null)
+                var customerPoints = await _context.CustomerPoints.FirstOrDefaultAsync(cp => cp.CustomerID == customerId);
+                if (customerPoints == null)
                 {
                     return NotFound(new { message = "Customer not found" });
                 }
-                return Ok(points);
+
+                return Ok(customerPoints);
             }
             catch (Exception ex)
             {
@@ -58,20 +36,82 @@ namespace BE_V2.Controllers
             }
         }
 
-        [HttpPost("add-points")]
+        // PUT: api/CustomerPoints/{customerId}
+        [HttpPut("{customerId}")]
+        public async Task<IActionResult> UpdatePoints(int customerId, [FromBody] ManualPointsRequest request)
+        {
+            try
+            {
+                var customerPoints = await _context.CustomerPoints.FirstOrDefaultAsync(cp => cp.CustomerID == customerId);
+                if (customerPoints == null)
+                {
+                    return NotFound(new { message = "Customer points record not found" });
+                }
+
+                customerPoints.Points = request.Points;
+                customerPoints.LastUpdated = DateTime.Now;
+
+                _context.CustomerPoints.Update(customerPoints);
+                await _context.SaveChangesAsync();
+
+                return Ok(new { message = "Points updated successfully" });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
+
+        // POST: api/CustomerPoints
+        [HttpPost]
         public async Task<IActionResult> AddPoints([FromBody] ManualPointsRequest request)
         {
             try
             {
-                var pointsDTO = new CustomerPointsDTO
+                var customerPoints = await _context.CustomerPoints.FirstOrDefaultAsync(cp => cp.CustomerID == request.CustomerId);
+                if (customerPoints == null)
                 {
-                    CustomerID = request.CustomerId,
-                    Points = request.Points,
-                    LastUpdated = DateTime.Now
-                };
-                await _customerService.AddPointsAsync(pointsDTO);
+                    customerPoints = new CustomerPoints
+                    {
+                        CustomerID = request.CustomerId,
+                        Points = request.Points,
+                        LastUpdated = DateTime.Now
+                    };
+                    _context.CustomerPoints.Add(customerPoints);
+                }
+                else
+                {
+                    customerPoints.Points += request.Points;
+                    customerPoints.LastUpdated = DateTime.Now;
+                    _context.CustomerPoints.Update(customerPoints);
+                }
 
-                return Ok(new { message = "Points added successfully" });
+                await _context.SaveChangesAsync();
+
+                return Ok(new { message = "Points added/updated successfully" });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
+
+        // DELETE: api/CustomerPoints/{customerId}
+        [HttpDelete("{customerId}")]
+        public async Task<IActionResult> DeletePoints(int customerId)
+        {
+            try
+            {
+                var customerPoints = await _context.CustomerPoints.FirstOrDefaultAsync(cp => cp.CustomerID == customerId);
+                if (customerPoints == null)
+                {
+                    return NotFound(new { message = "Customer points record not found" });
+                }
+
+                _context.CustomerPoints.Remove(customerPoints);
+                await _context.SaveChangesAsync();
+
+                return Ok(new { message = "Points deleted successfully" });
             }
             catch (Exception ex)
             {

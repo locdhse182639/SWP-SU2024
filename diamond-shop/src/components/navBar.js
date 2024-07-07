@@ -14,7 +14,6 @@ import { Link } from 'react-router-dom';
 import { routes } from '../routes';
 import { useAuth } from './authcontext';
 import { jwtDecode } from 'jwt-decode';
-import { Badge } from 'react-bootstrap';
 import '../css/navBar.css';
 import DropContentDiamond from './dropDownContent/dropContentDiamond';
 import DropContentJewelry from './dropDownContent/dropContentJewelry';
@@ -22,40 +21,8 @@ import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import DropContentEducation from './dropDownContent/dropContentEducation';
 
 const Navbar = () => {
-  const [cartItemCount, setCartItemCount] = useState(0);
   const { user } = useAuth();
   const [activeDropdown, setActiveDropdown] = useState(null);
-
-  const decodedToken = (token) => {
-    try {
-      const decoded = jwtDecode(token);
-      return decoded.unique_name; // Adjust this to match your token's structure
-    } catch (error) {
-      return null;
-    }
-  };
-
-  useEffect(() => {
-    const fetchCartItemCount = async () => {
-      try {
-        if (user && user.token) {
-          const userId = decodedToken(user.token);
-          if (!userId) throw new Error('Failed to decode user ID from token');
-
-          const response = await fetch(`https://localhost:7251/api/Cart/User/${userId}/Count`);
-          if (!response.ok) {
-            throw new Error('Failed to fetch cart item count');
-          }
-          const data = await response.json();
-          setCartItemCount(data);
-        }
-      } catch (error) {
-        console.error('Error fetching cart item count:', error);
-      }
-    };
-
-    fetchCartItemCount();
-  }, [user]);
 
   const handleMouseEnter = (dropdown) => {
     setActiveDropdown(dropdown);
@@ -69,8 +36,8 @@ const Navbar = () => {
     <AppBar position="static" color="default" elevation={0}>
       <Toolbar style={{ justifyContent: 'space-between' }}>
         <Box display="flex" alignItems="center">
-          <PhoneIcon/>
-          <Typography variant="body2">1-800-123-4567</Typography>          
+          <PhoneIcon />
+          <Typography variant="body2">1-800-123-4567</Typography>
         </Box>
         <Box display="flex" alignItems="center">
           <IconButton color="inherit">
@@ -84,9 +51,9 @@ const Navbar = () => {
           <IconButton>
             {user ? (
               <Link to={routes.shoppingCart}>
-                <Badge badgeContent={cartItemCount} variant=''>
-                  <ShoppingCartOutlinedIcon />
-                </Badge>
+
+                <ShoppingCartOutlinedIcon />
+
               </Link>
             ) : (
               <Link to={routes.login}>
@@ -194,8 +161,8 @@ const Navbar = () => {
           </div>
           <div
             className="navbar-item"
-            // onMouseEnter={() => handleMouseEnter('education')}
-            // onMouseLeave={handleMouseLeave}
+          // onMouseEnter={() => handleMouseEnter('education')}
+          // onMouseLeave={handleMouseLeave}
           >
             <Box key='diamondPrice' display="flex" alignItems="center" mx={2}>
               <button className="navbarDropdown-toggle">

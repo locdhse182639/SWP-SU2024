@@ -4,13 +4,13 @@ import { routes } from '../../routes';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../authcontext';
-import {jwtDecode} from 'jwt-decode';
-import ProductQuantity from '../productQuantity';
+import { jwtDecode } from 'jwt-decode';
 import PointsDisplay from '../PointDisplay';
 
 const ShoppingCartContent = () => {
   const [cartItems, setCartItems] = useState([]);
   const [pointsApplied, setPointsApplied] = useState(0);
+  const [totalAfterPoints, setTotalAfterPoints] = useState(0);
   const [customerId, setCustomerId] = useState(null);
   const depositPercentage = 20; // 20% deposit
   const { user } = useAuth();
@@ -19,7 +19,6 @@ const ShoppingCartContent = () => {
   const decodedToken = (token) => {
     try {
       const decoded = jwtDecode(token);
-      console.log(decoded)
       return decoded.unique_name;  // Adjust this to match your token's structure
     } catch (error) {
       console.error('Failed to decode token:', error);
@@ -37,7 +36,6 @@ const ShoppingCartContent = () => {
             throw new Error('Failed to fetch customer data');
           }
           const customerData = await customerResponse.json();
-          console.log(customerData);
           setCustomerId(customerData.customerId);
         } catch (error) {
           console.error('Error fetching customer ID:', error);
@@ -54,14 +52,15 @@ const ShoppingCartContent = () => {
             throw new Error('Failed to fetch cart items');
           }
           const data = await response.json();
-          console.log('Cart Data:', data); // Log the response data
           setCartItems(data.cartItems); // Ensure the correct path to cartItems in the response
+          updateTotalAfterPoints(data.cartItems, pointsApplied); // Update total after points initially
         } catch (error) {
           console.error(error);
         }
       } else {
         const cart = JSON.parse(sessionStorage.getItem('cart')) || [];
         setCartItems(cart);
+        updateTotalAfterPoints(cart, pointsApplied); // Update total after points initially
       }
     };
 
@@ -70,9 +69,7 @@ const ShoppingCartContent = () => {
   }, [user]);
 
   const handleRemoveItem = async (index, cartItemId) => {
-    console.log('Removing item:', index, cartItemId); // Add logging to debug
-
-    if (user && cartItemId) {  // Ensure the user is authenticated and the cart item has an ID
+    if (user && cartItemId) {
       try {
         const response = await fetch(`https://localhost:7251/api/CartItem/${cartItemId}`, {
           method: 'DELETE',
@@ -85,6 +82,7 @@ const ShoppingCartContent = () => {
         // Remove item from local state
         const updatedCart = cartItems.filter((item, i) => i !== index);
         setCartItems(updatedCart);
+        updateTotalAfterPoints(updatedCart, pointsApplied); // Update total after points
 
         // Check if the cart is empty and delete the cart if it is
         if (updatedCart.length === 0) {
@@ -104,94 +102,108 @@ const ShoppingCartContent = () => {
         console.error('Error removing item from cart:', error);
       }
     } else {
-      console.error('User or cartItemId does not exist', user, cartItemId); // Add logging to debug
+      console.error('User or cartItemId does not exist', user, cartItemId);
     }
   };
 
   const calculateTotal = () => {
-    return cartItems.reduce((total, item) => total + item.price, 0).toFixed(2);
+    return cartItems.reduce((total, item) => total + item.price, 0);
   };
 
   const calculateTotalDeposit = () => {
-    return cartItems.reduce((total, item) => total + (item.price * depositPercentage / 100), 0).toFixed(2);
+    return cartItems.reduce((total, item) => total + (item.price * depositPercentage / 100), 0);
   };
 
   const handlePointsApplied = (points) => {
     setPointsApplied(points);
+    updateTotalAfterPoints(cartItems, points); // Update total after points whenever points are applied
   };
 
-  const calculateTotalAfterPoints = () => {
-    return (cartItems.reduce((total, item) => total + item.price, 0) - pointsApplied).toFixed(2);
+  const roundUpToTenThousand = (value) => {
+    return Math.ceil(value / 10000) * 10000;
+  };
+
+  const updateTotalAfterPoints = (items, points) => {
+    const total = items.reduce((total, item) => total + item.price, 0);
+    const discount = points * 0.0005;
+    const discountedTotal = total * (1 - discount);
+    setTotalAfterPoints(roundUpToTenThousand(discountedTotal));
+  };
+
+  const depositDiscount = () => {
+    const discount = parseFloat(totalAfterPoints) * (depositPercentage / 100);
+    return roundUpToTenThousand(discount);
   };
 
   const handleCheckout = async () => {
     if (!user) {
-      navigate(routes.login);
-      return;
+        navigate(routes.login);
+        return;
     }
 
     try {
-      const userId = decodedToken(user.token);
-      const order = {
-        userId: userId,
-        totalPrice: parseFloat(calculateTotal()),
-        orderDate: new Date().toISOString(),
-        orderDetails: cartItems.map(item => ({
-          productId: item.product.productId,
-          productName: item.product.productName,
-          productPrice: item.price,
-          quantity: item.quantity
-        }))
-      };
+        const userId = decodedToken(user.token);
+        const order = {
+            userId: userId,
+            totalPrice: parseFloat(totalAfterPoints),
+            orderDate: new Date().toISOString(),
+            usePoints: pointsApplied > 0, // Indicate if points were used
+            pointsToUse: pointsApplied, // Number of points used for the discount
+            orderDetails: cartItems.map(item => ({
+                productId: item.product.productId,
+                productName: item.product.productName,
+                productPrice: item.price,
+                quantity: item.quantity
+            }))
+        };
 
-      const response = await fetch('https://localhost:7251/api/Orders', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(order),
-      });
+        const response = await fetch('https://localhost:7251/api/Orders', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(order),
+        });
 
-      if (!response.ok) {
-        throw new Error('Failed to create order');
-      }
+        if (!response.ok) {
+            throw new Error('Failed to create order');
+        }
 
-      const createdOrder = await response.json(); // Assuming the response contains the created order with orderId
+        const createdOrder = await response.json();
 
-      // Create an OrderLog entry with Phase1 set to false
-      const orderLog = {
-        orderID: createdOrder.orderId,
-        phase1: false,
-        phase2: false,
-        phase3: false,
-        phase4: false,
-        timePhase1: new Date().toISOString(),
-        timePhase2: new Date().toISOString(),
-        timePhase3: new Date().toISOString(),
-        timePhase4: new Date().toISOString()
-      };
+        const orderLog = {
+            orderID: createdOrder.orderId,
+            phase1: false,
+            phase2: false,
+            phase3: false,
+            phase4: false,
+            timePhase1: new Date().toISOString(),
+            timePhase2: new Date().toISOString(),
+            timePhase3: new Date().toISOString(),
+            timePhase4: new Date().toISOString()
+        };
 
-      const logResponse = await fetch('https://localhost:7251/api/OrderLogs', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(orderLog),
-      });
+        const logResponse = await fetch('https://localhost:7251/api/OrderLogs', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(orderLog),
+        });
 
-      if (!logResponse.ok) {
-        throw new Error('Failed to create order log');
-      }
+        if (!logResponse.ok) {
+            throw new Error('Failed to create order log');
+        }
 
-      // Clear the cart after successful order creation
-      setCartItems([]);
-      alert('Order created successfully!');
-      navigate(`${routes.checkout}?orderId=${createdOrder.orderId}`); // Pass the orderId to the OrderComponent
+        setCartItems([]);
+        alert('Order created successfully!');
+        navigate(`${routes.checkout}?orderId=${createdOrder.orderId}`);
     } catch (error) {
-      console.error(error);
-      alert('Failed to create order');
+        console.error(error);
+        alert('Failed to create order');
     }
-  };
+};
+
 
   return (
     <Box sx={{ padding: 4, maxWidth: '1200px', margin: 'auto' }}>
@@ -230,15 +242,23 @@ const ShoppingCartContent = () => {
                     <br />
                     Deposit: ${(item.price * depositPercentage / 100).toFixed(2)} (20%)
                     <br />
-                    Ring Size: {item.product.size}
+                    {item.product.productType === 2 && (
+                      <>
+                        Ring Size: {item.product.size}
+                        <br />
+                      </>
+                    )}
+                    {item.product.productType === 3 && (
+                      <>
+                        Necklace Length: {item.product.size}
+                        <br />
+                      </>
+                    )}
                   </Typography>
-                  <ProductQuantity />
                 </Grid>
               </Grid>
             </Paper>
           ))}
-
-
         </Box>
         <Box>
           <Paper sx={{ padding: 2, maxWidth: 400, marginLeft: 'auto' }}>
@@ -247,22 +267,21 @@ const ShoppingCartContent = () => {
               <Typography variant="body1">Subtotal</Typography>
               <Typography variant="body1">${calculateTotal()}</Typography>
             </Box>
-            <Box sx={{ display: 'flex', justifyContent: 'space-between', marginBottom: 1 }}>
-              <Typography variant="body1">Deposit Total</Typography>
-              <Typography variant="body1">${calculateTotalDeposit()}</Typography>
-            </Box>
-            <Divider sx={{ marginBottom: 2 }} />
             <Box sx={{ display: 'flex', justifyContent: 'space-between', marginBottom: 2 }}>
               <Typography variant="h6">Deposit</Typography>
               <Typography variant="h6">${calculateTotalDeposit()}</Typography>
             </Box>
             <Typography variant="body2" color="textSecondary" sx={{ marginBottom: 2 }}>
-                                                                                     
+
             </Typography>
             <Divider sx={{ marginBottom: 2 }} />
             <Box sx={{ display: 'flex', justifyContent: 'space-between', marginBottom: 2 }}>
-              <Typography variant="h6">Total After Points</Typography>
-              <Typography variant="h6">${calculateTotalAfterPoints()}</Typography>
+              <Typography variant="h6">After Points Discount</Typography>
+              <Typography variant="h6">${totalAfterPoints}</Typography>
+            </Box>
+            <Box sx={{ display: 'flex', justifyContent: 'space-between', marginBottom: 2 }}>
+              <Typography variant="h6">Deposit After</Typography>
+              <Typography variant="h6">${depositDiscount()}</Typography>
             </Box>
             {customerId && (
               <PointsDisplay customerId={customerId} onPointsApplied={handlePointsApplied} />

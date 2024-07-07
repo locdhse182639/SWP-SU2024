@@ -36,4 +36,22 @@ public class NecklacePriceTableController : ControllerBase
 
         return necklacePriceTable;
     }
+
+    // GET: api/NecklacePriceTable/{material}/{caratWeight}/lengths
+    [HttpGet("{material}/{caratWeight}/lengths")]
+    public async Task<ActionResult<IEnumerable<int>>> GetAvailableLengths(string material, decimal caratWeight)
+    {
+        var lengths = await _context.NecklacePriceTable
+            .Where(npt => npt.Material == material && npt.CaratWeight == caratWeight)
+            .Select(npt => npt.Length)
+            .Distinct()
+            .ToListAsync();
+
+        if (!lengths.Any())
+        {
+            return NotFound();
+        }
+
+        return lengths;
+    }
 }

@@ -1,6 +1,8 @@
 ﻿using BE_V2.DataDB;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using System;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 
@@ -42,6 +44,19 @@ namespace BE_V2.Controllers
                 orderLog.TimePhase1 = DateTime.UtcNow;
                 await _context.SaveChangesAsync();
             }
+
+            // Decrease the quantity of products in the order
+            var orderDetails = await _context.OrderDetails.Where(od => od.OrderId == paymentRequest.OrderId).ToListAsync();
+            foreach (var orderDetail in orderDetails)
+            {
+                var product = await _context.Products.FirstOrDefaultAsync(p => p.ProductId == orderDetail.ProductId);
+                if (product != null && product.Quantity > 0)
+                {
+                    product.Quantity -= orderDetail.Quantity;
+                    _context.Products.Update(product);
+                }
+            }
+            await _context.SaveChangesAsync();
 
             _logger.LogInformation($"Payment completed successfully for Order ID: {paymentRequest.OrderId}");
             return Ok(new { message = "Payment completed successfully" });

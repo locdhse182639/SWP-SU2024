@@ -11,6 +11,7 @@ const MyComponent = () => {
 };
 
 const OrderConfirmation = () => {
+    const [order, setOrder] = useState([]);
     const [orderDetails, setOrderDetails] = useState([]);
     const [productData, setProductData] = useState([]);
     const [customerInfo, setCustomerInfo] = useState({
@@ -30,6 +31,7 @@ const OrderConfirmation = () => {
                 throw new Error('Failed to fetch order details');
             }
             const data = await response.json();
+            setOrder(data);
             setOrderDetails(data.orderDetails || []);
             console.log('Fetched order details:', data.orderDetails);
         } catch (error) {
@@ -98,6 +100,20 @@ const OrderConfirmation = () => {
         return orderDetails.reduce((total, item) => total + item.productPrice * item.quantity, 0).toFixed(2);
     };
 
+    const calculateDiscountPercentage = () => {
+        const totalAmount = calculateTotal();
+        const discountPercentage = ((totalAmount - order.totalPrice) / totalAmount) * 100;
+        return discountPercentage;
+    };
+
+    const roundUpToTenThousand = (value) => {
+        return Math.ceil(value / 10000) * 10000;
+    };
+
+    const total = roundUpToTenThousand(order.totalPrice);
+
+
+
     const params = new URLSearchParams(location.search);
     const orderId = params.get('orderId');
 
@@ -144,7 +160,6 @@ const OrderConfirmation = () => {
                                                         <Typography variant="subtitle1" style={{ fontSize: '1.5rem' }}>Product: {detail.productName}</Typography>
                                                         <Typography variant="body2" style={{ fontSize: '1.2rem' }}>Code: {detail.productId}</Typography>
                                                         <Typography variant="body2" style={{ fontSize: '1.2rem' }}>Unit price: {detail.productPrice}</Typography>
-                                                        <Typography variant="body2" style={{ fontSize: '1.2rem' }}>Size: {detail.size}</Typography>
                                                         <Typography variant="body2" style={{ fontSize: '1.2rem' }}>Quantity: {detail.quantity}</Typography>
                                                     </Box>
                                                 </Box>
@@ -156,7 +171,8 @@ const OrderConfirmation = () => {
                                     )}
                                     <Grid item xs={12}>
                                         <Box style={{ marginTop: '10px', textAlign: 'left' }}>
-                                            <Typography variant="h6" color="error" style={{ fontSize: '1.5rem' }}>Total payment: ${calculateTotal()}</Typography>
+                                            <Typography variant="h6" color="error" style={{ fontSize: '1.5rem' }}>Total payment: ${total}</Typography>
+                                            {calculateDiscountPercentage() > 0 && (<Typography variant="subtitle2">Discount: {calculateDiscountPercentage().toFixed(2)}%</Typography>)}
                                         </Box>
                                     </Grid>
                                 </Grid>

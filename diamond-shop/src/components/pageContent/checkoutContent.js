@@ -45,6 +45,7 @@ const CheckoutForm = ({ handleClose, handlePaymentSuccess, deposit }) => {
 };
 
 const OrderComponent = () => {
+    const [order, setOrder] = useState([]);
     const [orderDetails, setOrderDetails] = useState([]);
     const [productData, setProductData] = useState([]);
     const [customerInfo, setCustomerInfo] = useState({
@@ -66,6 +67,8 @@ const OrderComponent = () => {
                 throw new Error('Failed to fetch order details');
             }
             const data = await response.json();
+            setOrder(data);
+            console.log(order);
             setOrderDetails(data.orderDetails || []);
         } catch (error) {
             console.error('Error fetching order details:', error);
@@ -194,9 +197,9 @@ const OrderComponent = () => {
                     orderId,
                     customerName: customerInfo.name,
                     orderDetails,
-                    totalAmount: calculateTotalAmount(),
+                    totalAmount: total,
                     deposit: calculateTotalDeposit(),
-                    amountPaid: calculateTotalAmount() - calculateTotalDeposit()
+                    amountPaid: total - calculateTotalDeposit()
                 })
             });
 
@@ -212,9 +215,23 @@ const OrderComponent = () => {
         return orderDetails.reduce((acc, detail) => acc + detail.productPrice * detail.quantity, 0);
     };
 
+    
+    const calculateDiscountPercentage = () => {
+        const totalAmount = calculateTotalAmount();
+        const discountPercentage = ((totalAmount - order.totalPrice) / totalAmount) * 100;
+        return discountPercentage;
+    };
+
+
+    const roundUpToTenThousand = (value) => {
+        return Math.ceil(value / 10000) * 10000;
+    };
+
+    const total = roundUpToTenThousand(order.totalPrice);
+
     const calculateTotalDeposit = () => {
-        const total = calculateTotalAmount();
-        return (total * 0.20).toFixed(2);
+        const total = order.totalPrice
+        return roundUpToTenThousand((total * 0.20));
     };
 
     const totalAmount = calculateTotalAmount();
@@ -244,11 +261,8 @@ const OrderComponent = () => {
                         ) : (
                             <Typography variant="subtitle2">No order details found.</Typography>
                         )}
-                        <Typography variant="subtitle2" style={{ marginTop: '10px' }}>
-                            Subtotal: ${totalAmount}
-                        </Typography>
-                        <Typography variant="subtitle2">Shipping: Free</Typography>
-                        <Typography variant="subtitle1">Total: ${totalAmount}</Typography>
+                        <Typography variant="subtitle1">Total: ${total} </Typography>
+                        {calculateDiscountPercentage() > 0 && (<Typography variant="subtitle2">Discount: {calculateDiscountPercentage().toFixed(2)}%</Typography>)}
                     </Paper>
                 </Grid>
                 <Grid item xs={12} md={5}>
