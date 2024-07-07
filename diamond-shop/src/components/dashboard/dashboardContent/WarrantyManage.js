@@ -72,8 +72,8 @@ const WarrantyManage = () => {
         try {
             const method = selectedWarranty ? 'PUT' : 'POST';
             const url = selectedWarranty
-                ? `https://localhost:7251/api/Warranties/${selectedWarranty.warrantyId}`
-                : 'https://localhost:7251/api/Warranties';
+                ? `https://luxehouse.azurewebsites.net/api/Warranties/${selectedWarranty.warrantyId}`
+                : 'https://luxehouse.azurewebsites.net/api/Warranties';
 
             const response = await fetch(url, {
                 method,
@@ -110,7 +110,7 @@ const WarrantyManage = () => {
 
     const handleDeleteWarranty = async (warrantyId) => {
         try {
-            const response = await fetch(`https://localhost:7251/api/Warranties/${warrantyId}`, {
+            const response = await fetch(`https://luxehouse.azurewebsites.net/api/Warranties/${warrantyId}`, {
                 method: 'DELETE'
             });
             if (!response.ok) {

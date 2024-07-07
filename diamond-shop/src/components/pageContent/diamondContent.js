@@ -25,8 +25,8 @@ const DiamondsContent = () => {
   const fetchProducts = async () => {
     try {
       console.log('Fetching products and diamonds...');
-      const productResponse = await fetch('https://localhost:7251/api/Products');
-      const diamondResponse = await fetch('https://localhost:7251/api/Diamonds');
+      const productResponse = await fetch('https://luxehouse.azurewebsites.net/api/Products');
+      const diamondResponse = await fetch('https://luxehouse.azurewebsites.net/api/Diamonds');
       
       if (!productResponse.ok || !diamondResponse.ok) {
         throw new Error(`HTTP error! status: ${productResponse.status} ${diamondResponse.status}`);

@@ -24,7 +24,7 @@ const Wishlist = () => {
     };
 
     const fetchCustomerId = async (userId) => {
-        const response = await fetch(`https://localhost:7251/api/customers/user/${userId}`);
+        const response = await fetch(`https://luxehouse.azurewebsites.net/api/customers/user/${userId}`);
         if (!response.ok) {
             throw new Error('Failed to fetch customer details');
         }
@@ -39,7 +39,7 @@ const Wishlist = () => {
                     const userId = decodedToken(user.token);
                     const customerId = await fetchCustomerId(userId);
 
-                    const response = await fetch(`https://localhost:7251/api/Wishlists/Customer/${customerId}`);
+                    const response = await fetch(`https://luxehouse.azurewebsites.net/api/Wishlists/Customer/${customerId}`);
                     if (!response.ok) {
                         throw new Error('Failed to fetch wishlist items');
                     }
@@ -63,7 +63,7 @@ const Wishlist = () => {
 
         if (user && wishlistItemId) {
             try {
-                const response = await fetch(`https://localhost:7251/api/WishlistItems/${wishlistItemId}`, {
+                const response = await fetch(`https://luxehouse.azurewebsites.net/api/WishlistItems/${wishlistItemId}`, {
                     method: 'DELETE',
                 });
 
@@ -77,12 +77,12 @@ const Wishlist = () => {
                     const userId = decodedToken(user.token);
                     const customerId = await fetchCustomerId(userId);
 
-                    const wishlistResponse = await fetch(`https://localhost:7251/api/Wishlists/Customer/${customerId}`);
+                    const wishlistResponse = await fetch(`https://luxehouse.azurewebsites.net/api/Wishlists/Customer/${customerId}`);
                     if (wishlistResponse.ok) {
                         const itemCount = await wishlistResponse.json();
                         if (itemCount === 0) {
-                            const wishlist = await fetch(`https://localhost:7251/api/Wishlists/Customer/${customerId}`).then(res => res.json());
-                            await fetch(`https://localhost:7251/api/Wishlists/${wishlist.wishlistId}`, {
+                            const wishlist = await fetch(`https://luxehouse.azurewebsites.net/api/Wishlists/Customer/${customerId}`).then(res => res.json());
+                            await fetch(`https://luxehouse.azurewebsites.net/api/Wishlists/${wishlist.wishlistId}`, {
                                 method: 'DELETE',
                             });
                         }
@@ -101,7 +101,7 @@ const Wishlist = () => {
             const userId = decodedToken(user.token);
             const customerId = await fetchCustomerId(userId);
 
-            const response = await fetch(`https://localhost:7251/api/Wishlists/Customer/${customerId}/clear`, {
+            const response = await fetch(`https://luxehouse.azurewebsites.net/api/Wishlists/Customer/${customerId}/clear`, {
                 method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json',
