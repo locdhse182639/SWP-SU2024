@@ -37,7 +37,7 @@ const WarrantyManage = () => {
 
     const fetchWarranties = async () => {
         try {
-            const response = await fetch('https://localhost:7251/api/Warranties');
+            const response = await fetch('https://luxehouse.azurewebsites.net/api/Warranties');
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
@@ -51,7 +51,7 @@ const WarrantyManage = () => {
 
     const fetchOrders = async () => {
         try {
-            const response = await fetch('https://localhost:7251/api/Orders');
+            const response = await fetch('https://luxehouse.azurewebsites.net/api/Orders');
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }

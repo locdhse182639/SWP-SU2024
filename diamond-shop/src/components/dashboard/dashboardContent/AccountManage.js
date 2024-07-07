@@ -39,7 +39,7 @@ const AccountManage = () => {
 
   const fetchAccounts = async () => {
     try {
-      const response = await fetch('https://localhost:7251/api/Users');
+      const response = await fetch('https://luxehouse.azurewebsites.net/api/users');
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
@@ -52,7 +52,7 @@ const AccountManage = () => {
 
   const fetchRoles = async () => {
     try {
-      const response = await fetch('https://localhost:7251/api/Users/roles');
+      const response = await fetch('https://luxehouse.azurewebsites.net/api/users/roles');
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
@@ -76,7 +76,7 @@ const AccountManage = () => {
   const handleSave = async () => {
     try {
       if (editingAccount.userId) {
-        await fetch(`https://localhost:7251/api/Users/${editingAccount.userId}`, {
+        await fetch(`https://luxehouse.azurewebsites.net/api/users/${editingAccount.userId}`, {
           method: 'PUT',
           headers: {
             'Content-Type': 'application/json'
@@ -84,7 +84,7 @@ const AccountManage = () => {
           body: JSON.stringify(editingAccount)
         });
       } else {
-        await fetch('https://localhost:7251/api/Users', {
+        await fetch('https://luxehouse.azurewebsites.net/api/users', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
@@ -101,7 +101,7 @@ const AccountManage = () => {
 
   const handleDelete = async (userId) => {
     try {
-      await fetch(`https://localhost:7251/api/Users/${userId}`, {
+      await fetch(`https://luxehouse.azurewebsites.net/api/users/${userId}`, {
         method: 'DELETE'
       });
       fetchAccounts();

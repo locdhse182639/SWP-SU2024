@@ -10,7 +10,7 @@ const RevenuePage = () => {
     useEffect(() => {
         const fetchPayments = async () => {
             try {
-                const response = await fetch(`https://localhost:7251/api/Payment`);
+                const response = await fetch(`https://luxehouse.azurewebsites.net/api/Payment`);
                 if (response.ok) {
                     const data = await response.json();
                     setInvoices(data);

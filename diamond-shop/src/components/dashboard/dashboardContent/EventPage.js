@@ -128,7 +128,7 @@ const EventPage = () => {
 
     const fetchEvents = async () => {
         try {
-            const response = await fetch('https://localhost:7251/api/Events');
+            const response = await fetch('https://luxehouse.azurewebsites.net/api/events');
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
@@ -141,7 +141,7 @@ const EventPage = () => {
 
     const fetchEventItems = async () => {
         try {
-            const response = await fetch('https://localhost:7251/api/EventItems');
+            const response = await fetch('https://luxehouse.azurewebsites.net/api/EventItems');
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
@@ -159,7 +159,7 @@ const EventPage = () => {
 
     const handleAddSave = async () => {
         try {
-            const url = tabIndex === 0 ? 'https://localhost:7251/api/Events' : 'https://localhost:7251/api/EventItems';
+            const url = tabIndex === 0 ? 'https://luxehouse.azurewebsites.net/api/events' : 'https://luxehouse.azurewebsites.net/api/EventItems';
             const response = await fetch(url, {
                 method: 'POST',
                 headers: {
@@ -185,8 +185,8 @@ const EventPage = () => {
 
         try {
             const url = tabIndex === 0
-                ? `https://localhost:7251/api/Events/${editingItem.eventID}`
-                : `https://localhost:7251/api/EventItems/${editingItem.eventItemID}`;
+                ? `https://luxehouse.azurewebsites.net/api/events/${editingItem.eventID}`
+                : `https://luxehouse.azurewebsites.net/api/EventItems/${editingItem.eventItemID}`;
             console.log('Edit URL:', url);
             console.log('Editing Item:', editingItem);
 
@@ -221,7 +221,7 @@ const EventPage = () => {
         }
 
         try {
-            const url = tabIndex === 0 ? `https://localhost:7251/api/Events/${id}` : `https://localhost:7251/api/EventItems/${id}`;
+            const url = tabIndex === 0 ? `https://luxehouse.azurewebsites.net/api/EventItems/${id}` : `https://luxehouse.azurewebsites.net/api/EventItems/${id}`;
             const response = await fetch(url, {
                 method: 'DELETE'
             });
