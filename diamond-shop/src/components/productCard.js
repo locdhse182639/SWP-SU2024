@@ -89,7 +89,7 @@ const ProductCard = ({ products }) => {
     const fetchWishlist = async (userId) => {
         try {
             const customerId = await fetchCustomerId(userId);
-            const response = await fetch(`https://luxehouse.azurewebsites.net/api/Wishlists/Customer/${customerId}`);
+            const response = await fetch(`https://localhost:7251/api/Wishlists/Customer/${customerId}`);
             if (response.ok) {
                 const wishlistData = await response.json();
                 setWishlist(wishlistData.wishlistItems.map(item => item.productId));
@@ -100,7 +100,7 @@ const ProductCard = ({ products }) => {
     };
 
     const fetchCustomerId = async (userId) => {
-        const response = await fetch(`https://luxehouse.azurewebsites.net/api/customers/user/${userId}`);
+        const response = await fetch(`https://localhost:7251/api/customers/user/${userId}`);
         if (!response.ok) {
             throw new Error('Failed to fetch customer details');
         }
@@ -131,7 +131,7 @@ const ProductCard = ({ products }) => {
                 }
 
                 // Add the product to the wishlist
-                const response = await fetch('https://luxehouse.azurewebsites.net/api/WishlistItems', {
+                const response = await fetch('https://localhost:7251/api/WishlistItems', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',

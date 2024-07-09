@@ -128,7 +128,7 @@ const ProductManage = () => {
 
     const fetchProducts = async () => {
         try {
-            const response = await fetch('https://luxehouse.azurewebsites.net/api/Products');
+            const response = await fetch('https://localhost:7251/api/Products');
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
@@ -141,7 +141,7 @@ const ProductManage = () => {
 
     const fetchDiamonds = async () => {
         try {
-            const response = await fetch('https://luxehouse.azurewebsites.net/api/Diamonds');
+            const response = await fetch('https://localhost:7251/api/Diamonds');
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
@@ -154,7 +154,7 @@ const ProductManage = () => {
 
     const fetchRingMolds = async () => {
         try {
-            const response = await fetch('https://luxehouse.azurewebsites.net/api/RingMold');
+            const response = await fetch('https://localhost:7251/api/RingMold');
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
@@ -168,7 +168,7 @@ const ProductManage = () => {
     
     const fetchNecklaceMolds = async () => {
         try {
-            const response = await fetch('https://luxehouse.azurewebsites.net/api/NecklaceMold');
+            const response = await fetch('https://localhost:7251/api/NecklaceMold');
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
@@ -202,7 +202,7 @@ const ProductManage = () => {
             let newProduct;
             if (tabIndex === 0) { // Jewelry
                 if (editingItem.productId) {
-                    const response = await fetch(`https://luxehouse.azurewebsites.net/api/Products/${editingItem.productId}`, {
+                    const response = await fetch(`https://localhost:7251/api/Products/${editingItem.productId}`, {
                         method: 'PUT',
                         headers: {
                             'Content-Type': 'application/json'
@@ -218,7 +218,7 @@ const ProductManage = () => {
     
                     // newProduct = await response.json();
                 } else {
-                    const response = await fetch('https://luxehouse.azurewebsites.net/api/Products', {
+                    const response = await fetch('https://localhost:7251/api/Products', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json'
@@ -237,7 +237,7 @@ const ProductManage = () => {
                 await fetchProducts();
             } else { // Diamonds
                 if (editingItem.diamondId) {
-                    const diamondResponse = await fetch(`https://luxehouse.azurewebsites.net/api/Diamonds/${editingItem.diamondId}`, {
+                    const diamondResponse = await fetch(`https://localhost:7251/api/Diamonds/${editingItem.diamondId}`, {
                         method: 'PUT',
                         headers: {
                             'Content-Type': 'application/json'
@@ -251,7 +251,7 @@ const ProductManage = () => {
                         throw new Error('Failed to update diamond');
                     }
     
-                    const diamondPriceResponse = await fetch(`https://luxehouse.azurewebsites.net/api/DiamondPrice?carat=${editingItem.caratWeight}&color=${editingItem.color}&clarity=${editingItem.clarity}&cut=${editingItem.cut}`);
+                    const diamondPriceResponse = await fetch(`https://localhost:7251/api/DiamondPrice?carat=${editingItem.caratWeight}&color=${editingItem.color}&clarity=${editingItem.clarity}&cut=${editingItem.cut}`);
                     if (!diamondPriceResponse.ok) {
                         const errorData = await diamondPriceResponse.json();
                         console.error('Error fetching diamond price:', errorData);
@@ -262,7 +262,7 @@ const ProductManage = () => {
                     const diamondPrice = diamondPriceData || 0;
                     console.log(diamondPrice);
     
-                    const productUpdateResponse = await fetch(`https://luxehouse.azurewebsites.net/api/Products/${editingItem.productId}`, {
+                    const productUpdateResponse = await fetch(`https://localhost:7251/api/Products/${editingItem.productId}`, {
                         method: 'PUT',
                         headers: {
                             'Content-Type': 'application/json'
@@ -289,7 +289,7 @@ const ProductManage = () => {
     
 
                 } else {
-                    const newDiamondResponse = await fetch('https://luxehouse.azurewebsites.net/api/Diamonds', {
+                    const newDiamondResponse = await fetch('https://localhost:7251/api/Diamonds', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json'
@@ -305,7 +305,7 @@ const ProductManage = () => {
     
                     const newDiamond = await newDiamondResponse.json();
     
-                    const diamondPriceResponse = await fetch(`https://luxehouse.azurewebsites.net/api/DiamondPrice?carat=${newDiamond.caratWeight}&color=${newDiamond.color}&clarity=${newDiamond.clarity}&cut=${newDiamond.cut}`);
+                    const diamondPriceResponse = await fetch(`https://localhost:7251/api/DiamondPrice?carat=${newDiamond.caratWeight}&color=${newDiamond.color}&clarity=${newDiamond.clarity}&cut=${newDiamond.cut}`);
                     if (!diamondPriceResponse.ok) {
                         const errorData = await diamondPriceResponse.json();
                         console.error('Error fetching diamond price:', errorData);
@@ -316,7 +316,7 @@ const ProductManage = () => {
                     const diamondPrice = diamondPriceData.price || 0;
                     console.log(diamondPrice);
     
-                    const productResponse = await fetch('https://luxehouse.azurewebsites.net/api/Products', {
+                    const productResponse = await fetch('https://localhost:7251/api/Products', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json'
@@ -357,7 +357,7 @@ const ProductManage = () => {
 
         try {
             if (tabIndex === 0) { // Jewelry
-                const response = await fetch(`https://luxehouse.azurewebsites.net/api/Products/${id}`, {
+                const response = await fetch(`https://localhost:7251/api/Products/${id}`, {
                     method: 'DELETE'
                 });
                 if (!response.ok) {
@@ -367,7 +367,7 @@ const ProductManage = () => {
             } else { // Diamonds
                 const product = productData.find(p => p.mainDiamondId === id);
                 if (product) {
-                    const productResponse = await fetch(`https://luxehouse.azurewebsites.net/api/Products/${product.productId}`, {
+                    const productResponse = await fetch(`https://localhost:7251/api/Products/${product.productId}`, {
                         method: 'DELETE',
                     });
                     if (!productResponse.ok) {
@@ -376,7 +376,7 @@ const ProductManage = () => {
                     console.log(`Product with id ${product.productId} deleted successfully.`);
                 }
 
-                const diamondResponse = await fetch(`https://luxehouse.azurewebsites.net/api/Diamonds/${id}`, {
+                const diamondResponse = await fetch(`https://localhost:7251/api/Diamonds/${id}`, {
                     method: 'DELETE',
                 });
                 if (!diamondResponse.ok) {

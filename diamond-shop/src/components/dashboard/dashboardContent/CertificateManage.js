@@ -34,7 +34,7 @@ const CertificateManage = () => {
 
     const fetchDiamonds = async () => {
         try {
-            const response = await fetch('https://luxehouse.azurewebsites.net/api/diamonds');
+            const response = await fetch('https://localhost:7251/api/diamonds');
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
@@ -58,7 +58,7 @@ const CertificateManage = () => {
 
     const handleSaveCertificate = async () => {
         try {
-            const response = await fetch('https://luxehouse.azurewebsites.net/api/certificate', {
+            const response = await fetch('https://localhost:7251/api/certificate', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

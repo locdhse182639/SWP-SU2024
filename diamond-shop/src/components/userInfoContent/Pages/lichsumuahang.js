@@ -37,7 +37,7 @@ function OrderHistory() {
 
   const fetchOrders = async () => {
     try {
-      const response = await fetch('https://luxehouse.azurewebsites.net/api/Orders'); // Replace with your API endpoint
+      const response = await fetch('https://localhost:7251/api/Orders'); // Replace with your API endpoint
       if (!response.ok) {
         throw new Error('Failed to fetch orders');
       }
@@ -51,7 +51,7 @@ function OrderHistory() {
 
   const fetchOrderDetails = async (orderId) => {
     try {
-      const response = await fetch(`https://luxehouse.azurewebsites.net/api/Orders/${orderId}`); // Replace with your API endpoint
+      const response = await fetch(`https://localhost:7251/api/Orders/${orderId}`); // Replace with your API endpoint
       if (!response.ok) {
         throw new Error('Failed to fetch order details');
       }

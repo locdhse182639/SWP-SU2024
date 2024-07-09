@@ -108,7 +108,7 @@ export default function SignUp() {
     }),
     onSubmit: async (values) => {
       try {
-        const response = await fetch('https://luxehouse.azurewebsites.net/api/Users/send-otp', {
+        const response = await fetch('https://localhost:7251/api/Users/send-otp', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -140,7 +140,7 @@ export default function SignUp() {
     }),
     onSubmit: async (values) => {
       try {
-        const otpResponse = await fetch('https://luxehouse.azurewebsites.net/api/Users/verify-otp', {
+        const otpResponse = await fetch('https://localhost:7251/api/Users/verify-otp', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -192,7 +192,7 @@ export default function SignUp() {
           dateOfBirth: values.dateOfBirth,
         };
 
-        const registerResponse = await fetch('https://luxehouse.azurewebsites.net/api/Users/complete-registration', {
+        const registerResponse = await fetch('https://localhost:7251/api/Users/complete-registration', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
