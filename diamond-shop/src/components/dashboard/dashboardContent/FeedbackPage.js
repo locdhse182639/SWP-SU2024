@@ -12,7 +12,7 @@ const FeedbackPage = () => {
         const fetchAllFeedback = async () => {
             setLoading(true);
             try {
-                const response = await fetch(`https://localhost:7251/api/Feedback`);
+                const response = await fetch(`https://luxehouse.azurewebsites.net/api/Feedback`);
                 if (response.ok) {
                     const data = await response.json();
                     setFeedbackData(data);

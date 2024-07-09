@@ -27,7 +27,7 @@ const OrderPage = () => {
 
   const fetchOrders = async () => {
     try {
-      const response = await axios.get('https://localhost:7251/api/Orders');
+      const response = await axios.get('https://luxehouse.azurewebsites.net/api/Orders');
       setOrders(response.data || []);
     } catch (err) {
       console.error('Error fetching orders:', err);
@@ -36,7 +36,7 @@ const OrderPage = () => {
 
   const fetchOrderDetails = async (orderId) => {
     try {
-      const response = await axios.get(`https://localhost:7251/api/Orders/${orderId}`);
+      const response = await axios.get(`https://luxehouse.azurewebsites.net/api/Orders/${orderId}`);
       setOrderDetails(response.data.orderDetails);
       setSelectedOrder(orderId);
       setOpen(true);
@@ -47,7 +47,7 @@ const OrderPage = () => {
 
   const fetchOrderLog = async (orderId) => {
     try {
-      const response = await axios.get(`https://localhost:7251/api/OrderLogs/order/${orderId}`);
+      const response = await axios.get(`https://luxehouse.azurewebsites.net/api/OrderLogs/order/${orderId}`);
       setOrderLog(response.data);
       setOrderLogOpen(true);
     } catch (err) {
@@ -57,14 +57,14 @@ const OrderPage = () => {
 
   const fetchPaymentDetails = async (orderId) => {
     try {
-      const paymentResponse = await fetch(`https://localhost:7251/api/Payment/order/${orderId}`);
+      const paymentResponse = await fetch(`https://luxehouse.azurewebsites.net/api/Payment/order/${orderId}`);
       if (!paymentResponse.ok) {
         throw new Error('Failed to fetch payment details');
       }
       const paymentData = await paymentResponse.json();
       setPaymentDetails(paymentData);
 
-      const orderLogResponse = await fetch(`https://localhost:7251/api/OrderLogs/order/${orderId}`);
+      const orderLogResponse = await fetch(`https://luxehouse.azurewebsites.net/api/OrderLogs/order/${orderId}`);
       if (!orderLogResponse.ok) {
         throw new Error('Failed to fetch order log');
       }
@@ -98,7 +98,7 @@ const OrderPage = () => {
 
   const handlePaymentSubmit = async () => {
     try {
-      await axios.put(`https://localhost:7251/api/Payments/${paymentDetails.id}`, { datePaid });
+      await axios.put(`https://luxehouse.azurewebsites.net/api/Payments/${paymentDetails.id}`, { datePaid });
       setPaymentOpen(false);
     } catch (err) {
       console.error('Error updating payment details:', err);
@@ -112,7 +112,7 @@ const OrderPage = () => {
   const togglePhase = async (phase, timePhase, orderId) => {
     const currentDateTime = new Date().toISOString();
     try {
-      await axios.put(`https://localhost:7251/api/OrderLogs/${orderLog.logID}`, {
+      await axios.put(`https://luxehouse.azurewebsites.net/api/OrderLogs/${orderLog.logID}`, {
         statusType: phase
       });
       setOrderLog((prevLog) => ({
@@ -122,7 +122,7 @@ const OrderPage = () => {
       }));
 
       if (phase === 'phase4' && !orderLog.phase4) {
-        await axios.post('https://localhost:7251/api/Warranties', {
+        await axios.post('https://luxehouse.azurewebsites.net/api/Warranties', {
           OrderId: orderId,
           WarrantyEndDate: new Date(new Date().setFullYear(new Date().getFullYear() + 1)).toISOString(),
           StoreRepresentativeSignature: 'Luxel Jewel House'

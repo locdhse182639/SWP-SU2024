@@ -35,7 +35,7 @@ const ChatPopup = ({ setIsOpenPopup }) => {
         }),
         onSubmit: async (values, { setSubmitting, resetForm }) => {
             try {
-                const response = await fetch('https://localhost:7251/api/email/send-customer-support', {
+                const response = await fetch('https://luxehouse.azurewebsites.net/api/email/send-customer-support', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'

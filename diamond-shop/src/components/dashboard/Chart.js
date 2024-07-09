@@ -17,7 +17,7 @@ export default function Chart() {
     // Fetch data from API
     async function fetchData() {
       try {
-        const response = await axios.get('https://localhost:7251/api/Orders');
+        const response = await axios.get('https://luxehouse.azurewebsites.net/api/Orders');
         const orders = response.data;
 
         // Process the orders to get the total price per day for the last 10 days

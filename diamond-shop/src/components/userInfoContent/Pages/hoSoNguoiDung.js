@@ -26,7 +26,7 @@ export default function HoSo() {
       }
 
       try {
-        const response = await fetch('https://localhost:7251/api/Users/me', {
+        const response = await fetch('https://luxehouse.azurewebsites.net/api/Users/me', {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
@@ -61,7 +61,7 @@ export default function HoSo() {
     }
 
     try {
-      const response = await fetch('https://localhost:7251/api/Users/me', {
+      const response = await fetch('https://luxehouse.azurewebsites.net/api/Users/me', {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',

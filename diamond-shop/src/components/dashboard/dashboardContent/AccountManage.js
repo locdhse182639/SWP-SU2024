@@ -39,33 +39,12 @@ const AccountManage = () => {
 
   const fetchAccounts = async () => {
     try {
-      const response = await fetch('https://localhost:7251/api/Users');
+      const response = await fetch('https://luxehouse.azurewebsites.net/api/users');
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
       const data = await response.json();
-
-      // Fetch points for each account
-      const accountsWithPoints = await Promise.all(data.map(async (account) => {
-        try {
-          const customerResponse = await fetch(`https://localhost:7251/api/Customers/User/${account.userId}`);
-          if (!customerResponse.ok) {
-            throw new Error(`HTTP error! status: ${customerResponse.status}`);
-          }
-          const customerData = await customerResponse.json();
-          const pointsResponse = await fetch(`https://localhost:7251/api/CustomerPoints/${customerData.customerId}`);
-          if (!pointsResponse.ok) {
-            throw new Error(`HTTP error! status: ${pointsResponse.status}`);
-          }
-          const pointsData = await pointsResponse.json();
-          return { ...account, points: pointsData.points, customerId: customerData.customerId };
-        } catch (error) {
-          console.error(`Error fetching customer points for user ${account.userId}:`, error);
-          return { ...account, points: 0 }; // Return account with default points if error occurs
-        }
-      }));
-
-      setAccounts(accountsWithPoints);
+      setAccounts(data);
     } catch (error) {
       console.log('Error fetching accounts', error);
     }
@@ -73,7 +52,7 @@ const AccountManage = () => {
 
   const fetchRoles = async () => {
     try {
-      const response = await fetch('https://localhost:7251/api/Users/roles');
+      const response = await fetch('https://luxehouse.azurewebsites.net/api/users/roles');
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
@@ -85,7 +64,7 @@ const AccountManage = () => {
   };
 
   const handleOpen = (account) => {
-    setEditingAccount(account || { username: '', password: '', email: '', roleId: '', points: 0 });
+    setEditingAccount(account || { username: '', password: '', email: '', roleId: '' });
     setOpen(true);
   };
 
@@ -97,45 +76,20 @@ const AccountManage = () => {
   const handleSave = async () => {
     try {
       if (editingAccount.userId) {
-        await fetch(`https://localhost:7251/api/Users/${editingAccount.userId}`, {
+        await fetch(`https://luxehouse.azurewebsites.net/api/users/${editingAccount.userId}`, {
           method: 'PUT',
           headers: {
             'Content-Type': 'application/json'
           },
           body: JSON.stringify(editingAccount)
-        });
-        await fetch(`https://localhost:7251/api/CustomerPoints/${editingAccount.customerId}`, {
-          method: 'PUT',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({ points: editingAccount.points })
         });
       } else {
-        const userResponse = await fetch('https://localhost:7251/api/Users', {
+        await fetch('https://luxehouse.azurewebsites.net/api/users', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
           },
           body: JSON.stringify(editingAccount)
-        });
-        const userData = await userResponse.json();
-
-        const customerResponse = await fetch('https://localhost:7251/api/Customers', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({ userId: userData.userId })
-        });
-        const customerData = await customerResponse.json();
-
-        await fetch(`https://localhost:7251/api/CustomerPoints`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({ customerId: customerData.customerId, points: editingAccount.points })
         });
       }
       fetchAccounts();
@@ -145,12 +99,9 @@ const AccountManage = () => {
     }
   };
 
-  const handleDelete = async (userId, customerId) => {
+  const handleDelete = async (userId) => {
     try {
-      await fetch(`https://localhost:7251/api/Users/${userId}`, {
-        method: 'DELETE'
-      });
-      await fetch(`https://localhost:7251/api/CustomerPoints/${customerId}`, {
+      await fetch(`https://luxehouse.azurewebsites.net/api/users/${userId}`, {
         method: 'DELETE'
       });
       fetchAccounts();
@@ -181,7 +132,6 @@ const AccountManage = () => {
                 <TableCell align="center">Password</TableCell>
                 <TableCell align="center">Email</TableCell>
                 <TableCell align="center">RoleID</TableCell>
-                <TableCell align="center">Points</TableCell>
                 <TableCell align="center">Actions</TableCell>
               </TableRow>
             </TableHead>
@@ -190,15 +140,14 @@ const AccountManage = () => {
                 <TableRow key={account.userId}>
                   <TableCell align="center">{account.userId}</TableCell>
                   <TableCell align="center">{account.username}</TableCell>
-                  <TableCell align="center">{'*'.repeat(account.password.length)}</TableCell>
+                  <TableCell align="center">{account.password}</TableCell>
                   <TableCell align="center">{account.email}</TableCell>
                   <TableCell align="center">{account.roleId}</TableCell>
-                  <TableCell align="center">{account.points}</TableCell>
                   <TableCell align="center">
                     <IconButton onClick={() => handleOpen(account)}>
                       <Edit />
                     </IconButton>
-                    <IconButton onClick={() => handleDelete(account.userId, account.customerId)}>
+                    <IconButton onClick={() => handleDelete(account.userId)}>
                       <Delete />
                     </IconButton>
                   </TableCell>
@@ -244,7 +193,7 @@ const AccountManage = () => {
             <TextField
               margin="dense"
               label="Password"
-              type="password"
+              type="text"
               fullWidth
               value={editingAccount?.password || ''}
               onChange={(e) => setEditingAccount({ ...editingAccount, password: e.target.value })}
@@ -272,14 +221,6 @@ const AccountManage = () => {
                 ))}
               </Select>
             </FormControl>
-            <TextField
-              margin="dense"
-              label="Points"
-              type="number"
-              fullWidth
-              value={editingAccount?.points || 0}
-              onChange={(e) => setEditingAccount({ ...editingAccount, points: parseInt(e.target.value, 10) })}
-            />
           </DialogContent>
           <DialogActions>
             <Button onClick={handleClose} color="primary">
