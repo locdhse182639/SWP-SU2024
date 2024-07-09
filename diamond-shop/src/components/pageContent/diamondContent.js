@@ -173,7 +173,7 @@ const DiamondsContent = () => {
               </Carousel>
             </div>
           </div>
-          <CustomToolbar onFilterChange={handleFilterChange} onSortChange={handleSortChange} />
+          {/* <CustomToolbar onFilterChange={handleFilterChange} onSortChange={handleSortChange} /> */}
           <div style={{ padding: '40px' }} className='product-card'>
             <ProductCard products={filteredDiamonds} />
           </div>

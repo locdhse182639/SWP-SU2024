@@ -53,7 +53,7 @@ export default function SignIn() {
       login(token, roleId);
 
       if (roleId === 1 || roleId === 2) {
-        window.location.href = '/dashboardPage';
+        window.location.href = '/dashboard-Page';
       } else if (roleId === 3) {
         window.location.href = '/staffSite'
       } else {

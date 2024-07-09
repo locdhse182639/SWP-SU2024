@@ -139,7 +139,7 @@ const Wishlist = () => {
                                     style={{ maxWidth: '420px', width: '100%', height: 'auto' }}
                                     component="img"
                                     height="140"
-                                    image={pic}
+                                    image={item.product.image1}
                                     alt={item.title}
                                 />
                                 <CardContent>

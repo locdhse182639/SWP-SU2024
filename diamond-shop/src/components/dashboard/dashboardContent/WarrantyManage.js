@@ -246,7 +246,7 @@ const WarrantyManage = () => {
                         {selectedWarranty && selectedWarranty.order && selectedWarranty.order.orderDetails ? (
                             <div className="container">
                                 <div className="header">
-                                    <img style={{ height: '60px', width: '60px' }} src="logo.png" alt="Luxe Jewel House" />
+                                    <img style={{ height: '60px', width: '60px' }} src="https://firebasestorage.googleapis.com/v0/b/swp-diamond-shop.appspot.com/o/Logo%2Flogo.png?alt=media&token=8a9ecb45-7def-4bbd-803e-9c9296858aad" alt="Luxe Jewel House" />
                                     <h1>Luxe Jewel House</h1>
                                     <p>Diamond Warranty Certificate</p>
                                 </div>

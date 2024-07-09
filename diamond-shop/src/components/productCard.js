@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { Card, CardContent, CardMedia, Typography, Grid, TextField, Checkbox } from '@mui/material';
+import { Card, CardContent, CardMedia, Typography, Grid, TextField, Checkbox, Select, MenuItem, FormControl, InputLabel } from '@mui/material';
 import { styled } from '@mui/system';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import {jwtDecode} from 'jwt-decode';
 import { useAuth } from './authcontext';
 import PaginationControlled from './pagination';
@@ -38,13 +38,31 @@ const ProductName = styled(Typography)({
     fontWeight: 'bold',
 });
 
+const shapeOptions = ['Round', 'Princess', 'Emerald', 'Asscher', 'Cushion', 'Marquise', 'Radiant', 'Oval', 'Pear', 'Heart'];
+const cutOptions = ['Ideal', 'Excellent', 'Very Good', 'Good'];
+const colorOptions = ['D', 'E', 'F', 'G', 'H', 'I', 'J'];
+const clarityOptions = ['IF', 'VVS1', 'VVS2', 'VS1', 'VS2', 'SI1', 'SI2'];
+const caratWeightOptions = [0.2, 1.0, 3.6, 3.9, 4.1, 4.5, 5.0, 5.2, 5.3, 5.4];
+const originOptions = ['South Africa', 'Russia', 'Canada', 'Botswana'];
+
 const ProductCard = ({ products }) => {
     const [page, setPage] = useState(1);
     const itemsPerPage = 8;
     const { user } = useAuth();
     const navigate = useNavigate();
+    const location = useLocation();
     const [searchQuery, setSearchQuery] = useState("");
     const [wishlist, setWishlist] = useState([]);
+    const [productType, setProductType] = useState(1); // Default to Diamonds
+    const [filters, setFilters] = useState({
+        price: '',
+        carat: '',
+        cut: '',
+        shape: '',
+        clarity: '',
+        color: '',
+        origin: '',
+    });
 
     useEffect(() => {
         if (user) {
@@ -52,6 +70,21 @@ const ProductCard = ({ products }) => {
             fetchWishlist(userId);
         }
     }, [user]);
+
+    useEffect(() => {
+        switch (location.pathname) {
+            case routes.diamondList:
+                setProductType(1);
+                break;
+            case routes.engagementRings:
+            case routes.necklace:
+                setProductType(2);
+                break;
+            default:
+                setProductType(1);
+                break;
+        }
+    }, [location.pathname]);
 
     const fetchWishlist = async (userId) => {
         try {
@@ -125,8 +158,17 @@ const ProductCard = ({ products }) => {
         }
     };
 
+    const handleFilterChange = (event) => {
+        const { name, value } = event.target;
+        setFilters(prevFilters => ({
+            ...prevFilters,
+            [name]: value
+        }));
+    };
+
     const filteredProducts = products.filter((product) =>
         product.productName.toLowerCase().includes(searchQuery.toLowerCase())
+        // Add more filter conditions based on selected filters
     );
 
     const paginatedData = filteredProducts.slice(
@@ -136,8 +178,117 @@ const ProductCard = ({ products }) => {
 
     const totalPage = Math.ceil(filteredProducts.length / itemsPerPage);
 
+    const renderDiamondFilters = () => (
+        <>
+            <FormControl variant="outlined" style={{ marginRight: 16, marginBottom: 16 }}>
+                <InputLabel>Price</InputLabel>
+                <Select
+                    value={filters.price}
+                    onChange={handleFilterChange}
+                    label="Price"
+                    name="price"
+                >
+                    <MenuItem value=""><em>None</em></MenuItem>
+                    <MenuItem value="low-to-high">Low to High</MenuItem>
+                    <MenuItem value="high-to-low">High to Low</MenuItem>
+                </Select>
+            </FormControl>
+            <FormControl variant="outlined" style={{ marginRight: 16, marginBottom: 16 }}>
+                <InputLabel>Carat</InputLabel>
+                <Select
+                    value={filters.carat}
+                    onChange={handleFilterChange}
+                    label="Carat"
+                    name="carat"
+                >
+                    <MenuItem value=""><em>None</em></MenuItem>
+                    {caratWeightOptions.map(carat => (
+                        <MenuItem key={carat} value={carat}>{carat}</MenuItem>
+                    ))}
+                </Select>
+            </FormControl>
+            <FormControl variant="outlined" style={{ marginRight: 16, marginBottom: 16 }}>
+                <InputLabel>Cut</InputLabel>
+                <Select
+                    value={filters.cut}
+                    onChange={handleFilterChange}
+                    label="Cut"
+                    name="cut"
+                >
+                    <MenuItem value=""><em>None</em></MenuItem>
+                    {cutOptions.map(cut => (
+                        <MenuItem key={cut} value={cut}>{cut}</MenuItem>
+                    ))}
+                </Select>
+            </FormControl>
+            <FormControl variant="outlined" style={{ marginRight: 16, marginBottom: 16 }}>
+                <InputLabel>Shape</InputLabel>
+                <Select
+                    value={filters.shape}
+                    onChange={handleFilterChange}
+                    label="Shape"
+                    name="shape"
+                >
+                    <MenuItem value=""><em>None</em></MenuItem>
+                    {shapeOptions.map(shape => (
+                        <MenuItem key={shape} value={shape}>{shape}</MenuItem>
+                    ))}
+                </Select>
+            </FormControl>
+            <FormControl variant="outlined" style={{ marginRight: 16, marginBottom: 16 }}>
+                <InputLabel>Clarity</InputLabel>
+                <Select
+                    value={filters.clarity}
+                    onChange={handleFilterChange}
+                    label="Clarity"
+                    name="clarity"
+                >
+                    <MenuItem value=""><em>None</em></MenuItem>
+                    {clarityOptions.map(clarity => (
+                        <MenuItem key={clarity} value={clarity}>{clarity}</MenuItem>
+                    ))}
+                </Select>
+            </FormControl>
+            <FormControl variant="outlined" style={{ marginRight: 16, marginBottom: 16 }}>
+                <InputLabel>Color</InputLabel>
+                <Select
+                    value={filters.color}
+                    onChange={handleFilterChange}
+                    label="Color"
+                    name="color"
+                >
+                    <MenuItem value=""><em>None</em></MenuItem>
+                    {colorOptions.map(color => (
+                        <MenuItem key={color} value={color}>{color}</MenuItem>
+                    ))}
+                </Select>
+            </FormControl>
+            <FormControl variant="outlined" style={{ marginRight: 16, marginBottom: 16 }}>
+                <InputLabel>Origin</InputLabel>
+                <Select
+                    value={filters.origin}
+                    onChange={handleFilterChange}
+                    label="Origin"
+                    name="origin"
+                >
+                    <MenuItem value=""><em>None</em></MenuItem>
+                    {originOptions.map(origin => (
+                        <MenuItem key={origin} value={origin}>{origin}</MenuItem>
+                    ))}
+                </Select>
+            </FormControl>
+        </>
+    );
+
+    const renderOtherProductFilters = () => (
+        <>
+            {/* Add filters for other product types here */}
+        </>
+    );
+
     return (
         <div>
+            {/* {productType === 1 ? renderDiamondFilters() : renderOtherProductFilters()} */}
             <TextField
                 label="Search by name"
                 variant="outlined"

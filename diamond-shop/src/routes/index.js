@@ -38,4 +38,5 @@ export const routes = {
     resetPassword: '/login/reset-password',
     newPassword: '/login/enter-new-password',
     weddingRings: '/wedding-rings',
+    allProducts: '/product'
 }

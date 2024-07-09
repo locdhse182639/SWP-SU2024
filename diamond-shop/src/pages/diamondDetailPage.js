@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { Container, Grid, Typography, Table, TableBody, TableRow, TableCell, Box, MenuItem, Select, FormControl, Link, Paper, Button } from '@mui/material';
+import { Container, Grid, Typography, Table, TableBody, TableRow, TableCell, Box, MenuItem, Select, FormControl, Paper, Button } from '@mui/material';
 import NavBar from '../components/navBar';
 import SizeSelection from '../components/sizeSelection';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../components/authcontext';
 import { jwtDecode } from 'jwt-decode';
 import FeedbackComponent from '../components/feedback';
@@ -14,6 +14,8 @@ import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 import Footer from '../components/footer';
+import { routes } from '../routes';
+
 
 const DiamondDetailPage = () => {
   const { id } = useParams();
@@ -164,12 +166,25 @@ const DiamondDetailPage = () => {
   const depositPercentage = 20;
   const depositAmount = (finalPrice * depositPercentage) / 100;
 
+  const getBackToGalleryLink = (productType) => {
+    switch (productType) {
+      case 1:
+        return routes.diamond;
+      case 2:
+        return routes.engagementRings;
+      case 3:
+        return routes.necklace;
+      default:
+        return routes.homePage;
+    }
+  };
+
   return (
     <div>
       <NavBar />
       <Container className="custom-container">
         <div className="back-to-gallery">
-          <a href="/engagementRings">&lt; Back To Gallery</a>
+          <Link to={getBackToGalleryLink(product.productType)}>&lt; Back To Gallery</Link>
         </div>
         <Grid container spacing={4} className="diamond-detail-section">
           <Grid item xs={12} md={6}>
@@ -202,7 +217,7 @@ const DiamondDetailPage = () => {
                   processingPrice={product.processingPrice}
                   exchangeRate={product.exchangeRate}
                 />
-                <Link href="#" style={{ marginLeft: '16px', textDecoration: 'underline' }}>Ring Size Help</Link>
+                <Link to={routes.ringSize} style={{ marginLeft: '16px', textDecoration: 'underline' }}>Ring Size Help</Link>
               </Box>
             )}
             {isNecklace && (
