@@ -25,13 +25,13 @@ public partial class Order
 
     public virtual Customer? Customer { get; set; }
 
-    [JsonIgnore]
+    
     public virtual ICollection<OrderDetail> OrderDetails { get; set; } = new List<OrderDetail>();
 
     [JsonIgnore]
     public virtual ICollection<Payment> Payments { get; set; } = new List<Payment>();
 
-    [JsonIgnore]
+
     public virtual ICollection<OrderLog> OrderLogs { get; set; } = new List<OrderLog>();
 
     [JsonIgnore]

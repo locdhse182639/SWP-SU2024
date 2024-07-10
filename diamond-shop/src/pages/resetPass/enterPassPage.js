@@ -27,7 +27,7 @@ const NewPassword = () => {
         validationSchema: validationSchema,
         onSubmit: async (values) => {
             try {
-                const response = await fetch('https://luxehouse.azurewebsites.net/api/users/forgot-password/reset', {
+                const response = await fetch('https://localhost:7251/api/users/forgot-password/reset', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',

@@ -10,9 +10,10 @@ import SearchIcon from '@mui/icons-material/Search';
 import logo from '../constant/logo.png';
 import logotext from '../constant/logo_text.png';
 import DropdownMenuUser from './dropdownUser';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { routes } from '../routes';
 import { useAuth } from './authcontext';
+
 import { jwtDecode } from 'jwt-decode';
 import '../css/navBar.css';
 import DropContentDiamond from './dropDownContent/dropContentDiamond';
@@ -23,6 +24,8 @@ import DropContentEducation from './dropDownContent/dropContentEducation';
 const Navbar = () => {
   const { user } = useAuth();
   const [activeDropdown, setActiveDropdown] = useState(null);
+  const [searchInput, setSearchInput] = useState('');
+  const navigate = useNavigate();
 
   const handleMouseEnter = (dropdown) => {
     setActiveDropdown(dropdown);
@@ -32,6 +35,13 @@ const Navbar = () => {
     setActiveDropdown(null);
   };
 
+
+  const handleSearch = (event) => {
+    if (event.key === 'Enter' || event.type === 'click') {
+      navigate(`${routes.allProducts}?query=${searchInput.trim()}`);
+    }
+  };
+  
   return (
     <AppBar position="static" color="default" elevation={0}>
       <Toolbar style={{ justifyContent: 'space-between' }}>
@@ -182,14 +192,17 @@ const Navbar = () => {
             </Box>
           </div>
         </Box>
-        {/* <Box display="flex" alignItems="center" justifyContent="flex-end">
+        <Box display="flex" alignItems="center" justifyContent="flex-end">
           <TextField
             variant="outlined"
             placeholder="Search"
+            value={searchInput}
+            onChange={(e) => setSearchInput(e.target.value)}
+            onKeyDown={handleSearch}
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">
-                  <SearchIcon />
+                  <SearchIcon onClick={handleSearch} style={{ cursor: 'pointer' }} />
                 </InputAdornment>
               ),
             }}
@@ -198,7 +211,7 @@ const Navbar = () => {
                 '& fieldset': {
                   borderColor: 'gray',
                   borderRadius: '35px',
-                  width: '100%'
+                  width: '100%',
                 },
                 '&:hover fieldset': { borderColor: 'black' },
                 '&.Mui-focused fieldset': { borderColor: 'black' },
@@ -206,7 +219,7 @@ const Navbar = () => {
               '& .MuiInputLabel-root.Mui-focused': { color: 'black' },
             }}
           />
-        </Box> */}
+        </Box>
 
       </Toolbar>
     </AppBar>

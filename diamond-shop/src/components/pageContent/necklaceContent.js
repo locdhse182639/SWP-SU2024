@@ -15,7 +15,7 @@ const NecklacesContent = () => {
 
   const fetchProducts = async () => {
     try {
-      const response = await fetch('https://luxehouse.azurewebsites.net/api/Products');
+      const response = await fetch('https://localhost:7251/api/Products');
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }

@@ -304,6 +304,13 @@ namespace BE_V2.Controllers
         [HttpPost("send-otp")]
         public async Task<IActionResult> SendOtp([FromBody] OtpRequest request)
         {
+            // Check if the email is already taken
+            bool isEmailTaken = await _context.Users.AnyAsync(u => u.Email == request.Email);
+            if (isEmailTaken)
+            {
+                return BadRequest(new { error = "Email is already registered" });
+            }
+
             var otp = new Random().Next(100000, 999999).ToString();
             OtpStore[request.Email] = otp;
 
@@ -319,8 +326,8 @@ namespace BE_V2.Controllers
             var mail = new MailMessage();
             mail.To.Add(new MailAddress(request.Email));
             mail.From = new MailAddress(smtpUsername);
-            mail.Subject = "Your OTP Code";
-            mail.Body = $"Your OTP code is {otp}";
+            mail.Subject = "Luxel Diamond Shop - Registration OTP Code";
+            mail.Body = $"Dear Customer,\n\nYour OTP code for completing your registration at Luxel Diamond Shop is {otp}. Please use this code to verify your email address.\n\nThank you,\nLucas Diamond Team";
 
             var smtp = new SmtpClient(smtpServer, smtpPort)
             {
@@ -376,6 +383,13 @@ namespace BE_V2.Controllers
         [HttpPost("complete-registration")]
         public async Task<IActionResult> CompleteRegistration([FromBody] CompleteRegistrationRequest request)
         {
+            // Check if the phone number is already taken
+            bool isPhoneNumberTaken = await _context.Users.AnyAsync(u => u.PhoneNumber == request.PhoneNumber);
+            if (isPhoneNumberTaken)
+            {
+                return BadRequest(new { error = "Phone number is already registered" });
+            }
+
             var user = new User
             {
                 Username = request.Username,
@@ -571,6 +585,18 @@ namespace BE_V2.Controllers
             }
         }
 
+        [HttpPost("check-username")]
+        public async Task<IActionResult> CheckUsername([FromBody] CheckUsernameRequest request)
+        {
+            var isUsernameTaken = await _context.Users.AnyAsync(u => u.Username == request.Username);
+            return Ok(new { isUsernameTaken });
+        }
+
+        public class CheckUsernameRequest
+        {
+            public string Username { get; set; }
+        }
+
         private bool UserExists(int id)
         {
             return _context.Users.Any(e => e.UserId == id);
@@ -614,6 +640,12 @@ namespace BE_V2.Controllers
         public class ResetPasswordRequest
         {
             public string Email { get; set; }
+            public string NewPassword { get; set; }
+        }
+
+        public class UpdatePasswordRequest
+        {
+            public string OldPassword { get; set; }
             public string NewPassword { get; set; }
         }
     }

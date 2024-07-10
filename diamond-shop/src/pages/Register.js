@@ -14,7 +14,8 @@ import logo from '../constant/logo.png';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { useNavigate } from 'react-router-dom';
-import { routes } from '../routes'
+import { routes } from '../routes';
+import { Radio, FormControlLabel, FormControl, FormLabel, RadioGroup } from '@mui/material';
 
 function Copyright(props) {
   return (
@@ -65,10 +66,36 @@ export default function SignUp() {
       password: Yup.string().required('Required').min(6, 'Must be at least 6 characters'),
       confirmPassword: Yup.string().oneOf([Yup.ref('password'), null], 'Passwords must match'),
     }),
-    onSubmit: (values) => {
-      setUsername(values.username);
-      setPassword(values.password);
-      setStep(2);
+    onSubmit: async (values) => {
+      try {
+        // Check if the username is already taken
+        const response = await fetch('https://localhost:7251/api/Users/check-username', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ username: values.username }),
+        });
+
+        const result = await response.json();
+
+        if (response.ok) {
+          if (result.isUsernameTaken) {
+            // Username is taken, show an error message
+            alert('Username is already taken. Please choose another one.');
+          } else {
+            // Username is not taken, proceed to the next step
+            setUsername(values.username);
+            setPassword(values.password);
+            setStep(2);
+          }
+        } else {
+          alert(`Error: ${result.error || 'An error occurred while checking the username'}`);
+        }
+      } catch (error) {
+        console.error('Error checking username:', error);
+        alert('Error checking username. Please try again later.');
+      }
     },
   });
 
@@ -81,7 +108,7 @@ export default function SignUp() {
     }),
     onSubmit: async (values) => {
       try {
-        const response = await fetch('https://luxehouse.azurewebsites.net/api/Users/send-otp', {
+        const response = await fetch('https://localhost:7251/api/Users/send-otp', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -95,9 +122,11 @@ export default function SignUp() {
         } else {
           const errorData = await response.json();
           console.error('Error sending OTP:', errorData);
+          alert(`Error: ${errorData.error || 'An error occurred while sending OTP'}`);
         }
       } catch (error) {
         console.error('Error sending OTP:', error);
+        alert('Error sending OTP. Please try again later.');
       }
     },
   });
@@ -111,7 +140,7 @@ export default function SignUp() {
     }),
     onSubmit: async (values) => {
       try {
-        const otpResponse = await fetch('https://luxehouse.azurewebsites.net/api/Users/verify-otp', {
+        const otpResponse = await fetch('https://localhost:7251/api/Users/verify-otp', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -124,9 +153,11 @@ export default function SignUp() {
         } else {
           const errorData = await otpResponse.json();
           console.error('Error verifying OTP:', errorData);
+          alert(`Error verifying OTP: ${errorData.error || 'An error occurred while verifying OTP'}`);
         }
       } catch (error) {
         console.error('Error verifying OTP:', error);
+        alert('Error verifying OTP. Please try again later.');
       }
     },
   });
@@ -161,7 +192,7 @@ export default function SignUp() {
           dateOfBirth: values.dateOfBirth,
         };
 
-        const registerResponse = await fetch('https://luxehouse.azurewebsites.net/api/Users/complete-registration', {
+        const registerResponse = await fetch('https://localhost:7251/api/Users/complete-registration', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -172,13 +203,16 @@ export default function SignUp() {
         if (registerResponse.ok) {
           const result = await registerResponse.json();
           console.log('User registered successfully:', result);
+          alert('User registered successfully');
           navigate(routes.login);
         } else {
           const errorData = await registerResponse.json();
           console.error('Error completing registration:', errorData);
+          alert(`Error completing registration: ${errorData.error || 'An error occurred while completing registration'}`);
         }
       } catch (error) {
         console.error('Error completing registration:', error);
+        alert('Error completing registration. Please try again later.');
       }
     },
   });
@@ -404,21 +438,23 @@ export default function SignUp() {
                     )}
                   </Grid>
                   <Grid item xs={12}>
-                    <TextField
-                      required
-                      fullWidth
-                      id="sex"
-                      label="Sex"
-                      name="sex"
-                      autoComplete="sex"
-                      value={formikStep4.values.sex}
-                      onChange={formikStep4.handleChange}
-                    />
-                    {formikStep4.errors.sex && (
-                      <Typography variant="caption" color="red">
-                        {formikStep4.errors.sex}
-                      </Typography>
-                    )}
+                    <FormControl component="fieldset" error={Boolean(formikStep4.errors.sex)}>
+                      <FormLabel component="legend">Sex</FormLabel>
+                      <RadioGroup
+                        aria-label="sex"
+                        name="sex"
+                        value={formikStep4.values.sex}
+                        onChange={formikStep4.handleChange}
+                      >
+                        <FormControlLabel value="man" control={<Radio />} label="Male" />
+                        <FormControlLabel value="woman" control={<Radio />} label="Female" />
+                      </RadioGroup>
+                      {formikStep4.errors.sex && (
+                        <Typography variant="caption" color="error">
+                          {formikStep4.errors.sex}
+                        </Typography>
+                      )}
+                    </FormControl>
                   </Grid>
                   <Grid item xs={12}>
                     <TextField

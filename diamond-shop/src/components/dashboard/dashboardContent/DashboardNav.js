@@ -18,7 +18,7 @@ export default function NavBar() {
             <div className='navbar-container'>
                 <div className='navbar-header'>
                     <div className='navbar-header-left'>
-                        <div className='navbar-icon'>
+                        <div className='navbar-icon' style={{paddingBottom: '30px' }}>
                             <a href={routes.homePage}><img src={logo} alt="logo" /></a>
                         </div>
                     </div>
