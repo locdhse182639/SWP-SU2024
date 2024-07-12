@@ -8,7 +8,7 @@ const RingSizeGuide = () => {
     return (
         <Container maxWidth={false} style={{ backgroundColor: 'white', paddingTop: '1%', paddingBottom: '2%' }}>
             <div style={{ display: 'flex', width: '100%' }}>
-                <div style={{width: '40%'}}>
+                <div style={{ width: '40%' }}>
                     <Sidebar />
                 </div>
                 <div style={{ paddingLeft: '5%' }}>
@@ -19,9 +19,6 @@ const RingSizeGuide = () => {
                     <Typography style={{ textAlign: 'left' }} variant="body1" align="center" paragraph>
                         To help you find the right ring size, our jewelry experts have put together this complete ring size guide including a ring size chart, printable ring sizer, and tips for measuring at home. We've helped over 500,000 couples find engagement rings and wedding rings that are a perfect fit. Our free ring sizers can help you measure your ring size or a loved one's ring size.
                     </Typography>
-                    <Box display="flex" justifyContent="flex-start" mb={4}>
-                        <Button variant="contained" style={{ backgroundColor: 'black', }}>FIND YOUR RING</Button>
-                    </Box>
                     <Grid container spacing={4}>
                         <Grid item xs={12} md={4}>
                             <Card>
@@ -36,9 +33,6 @@ const RingSizeGuide = () => {
                                     <Typography variant="body2" color="textSecondary">
                                         Get a free plastic ring sizer mailed to you.
                                     </Typography>
-                                    <Box mt={2} display="flex" justifyContent="flex-start">
-                                        <Button variant="contained" style={{ backgroundColor: 'black', }}>GET IT FOR FREE</Button>
-                                    </Box>
                                 </CardContent>
                             </Card>
                         </Grid>
@@ -55,9 +49,6 @@ const RingSizeGuide = () => {
                                     <Typography variant="body2" color="textSecondary">
                                         Check out our printable ring sizer and size conversion chart.
                                     </Typography>
-                                    <Box mt={2} display="flex" justifyContent="flex-start">
-                                        <Button variant="contained" style={{ backgroundColor: 'black', }}>PRINT RING SIZE CHART</Button>
-                                    </Box>
                                 </CardContent>
                             </Card>
                         </Grid>

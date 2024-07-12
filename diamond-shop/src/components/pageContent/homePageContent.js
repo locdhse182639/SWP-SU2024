@@ -1,22 +1,16 @@
 import React, { useState } from 'react';
 import '../../css/Testhome.css';
 import BasicButtons from '../button';
-import UnderlineLink from '../link';
-import { DiamondOutlined } from '@mui/icons-material';
 import DiamondIcon from '@mui/icons-material/Diamond';
 import HandshakeIcon from '@mui/icons-material/Handshake';
 import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
 import CardGiftcardIcon from '@mui/icons-material/CardGiftcard';
 import { Container, Grid } from '@mui/material';
-import BasicTextFields from '../textField';
-import SelectTextFields from '../selectField';
 import Footer from '../footer';
 import { routes } from '../../routes';
 import { Link } from 'react-router-dom';
-import ChatBubbleIcon from '@mui/icons-material/ChatBubble';
 import FixedButton from '../fixedBtn';
 import ChatPopup from '../chatPopup';
-import { Button } from 'react-bootstrap';
 
 const HomePageContent = () => {
     const backgroundBannerStyle = {

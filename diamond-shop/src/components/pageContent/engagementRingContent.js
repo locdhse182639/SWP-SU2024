@@ -21,7 +21,7 @@ const EngagementRingsContent = () => {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
       const data = await response.json();
-      setProductData(data); // Directly set the response if it is an array
+      setProductData(data);
     } catch (error) {
       console.log('Error fetching products', error);
       setProductData([]);

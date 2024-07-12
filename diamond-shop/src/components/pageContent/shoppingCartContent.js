@@ -79,12 +79,10 @@ const ShoppingCartContent = () => {
           throw new Error('Failed to remove item from cart');
         }
 
-        // Remove item from local state
         const updatedCart = cartItems.filter((item, i) => i !== index);
         setCartItems(updatedCart);
-        updateTotalAfterPoints(updatedCart, pointsApplied); // Update total after points
+        updateTotalAfterPoints(updatedCart, pointsApplied); 
 
-        // Check if the cart is empty and delete the cart if it is
         if (updatedCart.length === 0) {
           const userId = decodedToken(user.token);
           const cartResponse = await fetch(`https://localhost:7251/api/Cart/User/${userId}/Count`);
@@ -137,72 +135,72 @@ const ShoppingCartContent = () => {
 
   const handleCheckout = async () => {
     if (!user) {
-        navigate(routes.login);
-        return;
+      navigate(routes.login);
+      return;
     }
 
     try {
-        const userId = decodedToken(user.token);
-        const order = {
-            userId: userId,
-            totalPrice: parseFloat(totalAfterPoints),
-            orderDate: new Date().toISOString(),
-            usePoints: pointsApplied > 0, // Indicate if points were used
-            pointsToUse: pointsApplied, // Number of points used for the discount
-            orderDetails: cartItems.map(item => ({
-                productId: item.product.productId,
-                productName: item.product.productName,
-                productPrice: item.price,
-                quantity: item.quantity
-            }))
-        };
+      const userId = decodedToken(user.token);
+      const order = {
+        userId: userId,
+        totalPrice: parseFloat(totalAfterPoints),
+        orderDate: new Date().toISOString(),
+        usePoints: pointsApplied > 0, // Indicate if points were used
+        pointsToUse: pointsApplied, // Number of points used for the discount
+        orderDetails: cartItems.map(item => ({
+          productId: item.product.productId,
+          productName: item.product.productName,
+          productPrice: item.price,
+          quantity: item.quantity
+        }))
+      };
 
-        const response = await fetch('https://localhost:7251/api/Orders', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(order),
-        });
+      const response = await fetch('https://localhost:7251/api/Orders', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(order),
+      });
 
-        if (!response.ok) {
-            throw new Error('Failed to create order');
-        }
+      if (!response.ok) {
+        throw new Error('Failed to create order');
+      }
 
-        const createdOrder = await response.json();
+      const createdOrder = await response.json();
 
-        const orderLog = {
-            orderID: createdOrder.orderId,
-            phase1: false,
-            phase2: false,
-            phase3: false,
-            phase4: false,
-            timePhase1: new Date().toISOString(),
-            timePhase2: new Date().toISOString(),
-            timePhase3: new Date().toISOString(),
-            timePhase4: new Date().toISOString()
-        };
+      const orderLog = {
+        orderID: createdOrder.orderId,
+        phase1: false,
+        phase2: false,
+        phase3: false,
+        phase4: false,
+        timePhase1: new Date().toISOString(),
+        timePhase2: new Date().toISOString(),
+        timePhase3: new Date().toISOString(),
+        timePhase4: new Date().toISOString()
+      };
 
-        const logResponse = await fetch('https://localhost:7251/api/OrderLogs', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(orderLog),
-        });
+      const logResponse = await fetch('https://localhost:7251/api/OrderLogs', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(orderLog),
+      });
 
-        if (!logResponse.ok) {
-            throw new Error('Failed to create order log');
-        }
+      if (!logResponse.ok) {
+        throw new Error('Failed to create order log');
+      }
 
-        setCartItems([]);
-        alert('Order created successfully!');
-        navigate(`${routes.checkout}?orderId=${createdOrder.orderId}`);
+      setCartItems([]);
+      alert('Order created successfully!');
+      navigate(`${routes.checkout}?orderId=${createdOrder.orderId}`);
     } catch (error) {
-        console.error(error);
-        alert('Failed to create order');
+      console.error(error);
+      alert('Failed to create order');
     }
-};
+  };
 
 
   return (

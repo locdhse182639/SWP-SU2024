@@ -105,7 +105,7 @@ const ProductCard = ({ products }) => {
             throw new Error('Failed to fetch customer details');
         }
         const customer = await response.json();
-        return customer.customerId; // Adjust this based on your API response structure
+        return customer.customerId; 
     };
 
     const handleChangePage = (event, value) => {

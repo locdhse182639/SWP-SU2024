@@ -33,7 +33,7 @@ const DiamondDetailPage = () => {
   useEffect(() => {
     const fetchProduct = async () => {
       try {
-        const response = await fetch(`https://localhost:7251/api/Products/${id}`);
+        const response = await fetch(`https://luxehouse.azurewebsites.net/api/Products/${id}`);
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
@@ -46,14 +46,14 @@ const DiamondDetailPage = () => {
 
         // Fetch main diamond details
         if (data.product.mainDiamondId) {
-          const mainDiamondResponse = await fetch(`https://localhost:7251/api/Diamonds/${data.product.mainDiamondId}`);
+          const mainDiamondResponse = await fetch(`https://luxehouse.azurewebsites.net/api/Diamonds/${data.product.mainDiamondId}`);
           const mainDiamondData = await mainDiamondResponse.json();
           setMainDiamond(mainDiamondData);
         }
 
         // Fetch secondary diamond details
         if (data.product.secondaryDiamondId) {
-          const secondaryDiamondResponse = await fetch(`https://localhost:7251/api/Diamonds/${data.product.secondaryDiamondId}`);
+          const secondaryDiamondResponse = await fetch(`https://luxehouse.azurewebsites.net/api/Diamonds/${data.product.secondaryDiamondId}`);
           const secondaryDiamondData = await secondaryDiamondResponse.json();
           setSecondaryDiamond(secondaryDiamondData);
         }
@@ -84,7 +84,7 @@ const DiamondDetailPage = () => {
         const userId = parseInt(jwtDecode(user.token).unique_name);
         const sizeString = selectedSize.toString();
 
-        const productResponse = await fetch('https://localhost:7251/api/Products/CreateOrGetProductWithSize', {
+        const productResponse = await fetch('https://luxehouse.azurewebsites.net/api/Products/CreateOrGetProductWithSize', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -105,12 +105,12 @@ const DiamondDetailPage = () => {
 
         const productWithSize = JSON.parse(rawProductResponse);
 
-        let cartResponse = await fetch(`https://localhost:7251/api/Cart/User/${userId}`);
+        let cartResponse = await fetch(`https://luxehouse.azurewebsites.net/api/Cart/User/${userId}`);
         let cart;
         if (cartResponse.ok) {
           cart = await cartResponse.json();
         } else if (cartResponse.status === 404) {
-          cartResponse = await fetch('https://localhost:7251/api/Cart', {
+          cartResponse = await fetch('https://luxehouse.azurewebsites.net/api/Cart', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
@@ -129,7 +129,7 @@ const DiamondDetailPage = () => {
 
         console.log(`Product Price: ${productWithSize.price}`); // Debug log
 
-        const response = await fetch('https://localhost:7251/api/CartItem', {
+        const response = await fetch('https://luxehouse.azurewebsites.net/api/CartItem', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
