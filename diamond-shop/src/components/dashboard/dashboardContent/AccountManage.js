@@ -84,13 +84,19 @@ const AccountManage = () => {
           body: JSON.stringify(editingAccount)
         });
       } else {
-        await fetch('https://localhost:7251/api/users', {
+        const response = await fetch('https://localhost:7251/api/users', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
           },
           body: JSON.stringify(editingAccount)
         });
+        if (!response.ok) {
+          const errorData = await response.json();
+          console.log(errorData);
+          console.error('Error adding new user:', errorData);
+          alert(`Error: ${errorData.errors.user || 'An error occurred while adding new user'}`);
+        }
       }
       fetchAccounts();
       handleClose();

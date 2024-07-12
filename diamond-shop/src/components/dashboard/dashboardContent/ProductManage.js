@@ -165,7 +165,7 @@ const ProductManage = () => {
             console.log('Error fetching ring molds', error);
         }
     };
-    
+
     const fetchNecklaceMolds = async () => {
         try {
             const response = await fetch('https://localhost:7251/api/NecklaceMold');
@@ -198,7 +198,7 @@ const ProductManage = () => {
                 secondaryDiamondId: editingItem.secondaryDiamondId || null,
                 secondaryDiamondCount: editingItem.secondaryDiamondCount || 0
             };
-    
+
             let newProduct;
             if (tabIndex === 0) { // Jewelry
                 if (editingItem.productId) {
@@ -209,13 +209,14 @@ const ProductManage = () => {
                         },
                         body: JSON.stringify(itemToSave)
                     });
-    
+
                     if (!response.ok) {
                         const errorData = await response.json();
-                        console.error('Error updating product:', errorData);
-                        throw new Error('Failed to update product');
+                        console.log(errorData);
+                        console.error('Error updating new product', errorData);
+                        alert(`Error: ${errorData.errors.product}`);
                     }
-    
+
                     // newProduct = await response.json();
                 } else {
                     const response = await fetch('https://localhost:7251/api/Products', {
@@ -225,13 +226,14 @@ const ProductManage = () => {
                         },
                         body: JSON.stringify(itemToSave)
                     });
-    
+
                     if (!response.ok) {
                         const errorData = await response.json();
-                        console.error('Error creating product:', errorData);
-                        throw new Error('Failed to create product');
+                        console.log(errorData);
+                        console.error('Error adding new product', errorData);
+                        alert(`Error: ${errorData.errors.product}`);
                     }
-    
+
                     newProduct = await response.json();
                 }
                 await fetchProducts();
@@ -244,24 +246,24 @@ const ProductManage = () => {
                         },
                         body: JSON.stringify(editingItem)
                     });
-    
+
                     if (!diamondResponse.ok) {
                         const errorData = await diamondResponse.json();
                         console.error('Error updating diamond:', errorData);
                         throw new Error('Failed to update diamond');
                     }
-    
+
                     const diamondPriceResponse = await fetch(`https://localhost:7251/api/DiamondPrice?carat=${editingItem.caratWeight}&color=${editingItem.color}&clarity=${editingItem.clarity}&cut=${editingItem.cut}`);
                     if (!diamondPriceResponse.ok) {
                         const errorData = await diamondPriceResponse.json();
                         console.error('Error fetching diamond price:', errorData);
                         throw new Error('Failed to fetch diamond price');
                     }
-    
+
                     const diamondPriceData = await diamondPriceResponse.json();
                     const diamondPrice = diamondPriceData || 0;
                     console.log(diamondPrice);
-    
+
                     const productUpdateResponse = await fetch(`https://localhost:7251/api/Products/${editingItem.productId}`, {
                         method: 'PUT',
                         headers: {
@@ -280,13 +282,13 @@ const ProductManage = () => {
                             image3: editingItem.image3,
                         })
                     });
-    
+
                     if (!productUpdateResponse.ok) {
                         const errorData = await productUpdateResponse.json();
                         console.error('Error updating product:', errorData);
                         throw new Error('Failed to update product');
                     }
-    
+
 
                 } else {
                     const newDiamondResponse = await fetch('https://localhost:7251/api/Diamonds', {
@@ -296,26 +298,27 @@ const ProductManage = () => {
                         },
                         body: JSON.stringify(editingItem)
                     });
-    
+
                     if (!newDiamondResponse.ok) {
                         const errorData = await newDiamondResponse.json();
-                        console.error('Error creating diamond:', errorData);
-                        throw new Error('Failed to create diamond');
+                        console.log(errorData);
+                        console.error('Error adding new diamond', errorData);
+                        alert(`Error: ${errorData.errors.diamond}`);
                     }
-    
+
                     const newDiamond = await newDiamondResponse.json();
-    
+
                     const diamondPriceResponse = await fetch(`https://localhost:7251/api/DiamondPrice?carat=${newDiamond.caratWeight}&color=${newDiamond.color}&clarity=${newDiamond.clarity}&cut=${newDiamond.cut}`);
                     if (!diamondPriceResponse.ok) {
                         const errorData = await diamondPriceResponse.json();
                         console.error('Error fetching diamond price:', errorData);
                         throw new Error('Failed to fetch diamond price');
                     }
-    
+
                     const diamondPriceData = await diamondPriceResponse.json();
                     const diamondPrice = diamondPriceData.price || 0;
                     console.log(diamondPrice);
-    
+
                     const productResponse = await fetch('https://localhost:7251/api/Products', {
                         method: 'POST',
                         headers: {
@@ -333,19 +336,19 @@ const ProductManage = () => {
                             image3: editingItem.image3,
                         })
                     });
-    
+
                     if (!productResponse.ok) {
                         const errorData = await productResponse.json();
                         console.error('Error creating product:', errorData);
                         throw new Error('Failed to create product');
                     }
-    
+
                     newProduct = await productResponse.json();
                 }
                 await fetchDiamonds();
                 await fetchProducts();
             }
-    
+
             handleClose();
         } catch (error) {
             console.log('Error saving item', error);
@@ -396,15 +399,15 @@ const ProductManage = () => {
             console.log('No product type selected');
             return null;
         }
-    
+
         const isRing = Number(editingItem.productType) === 2;  // Use Number() to ensure correct type comparison
         const moldData = isRing ? ringMoldData : necklaceMoldData;
         const moldIdKey = isRing ? 'ringMoldId' : 'necklaceMoldId';
-    
+
         console.log(`Product type: ${editingItem.productType}`);
         console.log(`Is ring: ${isRing}`);
         console.log('Mold data:', moldData);
-    
+
         return (
             <TextField
                 select
@@ -445,19 +448,19 @@ const ProductManage = () => {
             </TextField>
         );
     };
-    
+
 
     const handleChange = (event) => {
         const { name, value } = event.target;
-    
+
         console.log(`Changing field: ${name} Value: ${value}`);
-    
+
         setEditingItem((prev) => {
             const updatedItem = {
                 ...prev,
                 [name]: name === 'size' ? value.toString() : value || null  // Convert size to string and handle null for other fields
             };
-    
+
             if (name === 'productType') {
                 console.log(`Product type changed: ${value}`);
                 updatedItem.productType = Number(value); // Ensure productType is a number
@@ -470,7 +473,7 @@ const ProductManage = () => {
                 updatedItem.secondaryDiamondId = '';
                 updatedItem.secondaryDiamondCount = 0;
             }
-    
+
             return updatedItem;
         });
     };

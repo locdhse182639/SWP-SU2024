@@ -20,6 +20,8 @@ export default function Orders() {
   const [paymentDetails, setPaymentDetails] = useState({});
   const [paymentOpen, setPaymentOpen] = useState(false);
   const [datePaid, setDatePaid] = useState('');
+  const [orderLog, setOrderLog] = useState({});
+  
 
   useEffect(() => {
     fetchOrders();
@@ -35,6 +37,43 @@ export default function Orders() {
       console.error('Error fetching orders:', err);
       setError(err);
       setLoading(false);
+    }
+  };
+
+  const fetchOrderLog = async (orderId) => {
+    try {
+      const response = await axios.get(`https://localhost:7251/api/OrderLogs/order/${orderId}`);
+      setOrderLog(response.data);
+
+    } catch (err) {
+      console.error('Error fetching order log:', err);
+    }
+  };
+
+  const fetchPaymentDetails = async (orderId) => {
+    try {
+      const paymentResponse = await fetch(`https://localhost:7251/api/Payment/order/${orderId}`);
+      if (!paymentResponse.ok) {
+        throw new Error('Failed to fetch payment details');
+      }
+      const paymentData = await paymentResponse.json();
+      setPaymentDetails(paymentData);
+
+      const orderLogResponse = await fetch(`https://localhost:7251/api/OrderLogs/order/${orderId}`);
+      if (!orderLogResponse.ok) {
+        throw new Error('Failed to fetch order log');
+      }
+      const orderLogData = await orderLogResponse.json();
+      setOrderLog(orderLogData);
+      if (orderLogData.phase4) {
+        setDatePaid(new Date(orderLogData.timePhase4).toISOString().split('T')[0]);
+      } else {
+        setDatePaid('');
+      }
+
+      setPaymentOpen(true);
+    } catch (err) {
+      console.error('Error fetching payment details or order log:', err);
     }
   };
 
@@ -60,8 +99,7 @@ export default function Orders() {
   };
 
   const handlePayment = (order) => {
-    setPaymentDetails(order);
-    setPaymentOpen(true);
+    fetchPaymentDetails(order.orderId);
   };
 
   const handlePaymentSubmit = () => {
@@ -174,12 +212,15 @@ export default function Orders() {
         </Dialog>
 
         <Dialog open={paymentOpen} onClose={handleClose}>
-          <DialogTitle>Payment Details</DialogTitle>
-          <DialogContent>
-            {paymentDetails && (
-              <div>
-                <p>Order ID: {paymentDetails.orderId}</p>
-                <p>Total: ${paymentDetails.totalPrice}</p>
+        <DialogTitle>Payment Details</DialogTitle>
+        <DialogContent>
+          {paymentDetails && (
+            <div>
+              <p>Order ID: {paymentDetails.orderId}</p>
+              <p>Total: ${paymentDetails.total}</p>
+              <p>Deposit: ${paymentDetails.deposit}</p>
+              <p>Amount Paid: ${paymentDetails.amountPaid}</p>
+              {orderLog.phase4 && (
                 <TextField
                   label="Date Paid"
                   type="date"
@@ -190,18 +231,19 @@ export default function Orders() {
                   }}
                   fullWidth
                 />
-              </div>
-            )}
-          </DialogContent>
-          <DialogActions>
-            <Button onClick={handleClose} color="primary">
-              Close
-            </Button>
-            <Button onClick={handlePaymentSubmit} color="primary" variant="contained">
-              Save
-            </Button>
-          </DialogActions>
-        </Dialog>
+              )}
+            </div>
+          )}
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose} color="primary">
+            Close
+          </Button>
+          <Button onClick={handlePaymentSubmit} color="primary" variant="contained">
+            Save
+          </Button>
+        </DialogActions>
+      </Dialog>
       </Container>
     </React.Fragment>
   );

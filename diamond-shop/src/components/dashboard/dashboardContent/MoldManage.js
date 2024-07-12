@@ -84,7 +84,7 @@ const MoldManage = () => {
 
     const fetchPriceTable = async () => {
         try {
-            const response = await fetch(tabIndex === 0 ? 'hhttps://localhost:7251/api/RingPriceTable' : 'https://localhost:7251/api/NecklacePriceTable');
+            const response = await fetch(tabIndex === 0 ? 'https://localhost:7251/api/RingPriceTable' : 'https://localhost:7251/api/NecklacePriceTable');
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
@@ -159,8 +159,8 @@ const MoldManage = () => {
 
                 if (!response.ok) {
                     const errorData = await response.json();
-                    console.error('Error creating mold:', errorData);
-                    throw new Error('Failed to create mold');
+                    console.log(errorData);
+                    alert(`Error: ${errorData.errors.ringMold || 'NecklaceMold field is required'}`);
                 }
 
                 newMold = await response.json();

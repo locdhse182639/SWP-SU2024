@@ -56,7 +56,7 @@ export default function AppRoute() {
       <Route path={routes.diamondList} element={<Diamonds />} />
       <Route path={routes.engagementRings} element={<EngagementRingsPage />} />
       <Route path={routes.shoppingCart} element={<ShoppingCartPage />} />
-      <Route path="/diamondDetail" element={<DiamondDetailPage />} />
+
       <Route path={routes.userInfo} element={<UserInfoPage />} />
       <Route path={routes.staffsite} element={<StaffSite />} />
       <Route path={routes.checkout} element={<CheckOutPage />} />
@@ -83,6 +83,7 @@ export default function AppRoute() {
       <Route path={routes.newPassword} element={<NewPassword />} />
       <Route path={routes.weddingRings} element={<WeddingRingsPage />} />
       <Route path={routes.allProducts} element={<ShowAllProductsPage />} />
+      <Route path={`${routes.detail}/:id`} element={<DiamondDetailPage />} />
       {/* <Route path={routes.HoSo} element={<HoSo/>} /> */}
       
       {/* Protected Routes */}
@@ -108,6 +109,7 @@ export default function AppRoute() {
       </Route>
 
       <Route path="*" element={<Navigate to={routes.homePage} />} />
-    </Routes>
+    
+     </Routes>
   );
 }

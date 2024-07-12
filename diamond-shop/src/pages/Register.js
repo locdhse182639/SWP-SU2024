@@ -62,7 +62,7 @@ export default function SignUp() {
       confirmPassword: '',
     },
     validationSchema: Yup.object({
-      username: Yup.string().required('Required'),
+      username: Yup.string().required('Required').max(20, 'Must be at most 20 characters'),
       password: Yup.string().required('Required').min(6, 'Must be at least 6 characters'),
       confirmPassword: Yup.string().oneOf([Yup.ref('password'), null], 'Passwords must match'),
     }),

@@ -8,7 +8,7 @@ export const routes = {
     accountPage: '/account-Page',
     productPage: '/product-Page',
     revenuePage: '/revenue-Page',
-    engagementRings: '/engagement-rings',
+    engagementRings: '/ring',
     shoppingCart: '/shopping-cart',
     userInfo: '/userinfo/*',
     detail: '/product-detail',

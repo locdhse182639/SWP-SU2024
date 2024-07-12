@@ -36,7 +36,7 @@ const DropContentER = () => {
                                     Shop Diamonds By Shape
                                 </h4>
                             </a>
-                            <div className='diamond-shape'>
+                            {/* <div className='diamond-shape'>
                                 <div className='diamond-shape-left'>
                                     <Link to={routes.diamondList}>
                                         <div className='diamond-item1'>
@@ -96,7 +96,7 @@ const DropContentER = () => {
                                         </div>
                                     </Link>
                                 </div>
-                            </div>
+                            </div> */}
                         </div>
                     </div>
                     <div style={{ flex: 1, paddingLeft: '30px', paddingRight: '30px' }} className='second-column'>

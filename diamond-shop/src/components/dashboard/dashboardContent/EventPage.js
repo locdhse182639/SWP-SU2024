@@ -221,7 +221,7 @@ const EventPage = () => {
         }
 
         try {
-            const url = tabIndex === 0 ? `https://localhost:7251/api/EventItems/${id}` : `https://localhost:7251/api/EventItems/${id}`;
+            const url = tabIndex === 0 ? `https://localhost:7251/api/Events/${id}` : `https://localhost:7251/api/Events/${id}`;
             const response = await fetch(url, {
                 method: 'DELETE'
             });

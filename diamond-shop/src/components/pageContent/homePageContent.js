@@ -89,9 +89,9 @@ const HomePageContent = () => {
                 <div className='banner-content1'>
                     <img style={{ width: '60%' }} src='../assets/images/banner1.png' alt='Banner 1' />
                     <div className='banner-content1-txt' style={{ left: '35%', textAlign: 'left' }}>
-                        <p style={{ fontSize: '35px' }}>Do you want your own ring?</p>
-                        <p style={{ fontSize: '25px' }}>Explore our free personal design service</p>
-                        <a style={{ color: 'black', fontSize: '20px' }} href='#info-page'> Discover now ›</a>
+                        <p style={{ fontSize: '35px' }}>Do you want your perfect ring?</p>
+                        <p style={{ fontSize: '25px' }}>Explore our collection of ring now</p>
+                        <Link to={routes.engagementRings} style={{ color: 'black', fontSize: '20px' }} > Discover now ›</Link>
                     </div>
                 </div>
 

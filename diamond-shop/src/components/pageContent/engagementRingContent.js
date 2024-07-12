@@ -60,14 +60,20 @@ const EngagementRingsContent = () => {
       items: 1
     }
   };
-  const query =new URLSearchParams(location.search);
-  const ringTypeFilter = query.get('ringType') || 'Engagement';
+  const query = new URLSearchParams(location.search);
+  const ringTypeFilter = query.get('ringType') || '';
   const genderFilter = query.get('gender') || '';
-
+  const materialFilter = query.get('material') || '';
+  
   const ringType = productData.filter(product => {
-    const isRingTypeMatch = product.ringMold && product.ringMold.ringType === ringTypeFilter;
+    const isRingTypeMatch = ringTypeFilter ? product.ringMold && product.ringMold.ringType === ringTypeFilter : true;
     const isGenderMatch = genderFilter ? product.ringMold && product.ringMold.gender === genderFilter : true;
-    return isRingTypeMatch && isGenderMatch;
+    const isMaterialMatch = materialFilter ? product.ringMold && (
+      (materialFilter === "Gold" && product.ringMold.material.endsWith(" Gold") && !product.ringMold.material.includes("White Gold")) ||
+      (materialFilter === "White Gold" && product.ringMold.material.includes("White Gold"))
+    ) : true;
+
+    return isRingTypeMatch && isGenderMatch && isMaterialMatch;
   });
 
   return (

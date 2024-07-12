@@ -15,16 +15,16 @@ const DropContentJewelry = () => {
   };
 
   return (
-    <div className='container' style={{ backgroundColor: '#f5f5f5'}}>
+    <div className='container' style={{ backgroundColor: '#f5f5f5' }}>
       <div className='dropdown-menu-1' style={{ display: 'flex', justifyContent: 'space-around' }}>
         <div style={{ margin: '0' }} className='first-row'>
-          <a>
+          {/* <a>
             <h4
               style={{ fontSize: '25px', fontWeight: 'bold', paddingTop: '5px', marginTop: '0', paddingLeft: '25px', marginBottom: '0' }}
             >
               Shape</h4>
-          </a>
-          <div className='diamond-shape'>
+          </a> */}
+          {/* <div className='diamond-shape'>
             <div className='diamond-shape-left'>
               <a style={{ paddingTop: '5px', marginTop: '0', paddingLeft: '20px', marginBottom: '0', fontSize: '20px' }}>
                 Solitaire
@@ -60,7 +60,7 @@ const DropContentJewelry = () => {
                 Five Stone
               </a><br />
             </div>
-          </div>
+          </div> */}
         </div>
         <div style={{ paddingLeft: '30px', paddingRight: '30px', width: '350px' }} className='second-row'>
           <div className='second-row-content'>
@@ -70,10 +70,10 @@ const DropContentJewelry = () => {
               >
                 Type</h4>
             </a>
-            <Link to={routes.engagementRings} style={{ paddingTop: '5px', marginTop: '0', paddingLeft: '10px', marginBottom: '0', fontSize: '20px' }}>
+            <Link to={`${routes.engagementRings}?ringType=Engagement`} style={{ paddingTop: '5px', marginTop: '0', paddingLeft: '10px', marginBottom: '0', fontSize: '20px' }}>
               Engagement Rings
             </Link><br />
-            <Link to={routes.weddingRings} style={{ paddingTop: '5px', marginTop: '0', paddingLeft: '10px', marginBottom: '0', fontSize: '20px' }}>
+            <Link to={`${routes.engagementRings}?ringType=Wedding`} style={{ paddingTop: '5px', marginTop: '0', paddingLeft: '10px', marginBottom: '0', fontSize: '20px' }}>
               Wedding Rings
             </Link><br />
           </div>
@@ -86,24 +86,18 @@ const DropContentJewelry = () => {
               >
                 Women's Rings</h4>
             </a>
-            <a style={{ paddingTop: '5px', marginTop: '0', paddingLeft: '10px', marginBottom: '0', fontSize: '20px' }}>
+            <Link to={`${routes.engagementRings}?gender=Female&material=Diamond`} style={{ paddingTop: '5px', marginTop: '0', paddingLeft: '10px', marginBottom: '0', fontSize: '20px' }}>
               Diamond
-            </a><br />
-            <a style={{ paddingTop: '5px', marginTop: '0', paddingLeft: '10px', marginBottom: '0', fontSize: '20px' }}>
-              Eternity
-            </a><br />
-            <a style={{ paddingTop: '5px', marginTop: '0', paddingLeft: '10px', marginBottom: '0', fontSize: '20px' }}>
+            </Link><br />
+            <Link to={`${routes.engagementRings}?gender=Female&material=Platinum`} style={{ paddingTop: '5px', marginTop: '0', paddingLeft: '10px', marginBottom: '0', fontSize: '20px' }}>
               Platinum
-            </a><br />
-            <a style={{ paddingTop: '5px', marginTop: '0', paddingLeft: '10px', marginBottom: '0', fontSize: '20px' }}>
-              Rose Gold
-            </a><br />
-            <a style={{ paddingTop: '5px', marginTop: '0', paddingLeft: '10px', marginBottom: '0', fontSize: '20px' }}>
+            </Link><br />
+            <Link to={`${routes.engagementRings}?gender=Female&material=Gold`} style={{ paddingTop: '5px', marginTop: '0', paddingLeft: '10px', marginBottom: '0', fontSize: '20px' }}>
               Yellow Gold
-            </a><br />
-            <a style={{ paddingTop: '5px', marginTop: '0', paddingLeft: '10px', marginBottom: '0', fontSize: '20px' }}>
+            </Link><br />
+            <Link to={`${routes.engagementRings}?gender=Female&material=White%20Gold`} style={{ paddingTop: '5px', marginTop: '0', paddingLeft: '10px', marginBottom: '0', fontSize: '20px' }}>
               White Gold
-            </a><br />
+            </Link><br />
           </div>
         </div>
         <div className='third-row-2'>
@@ -112,33 +106,27 @@ const DropContentJewelry = () => {
               <h4
                 style={{ fontSize: '25px', fontWeight: 'bold', paddingTop: '5px', marginTop: '0', paddingLeft: '5px', marginBottom: '0' }}
               >
-                Men's Rings</h4>
+                Men's Rings
+
+              </h4>
             </a>
-            <a style={{ paddingTop: '5px', marginTop: '0', paddingLeft: '10px', marginBottom: '0', fontSize: '20px' }}>
+            <Link to={`${routes.engagementRings}?gender=Male&material=Platinum`} style={{ paddingTop: '5px', marginTop: '0', paddingLeft: '10px', marginBottom: '0', fontSize: '20px' }}>
               Platinum
-            </a><br />
-            <a style={{ paddingTop: '5px', marginTop: '0', paddingLeft: '10px', marginBottom: '0', fontSize: '20px' }}>
-              Tungsten
-            </a><br />
-            <a style={{ paddingTop: '5px', marginTop: '0', paddingLeft: '10px', marginBottom: '0', fontSize: '20px' }}>
+            </Link><br />
+            <Link to={`${routes.engagementRings}?gender=Male&material=Titanium`} style={{ paddingTop: '5px', marginTop: '0', paddingLeft: '10px', marginBottom: '0', fontSize: '20px' }}>
               Titanium
-            </a><br />
-            <a style={{ paddingTop: '5px', marginTop: '0', paddingLeft: '10px', marginBottom: '0', fontSize: '20px' }}>
-              Rose Gold
-            </a><br />
-            <a style={{ paddingTop: '5px', marginTop: '0', paddingLeft: '10px', marginBottom: '0', fontSize: '20px' }}>
+            </Link><br />
+            <Link to={`${routes.engagementRings}?gender=Male&material=Gold`} style={{ paddingTop: '5px', marginTop: '0', paddingLeft: '10px', marginBottom: '0', fontSize: '20px' }}>
               Yellow Gold
-            </a><br />
-            <a style={{ paddingTop: '5px', marginTop: '0', paddingLeft: '10px', marginBottom: '0', fontSize: '20px' }}>
+            </Link><br />
+            <Link to={`${routes.engagementRings}?gender=Male&material=White%20Gold`} style={{ paddingTop: '5px', marginTop: '0', paddingLeft: '10px', marginBottom: '0', fontSize: '20px' }}>
               White Gold
-            </a><br />
+            </Link><br />
           </div>
         </div>
         <div className='fourth-row'>
           <img style={{ width: '400px', height: '400px', paddingTop: '30px', paddingLeft: '10px', paddingRight: '50px' }} src={engageRing} /><br />
-          <a style={{ paddingTop: '5px', marginTop: '0', paddingLeft: '10px', marginBottom: '2%', fontSize: '20px' }}>
-            View All Diamonds
-          </a>
+          <br />
         </div>
       </div>
     </div>
