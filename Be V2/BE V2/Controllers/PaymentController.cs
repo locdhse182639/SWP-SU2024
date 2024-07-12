@@ -76,9 +76,19 @@ namespace BE_V2.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAllPayments()
         {
-            var payments = await _context.Payments.ToListAsync();
+            var payments = await _context.Payments
+                .Include(p => p.Order)
+                    .ThenInclude(o => o.OrderLogs)
+                .Include(p => p.Order)
+                    .ThenInclude(o => o.OrderDetails)
+                .Include(p => p.Order)
+                    .ThenInclude(o => o.Customer)
+                        .ThenInclude(c => c.User) // Include User through Customer
+                .ToListAsync();
+
             return Ok(payments);
         }
+
 
         public class PaymentRequest
         {

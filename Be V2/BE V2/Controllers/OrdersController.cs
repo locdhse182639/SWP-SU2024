@@ -176,9 +176,13 @@ namespace BE_V2.Controllers
 
         // GET: api/Orders
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Order>>> GetOrders()
+        public async Task<ActionResult<IEnumerable<object>>> GetOrders()
         {
-            var orders = await _context.Orders.Include(o => o.OrderDetails).ToListAsync();
+            var orders = await _context.Orders
+                .Include(o => o.OrderDetails)
+                .Include(o => o.OrderLogs)
+                .ToListAsync();
+
             var orderResults = orders.Select(order =>
             {
                 var totalOrderDetailPrice = order.OrderDetails.Sum(od => od.ProductPrice * od.Quantity);
@@ -202,6 +206,19 @@ namespace BE_V2.Controllers
                         od.ProductName,
                         od.ProductPrice,
                         od.Quantity
+                    }),
+                    OrderLogs = order.OrderLogs.Select(log => new
+                    {
+                        log.LogID,
+                        log.OrderID,
+                        log.Phase1,
+                        log.Phase2,
+                        log.Phase3,
+                        log.Phase4,
+                        log.TimePhase1,
+                        log.TimePhase2,
+                        log.TimePhase3,
+                        log.TimePhase4
                     })
                 };
             });

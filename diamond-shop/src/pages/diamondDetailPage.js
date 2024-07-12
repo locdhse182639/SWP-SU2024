@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { Container, Grid, Typography, Table, TableBody, TableRow, TableCell, Box, MenuItem, Select, FormControl, Link, Paper, Button } from '@mui/material';
+import { Container, Grid, Typography, Table, TableBody, TableRow, TableCell, Box, MenuItem, Select, FormControl, Paper, Button } from '@mui/material';
 import NavBar from '../components/navBar';
 import SizeSelection from '../components/sizeSelection';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../components/authcontext';
 import { jwtDecode } from 'jwt-decode';
 import FeedbackComponent from '../components/feedback';
@@ -14,6 +14,8 @@ import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 import Footer from '../components/footer';
+import { routes } from '../routes';
+
 
 const DiamondDetailPage = () => {
   const { id } = useParams();
@@ -31,7 +33,7 @@ const DiamondDetailPage = () => {
   useEffect(() => {
     const fetchProduct = async () => {
       try {
-        const response = await fetch(`https://localhost:7251/api/Products/${id}`);
+        const response = await fetch(`https://luxehouse.azurewebsites.net/api/Products/${id}`);
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
@@ -44,14 +46,14 @@ const DiamondDetailPage = () => {
 
         // Fetch main diamond details
         if (data.product.mainDiamondId) {
-          const mainDiamondResponse = await fetch(`https://localhost:7251/api/Diamonds/${data.product.mainDiamondId}`);
+          const mainDiamondResponse = await fetch(`https://luxehouse.azurewebsites.net/api/Diamonds/${data.product.mainDiamondId}`);
           const mainDiamondData = await mainDiamondResponse.json();
           setMainDiamond(mainDiamondData);
         }
 
         // Fetch secondary diamond details
         if (data.product.secondaryDiamondId) {
-          const secondaryDiamondResponse = await fetch(`https://localhost:7251/api/Diamonds/${data.product.secondaryDiamondId}`);
+          const secondaryDiamondResponse = await fetch(`https://luxehouse.azurewebsites.net/api/Diamonds/${data.product.secondaryDiamondId}`);
           const secondaryDiamondData = await secondaryDiamondResponse.json();
           setSecondaryDiamond(secondaryDiamondData);
         }
@@ -82,7 +84,7 @@ const DiamondDetailPage = () => {
         const userId = parseInt(jwtDecode(user.token).unique_name);
         const sizeString = selectedSize.toString();
 
-        const productResponse = await fetch('https://localhost:7251/api/Products/CreateOrGetProductWithSize', {
+        const productResponse = await fetch('https://luxehouse.azurewebsites.net/api/Products/CreateOrGetProductWithSize', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -103,12 +105,12 @@ const DiamondDetailPage = () => {
 
         const productWithSize = JSON.parse(rawProductResponse);
 
-        let cartResponse = await fetch(`https://localhost:7251/api/Cart/User/${userId}`);
+        let cartResponse = await fetch(`https://luxehouse.azurewebsites.net/api/Cart/User/${userId}`);
         let cart;
         if (cartResponse.ok) {
           cart = await cartResponse.json();
         } else if (cartResponse.status === 404) {
-          cartResponse = await fetch('https://localhost:7251/api/Cart', {
+          cartResponse = await fetch('https://luxehouse.azurewebsites.net/api/Cart', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
@@ -127,7 +129,7 @@ const DiamondDetailPage = () => {
 
         console.log(`Product Price: ${productWithSize.price}`); // Debug log
 
-        const response = await fetch('https://localhost:7251/api/CartItem', {
+        const response = await fetch('https://luxehouse.azurewebsites.net/api/CartItem', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -164,12 +166,25 @@ const DiamondDetailPage = () => {
   const depositPercentage = 20;
   const depositAmount = (finalPrice * depositPercentage) / 100;
 
+  const getBackToGalleryLink = (productType) => {
+    switch (productType) {
+      case 1:
+        return routes.diamond;
+      case 2:
+        return routes.engagementRings;
+      case 3:
+        return routes.necklace;
+      default:
+        return routes.homePage;
+    }
+  };
+
   return (
     <div>
       <NavBar />
       <Container className="custom-container">
         <div className="back-to-gallery">
-          <a href="/engagementRings">&lt; Back To Gallery</a>
+          <Link to={getBackToGalleryLink(product.productType)}>&lt; Back To Gallery</Link>
         </div>
         <Grid container spacing={4} className="diamond-detail-section">
           <Grid item xs={12} md={6}>
@@ -202,7 +217,7 @@ const DiamondDetailPage = () => {
                   processingPrice={product.processingPrice}
                   exchangeRate={product.exchangeRate}
                 />
-                <Link href="#" style={{ marginLeft: '16px', textDecoration: 'underline' }}>Ring Size Help</Link>
+                <Link to={routes.ringSize} style={{ marginLeft: '16px', textDecoration: 'underline' }}>Ring Size Help</Link>
               </Box>
             )}
             {isNecklace && (

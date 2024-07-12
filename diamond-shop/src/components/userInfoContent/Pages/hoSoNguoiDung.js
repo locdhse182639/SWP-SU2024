@@ -26,7 +26,7 @@ export default function HoSo() {
       }
 
       try {
-        const response = await fetch('https://luxehouse.azurewebsites.net/api/Users/me', {
+        const response = await fetch('https://localhost:7251/api/Users/me', {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
@@ -39,6 +39,7 @@ export default function HoSo() {
         }
 
         const data = await response.json();
+        console.log(data);
         setUserInfo(data);
       } catch (error) {
         console.error('Error fetching user information:', error);
@@ -60,7 +61,7 @@ export default function HoSo() {
     }
 
     try {
-      const response = await fetch('https://luxehouse.azurewebsites.net/api/Users/me', {
+      const response = await fetch('https://localhost:7251/api/Users/me', {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -78,6 +79,12 @@ export default function HoSo() {
     } catch (error) {
       console.error('Error saving user information:', error);
     }
+  };
+
+  const formatDateForInput = (dateString) => {
+    if (!dateString) return '';
+    const date = new Date(dateString);
+    return date.toISOString().split('T')[0];
   };
 
   return (
@@ -148,19 +155,19 @@ export default function HoSo() {
         <div className="form-group">
           <label>Gender:</label>
           <div className="radio-group">
-            <label><input type="radio" name="gender" value="Nam" checked={userInfo.gender === "Nam"} onChange={handleChange} /> Male</label>
-            <label><input type="radio" name="gender" value="Nữ" checked={userInfo.gender === "Nữ"} onChange={handleChange} /> Female</label>
-            <label><input type="radio" name="gender" value="Khác" checked={userInfo.gender === "Khác"} onChange={handleChange} /> Others</label>
+            <label><input type="radio" name="gender" value="Nam" checked={userInfo.sex === "M"} onChange={handleChange} /> Male</label>
+            <label><input type="radio" name="gender" value="Nữ" checked={userInfo.sex === "woman"} onChange={handleChange} /> Female</label>
+            <label><input type="radio" name="gender" value="Khác" checked={userInfo.sex === "other"} onChange={handleChange} /> Others</label>
           </div>
         </div>
         <div className="form-group">
-          <label>DOB:</label>
+          <label>Day of Birth:</label>
           <TextField
             required
             id="standard-required"
             type="date"
             name="dob"
-            value={userInfo.dob}
+            value={formatDateForInput(userInfo.dateOfBirth)}
             variant="standard"
             onChange={handleChange}
             className="custom-text-field"

@@ -37,7 +37,7 @@ const WarrantyManage = () => {
 
     const fetchWarranties = async () => {
         try {
-            const response = await fetch('https://luxehouse.azurewebsites.net/api/Warranties');
+            const response = await fetch('https://localhost:7251/api/Warranties');
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
@@ -51,7 +51,7 @@ const WarrantyManage = () => {
 
     const fetchOrders = async () => {
         try {
-            const response = await fetch('https://luxehouse.azurewebsites.net/api/Orders');
+            const response = await fetch('https://localhost:7251/api/Orders');
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
@@ -72,8 +72,8 @@ const WarrantyManage = () => {
         try {
             const method = selectedWarranty ? 'PUT' : 'POST';
             const url = selectedWarranty
-                ? `https://luxehouse.azurewebsites.net/api/Warranties/${selectedWarranty.warrantyId}`
-                : 'https://luxehouse.azurewebsites.net/api/Warranties';
+                ? `https://localhost:7251/api/Warranties/${selectedWarranty.warrantyId}`
+                : 'https://localhost:7251/api/Warranties';
 
             const response = await fetch(url, {
                 method,
@@ -110,7 +110,7 @@ const WarrantyManage = () => {
 
     const handleDeleteWarranty = async (warrantyId) => {
         try {
-            const response = await fetch(`https://luxehouse.azurewebsites.net/api/Warranties/${warrantyId}`, {
+            const response = await fetch(`https://localhost:7251/api/Warranties/${warrantyId}`, {
                 method: 'DELETE'
             });
             if (!response.ok) {
@@ -246,7 +246,7 @@ const WarrantyManage = () => {
                         {selectedWarranty && selectedWarranty.order && selectedWarranty.order.orderDetails ? (
                             <div className="container">
                                 <div className="header">
-                                    <img style={{ height: '60px', width: '60px' }} src="logo.png" alt="Luxe Jewel House" />
+                                    <img style={{ height: '60px', width: '60px' }} src="https://firebasestorage.googleapis.com/v0/b/swp-diamond-shop.appspot.com/o/Logo%2Flogo.png?alt=media&token=8a9ecb45-7def-4bbd-803e-9c9296858aad" alt="Luxe Jewel House" />
                                     <h1>Luxe Jewel House</h1>
                                     <p>Diamond Warranty Certificate</p>
                                 </div>

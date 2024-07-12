@@ -71,7 +71,7 @@ const MoldManage = () => {
 
     const fetchMolds = async () => {
         try {
-            const response = await fetch(tabIndex === 0 ? 'https://luxehouse.azurewebsites.net/api/RingMold' : 'https://luxehouse.azurewebsites.net/api/NecklaceMold');
+            const response = await fetch(tabIndex === 0 ? 'https://localhost:7251/api/RingMold' : 'https://localhost:7251/api/NecklaceMold');
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
@@ -84,7 +84,7 @@ const MoldManage = () => {
 
     const fetchPriceTable = async () => {
         try {
-            const response = await fetch(tabIndex === 0 ? 'hhttps://luxehouse.azurewebsites.net/api/RingPriceTable' : 'https://luxehouse.azurewebsites.net/api/NecklacePriceTable');
+            const response = await fetch(tabIndex === 0 ? 'hhttps://localhost:7251/api/RingPriceTable' : 'https://localhost:7251/api/NecklacePriceTable');
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
@@ -102,7 +102,7 @@ const MoldManage = () => {
 
         try {
             const response = await fetch(
-                `https://luxehouse.azurewebsites.net/api/${tabIndex === 0 ? 'RingPriceTable' : 'NecklacePriceTable'}/${selectedMaterial}/${selectedSize}/${selectedCaratWeight}`
+                `https://localhost:7251/api/${tabIndex === 0 ? 'RingPriceTable' : 'NecklacePriceTable'}/${selectedMaterial}/${selectedSize}/${selectedCaratWeight}`
             );
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
@@ -129,7 +129,7 @@ const MoldManage = () => {
     const handleFinalSave = async () => {
         try {
             let newMold;
-            const apiUrl = tabIndex === 0 ? 'https://luxehouse.azurewebsites.net/api/RingMold' : 'https://luxehouse.azurewebsites.net/api/NecklaceMold';
+            const apiUrl = tabIndex === 0 ? 'https://localhost:7251/api/RingMold' : 'https://localhost:7251/api/NecklaceMold';
 
             const moldIdField = tabIndex === 0 ? 'ringMoldId' : 'necklaceMoldId';
             const moldId = editingItem[moldIdField];
@@ -177,7 +177,7 @@ const MoldManage = () => {
         console.log('Deleting mold with id:', id); // Debug log
 
         try {
-            const apiUrl = tabIndex === 0 ? `https://luxehouse.azurewebsites.net/api/RingMold/${id}` : `https://luxehouse.azurewebsites.net/api/NecklaceMold/${id}`;
+            const apiUrl = tabIndex === 0 ? `https://localhost:7251/api/RingMold/${id}` : `https://localhost:7251/api/NecklaceMold/${id}`;
 
             const response = await fetch(apiUrl, {
                 method: 'DELETE'

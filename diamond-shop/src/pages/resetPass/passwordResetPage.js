@@ -30,7 +30,7 @@ const PasswordReset = () => {
         validationSchema: validationSchema,
         onSubmit: async (values) => {
             try {
-                const response = await fetch('https://luxehouse.azurewebsites.net/api/users/forgot-password/send-otp', {
+                const response = await fetch('https://localhost:7251/api/users/forgot-password/send-otp', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -79,7 +79,7 @@ const PasswordReset = () => {
     const handleResendOtp = async () => {
         setCountdown(60);
         try {
-            const response = await fetch('https://luxehouse.azurewebsites.net/api/users/forgot-password/send-otp', {
+            const response = await fetch('https://localhost:7251/api/users/forgot-password/send-otp', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -100,7 +100,7 @@ const PasswordReset = () => {
 
         if (isValid) {
             try {
-                const response = await fetch('https://luxehouse.azurewebsites.net/api/users/forgot-password/send-otp', {
+                const response = await fetch('https://localhost:7251/api/users/forgot-password/send-otp', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',

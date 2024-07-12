@@ -34,7 +34,7 @@ export default function SignIn() {
     const password = data.get('password');
 
     try {
-      const response = await fetch('https://luxehouse.azurewebsites.net/api/users/login', {
+      const response = await fetch('https://localhost:7251/api/users/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -53,7 +53,7 @@ export default function SignIn() {
       login(token, roleId);
 
       if (roleId === 1 || roleId === 2) {
-        window.location.href = '/dashboardPage';
+        window.location.href = '/dashboard-Page';
       } else if (roleId === 3) {
         window.location.href = '/staffSite'
       } else {

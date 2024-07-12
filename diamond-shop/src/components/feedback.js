@@ -31,7 +31,7 @@ const FeedbackComponent = ({ productId }) => {
   useEffect(() => {
     const fetchFeedbacks = async () => {
       try {
-        const response = await fetch(`https://luxehouse.azurewebsites.net/api/Feedback/${productId}`);
+        const response = await fetch(`https://localhost:7251/api/Feedback/${productId}`);
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
@@ -56,7 +56,7 @@ const FeedbackComponent = ({ productId }) => {
   useEffect(() => {
     const fetchCustomerDetails = async (userId) => {
       try {
-        const response = await fetch(`https://luxehouse.azurewebsites.net/api/Customers/User/${userId}`);
+        const response = await fetch(`https://localhost:7251/api/Customers/User/${userId}`);
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
@@ -90,7 +90,7 @@ const FeedbackComponent = ({ productId }) => {
     console.log('Submitting feedback with payload:', payload);
 
     try {
-      const response = await fetch('https://luxehouse.azurewebsites.net/api/Feedback', {
+      const response = await fetch('https://localhost:7251/api/Feedback', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

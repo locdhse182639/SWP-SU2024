@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { Box, Button, Container, Typography } from '@mui/material';
+import { Box, Container, Typography } from '@mui/material';
 import Footer from '../footer';
 import ProductCard from '../productCard';
-import '../../css/engagementRings.css';
+import '../../css/showAllProducts.css'; // Import your new CSS file
 import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
 import { CustomLeftArrow, CustomRightArrow } from '../customeArrow';
@@ -10,7 +10,7 @@ import CustomToolbar from '../customToolBar';
 import CarouselComponent from '../carouselComponent ';
 import { useLocation } from 'react-router-dom';
 
-const EngagementRingsContent = () => {
+const ShowAllProductsContent = () => {
   const [productData, setProductData] = useState([]);
   const location = useLocation();
 
@@ -21,7 +21,7 @@ const EngagementRingsContent = () => {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
       const data = await response.json();
-      setProductData(data);
+      setProductData(data); // Directly set the response if it is an array
     } catch (error) {
       console.log('Error fetching products', error);
       setProductData([]);
@@ -32,8 +32,19 @@ const EngagementRingsContent = () => {
     fetchProducts();
   }, []);
 
+  // Get the search query from the URL
+  const query = new URLSearchParams(location.search);
+  const searchTerm = query.get('query') || '';
+
+  // Filter products based on the search term
+  const filteredProducts = searchTerm
+    ? productData.filter(product => 
+        product.productName.toLowerCase().includes(searchTerm.toLowerCase())
+      )
+    : productData;
+
   const backgroundBanner = {
-    backgroundImage: `url(../assets/images/engagement-ring-banner.png)`,
+    backgroundImage: `url(../assets/images/all-products-banner.png)`,
     backgroundSize: 'cover',
     backgroundRepeat: 'no-repeat',
     backgroundPosition: 'center',
@@ -60,31 +71,20 @@ const EngagementRingsContent = () => {
       items: 1
     }
   };
-  const query =new URLSearchParams(location.search);
-  const ringTypeFilter = query.get('ringType') || 'Engagement';
-  const genderFilter = query.get('gender') || '';
-
-  const ringType = productData.filter(product => {
-    const isRingTypeMatch = product.ringMold && product.ringMold.ringType === ringTypeFilter;
-    const isGenderMatch = genderFilter ? product.ringMold && product.ringMold.gender === genderFilter : true;
-    return isRingTypeMatch && isGenderMatch;
-  });
 
   return (
     <div className='container'>
       <Container style={{ maxWidth: '1800px' }} className="custom-container">
         <div style={backgroundBanner} className='banner-content'>
           <p style={{ color: 'black', position: 'absolute', bottom: '60%', right: '10%', fontFamily:'Arsenal SC', fontSize:'40px'}}>
-            "ENGAGEMENT RINGS"
+            "ALL PRODUCTS"
           </p>
         </div>
-        <div style={{ backgroundColor: 'white' }} className='explore-diamond-banner'>
+        <div style={{ backgroundColor: 'white' }} className='explore-products-banner'>
           <div style={{ backgroundColor: '#fafafa' }}>
-            <h3>Explore Engagement Rings</h3>
+            <h3>Explore Our Products</h3>
             <p style={{ display: 'flex', justifyContent: 'center', fontFamily: 'initial', fontSize: '110%' }}>
-              From completed designs to custom engagement rings,
-              we have the perfect ring to help you pop the question.
-              Explore some of our most popular styles below.
+              Discover a wide variety of products ranging from diamonds to exquisite jewelry pieces. Explore our collection below.
             </p>
 
             <div className='scroll-bar'>
@@ -94,17 +94,17 @@ const EngagementRingsContent = () => {
                 customRightArrow={<CustomRightArrow />}
                 itemClass="carousel-item-padding-40-px"
               >
-                {ringType.map(ring => (
-                  <div key={ring.productId} className='ER-items'>
-                    <img src={ring.image1} alt={ring.productName} />
-                    <p>{ring.productName}</p>
+                {filteredProducts.map(product => (
+                  <div key={product.productId} className='product-items'>
+                    <img src={product.image1} alt={product.productName} />
+                    <p>{product.productName}</p>
                   </div>
                 ))}
               </Carousel>
             </div>
           </div>
           <div style={{ padding: '40px' }} className='product-card'>
-            <ProductCard products={ringType} />
+            <ProductCard products={filteredProducts} />
           </div>
           <CarouselComponent />
         </div>
@@ -115,4 +115,4 @@ const EngagementRingsContent = () => {
   );
 }
 
-export default EngagementRingsContent;
+export default ShowAllProductsContent;

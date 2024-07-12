@@ -22,7 +22,6 @@ const UserInfoPage = () => {
                         <Route path="hoso" element={<HoSo />} />
                         <Route path="nganhang" element={<NganHang />} />
                         <Route path="doimatkhau" element={<DoiMatKhau />} />
-                        <Route path="thongbao" element={<ThongBao />} />
                         <Route path="lichsumuahang" element={<LichSuMuaHang />} />
                         <Route path='tracking' element={<TrackLog />} />
                         <Route path="/" element={<Navigate to="hoso" />} />
